@@ -1,0 +1,128 @@
+import { ProductRole } from '../../model/ProductRole';
+import {
+  InstitutionUserResource,
+  RoleEnum,
+} from '../generated/b4f-dashboard/InstitutionUserResource';
+import { SelcRoleEnum } from '../generated/b4f-dashboard/ProductRoleInfoResource';
+import { ProductUserResource } from '../generated/b4f-dashboard/ProductUserResource';
+
+export const mockedInstitutionUserResource: Array<InstitutionUserResource> = [
+  {
+    id: '1',
+    fiscalCode: 'AAAAAA11A11A123K',
+    name: 'Name',
+    surname: 'Surname',
+    status: 'PENDING',
+    role: 'LIMITED' as RoleEnum,
+    email: 'address',
+    certification: true,
+    products: [
+      {
+        id: 'productId',
+        title: 'productTitle',
+        roleInfos: [
+          {
+            relationshipId: 'relId',
+            role: 'incaricato-ente-creditore',
+            selcRole: SelcRoleEnum.ADMIN,
+            status: 'ACTIVE',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: '2',
+    fiscalCode: 'AAAAAA11A11A124K',
+    name: 'Name2',
+    surname: 'Surname2',
+    status: 'ACTIVE',
+    role: 'ADMIN' as RoleEnum,
+    email: 'address',
+    certification: true,
+    products: [
+      {
+        id: 'productId2',
+        title: 'productTitle2',
+        roleInfos: [
+          {
+            relationshipId: 'relId',
+            role: 'incaricato-ente-creditore',
+            selcRole: SelcRoleEnum.ADMIN,
+            status: 'ACTIVE',
+          },
+        ],
+      },
+    ],
+  },
+];
+
+export const mockedProductUserResource: Array<ProductUserResource> = [
+  {
+    id: '1',
+    fiscalCode: 'AAAAAA11A11A123K',
+    name: 'Name',
+    surname: 'Surname',
+    status: 'PENDING',
+    role: 'LIMITED' as RoleEnum,
+    email: 'address',
+    product: {
+      id: 'prod-io',
+      title: 'App IO',
+      roleInfos: [
+        {
+          relationshipId: 'relationshipId',
+          role: 'incaricato-ente-creditore',
+          selcRole: SelcRoleEnum.ADMIN,
+          status: 'ACTIVE',
+        },
+      ],
+    },
+    certification: true,
+  },
+  {
+    id: '2',
+    fiscalCode: 'BBAABB11A11A123K',
+    name: 'Name2',
+    surname: 'Surname2',
+    status: 'ACTIVE',
+    role: 'ADMIN' as RoleEnum,
+    email: 'address2',
+    product: {
+      id: 'prod-io',
+      title: 'App IO',
+      roleInfos: [
+        {
+          relationshipId: 'relationshipId2',
+          role: 'incaricato-ente-creditore',
+          selcRole: SelcRoleEnum.ADMIN,
+          status: 'ACTIVE',
+        },
+      ],
+    },
+    certification: true,
+  },
+];
+
+export const DashboardApi = {
+  getPartyUsers: async (
+    _institutionId: string,
+    _productId?: string,
+    _role?: string,
+    _productRoles?: Array<ProductRole>
+  ): Promise<Array<InstitutionUserResource>> =>
+    new Promise((resolve) => resolve(mockedInstitutionUserResource)),
+
+  getPartyProductUsers: async (
+    _institutionId: string,
+    _productId: string,
+    _role?: string
+  ): Promise<Array<ProductUserResource>> =>
+    new Promise((resolve) => resolve(mockedProductUserResource)),
+
+  suspendPartyRelation: async (_relationshipId: string): Promise<void> =>
+    new Promise((resolve) => resolve()),
+
+  activatePartyRelation: async (_relationshipId: string): Promise<void> =>
+    new Promise((resolve) => resolve()),
+};
