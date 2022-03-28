@@ -1,13 +1,13 @@
 import { Grid, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Party } from '../../../model/Party';
-import { PartyGroupExt } from '../../../model/PartyGroup';
+import { PartyGroupDetail } from '../../../model/PartyGroup';
 import { Product, ProductsMap } from '../../../model/Product';
 import { ProductRolesLists } from '../../../model/ProductRole';
 import MembersGroup from './MembersGroup';
 
 type Props = {
-  partyGroup: PartyGroupExt;
+  partyGroup: PartyGroupDetail;
   productsMap: ProductsMap;
   isSuspended: boolean;
   product: Product;

@@ -10,7 +10,7 @@ import { deleteGroupRelation } from '../../../services/groupsService';
 import { LOADING_TASK_UPDATE_PARTY_USER_STATUS } from '../../../utils/constants';
 import { Party, UserStatus } from '../../../model/Party';
 import { Product } from '../../../model/Product';
-import { PartyGroupExt } from '../../../model/PartyGroup';
+import { PartyGroupDetail } from '../../../model/PartyGroup';
 import { updatePartyUserStatus } from '../../../services/usersService';
 import { ProductRolesLists, transcodeProductRole2Title } from '../../../model/ProductRole';
 
@@ -18,7 +18,7 @@ type Props = {
   member: PartyProductUser;
   party: Party;
   product: Product;
-  partyGroup: PartyGroupExt;
+  partyGroup: PartyGroupDetail;
   userProduct: PartyUserProduct | undefined;
   isSuspended: boolean;
   productRolesLists: ProductRolesLists;

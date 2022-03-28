@@ -1,6 +1,6 @@
 import {
   usersGroupPlainResource2PartyGroup,
-  usersGroupResource2PartyGroupExt,
+  usersGroupResource2PartyGroupDetail,
 } from '../PartyGroup';
 import {
   StatusEnum,
@@ -41,7 +41,7 @@ test('Test usersGroupPlainResource2PartyGroup', () => {
   });
 });
 
-test('Test usersGroupResource2PartyGroupExt', () => {
+test('Test usersGroupResource2PartyGroupDetail', () => {
   const usersGroupResource: UserGroupResource = {
     description: 'groupId1: descriptoion',
     id: 'groupId1',
@@ -73,7 +73,7 @@ test('Test usersGroupResource2PartyGroupExt', () => {
     status: StatusEnum.ACTIVE,
   };
 
-  const partyGroup = usersGroupResource2PartyGroupExt(
+  const partyGroup = usersGroupResource2PartyGroupDetail(
     usersGroupResource,
     mockedUser,
     mockedPartyProducts[0]

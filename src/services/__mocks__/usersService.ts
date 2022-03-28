@@ -690,11 +690,15 @@ export const fetchPartyProductUsers = (
       }
       return u;
     })
-    .map((u) => ({
-      ...cloneDeep(u),
-      product: u.products.find((p) => p.id === product.id) as PartyUserProduct,
-    }))
-    .map((u) => cloneDeep(u));
+    .map((u) => {
+      const clone: PartyProductUser = {
+        ...cloneDeep(u),
+        product: u.products.find((p) => p.id === product.id) as PartyUserProduct,
+      };
+      // eslint-disable-next-line functional/immutable-data
+      delete (u as any).products;
+      return clone;
+    });
 
   if (pageRequest.sort) {
     applySort(filteredContent, pageRequest.sort);

@@ -22,7 +22,7 @@ export type PartyGroup = {
   modifiedAt?: Date;
 };
 
-export type PartyGroupExt = PartyGroup & {
+export type PartyGroupDetail = PartyGroup & {
   members: Array<PartyProductUser>;
   createdBy?: PartyUserSimple;
   modifiedBy?: PartyUserSimple;
@@ -59,11 +59,11 @@ export const usersGroupPlainResource2PartyGroup = (
   modifiedAt: resource.modifiedAt,
 });
 
-export const usersGroupResource2PartyGroupExt = (
+export const usersGroupResource2PartyGroupDetail = (
   resource: UserGroupResource,
   currentUser: User,
   product: Product
-): PartyGroupExt => ({
+): PartyGroupDetail => ({
   id: resource.id,
   institutionId: resource.institutionId,
   productId: resource.productId,

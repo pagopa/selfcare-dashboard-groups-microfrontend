@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PartyGroupExt } from '../../../model/PartyGroup';
+import { PartyGroupDetail } from '../../../model/PartyGroup';
 import { Product } from '../../../model/Product';
 import { Party, UserStatus } from '../../../model/Party';
 import { ProductRolesLists, transcodeProductRole2Title } from '../../../model/ProductRole';
@@ -12,7 +12,7 @@ import { ENV } from '../../../utils/env';
 import GroupMenu from './GroupMenu';
 
 type Props = {
-  partyGroup: PartyGroupExt;
+  partyGroup: PartyGroupDetail;
   product: Product;
   party: Party;
   isSuspended: boolean;

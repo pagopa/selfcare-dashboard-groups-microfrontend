@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import ProductNavigationBar from '../../components/ProductNavigationBar';
 import withGroupDetail, { withGroupDetailProps } from '../../decorators/withGroupDetail';
 import { DASHBOARD_GROUPS_ROUTES } from '../../routes';
-import { PartyGroupExt, PartyGroupStatus } from '../../model/PartyGroup';
+import { PartyGroupDetail, PartyGroupStatus } from '../../model/PartyGroup';
 import { ProductsRolesMap } from '../../model/ProductRole';
 import GroupActions from './components/GroupActions';
 import GroupDetail from './components/GroupDetail';
@@ -26,7 +26,7 @@ function GroupDetailPage({
 }: Props) {
   const history = useHistory();
 
-  const [partyGroupState, setPartyGroupState] = React.useState<PartyGroupExt>(partyGroup);
+  const [partyGroupState, setPartyGroupState] = React.useState<PartyGroupDetail>(partyGroup);
   const { t } = useTranslation();
 
   const nextGroupStatus: PartyGroupStatus | undefined =

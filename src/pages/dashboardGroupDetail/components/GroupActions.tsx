@@ -7,13 +7,13 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 import { deletePartyGroup, updatePartyGroupStatus } from '../../../services/groupsService';
 import { LOADING_TASK_UPDATE_PARTY_USER_STATUS } from '../../../utils/constants';
-import { PartyGroupExt, PartyGroupStatus } from '../../../model/PartyGroup';
+import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
 import { Party } from '../../../model/Party';
 import { Product, ProductsMap } from '../../../model/Product';
 import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
 
 type Props = {
-  partyGroup: PartyGroupExt;
+  partyGroup: PartyGroupDetail;
   isSuspended: boolean;
   goBack: () => void;
   party: Party;

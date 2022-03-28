@@ -8,11 +8,11 @@ import { DASHBOARD_GROUPS_ROUTES } from '../routes';
 import { Party } from '../model/Party';
 import { ProductsMap } from '../model/Product';
 import { useGroupDetail } from '../hooks/useGroupDetail';
-import { PartyGroupExt } from '../model/PartyGroup';
+import { PartyGroupDetail } from '../model/PartyGroup';
 import { ENV } from '../utils/env';
 
 export type withGroupDetailProps = {
-  partyGroup: PartyGroupExt;
+  partyGroup: PartyGroupDetail;
   party: Party;
   productsMap: ProductsMap;
 };
@@ -32,7 +32,7 @@ export default function withGroupDetail<T extends withGroupDetailProps>(
 
     const fetchGroupDetail = useGroupDetail();
 
-    const [partyGroup, setPartyGroup] = useState<PartyGroupExt | null>();
+    const [partyGroup, setPartyGroup] = useState<PartyGroupDetail | null>();
 
     const addError = useErrorDispatcher();
     const history = useHistory();
