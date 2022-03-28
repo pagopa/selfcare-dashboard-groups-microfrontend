@@ -50,7 +50,6 @@ test('Test usersGroupResource2PartyGroupExt', () => {
       {
         certification: true,
         email: 'address',
-        fiscalCode: 'fiscalCode',
         id: '1',
         name: 'Name',
         product: {
@@ -91,26 +90,22 @@ test('Test usersGroupResource2PartyGroupExt', () => {
     modifiedAt: undefined,
     members: [
       {
-        certification: true,
         email: 'address',
-        taxCode: 'fiscalCode',
         id: '1',
         isCurrentUser: false,
         name: 'Name',
-        products: [
-          {
-            id: 'productId',
-            roles: [
-              {
-                relationshipId: 'relationshipId',
-                role: 'ADMIN',
-                selcRole: 'ADMIN',
-                status: 'ACTIVE',
-              },
-            ],
-            title: 'App IO',
-          },
-        ],
+        product: {
+          id: 'productId',
+          roles: [
+            {
+              relationshipId: 'relationshipId',
+              role: 'ADMIN',
+              selcRole: 'ADMIN',
+              status: 'ACTIVE',
+            },
+          ],
+          title: 'App IO',
+        },
         userRole: 'ADMIN',
         status: 'PENDING',
         surname: 'LIMITED',

@@ -22,11 +22,11 @@ const RoutingGroups = ({
   productsMap,
   decorators,
 }: DashboardMicrofrontendPageProps) => {
-  // eslint-disable-next-line functional/immutable-data
-  ENV.STORE = store;
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line functional/immutable-data
+    ENV.STORE = store;
     if (!loaded) {
       i18n.addResourceBundle('it', 'translation', it, true);
       setLoaded(true);

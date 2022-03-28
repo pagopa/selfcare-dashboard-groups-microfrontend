@@ -7,7 +7,7 @@ import { PartyGroupExt } from '../../../model/PartyGroup';
 import { Product } from '../../../model/Product';
 import { Party, UserStatus } from '../../../model/Party';
 import { ProductRolesLists, transcodeProductRole2Title } from '../../../model/ProductRole';
-import { PartyUser, PartyUserProduct } from '../../../model/PartyUser';
+import { PartyProductUser, PartyUserProduct } from '../../../model/PartyUser';
 import { ENV } from '../../../utils/env';
 import GroupMenu from './GroupMenu';
 
@@ -30,14 +30,14 @@ export default function MembersGroup({
 }: Props) {
   const history = useHistory();
 
-  const [members, setMembers] = useState<Array<PartyUser>>([]);
+  const [members, setMembers] = useState<Array<PartyProductUser>>([]);
   const { t } = useTranslation();
 
   useEffect(() => {
     setMembers(partyGroup.members);
   }, [partyGroup]);
 
-  const onMemberDelete = (member: PartyUser) => {
+  const onMemberDelete = (member: PartyProductUser) => {
     const nextMembers = members.filter((u) => u.id !== member.id);
     setMembers(nextMembers);
     // eslint-disable-next-line functional/immutable-data
@@ -45,7 +45,7 @@ export default function MembersGroup({
   };
 
   const onMemberStatusUpdate = (
-    member: PartyUser,
+    member: PartyProductUser,
     userProduct: PartyUserProduct,
     nextStatus: UserStatus
   ) => {
@@ -59,7 +59,7 @@ export default function MembersGroup({
   return (
     <Grid container py={2}>
       {members.map((member, index) => {
-        const userProduct = member.products.find((p) => p.id === product.id);
+        const userProduct = member.product;
         const isMemeberSuspended =
           member.status === 'SUSPENDED' ||
           !userProduct?.roles.find((r) => r.status !== 'SUSPENDED');

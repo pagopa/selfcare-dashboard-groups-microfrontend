@@ -1,4 +1,3 @@
-import { ProductRole } from '../../model/ProductRole';
 import {
   InstitutionUserResource,
   RoleEnum,
@@ -9,13 +8,11 @@ import { ProductUserResource } from '../generated/b4f-dashboard/ProductUserResou
 export const mockedInstitutionUserResource: Array<InstitutionUserResource> = [
   {
     id: '1',
-    fiscalCode: 'AAAAAA11A11A123K',
     name: 'Name',
     surname: 'Surname',
     status: 'PENDING',
     role: 'LIMITED' as RoleEnum,
     email: 'address',
-    certification: true,
     products: [
       {
         id: 'productId',
@@ -33,13 +30,11 @@ export const mockedInstitutionUserResource: Array<InstitutionUserResource> = [
   },
   {
     id: '2',
-    fiscalCode: 'AAAAAA11A11A124K',
     name: 'Name2',
     surname: 'Surname2',
     status: 'ACTIVE',
     role: 'ADMIN' as RoleEnum,
     email: 'address',
-    certification: true,
     products: [
       {
         id: 'productId2',
@@ -60,7 +55,6 @@ export const mockedInstitutionUserResource: Array<InstitutionUserResource> = [
 export const mockedProductUserResource: Array<ProductUserResource> = [
   {
     id: '1',
-    fiscalCode: 'AAAAAA11A11A123K',
     name: 'Name',
     surname: 'Surname',
     status: 'PENDING',
@@ -82,7 +76,6 @@ export const mockedProductUserResource: Array<ProductUserResource> = [
   },
   {
     id: '2',
-    fiscalCode: 'BBAABB11A11A123K',
     name: 'Name2',
     surname: 'Surname2',
     status: 'ACTIVE',
@@ -105,14 +98,6 @@ export const mockedProductUserResource: Array<ProductUserResource> = [
 ];
 
 export const DashboardApi = {
-  getPartyUsers: async (
-    _institutionId: string,
-    _productId?: string,
-    _role?: string,
-    _productRoles?: Array<ProductRole>
-  ): Promise<Array<InstitutionUserResource>> =>
-    new Promise((resolve) => resolve(mockedInstitutionUserResource)),
-
   getPartyProductUsers: async (
     _institutionId: string,
     _productId: string,

@@ -7,7 +7,12 @@ import {
 } from '@pagopa/selfcare-common-frontend/hooks/useFakePagination';
 import { cloneDeep } from 'lodash';
 import { Party } from '../../model/Party';
-import { PartyUser, PartyUserSimple } from '../../model/PartyUser';
+import {
+  PartyUserExt,
+  PartyProductUser,
+  PartyUserProduct,
+  PartyUserSimple,
+} from '../../model/PartyUser';
 import { Product, ProductsMap } from '../../model/Product';
 import {
   PartyGroup,
@@ -287,9 +292,16 @@ export const fetchPartyGroup = (
   if (mockedGroup !== null) {
     const clone: PartyGroupMock = cloneDeep(mockedGroup);
     // eslint-disable-next-line functional/immutable-data
-    (clone as unknown as PartyGroupExt).members = clone.membersIds.map(
-      (m) => mockedUsers.find((u) => u.id === m) as PartyUser
-    );
+    (clone as unknown as PartyGroupExt).members = clone.membersIds.map((m) => {
+      const user = mockedUsers.find((u) => u.id === m) as PartyUserExt;
+      const member: PartyProductUser = {
+        ...user,
+        product: user.products.find((p) => p.id === clone.productId) as PartyUserProduct,
+      };
+      // eslint-disable-next-line functional/immutable-data
+      delete (member as any).products;
+      return member;
+    });
     // eslint-disable-next-line functional/immutable-data
     (clone as unknown as PartyGroupExt).createdBy = mockedUsers.find(
       (u) => u.id === clone.createdByUserId
@@ -297,7 +309,7 @@ export const fetchPartyGroup = (
     // eslint-disable-next-line functional/immutable-data
     (clone as unknown as PartyGroupExt).modifiedBy = mockedUsers.find(
       (u) => u.id === clone.modifiedByUserId
-    ) as PartyUser;
+    ) as PartyUserSimple;
     return new Promise((resolve) => resolve(clone as unknown as PartyGroupExt));
   } else {
     return new Promise((resolve) => resolve(null));

@@ -28,12 +28,12 @@ import { useTranslation, Trans } from 'react-i18next';
 import { ReactComponent as ClearIcon } from '../../../assets/clear.svg';
 import { Party } from '../../../model/Party';
 import { PartyGroupOnCreation, PartyGroupOnEdit } from '../../../model/PartyGroup';
-import { PartyUser } from '../../../model/PartyUser';
+import { PartyProductUser } from '../../../model/PartyUser';
 import { Product, ProductsMap } from '../../../model/Product';
 import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
 import { savePartyGroup, updatePartyGroup } from '../../../services/groupsService';
 import { LOADING_TASK_FETCH_USER_PRODUCT, LOADING_TASK_SAVE_GROUP } from '../../../utils/constants';
-import { fetchPartyUsers } from '../../../services/usersService';
+import { fetchPartyProductUsers } from '../../../services/usersService';
 import { useAppSelector } from '../../../redux/hooks';
 import AlertRemoveUsersInClone from '../components/AlertRemoveUsersInClone';
 
@@ -124,7 +124,7 @@ export default function GroupForm({
   const history = useHistory();
 
   const [productSelected, setProductSelected] = useState<Product>();
-  const [productUsers, setProductUsers] = useState<Array<PartyUser>>([]);
+  const [productUsers, setProductUsers] = useState<Array<PartyProductUser>>([]);
   const [automaticRemove, setAutomaticRemove] = useState(false);
   const [isNameDuplicated, setIsNameDuplicated] = useState(false);
 
@@ -326,18 +326,16 @@ export default function GroupForm({
     };
   };
 
-  const containsInitialUsers = (productUsers: Array<PartyUser>) =>
+  const containsInitialUsers = (productUsers: Array<PartyProductUser>) =>
     initialFormData.members.every((u) => productUsers.find((p) => p.id === u.id));
 
   const fetchProductUsers = (productSelected: Product) => {
     setLoadingFetchUserProduct(true);
-    fetchPartyUsers(
+    fetchPartyProductUsers(
       { page: 0, size: 2000 },
       party,
-      productsMap,
-      currentUser ?? ({ uid: 'NONE' } as User),
-      true,
       productSelected,
+      currentUser ?? ({ uid: 'NONE' } as User),
       undefined,
       []
     )

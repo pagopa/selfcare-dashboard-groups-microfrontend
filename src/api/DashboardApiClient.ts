@@ -6,7 +6,6 @@ import { ENV } from '../utils/env';
 import { PartyGroupOnCreation, PartyGroupOnEdit } from '../model/PartyGroup';
 import { ProductRole } from '../model/ProductRole';
 import { createClient, WithDefaultsT } from './generated/b4f-dashboard/client';
-import { InstitutionUserResource } from './generated/b4f-dashboard/InstitutionUserResource';
 import { ProductUserResource } from './generated/b4f-dashboard/ProductUserResource';
 import { UserGroupPlainResource } from './generated/b4f-dashboard/UserGroupPlainResource';
 import { UserGroupResource } from './generated/b4f-dashboard/UserGroupResource';
@@ -41,21 +40,6 @@ const onRedirectToLogin = () =>
   );
 
 export const DashboardApi = {
-  getPartyUsers: async (
-    institutionId: string,
-    productId?: string,
-    role?: string,
-    productRoles?: Array<ProductRole>
-  ): Promise<Array<InstitutionUserResource>> => {
-    const result = await apiClient.getInstitutionUsersUsingGET({
-      institutionId,
-      role,
-      productId,
-      productRoles: productRoles?.map((r) => r.productRole).join(','),
-    });
-    return extractResponse(result, 200, onRedirectToLogin);
-  },
-
   getPartyProductUsers: async (
     institutionId: string,
     productId: string,

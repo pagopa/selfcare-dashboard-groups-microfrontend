@@ -7,11 +7,16 @@ import {
 } from '@pagopa/selfcare-common-frontend/hooks/useFakePagination';
 import { cloneDeep } from 'lodash';
 import { Party, UserRole, UserStatus } from '../../model/Party';
-import { PartyUser, PartyUserProduct, PartyUserProductRole } from '../../model/PartyUser';
+import {
+  PartyProductUser,
+  PartyUserExt,
+  PartyUserProduct,
+  PartyUserProductRole,
+} from '../../model/PartyUser';
 import { Product } from '../../model/Product';
 import { ProductRole } from '../../model/ProductRole';
 
-export const mockedUsers: Array<PartyUser> = [
+export const mockedUsers: Array<PartyUserExt> = [
   // use case ACTIVE on 1 product/role
   {
     id: 'uid',
@@ -658,15 +663,14 @@ export const mockedUsers: Array<PartyUser> = [
   },
 ];
 
-export const fetchPartyUsers = (
+export const fetchPartyProductUsers = (
   pageRequest: PageRequest,
   _party: Party,
+  product: Product,
   _currentUser: User,
-  fetchOnlyCurrentProduct: boolean,
-  product?: Product,
   selcRole?: UserRole,
   productRoles?: Array<ProductRole>
-): Promise<PageResource<PartyUser>> => {
+): Promise<PageResource<PartyProductUser>> => {
   const filteredContent = mockedUsers
     .filter((u) => {
       if (selcRole && !u.products.find((p) => p.roles.find((r) => selcRole === r.selcRole))) {
@@ -686,16 +690,10 @@ export const fetchPartyUsers = (
       }
       return u;
     })
-    .map((u) => {
-      if (fetchOnlyCurrentProduct && product) {
-        const clone = cloneDeep(u);
-        // eslint-disable-next-line functional/immutable-data
-        clone.products = [u.products.find((p) => p.id === product.id) as PartyUserProduct];
-        return clone;
-      } else {
-        return u;
-      }
-    })
+    .map((u) => ({
+      ...cloneDeep(u),
+      product: u.products.find((p) => p.id === product.id) as PartyUserProduct,
+    }))
     .map((u) => cloneDeep(u));
 
   if (pageRequest.sort) {
@@ -708,11 +706,12 @@ export const fetchPartyUsers = (
 
 export const updatePartyUserStatus = (
   _party: Party,
-  user: PartyUser,
+  user: PartyProductUser,
   _product: PartyUserProduct,
   role: PartyUserProductRole,
   status: UserStatus
 ): Promise<any> => {
+  const mockedUser = mockedUsers.find((u) => u.id === user.id) as PartyUserExt;
   if (status === 'ACTIVE' || status === 'SUSPENDED') {
     // eslint-disable-next-line functional/immutable-data
     role.status = status;
@@ -720,7 +719,7 @@ export const updatePartyUserStatus = (
       if (status === 'ACTIVE') {
         // eslint-disable-next-line functional/immutable-data
         user.status = 'ACTIVE';
-      } else if (!user.products.find((p) => p.roles.find((r) => r.status === 'ACTIVE'))) {
+      } else if (!mockedUser.products.find((p) => p.roles.find((r) => r.status === 'ACTIVE'))) {
         // eslint-disable-next-line functional/immutable-data
         user.status = 'SUSPENDED';
       }
@@ -729,7 +728,7 @@ export const updatePartyUserStatus = (
     mockedUsers.splice(
       mockedUsers.findIndex((u) => u.id === user.id),
       1,
-      user
+      { ...mockedUser, ...user }
     );
 
     return new Promise<void>((resolve) => resolve());
