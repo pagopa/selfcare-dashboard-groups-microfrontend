@@ -48,7 +48,6 @@ const reduceDecorators = (
   );
 
 export const buildRoutes = (
-  loaded: boolean,
   party: Party,
   products: Array<Product>,
   activeProducts: Array<Product>,
@@ -68,7 +67,7 @@ export const buildRoutes = (
     );
     return (
       <Route path={path} exact={exact} key={i}>
-        {loaded && WrappedComponent && (
+        {WrappedComponent && (
           <WrappedComponent
             party={party}
             products={products}
@@ -78,15 +77,7 @@ export const buildRoutes = (
         )}
         {subRoutes && (
           <Switch>
-            {buildRoutes(
-              loaded,
-              party,
-              products,
-              activeProducts,
-              productsMap,
-              decorators,
-              subRoutes
-            )}
+            {buildRoutes(party, products, activeProducts, productsMap, decorators, subRoutes)}
           </Switch>
         )}
       </Route>
