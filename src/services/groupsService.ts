@@ -6,12 +6,12 @@ import { DashboardApi } from '../api/DashboardApiClient';
 import { Party } from '../model/Party';
 import {
   PartyGroup,
-  PartyGroupExt,
+  PartyGroupDetail,
   PartyGroupOnCreation,
   PartyGroupOnEdit,
   PartyGroupStatus,
   usersGroupPlainResource2PartyGroup,
-  usersGroupResource2PartyGroupExt,
+  usersGroupResource2PartyGroupDetail,
 } from '../model/PartyGroup';
 import { Product, ProductsMap } from '../model/Product';
 import {
@@ -53,14 +53,18 @@ export const fetchPartyGroup = (
   groupId: string,
   currentUser: User,
   productsMap: ProductsMap
-): Promise<PartyGroupExt | null> => {
+): Promise<PartyGroupDetail | null> => {
   /* istanbul ignore if */
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
     return fetchPartyGroupMocked(institutionId, groupId, currentUser, productsMap);
   } else {
     return DashboardApi.fetchPartyGroup(groupId, institutionId).then((resource) =>
       resource
-        ? usersGroupResource2PartyGroupExt(resource, currentUser, productsMap[resource.productId])
+        ? usersGroupResource2PartyGroupDetail(
+            resource,
+            currentUser,
+            productsMap[resource.productId]
+          )
         : null
     );
   }
@@ -139,7 +143,7 @@ export const deletePartyGroup = (
 export const deleteGroupRelation = (
   party: Party,
   product: Product,
-  group: PartyGroupExt,
+  group: PartyGroupDetail,
   userId: string
 ): Promise<any> => {
   trackEvent('RELATION_GROUP_USER_DELETE', {

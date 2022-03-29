@@ -99,7 +99,7 @@ const GroupsTableProduct = ({
   const onStatusUpdate = (partyGroup: PartyGroup, nextStatus: PartyGroupStatus) => {
     // eslint-disable-next-line functional/immutable-data
     partyGroup.status = nextStatus;
-    setGroups({ ...groups });
+    setGroups({ page: groups.page, content: groups.content.slice() });
   };
 
   const canEdit = product.userRole === 'ADMIN' && product.status === 'ACTIVE';

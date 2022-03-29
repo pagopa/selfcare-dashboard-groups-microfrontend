@@ -7,11 +7,16 @@ import {
 } from '@pagopa/selfcare-common-frontend/hooks/useFakePagination';
 import { cloneDeep } from 'lodash';
 import { Party } from '../../model/Party';
-import { PartyUser, PartyUserSimple } from '../../model/PartyUser';
+import {
+  PartyUserExt,
+  PartyProductUser,
+  PartyUserProduct,
+  PartyUserSimple,
+} from '../../model/PartyUser';
 import { Product, ProductsMap } from '../../model/Product';
 import {
   PartyGroup,
-  PartyGroupExt,
+  PartyGroupDetail,
   PartyGroupOnCreation,
   PartyGroupOnEdit,
   PartyGroupStatus,
@@ -280,25 +285,32 @@ export const fetchPartyGroup = (
   groupId: string,
   _currentUser: User,
   _productsMap: ProductsMap
-): Promise<PartyGroupExt | null> => {
+): Promise<PartyGroupDetail | null> => {
   const mockedGroup =
     mockedGroups.find((u) => u.id === groupId && u.institutionId === institutionId) ?? null;
 
   if (mockedGroup !== null) {
     const clone: PartyGroupMock = cloneDeep(mockedGroup);
     // eslint-disable-next-line functional/immutable-data
-    (clone as unknown as PartyGroupExt).members = clone.membersIds.map(
-      (m) => mockedUsers.find((u) => u.id === m) as PartyUser
-    );
+    (clone as unknown as PartyGroupDetail).members = clone.membersIds.map((m) => {
+      const user = mockedUsers.find((u) => u.id === m) as PartyUserExt;
+      const member: PartyProductUser = {
+        ...user,
+        product: user.products.find((p) => p.id === clone.productId) as PartyUserProduct,
+      };
+      // eslint-disable-next-line functional/immutable-data
+      delete (member as any).products;
+      return member;
+    });
     // eslint-disable-next-line functional/immutable-data
-    (clone as unknown as PartyGroupExt).createdBy = mockedUsers.find(
+    (clone as unknown as PartyGroupDetail).createdBy = mockedUsers.find(
       (u) => u.id === clone.createdByUserId
     ) as PartyUserSimple;
     // eslint-disable-next-line functional/immutable-data
-    (clone as unknown as PartyGroupExt).modifiedBy = mockedUsers.find(
+    (clone as unknown as PartyGroupDetail).modifiedBy = mockedUsers.find(
       (u) => u.id === clone.modifiedByUserId
-    ) as PartyUser;
-    return new Promise((resolve) => resolve(clone as unknown as PartyGroupExt));
+    ) as PartyUserSimple;
+    return new Promise((resolve) => resolve(clone as unknown as PartyGroupDetail));
   } else {
     return new Promise((resolve) => resolve(null));
   }
@@ -341,7 +353,7 @@ export const deletePartyGroup = (
 export const deleteGroupRelation = (
   _party: Party,
   _product: Product,
-  group: PartyGroupExt,
+  group: PartyGroupDetail,
   userId: string
 ): Promise<any> => {
   const selectedGroup = mockedGroups.find((g) => g.id === group.id);

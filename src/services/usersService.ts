@@ -3,18 +3,17 @@ import { PageResource } from '@pagopa/selfcare-common-frontend/model/PageResourc
 import { User } from '@pagopa/selfcare-common-frontend/model/User';
 import { trackEvent } from '@pagopa/selfcare-common-frontend/services/analyticsService';
 import { Party, UserRole, UserStatus } from '../model/Party';
-import { Product, ProductsMap } from '../model/Product';
+import { Product } from '../model/Product';
 import {
-  institutionUserResource2PartyUser,
-  PartyUser,
+  PartyProductUser,
   PartyUserProduct,
   PartyUserProductRole,
-  productUserResource2PartyUser,
+  productUserResource2PartyProductUser,
 } from '../model/PartyUser';
 import { ProductRole } from '../model/ProductRole';
 import { DashboardApi } from '../api/DashboardApiClient';
 import {
-  fetchPartyUsers as fetchPartyUsersMocked,
+  fetchPartyProductUsers as fetchPartyProductUsersMocked,
   updatePartyUserStatus as updatePartyUserStatusMocked,
 } from './__mocks__/usersService';
 
@@ -28,60 +27,40 @@ const toFakePagination = <T>(content: Array<T>): PageResource<T> => ({
   },
 });
 
-export const fetchPartyUsers = (
+export const fetchPartyProductUsers = (
   pageRequest: PageRequest,
   party: Party,
-  productsMap: ProductsMap,
+  product: Product,
   currentUser: User,
-  fetchOnlyCurrentProduct: boolean,
-  product?: Product,
   selcRole?: UserRole,
   productRoles?: Array<ProductRole>
-): Promise<PageResource<PartyUser>> => {
+): Promise<PageResource<PartyProductUser>> => {
   /* istanbul ignore if */
   if (process.env.REACT_APP_API_MOCK_PARTY_USERS === 'true') {
-    return fetchPartyUsersMocked(
+    return fetchPartyProductUsersMocked(
       pageRequest,
       party,
-      currentUser,
-      fetchOnlyCurrentProduct,
       product,
+      currentUser,
       selcRole,
       productRoles
     );
   } else {
-    if (product && fetchOnlyCurrentProduct) {
-      return DashboardApi.getPartyProductUsers(
-        party.institutionId,
-        product.id,
-        selcRole,
-        productRoles
-      ).then(
-        (
-          r // TODO fixme when API will support pagination
-        ) => toFakePagination(r.map((u) => productUserResource2PartyUser(u, product, currentUser)))
-      );
-    } else {
-      return DashboardApi.getPartyUsers(
-        party.institutionId,
-        product?.id,
-        selcRole,
-        productRoles
-      ).then(
-        (
-          r // TODO fixme when API will support pagination
-        ) =>
-          toFakePagination(
-            r.map((u) => institutionUserResource2PartyUser(u, productsMap, currentUser))
-          )
-      );
-    }
+    return DashboardApi.getPartyProductUsers(
+      party.institutionId,
+      product.id,
+      selcRole,
+      productRoles
+    ).then((r) =>
+      // TODO fixme when API will support pagination
+      toFakePagination(r.map((u) => productUserResource2PartyProductUser(u, product, currentUser)))
+    );
   }
 };
 
 export const updatePartyUserStatus = (
   party: Party,
-  user: PartyUser,
+  user: PartyProductUser,
   product: PartyUserProduct,
   role: PartyUserProductRole,
   status: UserStatus

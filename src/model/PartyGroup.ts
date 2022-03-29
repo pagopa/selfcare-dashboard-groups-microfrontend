@@ -1,7 +1,11 @@
 import { User } from '@pagopa/selfcare-common-frontend/model/User';
 import { UserGroupPlainResource } from '../api/generated/b4f-dashboard/UserGroupPlainResource';
 import { UserGroupResource } from '../api/generated/b4f-dashboard/UserGroupResource';
-import { PartyUser, PartyUserSimple, productUserResource2PartyUser } from './PartyUser';
+import {
+  PartyProductUser,
+  PartyUserSimple,
+  productUserResource2PartyProductUser,
+} from './PartyUser';
 import { Product } from './Product';
 
 export type PartyGroupStatus = 'ACTIVE' | 'SUSPENDED';
@@ -18,8 +22,8 @@ export type PartyGroup = {
   modifiedAt?: Date;
 };
 
-export type PartyGroupExt = PartyGroup & {
-  members: Array<PartyUser>;
+export type PartyGroupDetail = PartyGroup & {
+  members: Array<PartyProductUser>;
   createdBy?: PartyUserSimple;
   modifiedBy?: PartyUserSimple;
 };
@@ -29,7 +33,7 @@ export type PartyGroupOnCreation = {
   productId: string;
   name: string;
   description: string;
-  members: Array<PartyUser>;
+  members: Array<PartyProductUser>;
 };
 
 export type PartyGroupOnEdit = {
@@ -38,7 +42,7 @@ export type PartyGroupOnEdit = {
   productId: string;
   name: string;
   description: string;
-  members: Array<PartyUser>;
+  members: Array<PartyProductUser>;
 };
 
 export const usersGroupPlainResource2PartyGroup = (
@@ -55,11 +59,11 @@ export const usersGroupPlainResource2PartyGroup = (
   modifiedAt: resource.modifiedAt,
 });
 
-export const usersGroupResource2PartyGroupExt = (
+export const usersGroupResource2PartyGroupDetail = (
   resource: UserGroupResource,
   currentUser: User,
   product: Product
-): PartyGroupExt => ({
+): PartyGroupDetail => ({
   id: resource.id,
   institutionId: resource.institutionId,
   productId: resource.productId,
@@ -67,7 +71,9 @@ export const usersGroupResource2PartyGroupExt = (
   description: resource.description,
   status: resource.status,
   membersCount: resource.members.length,
-  members: resource.members.map((u) => productUserResource2PartyUser(u, product, currentUser)),
+  members: resource.members.map((u) =>
+    productUserResource2PartyProductUser(u, product, currentUser)
+  ),
   createdAt: resource.createdAt,
   createdBy: resource.createdBy,
   modifiedAt: resource.modifiedAt,

@@ -1,20 +1,29 @@
 import { User } from '@pagopa/selfcare-common-frontend/model/User';
-import { InstitutionUserResource } from '../api/generated/b4f-dashboard/InstitutionUserResource';
 import { ProductInfoResource } from '../api/generated/b4f-dashboard/ProductInfoResource';
 import { ProductUserResource } from '../api/generated/b4f-dashboard/ProductUserResource';
 import { UserRole, UserStatus } from './Party';
-import { Product, ProductsMap } from './Product';
+import { Product } from './Product';
 
-export type PartyUser = {
+export type BasePartyUser = {
   id: string;
-  taxCode: string;
   name: string;
   surname: string;
   email: string;
   userRole: UserRole;
-  products: Array<PartyUserProduct>;
   status: UserStatus;
   isCurrentUser: boolean;
+};
+
+export type PartyProductUser = BasePartyUser & {
+  product: PartyUserProduct;
+};
+
+export type PartyUser = BasePartyUser & {
+  products: Array<PartyUserProduct>;
+};
+
+export type PartyUserExt = PartyUser & {
+  taxCode: string;
   certification: boolean;
 };
 
@@ -37,23 +46,19 @@ export type PartyUserProductRole = {
   status: UserStatus;
 };
 
-export const institutionUserResource2PartyUser = (
-  resource: InstitutionUserResource,
-  productsMap: ProductsMap,
+export const productUserResource2PartyProductUser = (
+  resource: ProductUserResource,
+  product: Product,
   currentUser: User
-): PartyUser => ({
+): PartyProductUser => ({
   id: resource.id,
-  taxCode: resource.fiscalCode,
   name: resource.name,
   surname: resource.surname,
   email: resource.email,
   userRole: resource.role,
-  products: ([] as Array<PartyUserProduct>).concat(
-    resource.products.map((p) => productInfoResource2PartyUserProduct(p, productsMap[p.id]))
-  ),
+  product: productInfoResource2PartyUserProduct(resource.product, product),
   status: resource.status as UserStatus,
   isCurrentUser: currentUser.uid === resource.id,
-  certification: resource.certification,
 });
 
 export const productInfoResource2PartyUserProduct = (
@@ -68,21 +73,4 @@ export const productInfoResource2PartyUserProduct = (
     selcRole: r.selcRole as UserRole,
     status: r.status as UserStatus,
   })),
-});
-
-export const productUserResource2PartyUser = (
-  resource: ProductUserResource,
-  product: Product,
-  currentUser: User
-): PartyUser => ({
-  id: resource.id,
-  taxCode: resource.fiscalCode,
-  name: resource.name,
-  surname: resource.surname,
-  email: resource.email,
-  userRole: resource.role,
-  products: [productInfoResource2PartyUserProduct(resource.product, product)],
-  status: resource.status as UserStatus,
-  isCurrentUser: currentUser.uid === resource.id,
-  certification: resource.certification,
 });

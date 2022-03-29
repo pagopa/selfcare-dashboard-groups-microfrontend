@@ -5,29 +5,29 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useState } from 'react';
 import useUserNotify from '@pagopa/selfcare-common-frontend/hooks/useUserNotify';
 import { useTranslation, Trans } from 'react-i18next';
-import { PartyUser, PartyUserProduct, PartyUserProductRole } from '../../../model/PartyUser';
+import { PartyProductUser, PartyUserProduct, PartyUserProductRole } from '../../../model/PartyUser';
 import { deleteGroupRelation } from '../../../services/groupsService';
 import { LOADING_TASK_UPDATE_PARTY_USER_STATUS } from '../../../utils/constants';
 import { Party, UserStatus } from '../../../model/Party';
 import { Product } from '../../../model/Product';
-import { PartyGroupExt } from '../../../model/PartyGroup';
+import { PartyGroupDetail } from '../../../model/PartyGroup';
 import { updatePartyUserStatus } from '../../../services/usersService';
 import { ProductRolesLists, transcodeProductRole2Title } from '../../../model/ProductRole';
 
 type Props = {
-  member: PartyUser;
+  member: PartyProductUser;
   party: Party;
   product: Product;
-  partyGroup: PartyGroupExt;
+  partyGroup: PartyGroupDetail;
   userProduct: PartyUserProduct | undefined;
   isSuspended: boolean;
   productRolesLists: ProductRolesLists;
   onMemberStatusUpdate: (
-    member: PartyUser,
+    member: PartyProductUser,
     userProduct: PartyUserProduct,
     nextStatus: UserStatus
   ) => void;
-  onMemberDelete: (member: PartyUser) => void;
+  onMemberDelete: (member: PartyProductUser) => void;
   canEdit: boolean;
 };
 export default function GroupMenu({
