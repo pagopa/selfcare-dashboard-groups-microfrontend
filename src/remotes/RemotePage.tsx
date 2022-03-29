@@ -31,7 +31,7 @@ const RemotePage = ({ history, store, i18n, theme, children }: Props) => {
     <Provider store={store}>
       <Router history={history}>
         <I18nextProvider i18n={i18n}>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+          <ThemeProvider theme={theme}>{loaded && children}</ThemeProvider>
         </I18nextProvider>
       </Router>
     </Provider>
