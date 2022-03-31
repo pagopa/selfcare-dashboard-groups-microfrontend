@@ -696,7 +696,7 @@ export const fetchPartyProductUsers = (
         product: u.products.find((p) => p.id === product.id) as PartyUserProduct,
       };
       // eslint-disable-next-line functional/immutable-data
-      delete (u as any).products;
+      delete (clone as any).products;
       return clone;
     });
 

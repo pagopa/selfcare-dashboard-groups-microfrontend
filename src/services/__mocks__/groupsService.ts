@@ -293,7 +293,7 @@ export const fetchPartyGroup = (
     const clone: PartyGroupMock = cloneDeep(mockedGroup);
     // eslint-disable-next-line functional/immutable-data
     (clone as unknown as PartyGroupDetail).members = clone.membersIds.map((m) => {
-      const user = mockedUsers.find((u) => u.id === m) as PartyUserExt;
+      const user = cloneDeep(mockedUsers.find((u) => u.id === m) as PartyUserExt);
       const member: PartyProductUser = {
         ...user,
         product: user.products.find((p) => p.id === clone.productId) as PartyUserProduct,
