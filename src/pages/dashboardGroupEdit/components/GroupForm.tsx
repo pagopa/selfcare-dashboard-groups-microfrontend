@@ -320,7 +320,6 @@ export default function GroupForm({
           color: '#5C6F82',
           textAlign: 'start' as const,
           paddingLeft: '16px',
-          maxLength: 200,
         },
       },
     };
@@ -420,6 +419,7 @@ export default function GroupForm({
                 variant="outlined"
                 multiline
                 rows={4}
+                inputProps={{ maxLength: 200 }}
               />
             </Grid>
           </Grid>
