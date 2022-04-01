@@ -1,7 +1,7 @@
 import { Grid, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Party } from '../../../model/Party';
-import { PartyGroupDetail } from '../../../model/PartyGroup';
+import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
 import { Product, ProductsMap } from '../../../model/Product';
 import { ProductRolesLists } from '../../../model/ProductRole';
 import MembersGroup from './MembersGroup';
@@ -14,6 +14,7 @@ type Props = {
   party: Party;
   productRolesLists: ProductRolesLists;
   canEdit: boolean;
+  onGroupStatusUpdate: (nextGroupStatus: PartyGroupStatus) => void;
 };
 
 function GroupDetail({
@@ -24,6 +25,7 @@ function GroupDetail({
   party,
   productRolesLists,
   canEdit,
+  onGroupStatusUpdate,
 }: Props) {
   function formatDate(data?: Date) {
     const d = new Date(data as Date);
@@ -85,6 +87,7 @@ function GroupDetail({
             isSuspended={isSuspended}
             productRolesLists={productRolesLists}
             canEdit={canEdit}
+            onGroupStatusUpdate={onGroupStatusUpdate}
           />
         </Grid>
       </Grid>

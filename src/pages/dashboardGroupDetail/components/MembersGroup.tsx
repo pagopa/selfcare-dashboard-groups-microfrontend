@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PartyGroupDetail } from '../../../model/PartyGroup';
+import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
 import { Product } from '../../../model/Product';
 import { Party, UserStatus } from '../../../model/Party';
 import { ProductRolesLists, transcodeProductRole2Title } from '../../../model/ProductRole';
@@ -18,6 +18,7 @@ type Props = {
   isSuspended: boolean;
   productRolesLists: ProductRolesLists;
   canEdit: boolean;
+  onGroupStatusUpdate: (nextGroupStatus: PartyGroupStatus) => void;
 };
 
 export default function MembersGroup({
@@ -27,6 +28,7 @@ export default function MembersGroup({
   isSuspended,
   productRolesLists,
   canEdit,
+  onGroupStatusUpdate,
 }: Props) {
   const history = useHistory();
 
@@ -40,6 +42,7 @@ export default function MembersGroup({
   const onMemberDelete = (member: PartyProductUser) => {
     const nextMembers = members.filter((u) => u.id !== member.id);
     setMembers(nextMembers);
+    onGroupStatusUpdate(partyGroup.status);
     // eslint-disable-next-line functional/immutable-data
     partyGroup.members = nextMembers;
   };

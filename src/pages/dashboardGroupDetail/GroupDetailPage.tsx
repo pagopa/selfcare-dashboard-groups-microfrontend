@@ -136,6 +136,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
             party={party}
             productRolesLists={productsRolesMap[product.id]}
             canEdit={canEdit}
+            onGroupStatusUpdate={onGroupStatusUpdate}
           />
         </Grid>
         <Grid item mb={3} mt={15} width="100%">
