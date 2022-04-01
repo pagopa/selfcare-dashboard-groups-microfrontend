@@ -14,7 +14,6 @@ type Props = {
   party: Party;
   productRolesLists: ProductRolesLists;
   canEdit: boolean;
-  fetchPartyGroup: () => void;
 };
 
 function GroupDetail({
@@ -25,7 +24,6 @@ function GroupDetail({
   party,
   productRolesLists,
   canEdit,
-  fetchPartyGroup,
 }: Props) {
   function formatDate(data?: Date) {
     const d = new Date(data as Date);
@@ -87,7 +85,6 @@ function GroupDetail({
             isSuspended={isSuspended}
             productRolesLists={productRolesLists}
             canEdit={canEdit}
-            fetchPartyGroup={fetchPartyGroup}
           />
         </Grid>
       </Grid>

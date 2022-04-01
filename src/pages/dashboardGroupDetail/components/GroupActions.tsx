@@ -19,7 +19,6 @@ type Props = {
   party: Party;
   product: Product;
   productsMap: ProductsMap;
-  fetchPartyGroup: () => void;
   onGroupStatusUpdate: (nextGroupStatus: PartyGroupStatus) => void;
   nextGroupStatus: PartyGroupStatus | undefined;
   canEdit: boolean;
@@ -34,7 +33,6 @@ export default function GroupActions({
   onGroupStatusUpdate,
   nextGroupStatus,
   canEdit,
-  fetchPartyGroup,
 }: Props) {
   const setLoading = useLoading(LOADING_TASK_UPDATE_PARTY_USER_STATUS);
   const addError = useErrorDispatcher();
@@ -173,7 +171,6 @@ export default function GroupActions({
     setLoading(true);
     updatePartyGroupStatus(party, product, partyGroup, nextGroupStatus)
       .then((_) => {
-        fetchPartyGroup();
         onGroupStatusUpdate(nextGroupStatus);
         addNotify({
           id: 'ACTION_ON_PARTY_GROUP_COMPLETED',

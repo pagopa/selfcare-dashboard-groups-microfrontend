@@ -4,6 +4,9 @@ import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/rou
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { userSelectors } from '@pagopa/selfcare-common-frontend/redux/slices/userSlice';
+import { User } from '@pagopa/selfcare-common-frontend/model/User';
 import ProductNavigationBar from '../../components/ProductNavigationBar';
 import withGroupDetail, { withGroupDetailProps } from '../../decorators/withGroupDetail';
 import { DASHBOARD_GROUPS_ROUTES } from '../../routes';
@@ -17,16 +20,12 @@ type Props = withGroupDetailProps & {
   productsRolesMap: ProductsRolesMap;
 };
 
-function GroupDetailPage({
-  partyGroup,
-  party,
-  productsMap,
-  productsRolesMap,
-  fetchPartyGroup,
-}: Props) {
+function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: Props) {
   const history = useHistory();
 
   const [partyGroupState, setPartyGroupState] = React.useState<PartyGroupDetail>(partyGroup);
+  const loggedUser = useSelector(userSelectors.selectLoggedUser) as User;
+
   const { t } = useTranslation();
 
   const nextGroupStatus: PartyGroupStatus | undefined =
@@ -49,7 +48,7 @@ function GroupDetailPage({
 
   useEffect(() => {
     setPartyGroupState(partyGroup);
-  }, [partyGroup]);
+  }, [partyGroup, partyGroup.modifiedAt]);
 
   const goBack = () =>
     history.push(
@@ -69,7 +68,12 @@ function GroupDetailPage({
   ];
 
   const onGroupStatusUpdate = (nextGroupStatus: PartyGroupStatus) => {
-    setPartyGroupState({ ...partyGroupState, status: nextGroupStatus });
+    setPartyGroupState({
+      ...partyGroupState,
+      status: nextGroupStatus,
+      modifiedAt: new Date(),
+      modifiedBy: { name: loggedUser.name, surname: loggedUser.surname, id: loggedUser.uid },
+    });
   };
 
   return (
@@ -132,7 +136,6 @@ function GroupDetailPage({
             party={party}
             productRolesLists={productsRolesMap[product.id]}
             canEdit={canEdit}
-            fetchPartyGroup={fetchPartyGroup}
           />
         </Grid>
         <Grid item mb={3} mt={15} width="100%">
@@ -143,7 +146,6 @@ function GroupDetailPage({
             party={party}
             product={product}
             productsMap={productsMap}
-            fetchPartyGroup={fetchPartyGroup}
             nextGroupStatus={nextGroupStatus}
             onGroupStatusUpdate={onGroupStatusUpdate}
             canEdit={canEdit}

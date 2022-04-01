@@ -18,7 +18,6 @@ type Props = {
   isSuspended: boolean;
   productRolesLists: ProductRolesLists;
   canEdit: boolean;
-  fetchPartyGroup: () => void;
 };
 
 export default function MembersGroup({
@@ -28,7 +27,6 @@ export default function MembersGroup({
   isSuspended,
   productRolesLists,
   canEdit,
-  fetchPartyGroup,
 }: Props) {
   const history = useHistory();
 
@@ -160,7 +158,6 @@ export default function MembersGroup({
               onMemberStatusUpdate={onMemberStatusUpdate}
               onMemberDelete={onMemberDelete}
               canEdit={canEdit}
-              fetchPartyGroup={fetchPartyGroup}
             />
             {index !== partyGroup.members.length - 1 && (
               <Grid item xs={12} py={2}>
