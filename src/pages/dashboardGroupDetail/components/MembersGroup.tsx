@@ -18,6 +18,7 @@ type Props = {
   isSuspended: boolean;
   productRolesLists: ProductRolesLists;
   canEdit: boolean;
+  fetchPartyGroup: () => void;
 };
 
 export default function MembersGroup({
@@ -27,6 +28,7 @@ export default function MembersGroup({
   isSuspended,
   productRolesLists,
   canEdit,
+  fetchPartyGroup,
 }: Props) {
   const history = useHistory();
 
@@ -58,6 +60,7 @@ export default function MembersGroup({
 
   return (
     <Grid container py={2}>
+      {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
       {members.map((member, index) => {
         const userProduct = member.product;
         const isMemeberSuspended =
@@ -101,7 +104,7 @@ export default function MembersGroup({
                 </Typography>
               </Link>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={2}>
               <Typography
                 className="ShowDots"
                 color={isMemeberSuspended || isSuspended ? '#9E9E9E' : undefined}
@@ -118,7 +121,7 @@ export default function MembersGroup({
                     <Typography
                       title={transcodeProductRole2Title(r.role, productRolesLists)}
                       className="ShowDots"
-                      width="100%"
+                      width={isMemeberSuspended ? '20ch' : '30ch'}
                       color={r.status === 'SUSPENDED' || isSuspended ? '#9E9E9E' : undefined}
                     >
                       {transcodeProductRole2Title(r.role, productRolesLists)}
@@ -129,7 +132,7 @@ export default function MembersGroup({
             </Grid>
 
             {isMemeberSuspended && (
-              <Grid item xs={1}>
+              <Grid item xs={isMemeberSuspended ? 2 : 1}>
                 <Chip
                   label="Sospeso"
                   variant="outlined"
@@ -157,6 +160,7 @@ export default function MembersGroup({
               onMemberStatusUpdate={onMemberStatusUpdate}
               onMemberDelete={onMemberDelete}
               canEdit={canEdit}
+              fetchPartyGroup={fetchPartyGroup}
             />
             {index !== partyGroup.members.length - 1 && (
               <Grid item xs={12} py={2}>

@@ -22,6 +22,7 @@ type Props = {
   userProduct: PartyUserProduct | undefined;
   isSuspended: boolean;
   productRolesLists: ProductRolesLists;
+  fetchPartyGroup: () => void;
   onMemberStatusUpdate: (
     member: PartyProductUser,
     userProduct: PartyUserProduct,
@@ -41,6 +42,7 @@ export default function GroupMenu({
   onMemberStatusUpdate,
   onMemberDelete,
   canEdit,
+  fetchPartyGroup,
 }: Props) {
   const ITEM_HEIGHT = 48;
 
@@ -134,6 +136,7 @@ export default function GroupMenu({
       nextStatus
     )
       .then((_) => {
+        fetchPartyGroup();
         onMemberStatusUpdate(member, userProduct as PartyUserProduct, nextStatus);
         addNotify({
           id: 'ACTION_ON_PARTY_USER_COMPLETED',

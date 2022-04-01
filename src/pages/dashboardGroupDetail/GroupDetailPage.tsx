@@ -132,6 +132,7 @@ function GroupDetailPage({
             party={party}
             productRolesLists={productsRolesMap[product.id]}
             canEdit={canEdit}
+            fetchPartyGroup={fetchPartyGroup}
           />
         </Grid>
         <Grid item mb={3} mt={15} width="100%">
