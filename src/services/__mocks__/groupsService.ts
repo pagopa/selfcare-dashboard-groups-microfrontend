@@ -103,9 +103,9 @@ export const mockedGroups: Array<PartyGroupMock> = [
   {
     id: 'groupId6',
     name: 'Gruppo6',
-    description: 'groupId6 : use case ACTIVE group which does not have a selected product',
+    description: 'groupId6 : use case ACTIVE and user has no privileges ',
     institutionId: 'onboarded',
-    productId: '',
+    productId: 'prod-ciban',
     status: 'ACTIVE',
     membersIds: ['uid'],
     createdAt: new Date('2022-01-01'),

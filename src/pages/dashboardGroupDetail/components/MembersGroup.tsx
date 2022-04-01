@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PartyGroupDetail } from '../../../model/PartyGroup';
+import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
 import { Product } from '../../../model/Product';
 import { Party, UserStatus } from '../../../model/Party';
 import { ProductRolesLists, transcodeProductRole2Title } from '../../../model/ProductRole';
@@ -18,6 +18,7 @@ type Props = {
   isSuspended: boolean;
   productRolesLists: ProductRolesLists;
   canEdit: boolean;
+  onGroupStatusUpdate: (nextGroupStatus: PartyGroupStatus) => void;
 };
 
 export default function MembersGroup({
@@ -27,6 +28,7 @@ export default function MembersGroup({
   isSuspended,
   productRolesLists,
   canEdit,
+  onGroupStatusUpdate,
 }: Props) {
   const history = useHistory();
 
@@ -40,6 +42,7 @@ export default function MembersGroup({
   const onMemberDelete = (member: PartyProductUser) => {
     const nextMembers = members.filter((u) => u.id !== member.id);
     setMembers(nextMembers);
+    onGroupStatusUpdate(partyGroup.status);
     // eslint-disable-next-line functional/immutable-data
     partyGroup.members = nextMembers;
   };
@@ -58,6 +61,7 @@ export default function MembersGroup({
 
   return (
     <Grid container py={2}>
+      {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
       {members.map((member, index) => {
         const userProduct = member.product;
         const isMemeberSuspended =
@@ -101,7 +105,7 @@ export default function MembersGroup({
                 </Typography>
               </Link>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={2}>
               <Typography
                 className="ShowDots"
                 color={isMemeberSuspended || isSuspended ? '#9E9E9E' : undefined}
@@ -118,7 +122,7 @@ export default function MembersGroup({
                     <Typography
                       title={transcodeProductRole2Title(r.role, productRolesLists)}
                       className="ShowDots"
-                      width="100%"
+                      width={isMemeberSuspended ? '20ch' : '30ch'}
                       color={r.status === 'SUSPENDED' || isSuspended ? '#9E9E9E' : undefined}
                     >
                       {transcodeProductRole2Title(r.role, productRolesLists)}
@@ -129,7 +133,7 @@ export default function MembersGroup({
             </Grid>
 
             {isMemeberSuspended && (
-              <Grid item xs={1}>
+              <Grid item xs={isMemeberSuspended ? 2 : 1}>
                 <Chip
                   label="Sospeso"
                   variant="outlined"

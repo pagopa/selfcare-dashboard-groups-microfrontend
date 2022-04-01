@@ -19,7 +19,6 @@ type Props = {
   party: Party;
   product: Product;
   productsMap: ProductsMap;
-  fetchPartyGroup: () => void;
   onGroupStatusUpdate: (nextGroupStatus: PartyGroupStatus) => void;
   nextGroupStatus: PartyGroupStatus | undefined;
   canEdit: boolean;
