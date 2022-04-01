@@ -48,7 +48,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
 
   useEffect(() => {
     setPartyGroupState(partyGroup);
-  }, [partyGroup, partyGroup.modifiedAt]);
+  }, [partyGroup]);
 
   const goBack = () =>
     history.push(
