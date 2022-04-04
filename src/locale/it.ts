@@ -133,6 +133,7 @@ export default {
         groupNameDuplicated: 'Questo nome è già in uso',
         groupNamePlaceholder: 'Inserisci il nome del gruppo',
         description: 'Descrizione',
+        descriptionMaxLength: 'Max 200 caratteri',
         descriptionPlaceholder: 'Inserisci una descrizione',
         product: 'Prodotto',
         prductPlaceholter: 'Seleziona il prodotto',
