@@ -358,7 +358,7 @@ export default function GroupForm({
           //   u.products.find((p) => p.id === productSelected?.id)
 
           // ); // u.status === 'ACTIVE' we want also the suspended users, however the status should be evaluated from user.products[current Product].status
-          if (!containsInitialUsers(productUsersPage.content)) {
+          if (!containsInitialUsers(nextMembers)) {
             setAutomaticRemove(true);
           }
           void formik.setFieldValue('members', nextMembers, true);
@@ -504,7 +504,7 @@ export default function GroupForm({
                       const nextUsersSelected = isChecked
                         ? formik.values.members.filter((_s, index) => index !== checkedIndex)
                         : formik.values.members.concat(u);
-                      if (automaticRemove && containsInitialUsers(productUsers)) {
+                      if (automaticRemove && containsInitialUsers(nextUsersSelected)) {
                         setAutomaticRemove(false);
                       }
                       void formik.setFieldValue('members', nextUsersSelected, true);
