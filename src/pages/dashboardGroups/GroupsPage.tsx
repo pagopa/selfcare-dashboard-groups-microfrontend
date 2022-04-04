@@ -7,9 +7,12 @@ import useScrollSpy from 'react-use-scrollspy';
 import { userSelectors } from '@pagopa/selfcare-common-frontend/redux/slices/userSlice';
 import { User } from '@pagopa/selfcare-common-frontend/model/User';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { Product, ProductsMap } from '../../model/Product';
 import { Party } from '../../model/Party';
 import { useAppSelector } from '../../redux/hooks';
+import { ENV } from '../../utils/env';
 import AddGroupButton from './components/AddGroupButton';
 import NoGroups from './components/NoGroups';
 import GroupsProductSection from './components/GroupsProductSection';
@@ -21,6 +24,16 @@ interface Props {
 }
 
 function GroupsPage({ party, activeProducts, productsMap }: Props) {
+  const history = useHistory();
+
+  useEffect(() => {
+    if (party.userRole !== 'ADMIN') {
+      history.push(
+        resolvePathVariables(ENV.ROUTES.OVERVIEW, { institutionId: party.institutionId })
+      );
+    }
+  }, [party.institutionId]);
+
   useEffect(() => trackEvent('GROUP_LIST', { party_id: party.institutionId }), [party]);
   const { t } = useTranslation();
 
