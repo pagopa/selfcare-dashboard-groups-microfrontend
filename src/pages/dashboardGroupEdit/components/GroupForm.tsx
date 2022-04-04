@@ -406,7 +406,7 @@ export default function GroupForm({
             </Grid>
           </Grid>
           <Grid item container spacing={3} marginBottom={5}>
-            <Grid item xs={8} mb={3}>
+            <Grid item xs={8} mb={2}>
               <Typography variant="h6" sx={{ fontWeight: '700', color: '#5C6F82' }} pb={1}>
                 {t('dashboardGroupEdit.groupForm.formLabels.description')}
               </Typography>
@@ -421,6 +421,9 @@ export default function GroupForm({
                 rows={4}
                 inputProps={{ maxLength: 200 }}
               />
+              <Typography sx={{ fontSize: '14px' }}>
+                {t('dashboardGroupEdit.groupForm.formLabels.descriptionMaxLength')}
+              </Typography>
             </Grid>
           </Grid>
           <Grid item container spacing={3} marginBottom={4}>
