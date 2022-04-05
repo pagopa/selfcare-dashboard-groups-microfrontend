@@ -151,7 +151,6 @@ function renderCell(
           display: '-webkit-box',
           WebkitLineClamp: 2,
           WebkitBoxOrient: 'vertical' as const,
-          paddingBottom: '8px',
           width: '100%',
           color: params.row.status === 'SUSPENDED' ? '#9E9E9E' : undefined,
           fontSize: '14px',
