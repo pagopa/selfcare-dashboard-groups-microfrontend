@@ -243,7 +243,7 @@ export default {
         name: 'NOME',
         description: 'DESCRIZIONE',
         product: 'PRODOTTO',
-        referents: 'N.REFERENTI',
+        referents: 'N. REFERENTI',
       },
     },
     groupsProductFetchError: {

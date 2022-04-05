@@ -1,4 +1,4 @@
-import { Chip, Typography, Grid } from '@mui/material';
+import { Chip, Typography, Grid, Box } from '@mui/material';
 import { GridColDef, GridColumnHeaderParams, GridRenderCellParams } from '@mui/x-data-grid';
 import React, { CSSProperties, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
@@ -70,7 +70,7 @@ export function buildColumnDefs(
       disableColumnMenu: true,
       editable: false,
       valueGetter: (params) => (params.row as PartyGroup).membersCount,
-      renderCell: (params) => renderCell(params, undefined, onRowClick),
+      renderCell: (params) => showRefernts(params, onRowClick),
       renderHeader: showCustmHeader,
       sortable: false,
     },
@@ -209,6 +209,35 @@ function showName(
             )}
           </Grid>
         </>,
+        onRowClick
+      )}
+    </React.Fragment>
+  );
+}
+
+function showRefernts(params: GridRenderCellParams, onRowClick: (partyGroup: PartyGroup) => void) {
+  return (
+    <React.Fragment>
+      {renderCell(
+        params,
+        <Box sx={{ backgroundColor: '#F5F5F5', borderRadius: '4px' }}>
+          <Typography
+            sx={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical' as const,
+              width: '100%',
+              color: params.row.status === 'SUSPENDED' ? '#9E9E9E' : undefined,
+              fontSize: '14px',
+              fontWeight: 600,
+              padding: '4px',
+            }}
+          >
+            {`${(params.row as PartyGroup).membersCount} referenti`}
+          </Typography>
+        </Box>,
         onRowClick
       )}
     </React.Fragment>
