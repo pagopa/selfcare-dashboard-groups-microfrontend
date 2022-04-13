@@ -257,7 +257,7 @@ export default function GroupMenu({
   return (
     <>
       {!member.isCurrentUser && canEdit && (
-        <Grid item xs={1} display="flex" justifyContent="flex-end">
+        <Grid item xs={1} display="flex" justifyContent="flex-start">
           <IconButton
             sx={{ p: '0px', ':hover': { backgroundColor: 'transparent' } }}
             disableRipple
