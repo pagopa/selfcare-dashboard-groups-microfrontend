@@ -115,7 +115,7 @@ export default function MembersGroup({
                 {member.email}
               </Typography>
             </Grid>
-            <Grid item xs={isMemeberSuspended ? 3 : 4}>
+            <Grid item xs={3}>
               {userProduct?.roles?.map((r, index) => (
                 <Grid container key={index}>
                   <Grid item xs={isMemeberSuspended ? 8 : 12}>
@@ -132,8 +132,8 @@ export default function MembersGroup({
               ))}
             </Grid>
 
-            {isMemeberSuspended && (
-              <Grid item xs={isMemeberSuspended ? 2 : 1}>
+            <Grid item xs={2} display="flex" justifyContent="center">
+              {isMemeberSuspended && (
                 <Chip
                   label="Sospeso"
                   variant="outlined"
@@ -147,8 +147,8 @@ export default function MembersGroup({
                     height: '24px',
                   }}
                 />
-              </Grid>
-            )}
+              )}
+            </Grid>
 
             <GroupMenu
               member={member}
