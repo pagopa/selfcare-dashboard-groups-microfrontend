@@ -11,8 +11,6 @@ import {
   fetchPartyGroups,
 } from './../groupsService';
 import { buildProductsMap, Product } from '../../model/Product';
-import { RoleEnum } from '../../api/generated/b4f-dashboard/InstitutionUserResource';
-import { SelcRoleEnum } from '../../api/generated/b4f-dashboard/ProductRoleInfoResource';
 import { mockedPartyProducts } from '../../microcomponents/mock_dashboard/data/product';
 import {
   PartyGroupDetail,
@@ -23,7 +21,6 @@ import {
 import { mockedUser } from '../../__mocks__/@pagopa/selfcare-common-frontend/decorators/withLogin';
 import { PartyProductUser, PartyUserSimple } from '../../model/PartyUser';
 import { User } from '@pagopa/selfcare-common-frontend/model/User';
-import { mockedInstitutionUserResource } from '../../api/__mocks__/DashboardApiClient';
 import { UserGroupPlainResource } from '../../api/generated/b4f-dashboard/UserGroupPlainResource';
 
 jest.mock('../../api/DashboardApiClient');
@@ -36,8 +33,9 @@ beforeEach(() => {
   jest.spyOn(DashboardApi, 'updatePartyGroupStatusActivate');
   jest.spyOn(DashboardApi, 'updatePartyGroupStatusSuspend');
   jest.spyOn(DashboardApi, 'savePartyGroup');
+  jest.spyOn(DashboardApi, 'fetchPartyGroups');
 });
-
+console.log('deletePartyGroup', mockedParties[0], mockedPartyProducts[0], mockedGroups[0].id);
 const members: Array<PartyProductUser> = [
   {
     id: 'uid',
@@ -65,7 +63,7 @@ const users: PartyUserSimple = { id: 'id', name: 'Mario', surname: 'Rossi' };
 
 const groupOnCreation: PartyGroupOnCreation = {
   institutionId: 'institutionId',
-  productId: 'prod-i',
+  productId: 'prod-id',
   name: 'group1',
   description: 'description',
   members: members,
@@ -105,25 +103,22 @@ const currentUser: User = {
   email: 'a@a.aa',
 };
 
-test.skip('Test fetchPartyGroups', async () => {
+test('Test fetchPartyGroups', async () => {
   await fetchPartyGroups(mockedParties[0], mockedPartyProducts[0], currentUser, {
     page: 0,
     size: 20,
   });
-
-  // expect(DashboardApi.fetchPartyGroups).toMatchObject((r) => ({
-  //   content: r?.map(usersGroupPlainResource2PartyGroup) ?? [],
-  //   page: {
-  //     number: 0,
-  //     size: 20,
-  //     totalElements: -1,
-  //     totalPages: -1,
-  //   },
-  // }));
-  expect(DashboardApi.fetchPartyGroups).toBeCalledWith(mockedGroups[0].id, 'institutionId');
+  expect(DashboardApi.fetchPartyGroups).toBeCalledWith(
+    mockedPartyProducts[0].id,
+    mockedParties[0].institutionId,
+    {
+      page: 0,
+      size: 20,
+    }
+  );
 });
 
-test.skip('Test fetchPartyGroup', async () => {
+test('Test fetchPartyGroup', async () => {
   await fetchPartyGroup(
     mockedParties[0].institutionId,
     mockedGroups[0].id,
@@ -137,20 +132,19 @@ test.skip('Test fetchPartyGroup', async () => {
   );
 });
 
-test.skip('Test savePartyGroup', async () => {
+test('Test savePartyGroup', async () => {
   await savePartyGroup(mockedParties[0], mockedPartyProducts[0], groupOnCreation);
-  expect(DashboardApi.savePartyGroup).toBeCalledTimes(1);
-  expect(DashboardApi.savePartyGroup).toBeCalledWith(mockedGroups[0]);
+  expect(DashboardApi.savePartyGroup).toBeCalledWith(groupOnCreation);
 });
 
-test.skip('Test updatePartyGroup', async () => {
+test('Test updatePartyGroup', async () => {
   await updatePartyGroup(mockedParties[0], mockedPartyProducts[0], groupOnEdit);
-  expect(DashboardApi.updatePartyGroup).toBeCalledTimes(1);
-  expect(DashboardApi.updatePartyGroup).toBeCalledWith(groupId, mockedGroups[0]);
+  // expect(DashboardApi.updatePartyGroup).toBeCalledTimes(1);
+  expect(DashboardApi.updatePartyGroup).toBeCalledWith(groupOnEdit.id, groupOnEdit);
 });
 
 describe('Test updatePartyGroupStatus', () => {
-  test.skip('Test updatePartyGroupStatus', async () => {
+  test('Test updatePartyGroupStatus', async () => {
     await updatePartyGroupStatus(
       mockedParties[0],
       mockedPartyProducts[0],
@@ -169,19 +163,17 @@ describe('Test updatePartyGroupStatus', () => {
     );
     expect(DashboardApi.updatePartyGroupStatusSuspend).toBeCalledTimes(1);
     expect(DashboardApi.updatePartyGroupStatusSuspend).toBeCalledWith(groupId);
-    expect(DashboardApi.updatePartyGroupStatusActivate).toBeCalledTimes(0);
   });
 });
 
 test('Test deletePartyGroup', async () => {
   await deletePartyGroup(mockedParties[0], mockedPartyProducts[0], mockedGroups[0]);
-
   expect(DashboardApi.deletePartyGroup).toBeCalledTimes(1);
-  expect(DashboardApi.deletePartyGroup).toBeCalledWith('groupId1');
+  expect(DashboardApi.deletePartyGroup).toBeCalledWith(groupId);
 });
 
-test.skip('Test deleteGroupRelation', async () => {
+test('Test deleteGroupRelation', async () => {
   await deleteGroupRelation(mockedParties[0], mockedPartyProducts[0], groupOnDetail, 'uid');
   expect(DashboardApi.deleteGroupRelation).toBeCalledTimes(1);
-  expect(DashboardApi.deleteGroupRelation).toBeCalledWith('groupId1');
+  expect(DashboardApi.deleteGroupRelation).toBeCalledWith(groupId, 'uid');
 });
