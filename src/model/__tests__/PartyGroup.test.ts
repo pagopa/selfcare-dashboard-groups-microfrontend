@@ -2,31 +2,11 @@ import {
   usersGroupPlainResource2PartyGroup,
   usersGroupResource2PartyGroupDetail,
 } from '../PartyGroup';
-import {
-  StatusEnum,
-  UserGroupPlainResource,
-} from '../../api/generated/b4f-dashboard/UserGroupPlainResource';
-import { UserGroupResource } from '../../api/generated/b4f-dashboard/UserGroupResource';
 import { mockedUser } from '../../__mocks__/@pagopa/selfcare-common-frontend/decorators/withLogin';
 import { mockedPartyProducts } from './../../microcomponents/mock_dashboard/data/product';
-import { RoleEnum } from '../../api/generated/b4f-dashboard/InstitutionUserResource';
-import { SelcRoleEnum } from '../../api/generated/b4f-dashboard/ProductRoleInfoResource';
+import { userGroupPlainResource, usersGroupResource } from '../../api/__mocks__/DashboardApiClient';
 
 test('Test usersGroupPlainResource2PartyGroup', () => {
-  const userGroupPlainResource: UserGroupPlainResource = {
-    description: 'groupId1: descriptoion',
-    id: 'groupId1',
-    institutionId: 'onboarded',
-    membersCount: 1,
-    name: 'Gruppo1',
-    productId: 'prod-io',
-    status: StatusEnum.ACTIVE,
-    createdAt: new Date('2022-01-01'),
-    createdBy: 'uid',
-    modifiedAt: new Date('2022-01-01 16:00'),
-    modifiedBy: 'uid',
-  };
-
   const partyGroup = usersGroupPlainResource2PartyGroup(userGroupPlainResource);
   expect(partyGroup).toStrictEqual({
     id: 'groupId1',
@@ -42,37 +22,6 @@ test('Test usersGroupPlainResource2PartyGroup', () => {
 });
 
 test('Test usersGroupResource2PartyGroupDetail', () => {
-  const usersGroupResource: UserGroupResource = {
-    description: 'groupId1: descriptoion',
-    id: 'groupId1',
-    institutionId: 'onboarded',
-    members: [
-      {
-        certification: true,
-        email: 'address',
-        id: '1',
-        name: 'Name',
-        product: {
-          id: 'productId',
-          roleInfos: [
-            {
-              relationshipId: 'relationshipId',
-              role: RoleEnum.ADMIN,
-              selcRole: SelcRoleEnum.ADMIN,
-              status: 'ACTIVE',
-            },
-          ],
-        },
-        role: RoleEnum.ADMIN,
-        status: 'PENDING',
-        surname: 'LIMITED',
-      },
-    ],
-    name: 'Gruppo1',
-    productId: 'prod-io',
-    status: StatusEnum.ACTIVE,
-  };
-
   const partyGroup = usersGroupResource2PartyGroupDetail(
     usersGroupResource,
     mockedUser,

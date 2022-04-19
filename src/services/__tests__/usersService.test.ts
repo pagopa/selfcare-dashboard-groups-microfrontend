@@ -1,7 +1,4 @@
-import {
-  mockedInstitutionUserResource,
-  mockedProductUserResource,
-} from '../../api/__mocks__/DashboardApiClient';
+import { mockedProductUserResource } from '../../api/__mocks__/DashboardApiClient';
 import { DashboardApi } from '../../api/DashboardApiClient';
 import { fetchPartyProductUsers, updatePartyUserStatus } from '../usersService';
 import { mockedParties } from '../../microcomponents/mock_dashboard/data/party';
