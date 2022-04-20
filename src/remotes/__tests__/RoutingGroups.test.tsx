@@ -1,4 +1,4 @@
-import { screen, render, waitFor } from '@testing-library/react';
+import { screen, render, waitFor, fireEvent } from '@testing-library/react';
 import { createMemoryHistory, History } from 'history';
 import { Router, Route, Switch } from 'react-router';
 import { Provider } from 'react-redux';
@@ -44,12 +44,48 @@ const renderComponent = (
 };
 
 const toVerifyPath = async (path: string, title: string, history: History) => {
-  expect(screen.queryByText(title)).toBeNull();
+  expect(screen.queryByPlaceholderText(title)).toBeNull();
   history.push(path);
-  await waitFor(() => screen.getByText(title));
+  await waitFor(() => screen.queryByPlaceholderText(title));
 };
 
-test('test routing dashboardGroupsDetail', async () => {
+test('test routing group detail', async () => {
   const { history } = renderComponent();
   await toVerifyPath('/dashboard/onboarded/groups/groupId1', 'Dettaglio Gruppo', history);
+});
+
+test('test routing group list', async () => {
+  const { history } = renderComponent();
+  await toVerifyPath('/dashboard/onboarded/groups', 'Gruppi', history);
+});
+
+test('test routing modify group from group detail', async () => {
+  const { history } = renderComponent();
+  await toVerifyPath('/dashboard/onboarded/groups/groupId1', 'Dettaglio Gruppo', history);
+  const modifyButton = screen.getByText('Modifica');
+  fireEvent.click(modifyButton);
+  await toVerifyPath('/dashboard/onboarded/groups/groupId1/modify', 'Modifica gruppo', history);
+});
+
+test('test routing clone group from group detail', async () => {
+  const { history } = renderComponent();
+  await toVerifyPath('/dashboard/onboarded/groups/groupId1', 'Dettaglio Gruppo', history);
+  const cloneButton = screen.getByText('Duplica');
+  await waitFor(() => fireEvent.click(cloneButton));
+  await toVerifyPath('/dashboard/onboarded/groups/groupId1/clone', 'Duplica gruppo', history);
+});
+
+test('test routing add new group', async () => {
+  const { history } = renderComponent();
+  await toVerifyPath('/dashboard/onboarded/groups/add', 'Crea un nuovo gruppo', history);
+});
+
+test('test routing modify group', async () => {
+  const { history } = renderComponent();
+  await toVerifyPath('dashboard/onboarded/groups/groupId1/edit', 'Modifica gruppo', history);
+});
+
+test('test routing clone group', async () => {
+  const { history } = renderComponent();
+  await toVerifyPath('/dashboard/onboarded/groups/groupId1/clone', 'Duplica gruppo', history);
 });
