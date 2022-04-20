@@ -100,19 +100,21 @@ export function buildColumnDefs(
           ? showActions(party, product, p, onDelete, onStatusUpdate)
           : renderCell(
               p,
-              <Typography variant="h6">
-                <Link
-                  to={resolvePathVariables(
-                    DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_CLONE.path,
-                    {
-                      institutionId: party.institutionId,
-                      groupId: (p.row as PartyGroup).id,
-                    }
-                  )}
-                >
-                  {t('dashboardGroup.groupProductTableColumns.duplicateActionLink')}
-                </Link>
-              </Typography>
+              p.row.status !== 'SUSPENDED' && (
+                <Typography variant="h6">
+                  <Link
+                    to={resolvePathVariables(
+                      DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_CLONE.path,
+                      {
+                        institutionId: party.institutionId,
+                        groupId: (p.row as PartyGroup).id,
+                      }
+                    )}
+                  >
+                    {t('dashboardGroup.groupProductTableColumns.duplicateActionLink')}
+                  </Link>
+                </Typography>
+              )
             ),
       sortable: false,
     },
