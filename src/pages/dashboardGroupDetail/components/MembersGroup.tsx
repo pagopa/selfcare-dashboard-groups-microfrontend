@@ -92,9 +92,9 @@ export default function MembersGroup({
               >
                 <Typography
                   className="ShowDots"
+                  variant="h6"
                   sx={{
                     color: isSuspended ? '#a2adb8' : '#0073E6',
-                    fontWeight: 600,
                     justifyContent: 'flexStart',
                   }}
                   title={`${member.name} ${member.surname}`}
@@ -105,8 +105,10 @@ export default function MembersGroup({
                 </Typography>
               </Link>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <Typography
+                sx={{ fontSize: '14px' }}
+                variant="body2"
                 className="ShowDots"
                 color={isMemeberSuspended || isSuspended ? '#9E9E9E' : undefined}
                 title={member.email}
@@ -115,14 +117,16 @@ export default function MembersGroup({
                 {member.email}
               </Typography>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={2}>
               {userProduct?.roles?.map((r, index) => (
                 <Grid container key={index}>
                   <Grid item xs={isMemeberSuspended ? 8 : 12}>
                     <Typography
+                      variant="body2"
+                      sx={{ fontSize: '14px' }}
                       title={transcodeProductRole2Title(r.role, productRolesLists)}
                       className="ShowDots"
-                      width={isMemeberSuspended ? '20ch' : '30ch'}
+                      width={isMemeberSuspended ? '16ch' : '30ch'}
                       color={r.status === 'SUSPENDED' || isSuspended ? '#9E9E9E' : undefined}
                     >
                       {transcodeProductRole2Title(r.role, productRolesLists)}

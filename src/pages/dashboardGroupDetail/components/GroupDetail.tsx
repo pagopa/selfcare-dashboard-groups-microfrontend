@@ -55,7 +55,7 @@ function GroupDetail({
             {t('groupDetail.description')}
           </Typography>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={5}>
           <Typography variant="body2" className={groupStatusClass}>
             {partyGroup.description}
           </Typography>
