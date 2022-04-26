@@ -126,7 +126,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
           </Link>
         </Grid>
       </Grid>
-      <Grid container item xs={11}>
+      <Grid container item xs={12} sx={{ backgroundColor: '#FFFFFF', padding: '24px' }}>
         <Grid item mb={3} width="100%">
           <GroupDetail
             partyGroup={partyGroupState}
@@ -139,19 +139,19 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
             onGroupStatusUpdate={onGroupStatusUpdate}
           />
         </Grid>
-        <Grid item mb={3} mt={15} width="100%">
-          <GroupActions
-            partyGroup={partyGroupState}
-            isSuspended={isSuspended}
-            goBack={goBack}
-            party={party}
-            product={product}
-            productsMap={productsMap}
-            nextGroupStatus={nextGroupStatus}
-            onGroupStatusUpdate={onGroupStatusUpdate}
-            canEdit={canEdit}
-          />
-        </Grid>
+      </Grid>
+      <Grid item mb={3} mt={15} width="100%">
+        <GroupActions
+          partyGroup={partyGroupState}
+          isSuspended={isSuspended}
+          goBack={goBack}
+          party={party}
+          product={product}
+          productsMap={productsMap}
+          nextGroupStatus={nextGroupStatus}
+          onGroupStatusUpdate={onGroupStatusUpdate}
+          canEdit={canEdit}
+        />
       </Grid>
     </Grid>
   );

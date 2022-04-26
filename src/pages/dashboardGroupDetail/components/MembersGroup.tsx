@@ -70,7 +70,7 @@ export default function MembersGroup({
 
         return (
           <Grid key={member.id} item container spacing={1}>
-            <Grid item xs={4}>
+            <Grid item xs={3}>
               <Link
                 component="button"
                 disabled={isSuspended}
@@ -105,7 +105,7 @@ export default function MembersGroup({
                 </Typography>
               </Link>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={4}>
               <Typography
                 sx={{ fontSize: '14px' }}
                 variant="body2"
@@ -153,7 +153,6 @@ export default function MembersGroup({
                 />
               )}
             </Grid>
-
             <GroupMenu
               member={member}
               party={party}
