@@ -106,7 +106,7 @@ export function buildColumnDefs(
                     to={resolvePathVariables(
                       DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_CLONE.path,
                       {
-                        institutionId: party.institutionId,
+                        institutionId: party.partyId,
                         groupId: (p.row as PartyGroup).id,
                       }
                     )}

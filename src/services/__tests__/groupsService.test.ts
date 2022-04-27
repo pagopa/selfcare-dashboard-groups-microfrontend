@@ -110,7 +110,7 @@ test('Test fetchPartyGroups', async () => {
   });
   expect(DashboardApi.fetchPartyGroups).toBeCalledWith(
     mockedPartyProducts[0].id,
-    mockedParties[0].institutionId,
+    mockedParties[0].partyId,
     {
       page: 0,
       size: 20,
@@ -120,16 +120,13 @@ test('Test fetchPartyGroups', async () => {
 
 test('Test fetchPartyGroup', async () => {
   await fetchPartyGroup(
-    mockedParties[0].institutionId,
+    mockedParties[0].partyId,
     mockedGroups[0].id,
     mockedUser,
     buildProductsMap(mockedPartyProducts)
   );
 
-  expect(DashboardApi.fetchPartyGroup).toBeCalledWith(
-    mockedGroups[0].id,
-    mockedParties[0].institutionId
-  );
+  expect(DashboardApi.fetchPartyGroup).toBeCalledWith(mockedGroups[0].id, mockedParties[0].partyId);
 });
 
 test('Test savePartyGroup', async () => {

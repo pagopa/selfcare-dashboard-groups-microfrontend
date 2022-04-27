@@ -219,7 +219,7 @@ export const fetchPartyGroups = (
   const filteredContent = mockedGroups
     .slice()
     .filter((u) => {
-      if (u.institutionId !== party.institutionId) {
+      if (u.institutionId !== party.partyId) {
         return false;
       }
       return product.id.indexOf(u.productId) > -1;

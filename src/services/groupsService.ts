@@ -34,7 +34,7 @@ export const fetchPartyGroups = (
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
     return fetchPartyGroupsMocked(party, product, currentUser, pageRequest);
   } else {
-    return DashboardApi.fetchPartyGroups(product.id, party.institutionId, pageRequest).then(
+    return DashboardApi.fetchPartyGroups(product.id, party.partyId, pageRequest).then(
       (resources) => ({
         content: resources?.map(usersGroupPlainResource2PartyGroup) ?? [],
         page: {
@@ -108,13 +108,13 @@ export const updatePartyGroupStatus = (
   }
   if (status === 'ACTIVE') {
     trackEvent('GROUP_RESUME', {
-      party_id: party.institutionId,
+      party_id: party.partyId,
       product: product.id,
     });
     return DashboardApi.updatePartyGroupStatusActivate(group.id);
   } else if (status === 'SUSPENDED') {
     trackEvent('GROUP_SUSPEND', {
-      party_id: party.institutionId,
+      party_id: party.partyId,
       product: product.id,
     });
     return DashboardApi.updatePartyGroupStatusSuspend(group.id);
@@ -129,7 +129,7 @@ export const deletePartyGroup = (
   group: PartyGroup
 ): Promise<any> => {
   trackEvent('GROUP_DELETE', {
-    party_id: party.institutionId,
+    party_id: party.partyId,
     product: product.id,
   });
   /* istanbul ignore if */
@@ -147,7 +147,7 @@ export const deleteGroupRelation = (
   userId: string
 ): Promise<any> => {
   trackEvent('RELATION_GROUP_USER_DELETE', {
-    party_id: party.institutionId,
+    party_id: party.partyId,
     product: product.id,
   });
   /* istanbul ignore if */

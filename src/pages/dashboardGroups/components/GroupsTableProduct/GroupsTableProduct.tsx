@@ -68,7 +68,7 @@ const GroupsTableProduct = ({
             id: `FETCH_PARTY_GROUPS_${product.id}_ERROR`,
             blocking: false,
             error: reason,
-            techDescription: `An error occurred while fetching party groups ${party.institutionId} of product ${product.id}`,
+            techDescription: `An error occurred while fetching party groups ${party.partyId} of product ${product.id}`,
             toNotify: true,
           },
         ]);
