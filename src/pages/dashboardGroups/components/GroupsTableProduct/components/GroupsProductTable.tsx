@@ -1,13 +1,7 @@
 import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material';
 import { Box, styled } from '@mui/material';
-import {
-  DataGrid,
-  GridColDef,
-  GridRowSpacingParams,
-  GridSortDirection,
-  GridSortModel,
-} from '@mui/x-data-grid';
-import React, { useCallback, useMemo } from 'react';
+import { DataGrid, GridColDef, GridSortDirection, GridSortModel } from '@mui/x-data-grid';
+import React, { useMemo } from 'react';
 import { CustomPagination } from '@pagopa/selfcare-common-frontend';
 import { Page } from '@pagopa/selfcare-common-frontend/model/Page';
 import { useTranslation } from 'react-i18next';
@@ -122,14 +116,6 @@ export default function GroupsProductTable({
     [party, product, groups]
   );
 
-  const getRowSpacing = useCallback(
-    (params: GridRowSpacingParams) => ({
-      top: params.isFirstVisible ? 0 : 6,
-      bottom: params.isLastVisible ? 0 : 6,
-    }),
-    []
-  );
-
   return (
     <React.Fragment>
       <Box
@@ -143,7 +129,6 @@ export default function GroupsProductTable({
       >
         <CustomDataGrid
           className="CustomDataGrid"
-          getRowSpacing={getRowSpacing}
           autoHeight={true}
           rows={groups}
           rowCount={Math.max(page?.totalElements ?? 0, groups.length)}
