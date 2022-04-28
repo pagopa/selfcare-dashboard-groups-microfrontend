@@ -12,7 +12,7 @@ export type PartyGroupStatus = 'ACTIVE' | 'SUSPENDED';
 
 export type PartyGroup = {
   id: string;
-  institutionId: string;
+  partyId: string;
   productId: string;
   name: string;
   description: string;
@@ -29,7 +29,7 @@ export type PartyGroupDetail = PartyGroup & {
 };
 
 export type PartyGroupOnCreation = {
-  institutionId: string;
+  partyId: string;
   productId: string;
   name: string;
   description: string;
@@ -38,7 +38,7 @@ export type PartyGroupOnCreation = {
 
 export type PartyGroupOnEdit = {
   id: string;
-  institutionId: string;
+  partyId: string;
   productId: string;
   name: string;
   description: string;
@@ -49,7 +49,7 @@ export const usersGroupPlainResource2PartyGroup = (
   resource: UserGroupPlainResource
 ): PartyGroup => ({
   id: resource.id,
-  institutionId: resource.institutionId,
+  partyId: resource.institutionId,
   productId: resource.productId,
   name: resource.name,
   description: resource.description,
@@ -65,7 +65,7 @@ export const usersGroupResource2PartyGroupDetail = (
   product: Product
 ): PartyGroupDetail => ({
   id: resource.id,
-  institutionId: resource.institutionId,
+  partyId: resource.institutionId,
   productId: resource.productId,
   name: resource.name,
   description: resource.description,

@@ -154,7 +154,7 @@ export default function GroupForm({
             ? DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_DETAIL.path
             : DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.MAIN.path,
           {
-            institutionId: party.partyId,
+            partyId: party.partyId,
             groupId: (initialFormData as PartyGroupOnEdit).id,
           }
         )
@@ -164,7 +164,7 @@ export default function GroupForm({
     Object.fromEntries(
       Object.entries({
         name: !values.name ? requiredError : undefined,
-        institutionId: !values.institutionId ? requiredError : undefined,
+        partyId: !values.partyId ? requiredError : undefined,
         productId: !productSelected ? requiredError : undefined,
         description: !values.description ? requiredError : undefined,
         members: values.members?.length === 0 ? requiredError : undefined,

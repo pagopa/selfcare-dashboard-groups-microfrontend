@@ -35,7 +35,7 @@ export const mockedGroups: Array<PartyGroupMock> = [
     name: 'Gruppo1',
     description:
       'groupId1: use case ACTIVE group having 1 user on product in which loggedUser is ADMIN',
-    institutionId: 'onboarded',
+    partyId: 'onboarded',
     productId: 'prod-io',
     status: 'ACTIVE',
     membersIds: ['uid'],
@@ -49,7 +49,7 @@ export const mockedGroups: Array<PartyGroupMock> = [
     name: 'Gruppo2',
     description:
       'groupId2: use case ACTIVE group having 1 user on product in which loggedUser is LIMITED',
-    institutionId: 'onboarded',
+    partyId: 'onboarded',
     productId: 'prod-pn',
     status: 'ACTIVE',
     membersIds: ['uid7'],
@@ -63,7 +63,7 @@ export const mockedGroups: Array<PartyGroupMock> = [
     name: 'Gruppo3',
     description:
       'groupId3: use case SUSPENDED group having 2 users on product in which loggedUser is ADMIN',
-    institutionId: 'onboarded',
+    partyId: 'onboarded',
     productId: 'prod-io',
     status: 'SUSPENDED',
     membersIds: ['uid', '0'],
@@ -77,7 +77,7 @@ export const mockedGroups: Array<PartyGroupMock> = [
     name: 'Gruppo4',
     description:
       'groupId4: use case SUSPENDED group having 2 user on product in which loggedUser is LIMITED',
-    institutionId: 'onboarded',
+    partyId: 'onboarded',
     productId: 'prod-pn',
     status: 'SUSPENDED',
     membersIds: ['uid6', 'uid7'],
@@ -91,7 +91,7 @@ export const mockedGroups: Array<PartyGroupMock> = [
     id: 'groupId5',
     name: 'Gruppo5',
     description: 'groupId5 : use case ACTIVE group having 1 user ACTIVE and 1 user SUSPENDED',
-    institutionId: 'onboarded',
+    partyId: 'onboarded',
     productId: 'prod-io',
     status: 'ACTIVE',
     membersIds: ['uid', 'uid3'],
@@ -104,7 +104,7 @@ export const mockedGroups: Array<PartyGroupMock> = [
     id: 'groupId6',
     name: 'Gruppo6',
     description: 'groupId6 : use case ACTIVE and user has no privileges ',
-    institutionId: 'onboarded',
+    partyId: 'onboarded',
     productId: 'prod-ciban',
     status: 'ACTIVE',
     membersIds: ['uid'],
@@ -117,7 +117,7 @@ export const mockedGroups: Array<PartyGroupMock> = [
     id: 'groupId7',
     name: 'Gruppo7',
     description: 'groupId7 : use case ACTIVE group with loggedUser which is ADMIN in prod-io',
-    institutionId: 'onboarded',
+    partyId: 'onboarded',
     productId: 'prod-io',
     status: 'ACTIVE',
     membersIds: ['0'],
@@ -130,7 +130,7 @@ export const mockedGroups: Array<PartyGroupMock> = [
     id: 'groupId8',
     name: 'Gruppo8',
     description: 'Group to have a significant number on prod-io',
-    institutionId: 'onboarded',
+    partyId: 'onboarded',
     productId: 'prod-io',
     status: 'ACTIVE',
     membersIds: ['uid'],
@@ -143,7 +143,7 @@ export const mockedGroups: Array<PartyGroupMock> = [
     id: 'groupId9',
     name: 'Gruppo9',
     description: 'Group to have a significant number on prod-io',
-    institutionId: 'onboarded',
+    partyId: 'onboarded',
     productId: 'prod-io',
     status: 'ACTIVE',
     membersIds: ['uid'],
@@ -156,7 +156,7 @@ export const mockedGroups: Array<PartyGroupMock> = [
     id: 'groupId10',
     name: 'Gruppo10',
     description: 'Group to have a significant number on prod-io',
-    institutionId: 'onboarded',
+    partyId: 'onboarded',
     productId: 'prod-io',
     status: 'ACTIVE',
     membersIds: ['uid'],
@@ -169,7 +169,7 @@ export const mockedGroups: Array<PartyGroupMock> = [
     id: 'groupId11',
     name: 'Gruppo11',
     description: 'Group to have a significant number on prod-io',
-    institutionId: 'onboarded',
+    partyId: 'onboarded',
     productId: 'prod-io',
     status: 'ACTIVE',
     membersIds: ['uid'],
@@ -182,7 +182,7 @@ export const mockedGroups: Array<PartyGroupMock> = [
     id: 'groupId12',
     name: 'Gruppo12',
     description: 'Group to have a significant number on prod-io',
-    institutionId: 'onboarded',
+    partyId: 'onboarded',
     productId: 'prod-io',
     status: 'ACTIVE',
     membersIds: ['uid'],
@@ -195,7 +195,7 @@ export const mockedGroups: Array<PartyGroupMock> = [
     id: 'groupId13',
     name: 'Gruppo13',
     description: 'Group to have a significant number on prod-io',
-    institutionId: 'onboarded',
+    partyId: 'onboarded',
     productId: 'prod-io',
     status: 'ACTIVE',
     membersIds: ['uid'],
@@ -219,7 +219,7 @@ export const fetchPartyGroups = (
   const filteredContent = mockedGroups
     .slice()
     .filter((u) => {
-      if (u.institutionId !== party.partyId) {
+      if (u.partyId !== party.partyId) {
         return false;
       }
       return product.id.indexOf(u.productId) > -1;
@@ -281,13 +281,12 @@ export const updatePartyGroup = (
 };
 
 export const fetchPartyGroup = (
-  institutionId: string,
+  partyId: string,
   groupId: string,
   _currentUser: User,
   _productsMap: ProductsMap
 ): Promise<PartyGroupDetail | null> => {
-  const mockedGroup =
-    mockedGroups.find((u) => u.id === groupId && u.institutionId === institutionId) ?? null;
+  const mockedGroup = mockedGroups.find((u) => u.id === groupId && u.partyId === partyId) ?? null;
 
   if (mockedGroup !== null) {
     const clone: PartyGroupMock = cloneDeep(mockedGroup);

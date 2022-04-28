@@ -49,16 +49,16 @@ export const fetchPartyGroups = (
 };
 
 export const fetchPartyGroup = (
-  institutionId: string,
+  partyId: string,
   groupId: string,
   currentUser: User,
   productsMap: ProductsMap
 ): Promise<PartyGroupDetail | null> => {
   /* istanbul ignore if */
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
-    return fetchPartyGroupMocked(institutionId, groupId, currentUser, productsMap);
+    return fetchPartyGroupMocked(partyId, groupId, currentUser, productsMap);
   } else {
-    return DashboardApi.fetchPartyGroup(groupId, institutionId).then((resource) =>
+    return DashboardApi.fetchPartyGroup(groupId, partyId).then((resource) =>
       resource
         ? usersGroupResource2PartyGroupDetail(
             resource,

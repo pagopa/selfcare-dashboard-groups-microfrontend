@@ -62,7 +62,7 @@ const members: Array<PartyProductUser> = [
 const users: PartyUserSimple = { id: 'id', name: 'Mario', surname: 'Rossi' };
 
 const groupOnCreation: PartyGroupOnCreation = {
-  institutionId: 'institutionId',
+  partyId: 'partyId',
   productId: 'prod-id',
   name: 'group1',
   description: 'description',
@@ -71,7 +71,7 @@ const groupOnCreation: PartyGroupOnCreation = {
 
 const groupOnEdit: PartyGroupOnEdit = {
   id: 'id',
-  institutionId: 'institutionId',
+  partyId: 'partyId',
   productId: 'prod-i',
   name: 'group1',
   description: 'description',
@@ -80,7 +80,7 @@ const groupOnEdit: PartyGroupOnEdit = {
 
 const groupOnDetail: PartyGroupDetail = {
   id: 'groupId1',
-  institutionId: 'onboarded',
+  partyId: 'partyId',
   productId: 'prod-io',
   name: 'Gruppo1',
   description: 'description groupId1',

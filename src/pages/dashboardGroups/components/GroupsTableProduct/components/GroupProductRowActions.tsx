@@ -205,7 +205,7 @@ export default function GroupProductRowActions({
     handleClose();
     history.push(
       resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_EDIT.path, {
-        institutionId: party.partyId,
+        partyId: party.partyId,
         groupId: partyGroup.id,
       })
     );
@@ -215,7 +215,7 @@ export default function GroupProductRowActions({
     handleClose();
     history.push(
       resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_CLONE.path, {
-        institutionId: party.partyId,
+        partyId: party.partyId,
         groupId: partyGroup.id,
       })
     );

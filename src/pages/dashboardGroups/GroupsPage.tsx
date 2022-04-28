@@ -28,7 +28,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
 
   useEffect(() => {
     if (party.userRole !== 'ADMIN') {
-      history.push(resolvePathVariables(ENV.ROUTES.OVERVIEW, { institutionId: party.partyId }));
+      history.push(resolvePathVariables(ENV.ROUTES.OVERVIEW, { partyId: party.partyId }));
     }
   }, [party.partyId]);
 

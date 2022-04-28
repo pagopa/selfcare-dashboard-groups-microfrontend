@@ -149,7 +149,7 @@ export const DashboardApi = {
     const result = await apiClient.createUserGroupUsingPOST({
       body: {
         description: group.description,
-        institutionId: group.institutionId,
+        institutionId: group.partyId,
         members: group.members.map((u) => u.id),
         name: group.name,
         productId: group.productId,
