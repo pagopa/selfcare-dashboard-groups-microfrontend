@@ -48,9 +48,7 @@ function AddGroupPage({ party, activeProducts, productsMap }: Props) {
       <Grid item xs={12} mb={9}>
         <TitleBox
           title={t('dashboardGroupEdit.addGroupPage.title')}
-          subTitle={t('dashboardGroupEdit.addGroupPage.subTitle', {
-            partyDescription: `${party.description}`,
-          })}
+          subTitle={t('dashboardGroupEdit.addGroupPage.subTitle')}
         />
       </Grid>
       <Grid item xs={12}>

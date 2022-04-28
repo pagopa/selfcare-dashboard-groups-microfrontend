@@ -138,8 +138,8 @@ export default {
         product: 'Prodotto',
         prductPlaceholter: 'Seleziona il prodotto',
         noProductSelected: 'Nessun prodotto selezionato',
-        referents: 'Referenti',
-        referentsPlaceholter: 'Seleziona i referenti che vuoi assegnare al gruppo',
+        referents: 'Utenti',
+        referentsPlaceholter: 'Seleziona gli utenti che vuoi associare al gruppo',
         cancelActionLabel: 'Annulla',
         confirmActionLabel: 'Conferma',
       },
@@ -168,7 +168,8 @@ export default {
       groupPathDescription: 'Gruppi',
       pathDescription: 'Crea un nuovo gruppo',
       title: 'Crea un nuovo gruppo',
-      subTitle: `Inserisci i dati del gruppo che vuoi creare e assegna a gestire i gruppi per il {{partyDescription}}.`,
+      subTitle:
+        'Inserisci i dati del gruppo, associa i relativi utenti e seleziona il prodotto che gestirà.',
     },
     cloneGroupPage: {
       groupPathDescription: 'Gruppi',
@@ -181,7 +182,6 @@ export default {
       groupPathDescription: 'Gruppi',
       pathDescription: 'Modifica gruppo',
       title: 'Modifica gruppo',
-      subTitle: `Duplica il gruppo e modifica i dati`,
     },
   },
   dashboardGroup: {
