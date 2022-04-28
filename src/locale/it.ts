@@ -188,7 +188,7 @@ export default {
     groupsPage: {
       title: 'Gruppi',
       subTitle:
-        'Consulta e crea dei gruppi (es. uno per ogni Dipartimento o Ufficio) in modo da gestire meglio il lavoro del tuo Ente.',
+        'I gruppi sono un insieme di utenti, per esempio appartenenti allo stesso ufficio o dipartimento, a cui si affida la gestione dei prodotti. Qui puoi consultare i gruppi dell’ente e creare di nuovi.',
     },
     addGroupButton: {
       createActionLabel: 'Crea',
