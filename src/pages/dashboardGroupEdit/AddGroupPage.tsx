@@ -36,7 +36,6 @@ function AddGroupPage({ party, activeProducts, productsMap }: Props) {
 
   return (
     <Grid
-      container
       alignItems={'center'}
       px={2}
       mt={10}
