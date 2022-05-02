@@ -140,7 +140,7 @@ export default {
         noProductSelected: 'Nessun prodotto selezionato',
         referents: 'Utenti',
         referentsPlaceholter: 'Seleziona gli utenti che vuoi associare al gruppo',
-        cancelActionLabel: 'Annulla',
+        cancelActionLabel: 'Indietro',
         confirmActionLabel: 'Conferma',
       },
       notifySuccessfulSave: {
