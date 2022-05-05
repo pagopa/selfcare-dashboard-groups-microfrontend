@@ -85,7 +85,7 @@
           {
             "name": "institutionId",
             "in": "path",
-            "description": "Institution's unique identifier (i.e.: IPA code)",
+            "description": "Institution's unique internal identifier",
             "required": true,
             "style": "simple",
             "schema": {
@@ -131,7 +131,7 @@
           {
             "name": "institutionId",
             "in": "path",
-            "description": "Institution's unique identifier (i.e.: IPA code)",
+            "description": "Institution's unique internal identifier",
             "required": true,
             "style": "simple",
             "schema": {
@@ -202,7 +202,7 @@
           {
             "name": "institutionId",
             "in": "path",
-            "description": "Institution's unique identifier (i.e.: IPA code)",
+            "description": "Institution's unique internal identifier",
             "required": true,
             "style": "simple",
             "schema": {
@@ -251,7 +251,7 @@
           {
             "name": "institutionId",
             "in": "path",
-            "description": "Institution's unique identifier (i.e.: IPA code)",
+            "description": "Institution's unique internal identifier",
             "required": true,
             "style": "simple",
             "schema": {
@@ -330,7 +330,7 @@
           {
             "name": "institutionId",
             "in": "path",
-            "description": "Institution's unique identifier (i.e.: IPA code)",
+            "description": "Institution's unique internal identifier",
             "required": true,
             "style": "simple",
             "schema": {
@@ -388,7 +388,7 @@
           {
             "name": "institutionId",
             "in": "path",
-            "description": "Institution's unique identifier (i.e.: IPA code)",
+            "description": "Institution's unique internal identifier",
             "required": true,
             "style": "simple",
             "schema": {
@@ -469,7 +469,7 @@
           {
             "name": "institutionId",
             "in": "path",
-            "description": "Institution's unique identifier (i.e.: IPA code)",
+            "description": "Institution's unique internal identifier",
             "required": true,
             "style": "simple",
             "schema": {
@@ -694,7 +694,7 @@
           {
             "name": "institutionId",
             "in": "query",
-            "description": "Institution's unique identifier (i.e.: IPA code)",
+            "description": "Institution's unique internal identifier",
             "required": true,
             "style": "form",
             "schema": {
@@ -750,72 +750,17 @@
         ]
       }
     },
-    "/users/save-user": {
+    "/users/external-id": {
       "post": {
         "tags": ["user"],
-        "summary": "saveUser",
-        "description": "Save new user",
-        "operationId": "saveUserUsingPOST",
+        "summary": "getUserByExternalId",
+        "description": "Retrieve the user for a given internal id",
+        "operationId": "getUserByExternalIdUsingPOST",
         "parameters": [
           {
             "name": "institutionId",
             "in": "query",
-            "description": "Institution's unique identifier (i.e.: IPA code)",
-            "required": true,
-            "style": "form",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserIdResource"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": ["global"]
-          }
-        ]
-      }
-    },
-    "/users/search": {
-      "post": {
-        "tags": ["user"],
-        "summary": "search",
-        "description": "Retrieve the user for a given external id",
-        "operationId": "searchUsingPOST",
-        "parameters": [
-          {
-            "name": "institutionId",
-            "in": "query",
-            "description": "Institution's unique identifier (i.e.: IPA code)",
+            "description": "Institution's unique internal identifier",
             "required": true,
             "style": "form",
             "schema": {
@@ -864,61 +809,6 @@
       }
     },
     "/users/{id}": {
-      "get": {
-        "tags": ["user"],
-        "summary": "getUserByInternalId",
-        "description": "Retrieve the user by internal id",
-        "operationId": "getUserByInternalIdUsingGET",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "User's unique identifier",
-            "required": true,
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "institutionId",
-            "in": "query",
-            "description": "Institution's unique identifier (i.e.: IPA code)",
-            "required": true,
-            "style": "form",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResource"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": ["global"]
-          }
-        ]
-      },
       "put": {
         "tags": ["user"],
         "summary": "updateUser",
@@ -939,7 +829,7 @@
           {
             "name": "institutionId",
             "in": "query",
-            "description": "Institution's unique identifier (i.e.: IPA code)",
+            "description": "Institution's unique internal identifier",
             "required": true,
             "style": "form",
             "schema": {
@@ -971,41 +861,6 @@
           },
           "404": {
             "description": "Not Found"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": ["global"]
-          }
-        ]
-      },
-      "delete": {
-        "tags": ["user"],
-        "summary": "deleteUserById",
-        "description": "Delete user using internal id",
-        "operationId": "deleteUserByIdUsingDELETE",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "User's unique identifier",
-            "required": true,
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
           }
         },
         "security": [
@@ -1491,18 +1346,6 @@
   },
   "components": {
     "schemas": {
-      "certifiedBooleanResource": {
-        "title": "certifiedBooleanResource",
-        "type": "object",
-        "properties": {
-          "certified": {
-            "type": "boolean"
-          },
-          "value": {
-            "type": "string"
-          }
-        }
-      },
       "CreateUserDto": {
         "title": "CreateUserDto",
         "required": ["email", "name", "productRoles", "surname", "taxCode"],
@@ -1588,12 +1431,26 @@
       },
       "InstitutionResource": {
         "title": "InstitutionResource",
-        "required": ["fiscalCode", "id", "mailAddress", "name", "status", "userRole"],
+        "required": [
+          "externalId",
+          "fiscalCode",
+          "id",
+          "mailAddress",
+          "name",
+          "origin",
+          "originId",
+          "status",
+          "userRole"
+        ],
         "type": "object",
         "properties": {
           "category": {
             "type": "string",
             "description": "Institution's category"
+          },
+          "externalId": {
+            "type": "string",
+            "description": "Institution's unique external identifier (i.e.: IPA code)"
           },
           "fiscalCode": {
             "type": "string",
@@ -1601,7 +1458,12 @@
           },
           "id": {
             "type": "string",
-            "description": "Institution's unique identifier (i.e.: IPA code)"
+            "description": "Institution's unique internal identifier"
+          },
+          "institutionType": {
+            "type": "string",
+            "description": "Institution's type",
+            "enum": ["GSP", "PA", "PT", "SCP"]
           },
           "mailAddress": {
             "type": "string",
@@ -1610,6 +1472,14 @@
           "name": {
             "type": "string",
             "description": "Institution's name"
+          },
+          "origin": {
+            "type": "string",
+            "description": "Institution's details origin"
+          },
+          "originId": {
+            "type": "string",
+            "description": "Institution's details origin Id"
           },
           "status": {
             "type": "string",
@@ -1965,7 +1835,7 @@
         "properties": {
           "email": {
             "type": "string",
-            "description": "${swagger.dashboard.user.model.institutionalEmail}"
+            "description": "User's institutional email"
           },
           "fiscalCode": {
             "type": "string",
@@ -2002,29 +1872,6 @@
           "name": {
             "type": "string",
             "description": "Users group's name"
-          }
-        }
-      },
-      "UserDto": {
-        "title": "UserDto",
-        "required": ["email", "fiscalCode", "name", "surname"],
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's institution email"
-          },
-          "fiscalCode": {
-            "type": "string",
-            "description": "User's fiscal code"
-          },
-          "name": {
-            "type": "string",
-            "description": "User's name"
-          },
-          "surname": {
-            "type": "string",
-            "description": "User's surname"
           }
         }
       },
@@ -2158,43 +2005,31 @@
           }
         }
       },
-      "UserIdResource": {
-        "title": "UserIdResource",
-        "required": ["id"],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "User's unique identifier",
-            "format": "uuid"
-          }
-        }
-      },
       "UserResource": {
         "title": "UserResource",
-        "required": ["id"],
+        "required": ["certification", "email", "fiscalCode", "name", "surname"],
         "type": "object",
         "properties": {
-          "email": {
-            "description": "User's institution email",
-            "$ref": "#/components/schemas/certifiedBooleanResource"
+          "certification": {
+            "type": "boolean",
+            "description": "User's certification source",
+            "example": false
           },
-          "familyName": {
-            "description": "User's surname",
-            "$ref": "#/components/schemas/certifiedBooleanResource"
+          "email": {
+            "type": "string",
+            "description": "User's email"
           },
           "fiscalCode": {
             "type": "string",
             "description": "User's fiscal code"
           },
-          "id": {
-            "type": "string",
-            "description": "User's unique identifier",
-            "format": "uuid"
-          },
           "name": {
-            "description": "User's name",
-            "$ref": "#/components/schemas/certifiedBooleanResource"
+            "type": "string",
+            "description": "User's name"
+          },
+          "surname": {
+            "type": "string",
+            "description": "User's surname"
           }
         }
       }
