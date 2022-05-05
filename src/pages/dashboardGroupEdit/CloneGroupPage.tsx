@@ -21,7 +21,7 @@ function CloneGroupPage({ party, activeProducts, productsMap, partyGroup }: Prop
   const goBack = () =>
     history.push(
       resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_DETAIL.path, {
-        institutionId: party.institutionId,
+        institutionId: party.partyId,
         groupId: partyGroup.id,
       })
     );
