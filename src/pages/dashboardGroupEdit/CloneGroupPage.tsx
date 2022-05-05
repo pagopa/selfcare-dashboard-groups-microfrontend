@@ -18,6 +18,14 @@ function CloneGroupPage({ party, activeProducts, productsMap, partyGroup }: Prop
   const history = useHistory();
   const { t } = useTranslation();
 
+  const goBack = () =>
+    history.push(
+      resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_DETAIL.path, {
+        institutionId: party.institutionId,
+        groupId: partyGroup.id,
+      })
+    );
+
   const paths = [
     {
       description: t('dashboardGroupEdit.cloneGroupPage.groupPathDescription'),
@@ -28,6 +36,10 @@ function CloneGroupPage({ party, activeProducts, productsMap, partyGroup }: Prop
             groupId: partyGroup.id,
           })
         ),
+    },
+    {
+      description: `${partyGroup.name}`,
+      onClick: goBack,
     },
     {
       description: t('dashboardGroupEdit.cloneGroupPage.pathDescription'),

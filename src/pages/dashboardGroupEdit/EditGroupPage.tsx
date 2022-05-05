@@ -18,6 +18,14 @@ function EditGroupPage({ party, activeProducts, productsMap, partyGroup }: Props
   const history = useHistory();
   const { t } = useTranslation();
 
+  const goBack = () =>
+    history.push(
+      resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_DETAIL.path, {
+        institutionId: party.institutionId,
+        groupId: partyGroup.id,
+      })
+    );
+
   const paths = [
     {
       description: t('dashboardGroupEdit.editGroupPage.groupPathDescription'),
@@ -28,6 +36,10 @@ function EditGroupPage({ party, activeProducts, productsMap, partyGroup }: Props
             groupId: partyGroup.id,
           })
         ),
+    },
+    {
+      description: `${partyGroup.name}`,
+      onClick: goBack,
     },
     {
       description: t('dashboardGroupEdit.editGroupPage.pathDescription'),
@@ -46,10 +58,7 @@ function EditGroupPage({ party, activeProducts, productsMap, partyGroup }: Props
         <ProductNavigationBar paths={paths} />
       </Grid>
       <Grid item xs={12} mb={9}>
-        <TitleBox
-          title={t('dashboardGroupEdit.editGroupPage.title')}
-          subTitle={t('dashboardGroupEdit.editGroupPage.subTitle')}
-        />
+        <TitleBox title={t('dashboardGroupEdit.editGroupPage.title')} />
       </Grid>
       <Grid item xs={12}>
         <GroupForm
