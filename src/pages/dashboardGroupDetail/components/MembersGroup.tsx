@@ -42,9 +42,11 @@ export default function MembersGroup({
   const onMemberDelete = (member: PartyProductUser) => {
     const nextMembers = members.filter((u) => u.id !== member.id);
     setMembers(nextMembers);
-    onGroupStatusUpdate(partyGroup.status);
     // eslint-disable-next-line functional/immutable-data
     partyGroup.members = nextMembers;
+    // eslint-disable-next-line functional/immutable-data
+    partyGroup.membersCount = nextMembers.length;
+    onGroupStatusUpdate(partyGroup.status);
   };
 
   const onMemberStatusUpdate = (
