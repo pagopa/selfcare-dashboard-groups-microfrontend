@@ -91,7 +91,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
         <Grid item xs={6}>
           <Box display="flex">
             <Box>
-              <Typography variant="h1">{t('groupDetailPage.title')}</Typography>
+              <Typography variant="h4">{t('groupDetailPage.title')}</Typography>
             </Box>
             <Box>
               {isSuspended && (

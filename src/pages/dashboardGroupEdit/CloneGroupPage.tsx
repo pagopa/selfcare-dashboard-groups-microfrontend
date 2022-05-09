@@ -47,6 +47,8 @@ function CloneGroupPage({ party, activeProducts, productsMap, partyGroup }: Prop
       </Grid>
       <Grid item xs={12} mb={9}>
         <TitleBox
+          variantTitle="h4"
+          variantSubTitle="body1"
           title={t('dashboardGroupEdit.cloneGroupPage.title')}
           subTitle={t('dashboardGroupEdit.cloneGroupPage.subTitle')}
         />

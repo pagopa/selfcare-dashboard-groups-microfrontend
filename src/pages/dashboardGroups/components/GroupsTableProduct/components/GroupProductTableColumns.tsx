@@ -101,7 +101,14 @@ export function buildColumnDefs(
           : renderCell(
               p,
               p.row.status !== 'SUSPENDED' && (
-                <Typography variant="h6">
+                <Typography
+                  className="duplicateLink"
+                  sx={{
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    '&.duplicateLink>a': { color: '#0073E6' },
+                  }}
+                >
                   <Link
                     to={resolvePathVariables(
                       DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_CLONE.path,
@@ -188,6 +195,7 @@ function showName(
 ) {
   const isSuspended = isGroupSuspended(params.row as PartyGroup);
   const showChip = canShowChip && isSuspended;
+
   return (
     <React.Fragment>
       {renderCell(
@@ -195,7 +203,7 @@ function showName(
         <>
           <Grid container sx={{ width: '100%' }}>
             <Grid item xs={showChip ? 7 : 12} sx={{ width: '100%' }}>
-              <Typography variant="h6" color={isSuspended ? '#9E9E9E' : undefined}>
+              <Typography sx={{ fontSize: '16px' }} color={isSuspended ? '#9E9E9E' : undefined}>
                 {params.row.name}
               </Typography>
             </Grid>
@@ -203,7 +211,11 @@ function showName(
               <Grid
                 item
                 xs={5}
-                sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  alignItems: 'center',
+                }}
               >
                 <TableChip text="Sospeso" />
               </Grid>
@@ -248,10 +260,11 @@ function showRefernts(params: GridRenderCellParams, onRowClick: (partyGroup: Par
 function TableChip({ text }: { text: string }) {
   return (
     <Chip
+      size="small"
       label={text}
       sx={{
-        fontSize: '14px',
-        fontWeight: '600',
+        fontSize: '14px !important',
+        fontWeight: '400',
         color: '#17324D',
         backgroundColor: '#E0E0E0',
         paddingBottom: '1px',

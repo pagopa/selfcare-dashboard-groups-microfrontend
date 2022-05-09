@@ -92,8 +92,9 @@ export default function MembersGroup({
               >
                 <Typography
                   className="ShowDots"
-                  variant="h6"
                   sx={{
+                    fontSize: '16px',
+                    fontWeight: '600',
                     color: isSuspended ? '#a2adb8' : '#0073E6',
                     justifyContent: 'flexStart',
                   }}
