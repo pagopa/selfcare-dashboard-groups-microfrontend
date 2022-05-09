@@ -71,7 +71,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
     [productsFetchStatus]
   );
 
-  const titleVariant = 'h1';
+  const titleVariant = 'h4';
   const mbTitle = 2;
 
   return (
@@ -88,6 +88,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
               title={t('dashboardGroup.groupsPage.title')}
               variantTitle={titleVariant}
               mbTitle={mbTitle}
+              variantSubTitle="body1"
               subTitle={t('dashboardGroup.groupsPage.subTitle')}
             />
           </Grid>
