@@ -25,7 +25,7 @@ export default function GroupsProductSection({
     <Grid container direction="row">
       {fetchStatus.loading || !fetchStatus.noData ? (
         <Grid item xs={12} sx={{ mt: 7 }}>
-          <Typography variant="h2" id={product.id}>
+          <Typography variant="h4" id={product.id}>
             {product.title}
           </Typography>
         </Grid>
