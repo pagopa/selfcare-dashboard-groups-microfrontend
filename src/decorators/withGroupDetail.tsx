@@ -18,7 +18,7 @@ export type withGroupDetailProps = {
 };
 
 type GroupUrlParams = {
-  institutionId: string;
+  partyId: string;
   groupId: string;
 };
 
@@ -28,7 +28,7 @@ export default function withGroupDetail<T extends withGroupDetailProps>(
   const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
   const ComponentWithGroupDetail = (props: T) => {
-    const { institutionId, groupId } = useParams<GroupUrlParams>();
+    const { partyId, groupId } = useParams<GroupUrlParams>();
 
     const fetchGroupDetail = useGroupDetail();
 
@@ -38,17 +38,17 @@ export default function withGroupDetail<T extends withGroupDetailProps>(
     const history = useHistory();
 
     const doFetch = () => {
-      fetchGroupDetail(institutionId, groupId, props.productsMap)
+      fetchGroupDetail(partyId, groupId, props.productsMap)
         .then((group) => {
           if (group === null) {
             const goBackUrl = resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.path, {
-              institutionId,
+              partyId,
             });
 
             addError({
-              id: 'INVALID_PARTY_GROUP_ID_' + groupId + '__' + institutionId,
+              id: 'INVALID_PARTY_GROUP_ID_' + groupId + '__' + partyId,
               blocking: false,
-              techDescription: `Selected an invalid group Id ${groupId} and/or institution id ${institutionId}`,
+              techDescription: `Selected an invalid group Id ${groupId} and/or institution id ${partyId}`,
               toNotify: false,
               error: new Error('INVALID_PARTY_GROUP_ID_INSTITUTION_ID'),
               onClose: () => history.push(goBackUrl),
@@ -71,15 +71,13 @@ export default function withGroupDetail<T extends withGroupDetailProps>(
 
     useEffect(() => {
       if (props.party.userRole !== 'ADMIN') {
-        history.push(resolvePathVariables(ENV.ROUTES.OVERVIEW, { institutionId }));
-      } else if (institutionId && groupId) {
+        history.push(resolvePathVariables(ENV.ROUTES.OVERVIEW, { partyId }));
+      } else if (partyId && groupId) {
         doFetch();
       } else {
-        throw new Error(
-          'Using withGroupDetail decorator under a path without institutionId or groupId'
-        );
+        throw new Error('Using withGroupDetail decorator under a path without partyId or groupId');
       }
-    }, [institutionId, groupId]);
+    }, [partyId, groupId]);
 
     return partyGroup ? (
       <WrappedComponent {...props} partyGroup={partyGroup} fetchPartyGroup={doFetch} />

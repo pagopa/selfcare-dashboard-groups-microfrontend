@@ -53,7 +53,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
   const goBack = () =>
     history.push(
       resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.MAIN.path, {
-        institutionId: party.institutionId,
+        partyId: party.partyId,
       })
     );
 

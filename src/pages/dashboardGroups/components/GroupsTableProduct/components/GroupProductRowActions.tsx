@@ -148,7 +148,7 @@ export default function GroupProductRowActions({
         id: 'INVALID_STATUS_TRANSITION',
         blocking: false,
         error: new Error('INVALID_STATUS_TRANSITION'),
-        techDescription: `Invalid status transition while updating party (${party.institutionId}) group (${partyGroup.id}): ${partyGroup.status}`,
+        techDescription: `Invalid status transition while updating party (${party.partyId}) group (${partyGroup.id}): ${partyGroup.status}`,
         toNotify: true,
       });
 
@@ -205,7 +205,7 @@ export default function GroupProductRowActions({
     handleClose();
     history.push(
       resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_EDIT.path, {
-        institutionId: party.institutionId,
+        partyId: party.partyId,
         groupId: partyGroup.id,
       })
     );
@@ -215,7 +215,7 @@ export default function GroupProductRowActions({
     handleClose();
     history.push(
       resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_CLONE.path, {
-        institutionId: party.institutionId,
+        partyId: party.partyId,
         groupId: partyGroup.id,
       })
     );

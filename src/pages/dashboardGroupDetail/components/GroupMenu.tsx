@@ -64,7 +64,7 @@ export default function GroupMenu({
     handleClose();
     addNotify({
       component: 'SessionModal',
-      id: 'Notify_Example',
+      id: 'CHANGE_ROLE_STATUS_MODAL',
       title:
         role?.status === 'ACTIVE'
           ? t('groupMenu.confirmAction.titleSuspended')
@@ -118,7 +118,7 @@ export default function GroupMenu({
         id: 'INVALID_STATUS_TRANSITION',
         blocking: false,
         error: new Error('INVALID_STATUS_TRANSITION'),
-        techDescription: `Invalid status transition while updating party (${party.institutionId}) user (${member.id}): ${member.status}`,
+        techDescription: `Invalid status transition while updating party (${party.partyId}) user (${member.id}): ${member.status}`,
         toNotify: true,
       });
 
@@ -186,7 +186,7 @@ export default function GroupMenu({
     handleClose();
     addNotify({
       component: 'SessionModal',
-      id: 'Notify_Example',
+      id: 'DISSOCIATE_ACTION_MODAL',
       title: t('groupMenu.confirmDisociateAction.title'),
       message: (
         <>

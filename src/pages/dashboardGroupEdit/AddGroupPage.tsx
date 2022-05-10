@@ -25,7 +25,7 @@ function AddGroupPage({ party, activeProducts, productsMap }: Props) {
       onClick: () =>
         history.push(
           resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.MAIN.path, {
-            institutionId: party.institutionId,
+            partyId: party.partyId,
           })
         ),
     },
@@ -63,7 +63,7 @@ function AddGroupPage({ party, activeProducts, productsMap }: Props) {
               name: '',
               description: '',
               members: [],
-              institutionId: party.institutionId,
+              partyId: party.partyId,
               productId: '',
             } as PartyGroupOnCreation
           }

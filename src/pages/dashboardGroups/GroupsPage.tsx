@@ -28,13 +28,11 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
 
   useEffect(() => {
     if (party.userRole !== 'ADMIN') {
-      history.push(
-        resolvePathVariables(ENV.ROUTES.OVERVIEW, { institutionId: party.institutionId })
-      );
+      history.push(resolvePathVariables(ENV.ROUTES.OVERVIEW, { partyId: party.partyId }));
     }
-  }, [party.institutionId]);
+  }, [party.partyId]);
 
-  useEffect(() => trackEvent('GROUP_LIST', { party_id: party.institutionId }), [party]);
+  useEffect(() => trackEvent('GROUP_LIST', { party_id: party.partyId }), [party]);
   const { t } = useTranslation();
 
   const prodSectionRefs = useMemo(
