@@ -98,6 +98,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
                 <Chip
                   label="Sospeso"
                   variant="outlined"
+                  size="small"
                   sx={{
                     fontWeight: '600',
                     fontSize: '14px',

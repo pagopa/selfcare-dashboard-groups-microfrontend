@@ -383,7 +383,7 @@ export default function GroupForm({
           <Grid sx={{ width: '985px', backgroundColor: '#FFFFFF', padding: '24px' }} xs={9}>
             <Grid item container spacing={3} marginBottom={5}>
               <Grid item xs={10} mb={3}>
-                <Typography variant="h6" sx={{ fontWeight: '700', color: '#5C6F82' }} pb={1}>
+                <Typography sx={{ fontSize: '16px', fontWeight: '700', color: '#5C6F82' }} pb={1}>
                   {t('dashboardGroupEdit.groupForm.formLabels.groupName')}
                 </Typography>
                 <CustomTextField
@@ -408,7 +408,7 @@ export default function GroupForm({
             </Grid>
             <Grid item container spacing={3} marginBottom={5}>
               <Grid item xs={10} mb={2}>
-                <Typography variant="h6" sx={{ fontWeight: '700', color: '#5C6F82' }} pb={1}>
+                <Typography sx={{ fontSize: '16px', fontWeight: '700', color: '#5C6F82' }} pb={1}>
                   {t('dashboardGroupEdit.groupForm.formLabels.description')}
                 </Typography>
                 <CustomTextField
@@ -429,7 +429,7 @@ export default function GroupForm({
             </Grid>
             <Grid item container spacing={3} marginBottom={4}>
               <Grid item xs={5} mb={3}>
-                <Typography variant="h6" sx={{ fontWeight: '700', color: '#5C6F82' }} pb={1}>
+                <Typography sx={{ fontSize: '16px', fontWeight: '700', color: '#5C6F82' }} pb={1}>
                   {t('dashboardGroupEdit.groupForm.formLabels.product')}
                 </Typography>
 
@@ -475,7 +475,7 @@ export default function GroupForm({
 
             <Grid item container spacing={3} marginBottom={5}>
               <Grid item xs={10} mb={3}>
-                <Typography variant="h6" sx={{ fontWeight: '700', color: '#5C6F82' }} pb={1}>
+                <Typography sx={{ fontSize: '16px', fontWeight: '700', color: '#5C6F82' }} pb={1}>
                   {t('dashboardGroupEdit.groupForm.formLabels.referents')}
                 </Typography>
 
@@ -564,7 +564,7 @@ export default function GroupForm({
           <Grid item container spacing={3}>
             <Grid item xs={3} mt={8}>
               <Button
-                sx={{ width: '100%' }}
+                sx={{ width: '100%', height: '40px !important' }}
                 color="primary"
                 variant="outlined"
                 onClick={() => onExit(goBackInner)}
@@ -575,7 +575,7 @@ export default function GroupForm({
             <Grid item xs={3} mt={8}>
               <Button
                 disabled={(!isClone && !formik.dirty) || !formik.isValid}
-                sx={{ width: '100%' }}
+                sx={{ width: '100%', height: '40px !important' }}
                 color="primary"
                 variant="contained"
                 type="submit"

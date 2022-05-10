@@ -47,6 +47,8 @@ function AddGroupPage({ party, activeProducts, productsMap }: Props) {
       </Grid>
       <Grid item xs={12} mb={9}>
         <TitleBox
+          variantTitle="h4"
+          variantSubTitle="body1"
           title={t('dashboardGroupEdit.addGroupPage.title')}
           subTitle={t('dashboardGroupEdit.addGroupPage.subTitle')}
         />
