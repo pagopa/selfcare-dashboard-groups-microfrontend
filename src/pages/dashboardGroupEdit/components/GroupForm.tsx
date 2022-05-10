@@ -154,7 +154,7 @@ export default function GroupForm({
             ? DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_DETAIL.path
             : DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.MAIN.path,
           {
-            institutionId: party.institutionId,
+            partyId: party.partyId,
             groupId: (initialFormData as PartyGroupOnEdit).id,
           }
         )
@@ -164,7 +164,7 @@ export default function GroupForm({
     Object.fromEntries(
       Object.entries({
         name: !values.name ? requiredError : undefined,
-        institutionId: !values.institutionId ? requiredError : undefined,
+        partyId: !values.partyId ? requiredError : undefined,
         productId: !productSelected ? requiredError : undefined,
         description: !values.description ? requiredError : undefined,
         members: values.members?.length === 0 ? requiredError : undefined,
@@ -176,7 +176,7 @@ export default function GroupForm({
       isEdit ? 'GROUP_UPDATE' : isClone ? 'GROUP_CLONE' : 'GROUP_CREATE',
       Object.assign(
         {
-          party_id: party.institutionId,
+          party_id: party.partyId,
         },
         isEdit
           ? { group_id: (initialFormData as PartyGroupOnEdit).id }
@@ -369,7 +369,7 @@ export default function GroupForm({
           id: 'FETCH_PRODUCT_USERS',
           blocking: false,
           error: reason,
-          techDescription: `An error occurred while fetching product users ${party.institutionId} of product ${productSelected.id}`,
+          techDescription: `An error occurred while fetching product users ${party.partyId} of product ${productSelected.id}`,
           toNotify: true,
         })
       )

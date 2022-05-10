@@ -21,7 +21,7 @@ function EditGroupPage({ party, activeProducts, productsMap, partyGroup }: Props
   const goBack = () =>
     history.push(
       resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_DETAIL.path, {
-        institutionId: party.institutionId,
+        partyId: party.partyId,
         groupId: partyGroup.id,
       })
     );
@@ -32,7 +32,7 @@ function EditGroupPage({ party, activeProducts, productsMap, partyGroup }: Props
       onClick: () =>
         history.push(
           resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.MAIN.path, {
-            institutionId: party.institutionId,
+            partyId: party.partyId,
             groupId: partyGroup.id,
           })
         ),
@@ -71,7 +71,7 @@ function EditGroupPage({ party, activeProducts, productsMap, partyGroup }: Props
               name: partyGroup.name,
               description: partyGroup.description,
               members: partyGroup.members,
-              institutionId: partyGroup.institutionId,
+              partyId: partyGroup.partyId,
               productId: partyGroup.productId,
             } as PartyGroupOnEdit
           }

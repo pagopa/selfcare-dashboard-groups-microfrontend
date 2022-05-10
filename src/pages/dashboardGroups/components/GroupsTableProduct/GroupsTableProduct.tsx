@@ -68,7 +68,7 @@ const GroupsTableProduct = ({
             id: `FETCH_PARTY_GROUPS_${product.id}_ERROR`,
             blocking: false,
             error: reason,
-            techDescription: `An error occurred while fetching party groups ${party.institutionId} of product ${product.id}`,
+            techDescription: `An error occurred while fetching party groups ${party.partyId} of product ${product.id}`,
             toNotify: true,
           },
         ]);
@@ -124,7 +124,7 @@ const GroupsTableProduct = ({
               DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_DETAIL.path,
               {
                 groupId: partyGroup.id,
-                institutionId: partyGroup.institutionId,
+                partyId: partyGroup.partyId,
               }
             )
           )

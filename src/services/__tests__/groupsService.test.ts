@@ -62,7 +62,7 @@ const members: Array<PartyProductUser> = [
 const users: PartyUserSimple = { id: 'id', name: 'Mario', surname: 'Rossi' };
 
 const groupOnCreation: PartyGroupOnCreation = {
-  institutionId: 'institutionId',
+  partyId: 'partyId',
   productId: 'prod-id',
   name: 'group1',
   description: 'description',
@@ -71,7 +71,7 @@ const groupOnCreation: PartyGroupOnCreation = {
 
 const groupOnEdit: PartyGroupOnEdit = {
   id: 'id',
-  institutionId: 'institutionId',
+  partyId: 'partyId',
   productId: 'prod-i',
   name: 'group1',
   description: 'description',
@@ -80,7 +80,7 @@ const groupOnEdit: PartyGroupOnEdit = {
 
 const groupOnDetail: PartyGroupDetail = {
   id: 'groupId1',
-  institutionId: 'onboarded',
+  partyId: 'partyId',
   productId: 'prod-io',
   name: 'Gruppo1',
   description: 'description groupId1',
@@ -110,7 +110,7 @@ test('Test fetchPartyGroups', async () => {
   });
   expect(DashboardApi.fetchPartyGroups).toBeCalledWith(
     mockedPartyProducts[0].id,
-    mockedParties[0].institutionId,
+    mockedParties[0].partyId,
     {
       page: 0,
       size: 20,
@@ -120,16 +120,13 @@ test('Test fetchPartyGroups', async () => {
 
 test('Test fetchPartyGroup', async () => {
   await fetchPartyGroup(
-    mockedParties[0].institutionId,
+    mockedParties[0].partyId,
     mockedGroups[0].id,
     mockedUser,
     buildProductsMap(mockedPartyProducts)
   );
 
-  expect(DashboardApi.fetchPartyGroup).toBeCalledWith(
-    mockedGroups[0].id,
-    mockedParties[0].institutionId
-  );
+  expect(DashboardApi.fetchPartyGroup).toBeCalledWith(mockedGroups[0].id, mockedParties[0].partyId);
 });
 
 test('Test savePartyGroup', async () => {

@@ -52,7 +52,7 @@ export default function GroupActions({
   const goEdit = () =>
     history.push(
       resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_EDIT.path, {
-        institutionId: partyGroup.institutionId,
+        partyId: partyGroup.partyId,
         groupId: partyGroup.id,
       })
     );
@@ -60,7 +60,7 @@ export default function GroupActions({
   const goToDuplicate = () =>
     history.push(
       resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_CLONE.path, {
-        institutionId: partyGroup.institutionId,
+        partyId: partyGroup.partyId,
         groupId: partyGroup.id,
       })
     );

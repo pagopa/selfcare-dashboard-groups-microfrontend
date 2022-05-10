@@ -21,7 +21,7 @@ function CloneGroupPage({ party, activeProducts, productsMap, partyGroup }: Prop
   const goBack = () =>
     history.push(
       resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_DETAIL.path, {
-        institutionId: party.institutionId,
+        partyId: party.partyId,
         groupId: partyGroup.id,
       })
     );
@@ -32,7 +32,7 @@ function CloneGroupPage({ party, activeProducts, productsMap, partyGroup }: Prop
       onClick: () =>
         history.push(
           resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.MAIN.path, {
-            institutionId: party.institutionId,
+            partyId: party.partyId,
             groupId: partyGroup.id,
           })
         ),
@@ -76,7 +76,7 @@ function CloneGroupPage({ party, activeProducts, productsMap, partyGroup }: Prop
                 t('dashboardGroupEdit.cloneGroupPage.placeholderDuplicateName') + partyGroup.name,
               description: partyGroup.description,
               members: partyGroup.members,
-              institutionId: partyGroup.institutionId,
+              partyId: partyGroup.partyId,
               productId:
                 productsMap[partyGroup.productId]?.userRole === 'ADMIN'
                   ? partyGroup.productId

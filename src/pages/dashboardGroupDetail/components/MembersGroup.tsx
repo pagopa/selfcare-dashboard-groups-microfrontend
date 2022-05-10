@@ -86,7 +86,7 @@ export default function MembersGroup({
                 onClick={() =>
                   history.push(
                     resolvePathVariables(ENV.ROUTES.USERS_DETAIL, {
-                      institutionId: partyGroup.institutionId,
+                      partyId: partyGroup.partyId,
                       userId: member.id,
                     })
                   )
