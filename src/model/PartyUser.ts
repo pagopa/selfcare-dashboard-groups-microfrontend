@@ -24,7 +24,6 @@ export type PartyUser = BasePartyUser & {
 
 export type PartyUserExt = PartyUser & {
   taxCode: string;
-  certification: boolean;
 };
 
 export type PartyUserSimple = {
