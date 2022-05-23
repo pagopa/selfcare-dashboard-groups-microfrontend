@@ -79,7 +79,6 @@ export const mockedProductUserResource: Array<ProductUserResource> = [
         },
       ],
     },
-    certification: true,
   },
   {
     id: '2',
@@ -100,7 +99,6 @@ export const mockedProductUserResource: Array<ProductUserResource> = [
         },
       ],
     },
-    certification: true,
   },
 ];
 
@@ -110,7 +108,6 @@ export const usersGroupResource: UserGroupResource = {
   institutionId: 'onboarded',
   members: [
     {
-      certification: true,
       email: 'address',
       id: '1',
       name: 'Name',
