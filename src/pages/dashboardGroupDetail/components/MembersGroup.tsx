@@ -141,7 +141,8 @@ export default function MembersGroup({
             <Grid item xs={2} display="flex" justifyContent="center">
               {isMemeberSuspended && (
                 <Chip
-                  label="Sospeso"
+                  label={t('groupDetail.status')}
+                  aria-label="Suspended"
                   variant="outlined"
                   sx={{
                     fontWeight: '600',

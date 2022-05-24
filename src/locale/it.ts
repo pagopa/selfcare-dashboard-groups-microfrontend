@@ -13,6 +13,7 @@ export default {
     backActionLabel: 'Indietro',
   },
   groupActions: {
+    actionOnUser: "Azioni sull'utente",
     selectedGroupStatusSuspended: 'sospeso',
     selectedGroupStatusActive: 'riattivato',
     selectedGroupStatusErrorSuspended: 'sospensione',
@@ -71,6 +72,7 @@ export default {
     createdByLabel: 'DA',
     modifiedAt: 'DATA ULTIMA MODIFICA',
     modifiedBy: 'DA',
+    status: 'Sospeso',
   },
   groupMenu: {
     dissociateMenuItem: {
@@ -197,6 +199,7 @@ export default {
       noGroupsLabel: 'Non è ancora stato creato alcun Gruppo.',
     },
     groupProductRowActions: {
+      toolTipActions: 'Seleziona il tipo di azione',
       modifyActionLink: 'Modifica',
       duplicateActionLink: 'Duplica',
       suspendActionLink: 'Sospendi',

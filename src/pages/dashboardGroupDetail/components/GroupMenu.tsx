@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, IconButton, Menu, MenuItem } from '@mui/material';
+import { Box, Divider, Grid, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import useLoading from '@pagopa/selfcare-common-frontend/hooks/useLoading';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -258,14 +258,16 @@ export default function GroupMenu({
     <>
       {!member.isCurrentUser && canEdit && (
         <Grid item xs={1} display="flex" justifyContent="flex-start">
-          <IconButton
-            sx={{ p: '0px', ':hover': { backgroundColor: 'transparent' } }}
-            disableRipple
-            onClick={handleClick}
-            disabled={isSuspended}
-          >
-            <MoreVertIcon sx={{ color: isSuspended ? '#a2adb8' : 'primary' }} />
-          </IconButton>
+          <Tooltip aria-label="ActionsOnTheUser" title={t('groupActions.actionOnUser') as string}>
+            <IconButton
+              sx={{ p: '0px', ':hover': { backgroundColor: 'transparent' } }}
+              disableRipple
+              onClick={handleClick}
+              disabled={isSuspended}
+            >
+              <MoreVertIcon sx={{ color: isSuspended ? '#a2adb8' : 'primary' }} />
+            </IconButton>
+          </Tooltip>
         </Grid>
       )}
       <Menu

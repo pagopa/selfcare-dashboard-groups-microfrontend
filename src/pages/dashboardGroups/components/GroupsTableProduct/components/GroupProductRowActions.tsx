@@ -1,6 +1,6 @@
 import React from 'react';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { IconButton, Menu, MenuItem } from '@mui/material';
+import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import useUserNotify from '@pagopa/selfcare-common-frontend/hooks/useUserNotify';
@@ -226,9 +226,14 @@ export default function GroupProductRowActions({
 
   return (
     <div style={{ textAlign: 'right' }}>
-      <IconButton onClick={handleClick}>
-        <MoreVertIcon color="primary" />
-      </IconButton>
+      <Tooltip
+        aria-label="SelectAction"
+        title={t('dashboardGroup.groupProductRowActions.toolTipActions') as string}
+      >
+        <IconButton onClick={handleClick}>
+          <MoreVertIcon color="primary" />
+        </IconButton>
+      </Tooltip>
       <Menu
         anchorEl={anchorEl}
         open={open}
