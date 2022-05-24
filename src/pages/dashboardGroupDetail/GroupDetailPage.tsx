@@ -96,7 +96,8 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
             <Box>
               {isSuspended && (
                 <Chip
-                  label="Sospeso"
+                  label={t('groupDetail.status')}
+                  aria-label="Suspended"
                   variant="outlined"
                   sx={{
                     fontWeight: '600',
