@@ -98,10 +98,10 @@ export const DashboardApi = {
     return extractResponse(result, 200, onRedirectToLogin);
   },
 
-  fetchPartyGroup: async (id: string, institutionId: string): Promise<UserGroupResource | null> => {
+  fetchPartyGroup: async (groupId: string, partyId: string): Promise<UserGroupResource | null> => {
     const result = await apiClient.getUserGroupByIdUsingGET({
-      id,
-      institutionId,
+      id: groupId,
+      institutionId: partyId,
     });
     return extractResponse(result, 200, onRedirectToLogin);
   },
