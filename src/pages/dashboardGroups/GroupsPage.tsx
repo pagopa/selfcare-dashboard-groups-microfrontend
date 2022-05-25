@@ -1,4 +1,4 @@
-import { Grid, Tab, Tabs, Typography } from '@mui/material';
+import { Grid, Tab, Tabs } from '@mui/material';
 import TitleBox from '@pagopa/selfcare-common-frontend/components/TitleBox';
 import React, { useEffect, useMemo, useState } from 'react';
 import { trackEvent } from '@pagopa/selfcare-common-frontend/services/analyticsService';
@@ -69,7 +69,6 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
     [productsFetchStatus]
   );
 
-  const titleVariant = 'h1';
   const mbTitle = 2;
 
   return (
@@ -79,27 +78,21 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
       mt={10}
       sx={{ width: '985px', backgroundColor: 'transparent !important' }}
     >
-      <Grid item xs={12}>
-        <Grid container direction="row" justifyContent="space-between" columns={9}>
-          <Grid item xs={6}>
-            <TitleBox
-              title={t('dashboardGroup.groupsPage.title')}
-              variantTitle={titleVariant}
-              mbTitle={mbTitle}
-              subTitle={t('dashboardGroup.groupsPage.subTitle')}
-            />
-          </Grid>
-          {productHavingGroups.length > 0 && (
-            <Grid item xs={1}>
-              <Typography variant={titleVariant} mb={mbTitle}>
-                &nbsp;
-              </Typography>
-              <AddGroupButton party={party} />
-            </Grid>
-          )}
+      <Grid container item display="flex" justifyContent="space-between">
+        <Grid item xs={9}>
+          <TitleBox
+            title={t('dashboardGroup.groupsPage.title')}
+            variantTitle="h2"
+            mbTitle={mbTitle}
+            subTitle={t('dashboardGroup.groupsPage.subTitle')}
+          />
         </Grid>
+        {productHavingGroups.length > 0 && (
+          <Grid item xs={3} display="flex" alignItems="end" justifyContent="end">
+            <AddGroupButton party={party} />
+          </Grid>
+        )}
       </Grid>
-
       {productHavingGroups.length > 1 && (
         <Grid
           item
