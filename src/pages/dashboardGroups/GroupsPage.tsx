@@ -123,7 +123,14 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
         </Grid>
       )}
       <Grid item xs={12} sx={{ height: '100%' }}>
-        <Grid container direction="row" alignItems={'center'}>
+        <Grid
+          container
+          direction="row"
+          alignItems={'center'}
+          sx={{ backgroundColor: '#EEEEEE' }}
+          px={3}
+          pb={3}
+        >
           {activeProducts.map((product, i) => (
             <Grid key={product.id} item xs={12} ref={prodSectionRefs[i]}>
               <GroupsProductSection
