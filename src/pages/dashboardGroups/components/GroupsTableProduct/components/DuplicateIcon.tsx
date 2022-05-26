@@ -1,0 +1,45 @@
+import { IconButton, Box, Tooltip } from '@mui/material';
+import CopyAllIcon from '@mui/icons-material/CopyAll';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
+import { GridRenderCellParams } from '@mui/x-data-grid';
+import { useHistory } from 'react-router-dom';
+import { TFunction } from 'react-i18next';
+import { DASHBOARD_GROUPS_ROUTES } from '../../../../../routes';
+import { PartyGroup } from '../../../../../model/PartyGroup';
+import { Party } from '../../../../../model/Party';
+
+type Props = {
+  party: Party;
+  p: GridRenderCellParams<any, any, any>;
+  t: TFunction<'translation', undefined>;
+};
+export default function DuplicateIcon({ party, p, t }: Props) {
+  const history = useHistory();
+  return (
+    <Box textAlign="right">
+      <Tooltip
+        aria-label="DuplicateAction"
+        title={t('dashboardGroup.groupProductTableColumns.duplicateActionLink') as string}
+      >
+        <IconButton
+          sx={{
+            pr: 0,
+          }}
+          onClick={() =>
+            history.push(
+              resolvePathVariables(
+                DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_CLONE.path,
+                {
+                  partyId: party.partyId,
+                  groupId: (p.row as PartyGroup).id,
+                }
+              )
+            )
+          }
+        >
+          <CopyAllIcon color="primary" />
+        </IconButton>
+      </Tooltip>
+    </Box>
+  );
+}

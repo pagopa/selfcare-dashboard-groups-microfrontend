@@ -1,15 +1,17 @@
 import { Chip, Typography, Grid, Box } from '@mui/material';
 import { GridColDef, GridColumnHeaderParams, GridRenderCellParams } from '@mui/x-data-grid';
 import React, { CSSProperties, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
-import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
+// import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { TFunction } from 'react-i18next';
 import i18n from '@pagopa/selfcare-common-frontend/locale/locale-utils';
+// import CopyAllIcon from '@mui/icons-material/CopyAll';
+// import { useHistory } from 'react-router-dom';
 import { Party } from '../../../../../model/Party';
 import { Product } from '../../../../../model/Product';
 import { PartyGroup, PartyGroupStatus } from '../../../../../model/PartyGroup';
-import { DASHBOARD_GROUPS_ROUTES } from '../../../../../routes';
+// import { DASHBOARD_GROUPS_ROUTES } from '../../../../../routes';
 import GroupProductRowActions from './GroupProductRowActions';
+import DuplicateIcon from './DuplicateIcon';
 
 export function buildColumnDefs(
   canEdit: boolean,
@@ -99,24 +101,7 @@ export function buildColumnDefs(
       renderCell: (p) =>
         canEdit
           ? showActions(party, product, p, onDelete, onStatusUpdate)
-          : renderCell(
-              p,
-              p.row.status !== 'SUSPENDED' && (
-                <Typography variant="h6">
-                  <Link
-                    to={resolvePathVariables(
-                      DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_CLONE.path,
-                      {
-                        partyId: party.partyId,
-                        groupId: (p.row as PartyGroup).id,
-                      }
-                    )}
-                  >
-                    {t('dashboardGroup.groupProductTableColumns.duplicateActionLink')}
-                  </Link>
-                </Typography>
-              )
-            ),
+          : renderCell(p, p.row.status !== 'SUSPENDED' && <DuplicateIcon p={p} party={party} t={t} />),
       sortable: false,
     },
   ] as Array<GridColDef>;
@@ -255,7 +240,7 @@ function TableChip({ text }: { text: string }) {
         fontSize: '14px',
         fontWeight: '600',
         color: '#17324D',
-        backgroundColor: '#E0E0E0',
+        backgroundColor: '#FFD25E',
         paddingBottom: '1px',
         height: '24px',
       }}
