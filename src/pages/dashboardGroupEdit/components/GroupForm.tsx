@@ -150,12 +150,16 @@ export default function GroupForm({
     (() =>
       history.push(
         resolvePathVariables(
-          isEdit
+          isEdit || isClone
             ? DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_DETAIL.path
             : DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.MAIN.path,
           {
             partyId: party.partyId,
-            groupId: (initialFormData as PartyGroupOnEdit).id,
+            groupId: isEdit
+              ? (initialFormData as PartyGroupOnEdit).id
+              : isClone && partyGroupCloneId
+              ? partyGroupCloneId
+              : '',
           }
         )
       ));
