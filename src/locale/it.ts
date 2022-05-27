@@ -8,6 +8,7 @@ export default {
   groupDetailPage: {
     path: {
       groupDescription: 'Gruppi',
+      selectedGroupDescription: 'Anagrafe',
     },
     title: 'Dettaglio Gruppo',
     backActionLabel: 'Indietro',
