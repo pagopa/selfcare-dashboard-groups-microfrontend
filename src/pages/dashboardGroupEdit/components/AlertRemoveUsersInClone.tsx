@@ -19,10 +19,10 @@ export default function AlertRemoveUsersInClone() {
         }}
       >
         <Trans i18nKey="dashboardGroupEdit.alertRemoveUsersInClone.label">
-          Alcuni referenti sono stati eliminati dal gruppo duplicato perchè
+          Alcuni utenti sono stati eliminati dal gruppo duplicato perchè
           <strong> non presenti </strong>
           nel prodotto selezionato o perchè <strong>sospesi</strong>. Puoi comunque assegnare altri
-          referenti al gruppo duplicato.
+          utenti al gruppo duplicato.
         </Trans>
       </Alert>
     </Grid>
