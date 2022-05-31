@@ -87,11 +87,9 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
             subTitle={t('dashboardGroup.groupsPage.subTitle')}
           />
         </Grid>
-        {productHavingGroups.length > 0 && (
-          <Grid item xs={3} display="flex" alignItems="end" justifyContent="end">
-            <AddGroupButton party={party} />
-          </Grid>
-        )}
+        <Grid item xs={3} display="flex" alignItems="center" justifyContent="end">
+          <AddGroupButton party={party} />
+        </Grid>
       </Grid>
       {productHavingGroups.length > 1 && (
         <Grid

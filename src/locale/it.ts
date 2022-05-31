@@ -10,7 +10,7 @@ export default {
       groupDescription: 'Gruppi',
       selectedGroupDescription: 'Anagrafe',
     },
-    title: 'Dettaglio Gruppo',
+    title: 'Anagrafe',
     backActionLabel: 'Indietro',
   },
   groupActions: {
@@ -63,6 +63,12 @@ export default {
         displayableDescription: `C'è stato un errore durante la {{selectedGroupStatusError}} del gruppo <3>{{groupName}}</3>.`,
       },
     },
+  },
+  groupActionsLinks: {
+    delete: 'Elimina',
+    update: 'Modifica',
+    suspend: 'Sospendi',
+    duplicate: 'Duplica',
   },
   groupDetail: {
     name: 'NOME',

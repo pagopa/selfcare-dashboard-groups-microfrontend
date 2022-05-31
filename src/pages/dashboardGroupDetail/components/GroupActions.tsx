@@ -1,10 +1,14 @@
-import { Button, Grid } from '@mui/material';
+import { Link, Box } from '@mui/material';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
 import useUserNotify from '@pagopa/selfcare-common-frontend/hooks/useUserNotify';
 import useLoading from '@pagopa/selfcare-common-frontend/hooks/useLoading';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { useHistory } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import EditIcon from '@mui/icons-material/Edit';
+import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
+import CopyAllIcon from '@mui/icons-material/CopyAll';
 import { deletePartyGroup, updatePartyGroupStatus } from '../../../services/groupsService';
 import { LOADING_TASK_UPDATE_PARTY_USER_STATUS } from '../../../utils/constants';
 import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
@@ -220,48 +224,71 @@ export default function GroupActions({
   };
 
   return (
-    <Grid container spacing={4}>
+    <Box display="flex">
       {!isSuspended && canEdit && (
-        <Grid item xs={3}>
-          <Button variant="contained" sx={{ height: '40px', width: '100%' }} onClick={goEdit}>
-            {t('groupActions.editActionLabel')}
-          </Button>
-        </Grid>
+        <>
+          <Box display="flex" alignItems="center" mr={2}>
+            <DeleteOutlinedIcon color="primary" fontSize="small" />
+          </Box>
+          <Box mr={3}>
+            <Link
+              sx={{ fontSize: '14px', fontWeight: 'bold', textDecoration: 'none' }}
+              onClick={goEdit}
+            >
+              {t('groupActions.editActionLabel')}
+            </Link>
+          </Box>
+        </>
       )}
       {canEdit && (
-        <Grid item xs={3}>
-          <Button variant="contained" sx={{ height: '40px', width: '100%' }} onClick={handleOpen}>
-            {partyGroup.status === 'SUSPENDED'
-              ? t('groupActions.groupActionActive')
-              : partyGroup.status === 'ACTIVE'
-              ? t('groupActions.groupActionSuspend')
-              : ''}
-          </Button>
-        </Grid>
+        <>
+          <Box mr={2}>
+            <EditIcon color="primary" fontSize="small" />
+          </Box>
+          <Box mr={3}>
+            <Link
+              sx={{ fontSize: '14px', fontWeight: 'bold', textDecoration: 'none' }}
+              onClick={handleOpen}
+            >
+              {partyGroup.status === 'SUSPENDED'
+                ? t('groupActions.groupActionActive')
+                : partyGroup.status === 'ACTIVE'
+                ? t('groupActions.groupActionSuspend')
+                : ''}
+            </Link>
+          </Box>
+        </>
       )}
       {!isSuspended && (
-        <Grid item xs={3}>
-          <Button
-            variant="contained"
-            sx={{ height: '40px', width: '100%' }}
-            onClick={goToDuplicate}
-          >
-            {t('groupActions.groupDuplicateAction')}
-          </Button>
-        </Grid>
+        <>
+          <Box mr={2}>
+            <HourglassEmptyIcon color="primary" fontSize="small" />
+          </Box>
+          <Box mr={3}>
+            <Link
+              sx={{ fontSize: '14px', fontWeight: 'bold', textDecoration: 'none' }}
+              onClick={goToDuplicate}
+            >
+              {t('groupActions.groupDuplicateAction')}
+            </Link>
+          </Box>
+        </>
       )}
       {canEdit && (
-        <Grid item xs={3}>
-          <Button
-            variant="outlined"
-            color="error"
-            sx={{ height: '40px', width: '100%' }}
-            onClick={handleOpenDelete}
-          >
-            {t('groupActions.groupDeleteAction')}
-          </Button>
-        </Grid>
+        <>
+          <Box mr={2}>
+            <CopyAllIcon color="primary" fontSize="small" />
+          </Box>
+          <Box mr={3}>
+            <Link
+              sx={{ fontSize: '14px', fontWeight: 'bold', textDecoration: 'none' }}
+              onClick={handleOpenDelete}
+            >
+              {t('groupActions.groupDeleteAction')}
+            </Link>
+          </Box>
+        </>
       )}
-    </Grid>
+    </Box>
   );
 }

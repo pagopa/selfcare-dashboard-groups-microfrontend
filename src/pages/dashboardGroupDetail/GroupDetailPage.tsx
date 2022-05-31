@@ -89,13 +89,13 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
           <ProductNavigationBar paths={paths} />
         </Box>
       </Grid>
-      <Grid container item mb={3}>
-        <Grid item xs={6}>
+      <Grid container item mb={3} display="flex" justifyContent="space-between">
+        <Grid item xs={4}>
           <Box display="flex">
             <Box>
-              <Typography variant="h1">{t('groupDetailPage.title')}</Typography>
+              <Typography variant="h2">{t('groupDetailPage.title')}</Typography>
             </Box>
-            <Box>
+            <Box display="flex" alignItems="center" ml={2}>
               {isSuspended && (
                 <Chip
                   label={t('groupDetail.status')}
@@ -104,20 +104,32 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
                   sx={{
                     fontWeight: '600',
                     fontSize: '14px',
-                    background: '#E0E0E0',
+                    background: '#FFD25E',
                     border: 'none',
                     borderRadius: '16px',
                     width: '76px',
                     height: '24px',
-                    marginTop: '23px',
-                    marginLeft: '20px',
                   }}
                 />
               )}
             </Box>
           </Box>
         </Grid>
+        <Grid item xs={7} display="flex" alignItems="center" justifyContent="end">
+          <GroupActions
+            partyGroup={partyGroupState}
+            isSuspended={isSuspended}
+            goBack={goBack}
+            party={party}
+            product={product}
+            productsMap={productsMap}
+            nextGroupStatus={nextGroupStatus}
+            onGroupStatusUpdate={onGroupStatusUpdate}
+            canEdit={canEdit}
+          />
+        </Grid>
       </Grid>
+
       <Grid container item xs={12} sx={{ backgroundColor: '#FFFFFF', padding: '24px' }}>
         <Grid item mb={3} width="100%">
           <GroupDetail
@@ -132,19 +144,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
           />
         </Grid>
       </Grid>
-      <Grid item mb={3} mt={15} width="100%">
-        <GroupActions
-          partyGroup={partyGroupState}
-          isSuspended={isSuspended}
-          goBack={goBack}
-          party={party}
-          product={product}
-          productsMap={productsMap}
-          nextGroupStatus={nextGroupStatus}
-          onGroupStatusUpdate={onGroupStatusUpdate}
-          canEdit={canEdit}
-        />
-      </Grid>
+      <Grid item mb={3} mt={15} width="100%"></Grid>
     </Grid>
   );
 }
