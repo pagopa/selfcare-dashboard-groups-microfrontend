@@ -6,6 +6,7 @@ import {
 } from '../generated/b4f-dashboard/InstitutionUserResource';
 import { SelcRoleEnum } from '../generated/b4f-dashboard/ProductRoleInfoResource';
 import { ProductUserResource } from '../generated/b4f-dashboard/ProductUserResource';
+import { UserGroupIdResource } from '../generated/b4f-dashboard/UserGroupIdResource';
 import {
   StatusEnum,
   UserGroupPlainResource,
@@ -200,5 +201,6 @@ export const DashboardApi = {
   updatePartyGroupStatusSuspend: async (_id: string): Promise<void> =>
     new Promise((resolve) => resolve()),
 
-  savePartyGroup: async (_id: string): Promise<void> => new Promise((resolve) => resolve()),
+  savePartyGroup: async (_id: string): Promise<UserGroupIdResource> =>
+    new Promise((resolve) => resolve({ id: 'newGroupId' })),
 };

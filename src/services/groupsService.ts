@@ -74,12 +74,12 @@ export const savePartyGroup = (
   party: Party,
   product: Product,
   group: PartyGroupOnCreation
-): Promise<any> => {
+): Promise<string> => {
   /* istanbul ignore if */
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
     return savePartyGroupMocked(party, product, group);
   } else {
-    return DashboardApi.savePartyGroup(group);
+    return DashboardApi.savePartyGroup(group).then((idResource) => idResource.id);
   }
 };
 
@@ -87,12 +87,12 @@ export const updatePartyGroup = (
   party: Party,
   product: Product,
   group: PartyGroupOnEdit
-): Promise<any> => {
+): Promise<string> => {
   /* istanbul ignore if */
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
     return updatePartyGroupMocked(party, product, group);
   } else {
-    return DashboardApi.updatePartyGroup(group.id, group);
+    return DashboardApi.updatePartyGroup(group.id, group).then((_) => group.id);
   }
 };
 

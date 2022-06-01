@@ -9,6 +9,7 @@ import { createClient, WithDefaultsT } from './generated/b4f-dashboard/client';
 import { ProductUserResource } from './generated/b4f-dashboard/ProductUserResource';
 import { UserGroupPlainResource } from './generated/b4f-dashboard/UserGroupPlainResource';
 import { UserGroupResource } from './generated/b4f-dashboard/UserGroupResource';
+import { UserGroupIdResource } from './generated/b4f-dashboard/UserGroupIdResource';
 
 const withBearerAndInstitutionId: WithDefaultsT<'bearerAuth'> =
   (wrappedOperation) => (params: any) => {
@@ -145,7 +146,7 @@ export const DashboardApi = {
     return extractResponse(result, 204, onRedirectToLogin);
   },
 
-  savePartyGroup: async (group: PartyGroupOnCreation): Promise<void> => {
+  savePartyGroup: async (group: PartyGroupOnCreation): Promise<UserGroupIdResource> => {
     const result = await apiClient.createUserGroupUsingPOST({
       body: {
         description: group.description,
