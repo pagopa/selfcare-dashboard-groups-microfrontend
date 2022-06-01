@@ -4,6 +4,7 @@ import React, { CSSProperties, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { TFunction } from 'react-i18next';
+import i18n from '@pagopa/selfcare-common-frontend/locale/locale-utils';
 import { Party } from '../../../../../model/Party';
 import { Product } from '../../../../../model/Product';
 import { PartyGroup, PartyGroupStatus } from '../../../../../model/PartyGroup';
@@ -106,7 +107,7 @@ export function buildColumnDefs(
                     to={resolvePathVariables(
                       DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_CLONE.path,
                       {
-                        institutionId: party.institutionId,
+                        partyId: party.partyId,
                         groupId: (p.row as PartyGroup).id,
                       }
                     )}
@@ -205,7 +206,7 @@ function showName(
                 xs={5}
                 sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}
               >
-                <TableChip text="Sospeso" />
+                <TableChip text={i18n.t('groupDetail.status')} />
               </Grid>
             )}
           </Grid>
@@ -249,6 +250,7 @@ function TableChip({ text }: { text: string }) {
   return (
     <Chip
       label={text}
+      aria-label="Suspended"
       sx={{
         fontSize: '14px',
         fontWeight: '600',

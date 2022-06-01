@@ -42,7 +42,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
 
   useEffect(() => {
     if (partyGroup) {
-      trackEvent('OPEN_USER_DETAIL', { group_id: partyGroup.id });
+      trackEvent('OPEN_GROUP_DETAIL', { group_id: partyGroup.id });
     }
   }, [partyGroup]);
 
@@ -53,7 +53,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
   const goBack = () =>
     history.push(
       resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.MAIN.path, {
-        institutionId: party.institutionId,
+        partyId: party.partyId,
       })
     );
 
@@ -96,7 +96,8 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
             <Box>
               {isSuspended && (
                 <Chip
-                  label="Sospeso"
+                  label={t('groupDetail.status')}
+                  aria-label="Suspended"
                   variant="outlined"
                   sx={{
                     fontWeight: '600',
@@ -126,7 +127,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
           </Link>
         </Grid>
       </Grid>
-      <Grid container item xs={11}>
+      <Grid container item xs={12} sx={{ backgroundColor: '#FFFFFF', padding: '24px' }}>
         <Grid item mb={3} width="100%">
           <GroupDetail
             partyGroup={partyGroupState}
@@ -139,19 +140,19 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
             onGroupStatusUpdate={onGroupStatusUpdate}
           />
         </Grid>
-        <Grid item mb={3} mt={15} width="100%">
-          <GroupActions
-            partyGroup={partyGroupState}
-            isSuspended={isSuspended}
-            goBack={goBack}
-            party={party}
-            product={product}
-            productsMap={productsMap}
-            nextGroupStatus={nextGroupStatus}
-            onGroupStatusUpdate={onGroupStatusUpdate}
-            canEdit={canEdit}
-          />
-        </Grid>
+      </Grid>
+      <Grid item mb={3} mt={15} width="100%">
+        <GroupActions
+          partyGroup={partyGroupState}
+          isSuspended={isSuspended}
+          goBack={goBack}
+          party={party}
+          product={product}
+          productsMap={productsMap}
+          nextGroupStatus={nextGroupStatus}
+          onGroupStatusUpdate={onGroupStatusUpdate}
+          canEdit={canEdit}
+        />
       </Grid>
     </Grid>
   );

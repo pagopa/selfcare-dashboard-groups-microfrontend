@@ -19,7 +19,7 @@ type Props = {
   currentUser: User;
   incrementalLoad: boolean;
   initialPageSize: number;
-  onFetchStatusUpdate: (isFetching: boolean, count?: number) => void;
+  onFetchStatusUpdate: (isFetching: boolean, count: number, error: boolean) => void;
   onCompleteDelete: (product: Product) => void;
 };
 
@@ -59,8 +59,9 @@ const GroupsTableProduct = ({
             ? r
             : { content: groups.content.concat(r.content), page: r.page };
         setGroups(nextGroups);
+        setError(false);
         setNoMoreData(r.content.length < pageRequest.size);
-        onFetchStatusUpdate(false, nextGroups.content.length);
+        onFetchStatusUpdate(false, nextGroups.content.length, false);
       })
       .catch((reason) => {
         handleErrors([
@@ -68,13 +69,13 @@ const GroupsTableProduct = ({
             id: `FETCH_PARTY_GROUPS_${product.id}_ERROR`,
             blocking: false,
             error: reason,
-            techDescription: `An error occurred while fetching party groups ${party.institutionId} of product ${product.id}`,
+            techDescription: `An error occurred while fetching party groups ${party.partyId} of product ${product.id}`,
             toNotify: true,
           },
         ]);
         setError(true);
         setGroups({ content: [], page: { number: 0, size: 0, totalElements: 0, totalPages: 0 } });
-        onFetchStatusUpdate(false, 1);
+        onFetchStatusUpdate(false, 1, true);
       })
       .finally(() => setLoading(false));
   };
@@ -104,10 +105,10 @@ const GroupsTableProduct = ({
 
   const canEdit = product.userRole === 'ADMIN' && product.status === 'ACTIVE';
 
-  if (error) {
+  if (error && !loading) {
     return <GroupsProductFetchError onRetry={fetchGroups} />;
   } else {
-    return !loading && groups.content.length === 0 ? (
+    return !error && !loading && groups.content.length === 0 ? (
       <></>
     ) : (
       <GroupsProductTable
@@ -124,7 +125,7 @@ const GroupsTableProduct = ({
               DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_DETAIL.path,
               {
                 groupId: partyGroup.id,
-                institutionId: partyGroup.institutionId,
+                partyId: partyGroup.partyId,
               }
             )
           )

@@ -34,7 +34,7 @@ export const fetchPartyGroups = (
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
     return fetchPartyGroupsMocked(party, product, currentUser, pageRequest);
   } else {
-    return DashboardApi.fetchPartyGroups(product.id, party.institutionId, pageRequest).then(
+    return DashboardApi.fetchPartyGroups(product.id, party.partyId, pageRequest).then(
       (resources) => ({
         content: resources?.map(usersGroupPlainResource2PartyGroup) ?? [],
         page: {
@@ -49,16 +49,16 @@ export const fetchPartyGroups = (
 };
 
 export const fetchPartyGroup = (
-  institutionId: string,
+  partyId: string,
   groupId: string,
   currentUser: User,
   productsMap: ProductsMap
 ): Promise<PartyGroupDetail | null> => {
   /* istanbul ignore if */
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
-    return fetchPartyGroupMocked(institutionId, groupId, currentUser, productsMap);
+    return fetchPartyGroupMocked(partyId, groupId, currentUser, productsMap);
   } else {
-    return DashboardApi.fetchPartyGroup(groupId, institutionId).then((resource) =>
+    return DashboardApi.fetchPartyGroup(groupId, partyId).then((resource) =>
       resource
         ? usersGroupResource2PartyGroupDetail(
             resource,
@@ -74,12 +74,12 @@ export const savePartyGroup = (
   party: Party,
   product: Product,
   group: PartyGroupOnCreation
-): Promise<any> => {
+): Promise<string> => {
   /* istanbul ignore if */
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
     return savePartyGroupMocked(party, product, group);
   } else {
-    return DashboardApi.savePartyGroup(group);
+    return DashboardApi.savePartyGroup(group).then((idResource) => idResource.id);
   }
 };
 
@@ -87,12 +87,12 @@ export const updatePartyGroup = (
   party: Party,
   product: Product,
   group: PartyGroupOnEdit
-): Promise<any> => {
+): Promise<string> => {
   /* istanbul ignore if */
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
     return updatePartyGroupMocked(party, product, group);
   } else {
-    return DashboardApi.updatePartyGroup(group.id, group);
+    return DashboardApi.updatePartyGroup(group.id, group).then((_) => group.id);
   }
 };
 
@@ -108,13 +108,13 @@ export const updatePartyGroupStatus = (
   }
   if (status === 'ACTIVE') {
     trackEvent('GROUP_RESUME', {
-      party_id: party.institutionId,
+      party_id: party.partyId,
       product: product.id,
     });
     return DashboardApi.updatePartyGroupStatusActivate(group.id);
   } else if (status === 'SUSPENDED') {
     trackEvent('GROUP_SUSPEND', {
-      party_id: party.institutionId,
+      party_id: party.partyId,
       product: product.id,
     });
     return DashboardApi.updatePartyGroupStatusSuspend(group.id);
@@ -129,7 +129,7 @@ export const deletePartyGroup = (
   group: PartyGroup
 ): Promise<any> => {
   trackEvent('GROUP_DELETE', {
-    party_id: party.institutionId,
+    party_id: party.partyId,
     product: product.id,
   });
   /* istanbul ignore if */
@@ -147,7 +147,7 @@ export const deleteGroupRelation = (
   userId: string
 ): Promise<any> => {
   trackEvent('RELATION_GROUP_USER_DELETE', {
-    party_id: party.institutionId,
+    party_id: party.partyId,
     product: product.id,
   });
   /* istanbul ignore if */

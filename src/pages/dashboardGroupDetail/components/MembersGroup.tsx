@@ -42,9 +42,11 @@ export default function MembersGroup({
   const onMemberDelete = (member: PartyProductUser) => {
     const nextMembers = members.filter((u) => u.id !== member.id);
     setMembers(nextMembers);
-    onGroupStatusUpdate(partyGroup.status);
     // eslint-disable-next-line functional/immutable-data
     partyGroup.members = nextMembers;
+    // eslint-disable-next-line functional/immutable-data
+    partyGroup.membersCount = nextMembers.length;
+    onGroupStatusUpdate(partyGroup.status);
   };
 
   const onMemberStatusUpdate = (
@@ -70,7 +72,7 @@ export default function MembersGroup({
 
         return (
           <Grid key={member.id} item container spacing={1}>
-            <Grid item xs={4}>
+            <Grid item xs={3}>
               <Link
                 component="button"
                 disabled={isSuspended}
@@ -84,7 +86,7 @@ export default function MembersGroup({
                 onClick={() =>
                   history.push(
                     resolvePathVariables(ENV.ROUTES.USERS_DETAIL, {
-                      institutionId: partyGroup.institutionId,
+                      partyId: partyGroup.partyId,
                       userId: member.id,
                     })
                   )
@@ -92,9 +94,9 @@ export default function MembersGroup({
               >
                 <Typography
                   className="ShowDots"
+                  variant="h6"
                   sx={{
                     color: isSuspended ? '#a2adb8' : '#0073E6',
-                    fontWeight: 600,
                     justifyContent: 'flexStart',
                   }}
                   title={`${member.name} ${member.surname}`}
@@ -105,8 +107,10 @@ export default function MembersGroup({
                 </Typography>
               </Link>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={4}>
               <Typography
+                sx={{ fontSize: '14px' }}
+                variant="body2"
                 className="ShowDots"
                 color={isMemeberSuspended || isSuspended ? '#9E9E9E' : undefined}
                 title={member.email}
@@ -115,14 +119,16 @@ export default function MembersGroup({
                 {member.email}
               </Typography>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={2}>
               {userProduct?.roles?.map((r, index) => (
                 <Grid container key={index}>
                   <Grid item xs={isMemeberSuspended ? 8 : 12}>
                     <Typography
+                      variant="body2"
+                      sx={{ fontSize: '14px' }}
                       title={transcodeProductRole2Title(r.role, productRolesLists)}
                       className="ShowDots"
-                      width={isMemeberSuspended ? '20ch' : '30ch'}
+                      width={isMemeberSuspended ? '16ch' : '30ch'}
                       color={r.status === 'SUSPENDED' || isSuspended ? '#9E9E9E' : undefined}
                     >
                       {transcodeProductRole2Title(r.role, productRolesLists)}
@@ -135,7 +141,8 @@ export default function MembersGroup({
             <Grid item xs={2} display="flex" justifyContent="center">
               {isMemeberSuspended && (
                 <Chip
-                  label="Sospeso"
+                  label={t('groupDetail.status')}
+                  aria-label="Suspended"
                   variant="outlined"
                   sx={{
                     fontWeight: '600',
@@ -149,7 +156,6 @@ export default function MembersGroup({
                 />
               )}
             </Grid>
-
             <GroupMenu
               member={member}
               party={party}

@@ -27,7 +27,7 @@ export default function AddGroupButton({ party }: AddGroupButtonProps) {
             resolvePathVariables(
               DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_ADD.path,
               {
-                institutionId: party.institutionId,
+                partyId: party.partyId,
               }
             )
           )

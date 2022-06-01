@@ -8,7 +8,7 @@ import { fetchPartyGroup } from '../services/groupsService';
 import { LOADING_TASK_FETCH_PARTY_GROUP } from '../utils/constants';
 
 export const useGroupDetail = (): ((
-  institutionId: string,
+  partyId: string,
   groupId: string,
   productsMap: ProductsMap
 ) => Promise<PartyGroupDetail | null>) => {
@@ -16,12 +16,12 @@ export const useGroupDetail = (): ((
   const currentUser = useAppSelector(userSelectors.selectLoggedUser) as User;
 
   return (
-    institutionId: string,
+    partyId: string,
     groupId: string,
     productsMap: ProductsMap
   ): Promise<PartyGroupDetail | null> => {
     setLoading(true);
-    return fetchPartyGroup(institutionId, groupId, currentUser, productsMap).finally(() =>
+    return fetchPartyGroup(partyId, groupId, currentUser, productsMap).finally(() =>
       setLoading(false)
     );
   };

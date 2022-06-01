@@ -38,36 +38,36 @@ function GroupDetail({
   return (
     <Grid container spacing={2}>
       <Grid container item alignContent="center">
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Typography className="CustomLabelStyle" variant="h6">
             {t('groupDetail.name')}
           </Typography>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={9}>
           <Typography variant="body2" className={groupStatusClass}>
             {partyGroup.name}
           </Typography>
         </Grid>
       </Grid>
       <Grid container item alignContent="center">
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Typography variant="h6" className="CustomLabelStyle">
             {t('groupDetail.description')}
           </Typography>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={9}>
           <Typography variant="body2" className={groupStatusClass}>
             {partyGroup.description}
           </Typography>
         </Grid>
       </Grid>
       <Grid container item alignContent="center">
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Typography variant="h6" className="CustomLabelStyle">
             {t('groupDetail.product')}
           </Typography>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={9}>
           <Typography variant="body2" className={groupStatusClass}>
             {productsMap[partyGroup.productId].title}
           </Typography>
@@ -92,12 +92,12 @@ function GroupDetail({
         </Grid>
       </Grid>
       <Grid container item alignContent="center">
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Typography variant="h6" className="CustomLabelStyle">
             {t('groupDetail.creationDate')}
           </Typography>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={9}>
           {partyGroup.createdAt ? (
             <Typography variant="body2" className={groupStatusClass}>
               {formatDate(partyGroup.createdAt)}
@@ -106,12 +106,12 @@ function GroupDetail({
             ''
           )}
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Typography variant="h6" className="CustomLabelStyle">
             {t('groupDetail.createdByLabel')}
           </Typography>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={9}>
           {partyGroup.createdBy ? (
             <Typography variant="body2" className={groupStatusClass}>
               {`${partyGroup.createdBy.name} ${partyGroup.createdBy?.surname}`}
@@ -122,12 +122,12 @@ function GroupDetail({
         </Grid>
       </Grid>
       <Grid container item alignContent="center">
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Typography variant="h6" className="CustomLabelStyle">
             {t('groupDetail.modifiedAt')}
           </Typography>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={9}>
           {partyGroup.modifiedAt ? (
             <Typography variant="body2" className={groupStatusClass}>
               {formatDate(partyGroup.modifiedAt)}
@@ -136,12 +136,12 @@ function GroupDetail({
             ''
           )}
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Typography variant="h6" className="CustomLabelStyle">
             {t('groupDetail.modifiedBy')}
           </Typography>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={9}>
           {partyGroup.modifiedBy ? (
             <Typography
               variant="body2"

@@ -45,7 +45,7 @@ describe('Test fetchPartyProductUsers', () => {
 
     expect(DashboardApi.getPartyProductUsers).toBeCalledTimes(1);
     expect(DashboardApi.getPartyProductUsers).toBeCalledWith(
-      mockedParties[0].institutionId,
+      mockedParties[0].partyId,
       mockedPartyProducts[0].id,
       'LIMITED',
       undefined

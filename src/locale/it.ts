@@ -13,6 +13,7 @@ export default {
     backActionLabel: 'Indietro',
   },
   groupActions: {
+    actionOnUser: "Azioni sull'utente",
     selectedGroupStatusSuspended: 'sospeso',
     selectedGroupStatusActive: 'riattivato',
     selectedGroupStatusErrorSuspended: 'sospensione',
@@ -71,6 +72,7 @@ export default {
     createdByLabel: 'DA',
     modifiedAt: 'DATA ULTIMA MODIFICA',
     modifiedBy: 'DA',
+    status: 'Sospeso',
   },
   groupMenu: {
     dissociateMenuItem: {
@@ -125,7 +127,7 @@ export default {
   },
   dashboardGroupEdit: {
     alertRemoveUsersInClone: {
-      label: `Alcuni referenti sono stati eliminati dal gruppo duplicato perchè <1> non presenti </1> nel prodotto selezionato o perchè <3>sospesi</3>. Puoi comunque assegnare altri referenti al gruppo duplicato.`,
+      label: `Alcuni utenti sono stati eliminati dal gruppo duplicato perchè <1> non presenti </1> nel prodotto selezionato o perchè <3>sospesi</3>. Puoi comunque assegnare altri utenti al gruppo duplicato.`,
     },
     groupForm: {
       formLabels: {
@@ -138,9 +140,9 @@ export default {
         product: 'Prodotto',
         prductPlaceholter: 'Seleziona il prodotto',
         noProductSelected: 'Nessun prodotto selezionato',
-        referents: 'Referenti',
-        referentsPlaceholter: 'Seleziona i referenti che vuoi assegnare al gruppo',
-        cancelActionLabel: 'Annulla',
+        referents: 'Utenti',
+        referentsPlaceholter: 'Seleziona gli utenti che vuoi associare al gruppo',
+        cancelActionLabel: 'Indietro',
         confirmActionLabel: 'Conferma',
       },
       notifySuccessfulSave: {
@@ -168,7 +170,8 @@ export default {
       groupPathDescription: 'Gruppi',
       pathDescription: 'Crea un nuovo gruppo',
       title: 'Crea un nuovo gruppo',
-      subTitle: `Inserisci i dati del gruppo che vuoi creare e assegna a gestire i gruppi per il {{partyDescription}}.`,
+      subTitle:
+        'Inserisci i dati del gruppo, associa i relativi utenti e seleziona il prodotto che gestirà.',
     },
     cloneGroupPage: {
       groupPathDescription: 'Gruppi',
@@ -181,14 +184,13 @@ export default {
       groupPathDescription: 'Gruppi',
       pathDescription: 'Modifica gruppo',
       title: 'Modifica gruppo',
-      subTitle: `Duplica il gruppo e modifica i dati`,
     },
   },
   dashboardGroup: {
     groupsPage: {
       title: 'Gruppi',
       subTitle:
-        'Consulta e crea dei gruppi (es. uno per ogni Dipartimento o Ufficio) in modo da gestire meglio il lavoro del tuo Ente.',
+        'I gruppi sono un insieme di utenti, per esempio appartenenti allo stesso ufficio o dipartimento, a cui si affida la gestione dei prodotti. Qui puoi consultare i gruppi dell’ente e creare di nuovi.',
     },
     addGroupButton: {
       createActionLabel: 'Crea',
@@ -197,6 +199,7 @@ export default {
       noGroupsLabel: 'Non è ancora stato creato alcun Gruppo.',
     },
     groupProductRowActions: {
+      toolTipActions: 'Seleziona il tipo di azione',
       modifyActionLink: 'Modifica',
       duplicateActionLink: 'Duplica',
       suspendActionLink: 'Sospendi',
