@@ -246,11 +246,19 @@ export default function GroupForm({
       productSelected as Product,
       values as PartyGroupOnEdit
     )
-      .then(() => {
+      .then((groupId) => {
         unregisterUnloadEvent();
         trackSaveEvent();
         notifySuccessfulSave(values);
-        goBackInner();
+        history.push(
+          resolvePathVariables(
+            DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_DETAIL.path,
+            {
+              partyId: party.partyId,
+              groupId,
+            }
+          )
+        );
       })
       .catch((reason) => {
         if (reason.httpStatus === 409) {
