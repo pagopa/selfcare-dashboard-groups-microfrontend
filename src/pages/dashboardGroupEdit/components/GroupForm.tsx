@@ -9,7 +9,11 @@ import {
   styled,
   TextField,
   Typography,
+  InputAdornment,
+  Tooltip,
+  IconButton,
 } from '@mui/material';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
 import useLoading from '@pagopa/selfcare-common-frontend/hooks/useLoading';
 import {
@@ -78,6 +82,7 @@ const CustomTextField = styled(TextField)({
       fontWeight: '400',
       color: '#5C6F82',
       opacity: '1',
+      pointerEvents: 'auto',
     },
   },
   textArea: {
@@ -427,12 +432,36 @@ export default function GroupForm({
                   )}
                   variant="outlined"
                   multiline
-                  rows={4}
-                  inputProps={{ maxLength: 200 }}
+                  rows={1}
+                  inputProps={{
+                    maxLength: 200,
+                  }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Tooltip
+                          title={
+                            t(
+                              'dashboardGroupEdit.groupForm.formLabels.descriptionMaxLength'
+                            ) as string
+                          }
+                        >
+                          <IconButton
+                            disableRipple
+                            sx={{
+                              padding: '0px',
+                              '&:hover': { backgroundColor: 'transparent' },
+                            }}
+                          >
+                            <InfoOutlinedIcon
+                              sx={{ padding: '6px', color: '#5C6F82', marginLeft: '8px' }}
+                            />
+                          </IconButton>
+                        </Tooltip>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
-                <Typography sx={{ fontSize: '14px' }}>
-                  {t('dashboardGroupEdit.groupForm.formLabels.descriptionMaxLength')}
-                </Typography>
               </Grid>
             </Grid>
             <Grid item container spacing={3} marginBottom={4}>
