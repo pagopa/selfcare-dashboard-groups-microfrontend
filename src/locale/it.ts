@@ -136,7 +136,7 @@ export default {
         groupNamePlaceholder: 'Inserisci il nome del gruppo',
         description: 'Descrizione',
         descriptionMaxLength: 'Max 200 caratteri',
-        descriptionPlaceholder: 'Inserisci una descrizione',
+        descriptionPlaceholder: 'Descrivi il gruppo e indica la sua funzione',
         product: 'Prodotto',
         prductPlaceholter: 'Seleziona il prodotto',
         noProductSelected: 'Nessun prodotto selezionato',
@@ -171,7 +171,7 @@ export default {
       pathDescription: 'Crea un nuovo gruppo',
       title: 'Crea un nuovo gruppo',
       subTitle:
-        'Inserisci i dati del gruppo, associa i relativi utenti e seleziona il prodotto che gestirà.',
+        'Inserisci i dati del gruppo, associa i relativi utenti e seleziona il prodotto da gestire.',
     },
     cloneGroupPage: {
       groupPathDescription: 'Gruppi',
