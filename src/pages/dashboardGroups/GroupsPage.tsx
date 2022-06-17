@@ -82,7 +82,8 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
         <Grid item xs={9}>
           <TitleBox
             title={t('dashboardGroup.groupsPage.title')}
-            variantTitle="h2"
+            variantTitle="h4"
+            variantSubTitle="body1"
             mbTitle={mbTitle}
             subTitle={t('dashboardGroup.groupsPage.subTitle')}
           />

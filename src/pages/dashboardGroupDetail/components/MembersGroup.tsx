@@ -1,4 +1,4 @@
-import { Grid, Link, Typography, Chip, Box, Tooltip } from '@mui/material';
+import { Link, Typography, Box, Tooltip } from '@mui/material';
 import { useHistory } from 'react-router';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { useEffect, useState } from 'react';
@@ -20,6 +20,7 @@ type Props = {
   productRolesLists: ProductRolesLists;
   canEdit: boolean;
   onGroupStatusUpdate: (nextGroupStatus: PartyGroupStatus) => void;
+  isGroupSuspended: boolean;
 };
 
 export default function MembersGroup({
@@ -30,6 +31,7 @@ export default function MembersGroup({
   productRolesLists,
   canEdit,
   onGroupStatusUpdate,
+  isGroupSuspended,
 }: Props) {
   const history = useHistory();
 
@@ -69,13 +71,13 @@ export default function MembersGroup({
       field: 'name',
       headerName: 'Nome',
       flex: 1,
-      minWidth: 150,
+      minWidth: 300,
       renderCell: (member: GridRenderCellParams<any, any, any>) => (
         <Link
           component="button"
           disabled={isSuspended}
           sx={{
-            width: `${length}ch`,
+            width: '100%',
             textDecoration: 'none',
             fontWeight: 600,
             cursor: isSuspended ? 'text' : 'pointer',
@@ -93,15 +95,16 @@ export default function MembersGroup({
           <Tooltip
             title={
               // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-              member.row.name.length + member.row.surname.length > length - 1
+              member.row.name.length + member.row.surname.length > length + 1
                 ? `${member.row.name} ${member.row.surname}`
                 : ''
             }
           >
             <Typography
               className="ShowDots"
-              variant="h6"
               sx={{
+                fontSize: 'fontSize',
+                fontWeight: 'fontWeightMedium',
                 color: isSuspended ? '#a2adb8' : '#0073E6',
                 justifyContent: 'flexStart',
               }}
@@ -117,7 +120,7 @@ export default function MembersGroup({
       field: 'email',
       headerName: 'Email',
       flex: 1,
-      minWidth: 180,
+      minWidth: 350,
       renderCell: (member: GridRenderCellParams<any, any, any>) => {
         const userProduct = member.row.product;
         const isMemeberSuspended =
@@ -141,59 +144,24 @@ export default function MembersGroup({
       field: 'role',
       headerName: 'Ruolo',
       flex: 1,
-      minWidth: 180,
+      minWidth: 320,
       renderCell: (member: GridRenderCellParams<any, any, any>) => {
+        console.log('member', member);
         const userProduct = member.row.product;
-        const isMemeberSuspended =
-          member.row.status === 'SUSPENDED' ||
-          !userProduct?.roles.find((r: PartyUserProductRole) => r.status !== 'SUSPENDED');
+
         return userProduct?.roles?.map((r: PartyUserProductRole, index: number) => (
-          <Grid container key={index}>
-            <Grid item xs={isMemeberSuspended ? 8 : 12}>
-              <Typography
-                variant="body2"
-                sx={{ fontSize: '14px' }}
-                title={transcodeProductRole2Title(r.role, productRolesLists)}
-                className="ShowDots"
-                width={isMemeberSuspended ? '16ch' : '30ch'}
-                color={r.status === 'SUSPENDED' || isSuspended ? '#9E9E9E' : undefined}
-              >
-                {transcodeProductRole2Title(r.role, productRolesLists)}
-              </Typography>
-            </Grid>
-          </Grid>
+          <Typography
+            key={index}
+            variant="body2"
+            sx={{ fontSize: '14px' }}
+            title={transcodeProductRole2Title(r.role, productRolesLists)}
+            className="ShowDots"
+            width="100%"
+            color={r.status === 'SUSPENDED' || isSuspended ? '#9E9E9E' : undefined}
+          >
+            {transcodeProductRole2Title(r.role, productRolesLists)}
+          </Typography>
         ));
-      },
-    },
-    {
-      field: 'status',
-      headerName: '',
-      flex: 1,
-      minWidth: 100,
-      sortable: false,
-      renderCell: (member: GridRenderCellParams<any, any, any>) => {
-        const userProduct = member.row.product;
-        const isMemeberSuspended =
-          member.row.status === 'SUSPENDED' ||
-          !userProduct?.roles.find((r: PartyUserProductRole) => r.status !== 'SUSPENDED');
-        return (
-          isMemeberSuspended && (
-            <Chip
-              label={t('groupDetail.status')}
-              aria-label="Suspended"
-              variant="outlined"
-              sx={{
-                fontWeight: '600',
-                fontSize: '14px',
-                background: '#FFD25E',
-                border: 'none',
-                borderRadius: '16px',
-                width: '76px',
-                height: '24px',
-              }}
-            />
-          )
-        );
       },
     },
     {
@@ -204,12 +172,10 @@ export default function MembersGroup({
       sortable: false,
       renderCell: (member: GridRenderCellParams<any, any, any>) => {
         const userProduct = member.row.product;
-        const isMemeberSuspended =
-          member.row.status === 'SUSPENDED' ||
-          !userProduct?.roles.find((r: PartyUserProductRole) => r.status !== 'SUSPENDED');
+
         return (
-          !isMemeberSuspended && (
-            <Box display="flex" justifyContent="center" width="100%">
+          !isGroupSuspended && (
+            <Box width="100%" display="flex" justifyContent="flex-end" pr={2}>
               <GroupMenu
                 member={member.row}
                 party={party}
@@ -231,6 +197,7 @@ export default function MembersGroup({
 
   return (
     <DataGrid
+      disableSelectionOnClick
       disableColumnMenu
       sx={{
         border: 'none',
@@ -239,14 +206,18 @@ export default function MembersGroup({
         },
         '& .MuiDataGrid-columnHeaders': {
           borderBottom: 'transparent',
+          fontSize: '14px',
         },
         '& .MuiDataGrid-row': {
           backgroundColor: 'white',
           marginTop: '-2px',
+          '&:hover': { backgroundColor: 'white' },
         },
         '& .MuiDataGrid-columnHeader:focus-within': {
           outline: 'none',
         },
+        '& .MuiDataGrid-cell:focus': { outline: 'none !important' },
+        '& .MuiDataGrid-cell:focus-within': { outline: 'none !important' },
       }}
       rows={members}
       columns={columns}

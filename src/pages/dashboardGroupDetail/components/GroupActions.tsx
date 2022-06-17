@@ -26,6 +26,7 @@ type Props = {
   onGroupStatusUpdate: (nextGroupStatus: PartyGroupStatus) => void;
   nextGroupStatus: PartyGroupStatus | undefined;
   canEdit: boolean;
+  goEdit: () => void;
 };
 export default function GroupActions({
   partyGroup,
@@ -37,6 +38,7 @@ export default function GroupActions({
   onGroupStatusUpdate,
   nextGroupStatus,
   canEdit,
+  goEdit,
 }: Props) {
   const setLoading = useLoading(LOADING_TASK_UPDATE_PARTY_USER_STATUS);
   const addError = useErrorDispatcher();
@@ -52,14 +54,6 @@ export default function GroupActions({
     partyGroup.status === 'SUSPENDED'
       ? t('groupActions.selectedGroupStatusErrorSuspended')
       : t('groupActions.selectedGroupStatusErrorActive');
-
-  const goEdit = () =>
-    history.push(
-      resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_EDIT.path, {
-        partyId: partyGroup.partyId,
-        groupId: partyGroup.id,
-      })
-    );
 
   const goToDuplicate = () =>
     history.push(

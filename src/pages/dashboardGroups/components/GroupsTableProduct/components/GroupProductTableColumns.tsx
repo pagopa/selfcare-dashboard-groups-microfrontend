@@ -1,15 +1,12 @@
 import { Chip, Typography, Grid, Box } from '@mui/material';
 import { GridColDef, GridColumnHeaderParams, GridRenderCellParams } from '@mui/x-data-grid';
 import React, { CSSProperties, ReactNode } from 'react';
-// import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { TFunction } from 'react-i18next';
 import i18n from '@pagopa/selfcare-common-frontend/locale/locale-utils';
-// import CopyAllIcon from '@mui/icons-material/CopyAll';
-// import { useHistory } from 'react-router-dom';
+import GroupIcon from '@mui/icons-material/Group';
 import { Party } from '../../../../../model/Party';
 import { Product } from '../../../../../model/Product';
 import { PartyGroup, PartyGroupStatus } from '../../../../../model/PartyGroup';
-// import { DASHBOARD_GROUPS_ROUTES } from '../../../../../routes';
 import GroupProductRowActions from './GroupProductRowActions';
 import DuplicateIcon from './DuplicateIcon';
 
@@ -50,25 +47,11 @@ export function buildColumnDefs(
       sortable: false,
     },
     {
-      field: 'productId',
-      cellClassName: 'justifyContentBold',
-      headerName: t('dashboardGroup.groupProductTableColumns.headerFields.product'),
-      align: 'left',
-      headerAlign: 'left',
-      width: 150,
-      editable: false,
-      disableColumnMenu: true,
-      valueGetter: () => product.title,
-      renderCell: (params) => renderCell(params, undefined, onRowClick),
-      renderHeader: showCustmHeader,
-      sortable: false,
-    },
-    {
       field: 'referenti',
       cellClassName: 'justifyContentNormalRight',
       headerName: t('dashboardGroup.groupProductTableColumns.headerFields.referents'),
       align: 'center',
-      width: 120,
+      width: 265,
       hideSortIcons: true,
       disableColumnMenu: true,
       editable: false,
@@ -82,7 +65,7 @@ export function buildColumnDefs(
       cellClassName: 'justifyContentNormalRight',
       headerName: '',
       align: 'center',
-      width: 75,
+      width: 80,
       hideSortIcons: true,
       disableColumnMenu: true,
       editable: false,
@@ -126,9 +109,6 @@ function renderCell(
         paddingLeft: '24px',
         paddingTop: '-16px',
         paddingBottom: '-16px',
-        // marginTop: '16px',
-        // marginBottom:'16px',
-        // borderBottom: '1px solid #CCD4DC',
         cursor: 'pointer',
         WebkitBoxOrient: 'vertical' as const,
         ...overrideStyle,
@@ -184,7 +164,7 @@ function showName(
         <>
           <Grid container sx={{ width: '100%' }}>
             <Grid item xs={showChip ? 7 : 12} sx={{ width: '100%' }}>
-              <Typography variant="h6" color="primary">
+              <Typography variant="body2" color="primary" sx={{ fontWeight: 'fontWeightMedium' }}>
                 {params.row.name}
               </Typography>
             </Grid>
@@ -210,23 +190,28 @@ function showRefernts(params: GridRenderCellParams, onRowClick: (partyGroup: Par
     <React.Fragment>
       {renderCell(
         params,
-        <Box sx={{ backgroundColor: '#F5F5F5', borderRadius: '4px' }}>
-          <Typography
-            sx={{
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              display: '-webkit-box',
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: 'vertical' as const,
-              width: '100%',
-              color: params.row.status === 'SUSPENDED' ? '#9E9E9E' : undefined,
-              fontSize: '14px',
-              fontWeight: 600,
-              padding: '4px',
-            }}
-          >
-            {`${(params.row as PartyGroup).membersCount} referenti`}
-          </Typography>
+        <Box display="flex">
+          <Box>
+            <GroupIcon color={isGroupSuspended(params.row as PartyGroup) ? 'disabled' : 'action'} />
+          </Box>
+          <Box>
+            <Typography
+              sx={{
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical' as const,
+                width: '100%',
+                color: params.row.status === 'SUSPENDED' ? '#9E9E9E' : undefined,
+                fontSize: '14px',
+                fontWeight: 600,
+                padding: '4px',
+              }}
+            >
+              {`${(params.row as PartyGroup).membersCount} referenti`}
+            </Typography>
+          </Box>
         </Box>,
         onRowClick
       )}
@@ -246,6 +231,7 @@ function TableChip({ text }: { text: string }) {
         backgroundColor: '#FFD25E',
         paddingBottom: '1px',
         height: '24px',
+        width: '100%',
       }}
     />
   );

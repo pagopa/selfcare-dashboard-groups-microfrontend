@@ -260,13 +260,16 @@ export default function GroupMenu({
         <Grid item xs={1} display="flex" justifyContent="flex-start">
           <Tooltip aria-label="ActionsOnTheUser" title={t('groupActions.actionOnUser') as string}>
             <IconButton
-              sx={{ p: '0px', ':hover': { backgroundColor: 'transparent' } }}
+              sx={{
+                p: '0px',
+                '&:hover': { backgroundColor: 'transparent' },
+              }}
               disableRipple
               onClick={handleClick}
               disabled={isSuspended}
             >
               <MoreVertIcon
-                fontSize="small"
+                fontSize="medium"
                 sx={{ color: isSuspended ? '#a2adb8' : '#0073E6', padding: '3px' }}
               />
             </IconButton>

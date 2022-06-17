@@ -58,13 +58,12 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
           {partyGroup.createdBy ? (
             <Box>
               <Typography variant="body2" className={groupStatusClass} sx={{ fontWeight: '600' }}>
-                {`${partyGroup.createdBy.name} ${partyGroup.createdBy?.surname}`}
+                {`${partyGroup.createdBy.name} ${partyGroup.createdBy?.surname}`} &nbsp;- &nbsp;
               </Typography>
             </Box>
           ) : (
             ''
           )}
-          &nbsp; - &nbsp;
           {partyGroup.createdAt ? (
             <Box>
               <Typography variant="body2" className={groupStatusClass} sx={{ fontWeight: '600' }}>
@@ -85,16 +84,13 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
         <Grid item xs={9} display="flex">
           {partyGroup.modifiedBy ? (
             <Box>
-              <Typography
-                variant="body2"
-                className={groupStatusClass}
-                sx={{ fontWeight: '600' }}
-              >{`${partyGroup.modifiedBy?.name} ${partyGroup.modifiedBy?.surname}`}</Typography>
+              <Typography variant="body2" className={groupStatusClass} sx={{ fontWeight: '600' }}>
+                {`${partyGroup.modifiedBy?.name} ${partyGroup.modifiedBy?.surname}`} &nbsp;- &nbsp;
+              </Typography>
             </Box>
           ) : (
             ''
           )}
-          &nbsp; - &nbsp;
           {partyGroup.modifiedAt ? (
             <Box>
               <Typography variant="body2" className={groupStatusClass} sx={{ fontWeight: '600' }}>
