@@ -225,14 +225,41 @@ export default function GroupActions({
 
   return (
     <Box display="flex">
-      {!isSuspended && canEdit && (
+      {canEdit && (
         <>
           <Box display="flex" alignItems="center" mr={2}>
             <DeleteOutlinedIcon color="primary" fontSize="small" />
           </Box>
+
           <Box mr={3}>
             <Link
-              sx={{ fontSize: '14px', fontWeight: 'bold', textDecoration: 'none' }}
+              sx={{
+                fontSize: '14px',
+                fontWeight: 'bold',
+                textDecoration: 'none',
+                cursor: 'pointer',
+              }}
+              onClick={handleOpenDelete}
+            >
+              {t('groupActions.groupDeleteAction')}
+            </Link>
+          </Box>
+        </>
+      )}
+
+      {!isSuspended && canEdit && (
+        <>
+          <Box mr={2}>
+            <EditIcon color="primary" fontSize="small" />
+          </Box>
+          <Box mr={3}>
+            <Link
+              sx={{
+                fontSize: '14px',
+                fontWeight: 'bold',
+                textDecoration: 'none',
+                cursor: 'pointer',
+              }}
               onClick={goEdit}
             >
               {t('groupActions.editActionLabel')}
@@ -243,11 +270,17 @@ export default function GroupActions({
       {canEdit && (
         <>
           <Box mr={2}>
-            <EditIcon color="primary" fontSize="small" />
+            <HourglassEmptyIcon color="primary" fontSize="small" />
           </Box>
+
           <Box mr={3}>
             <Link
-              sx={{ fontSize: '14px', fontWeight: 'bold', textDecoration: 'none' }}
+              sx={{
+                fontSize: '14px',
+                fontWeight: 'bold',
+                textDecoration: 'none',
+                cursor: 'pointer',
+              }}
               onClick={handleOpen}
             >
               {partyGroup.status === 'SUSPENDED'
@@ -262,29 +295,19 @@ export default function GroupActions({
       {!isSuspended && (
         <>
           <Box mr={2}>
-            <HourglassEmptyIcon color="primary" fontSize="small" />
-          </Box>
-          <Box mr={3}>
-            <Link
-              sx={{ fontSize: '14px', fontWeight: 'bold', textDecoration: 'none' }}
-              onClick={goToDuplicate}
-            >
-              {t('groupActions.groupDuplicateAction')}
-            </Link>
-          </Box>
-        </>
-      )}
-      {canEdit && (
-        <>
-          <Box mr={2}>
             <CopyAllIcon color="primary" fontSize="small" />
           </Box>
           <Box mr={3}>
             <Link
-              sx={{ fontSize: '14px', fontWeight: 'bold', textDecoration: 'none' }}
-              onClick={handleOpenDelete}
+              sx={{
+                fontSize: '14px',
+                fontWeight: 'bold',
+                textDecoration: 'none',
+                cursor: 'pointer',
+              }}
+              onClick={goToDuplicate}
             >
-              {t('groupActions.groupDeleteAction')}
+              {t('groupActions.groupDuplicateAction')}
             </Link>
           </Box>
         </>

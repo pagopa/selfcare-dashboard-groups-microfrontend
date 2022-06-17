@@ -1,10 +1,10 @@
 import { Box, Divider, Grid, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import useLoading from '@pagopa/selfcare-common-frontend/hooks/useLoading';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useState } from 'react';
 import useUserNotify from '@pagopa/selfcare-common-frontend/hooks/useUserNotify';
 import { useTranslation, Trans } from 'react-i18next';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { PartyProductUser, PartyUserProduct, PartyUserProductRole } from '../../../model/PartyUser';
 import { deleteGroupRelation } from '../../../services/groupsService';
 import { LOADING_TASK_UPDATE_PARTY_USER_STATUS } from '../../../utils/constants';
@@ -265,7 +265,10 @@ export default function GroupMenu({
               onClick={handleClick}
               disabled={isSuspended}
             >
-              <MoreVertIcon sx={{ color: isSuspended ? '#a2adb8' : 'primary' }} />
+              <MoreVertIcon
+                fontSize="small"
+                sx={{ color: isSuspended ? '#a2adb8' : '#0073E6', padding: '3px' }}
+              />
             </IconButton>
           </Tooltip>
         </Grid>
@@ -282,7 +285,7 @@ export default function GroupMenu({
           },
         }}
       >
-        <Box width="100%" display="flex" justifyContent="center">
+        <Box width="100%" display="flex" justifyContent="start">
           <MenuItem onClick={confirmDisociateAction}>
             {t('groupMenu.dissociateMenuItem.label')}
           </MenuItem>
@@ -292,7 +295,7 @@ export default function GroupMenu({
             <Box width="170px" margin="4px auto">
               <Divider />
             </Box>
-            <Box width="100%" display="flex" justifyContent="center">
+            <Box width="100%" display="flex" justifyContent="start">
               <MenuItem onClick={confirmAction}>
                 {role?.status === 'ACTIVE'
                   ? t('groupMenu.suspendMenuItem.suspendLabel')

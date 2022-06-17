@@ -1,5 +1,5 @@
 import React from 'react';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+// import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
@@ -7,6 +7,7 @@ import useUserNotify from '@pagopa/selfcare-common-frontend/hooks/useUserNotify'
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
 import useLoading from '@pagopa/selfcare-common-frontend/hooks/useLoading';
 import { useTranslation, Trans } from 'react-i18next';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Party, UserStatus } from '../../../../../model/Party';
 import { LOADING_TASK_ACTION_ON_PARTY_GROUP } from '../../../../../utils/constants';
 import { PartyGroup, PartyGroupStatus } from '../../../../../model/PartyGroup';
@@ -231,7 +232,7 @@ export default function GroupProductRowActions({
         title={t('dashboardGroup.groupProductRowActions.toolTipActions') as string}
       >
         <IconButton onClick={handleClick}>
-          <MoreVertIcon color="primary" />
+          <ArrowForwardIosIcon fontSize="small" color="primary" sx={{ padding: '3px' }} />
         </IconButton>
       </Tooltip>
       <Menu

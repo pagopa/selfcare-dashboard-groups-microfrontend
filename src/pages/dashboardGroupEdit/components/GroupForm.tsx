@@ -380,7 +380,7 @@ export default function GroupForm({
     <React.Fragment>
       <form onSubmit={formik.handleSubmit}>
         <Grid container direction="column">
-          <Grid sx={{ width: '985px', backgroundColor: '#FFFFFF', padding: '24px' }} xs={9}>
+          <Grid item sx={{ backgroundColor: '#FFFFFF', padding: '24px' }} xs={9}>
             <Grid item container spacing={3} marginBottom={5}>
               <Grid item xs={10} mb={3}>
                 <Typography variant="h6" sx={{ fontWeight: '700', color: '#5C6F82' }} pb={1}>

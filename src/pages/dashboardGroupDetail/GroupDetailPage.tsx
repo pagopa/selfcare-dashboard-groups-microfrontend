@@ -14,6 +14,7 @@ import { PartyGroupDetail, PartyGroupStatus } from '../../model/PartyGroup';
 import { ProductsRolesMap } from '../../model/ProductRole';
 import GroupActions from './components/GroupActions';
 import GroupDetail from './components/GroupDetail';
+import MembersGroup from './components/MembersGroup';
 
 type Props = withGroupDetailProps & {
   fetchPartyGroup: () => void;
@@ -80,9 +81,9 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
     <Grid
       container
       alignItems={'center'}
-      px={2}
+      px={3}
       mt={10}
-      sx={{ width: '985px', backgroundColor: 'transparent !important' }}
+      sx={{ width: '100%', backgroundColor: 'transparent !important' }}
     >
       <Grid item xs={12} mb={3} display="flex">
         <Box>
@@ -129,22 +130,32 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
           />
         </Grid>
       </Grid>
-
       <Grid container item xs={12} sx={{ backgroundColor: '#FFFFFF', padding: '24px' }}>
         <Grid item mb={3} width="100%">
           <GroupDetail
             partyGroup={partyGroupState}
             productsMap={productsMap}
             isSuspended={isSuspended}
-            product={product}
+          />
+        </Grid>
+      </Grid>
+      <Grid container item xs={12}>
+        <Grid item xs={12} my={3}>
+          <Typography variant="h4">{t('groupDetailPage.usersTitle')}</Typography>
+        </Grid>
+
+        <Grid item xs={12}>
+          <MembersGroup
+            partyGroup={partyGroupState}
             party={party}
+            product={product}
+            isSuspended={isSuspended}
             productRolesLists={productsRolesMap[product.id]}
             canEdit={canEdit}
             onGroupStatusUpdate={onGroupStatusUpdate}
           />
         </Grid>
       </Grid>
-      <Grid item mb={3} mt={15} width="100%"></Grid>
     </Grid>
   );
 }

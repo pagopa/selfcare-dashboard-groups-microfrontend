@@ -19,10 +19,10 @@ export default function NoGroups({ party }: Props) {
       container
       direction="row"
       sx={{
-        mt: 5,
+        mt: 3,
         padding: 2,
         backgroundColor: 'white',
-        border: '24px solid #EEEEEE',
+        border: '0px solid #EEEEEE',
       }}
       justifyContent="center"
     >

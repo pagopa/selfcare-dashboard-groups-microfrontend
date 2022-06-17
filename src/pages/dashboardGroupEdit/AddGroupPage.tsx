@@ -35,40 +35,42 @@ function AddGroupPage({ party, activeProducts, productsMap }: Props) {
   ];
 
   return (
-    <Grid
-      container
-      alignItems={'center'}
-      px={2}
-      mt={10}
-      sx={{ width: '985px', backgroundColor: 'transparent !important' }}
-    >
-      <Grid item xs={12} mb={3}>
-        <ProductNavigationBar paths={paths} />
+    <div style={{ width: '100%' }}>
+      <Grid
+        container
+        alignItems={'center'}
+        px={2}
+        mt={10}
+        sx={{ width: '985px', backgroundColor: 'transparent !important' }}
+      >
+        <Grid item xs={12} mb={3}>
+          <ProductNavigationBar paths={paths} />
+        </Grid>
+        <Grid item xs={12} mb={9}>
+          <TitleBox
+            title={t('dashboardGroupEdit.addGroupPage.title')}
+            subTitle={t('dashboardGroupEdit.addGroupPage.subTitle')}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <GroupForm
+            party={party}
+            products={activeProducts}
+            productsMap={productsMap}
+            initialFormData={
+              {
+                name: '',
+                description: '',
+                members: [],
+                partyId: party.partyId,
+                productId: '',
+              } as PartyGroupOnCreation
+            }
+            isClone={false}
+          />
+        </Grid>
       </Grid>
-      <Grid item xs={12} mb={9}>
-        <TitleBox
-          title={t('dashboardGroupEdit.addGroupPage.title')}
-          subTitle={t('dashboardGroupEdit.addGroupPage.subTitle')}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <GroupForm
-          party={party}
-          products={activeProducts}
-          productsMap={productsMap}
-          initialFormData={
-            {
-              name: '',
-              description: '',
-              members: [],
-              partyId: party.partyId,
-              productId: '',
-            } as PartyGroupOnCreation
-          }
-          isClone={false}
-        />
-      </Grid>
-    </Grid>
+    </div>
   );
 }
 

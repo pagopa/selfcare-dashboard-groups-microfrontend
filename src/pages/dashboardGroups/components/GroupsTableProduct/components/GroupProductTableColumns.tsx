@@ -101,7 +101,10 @@ export function buildColumnDefs(
       renderCell: (p) =>
         canEdit
           ? showActions(party, product, p, onDelete, onStatusUpdate)
-          : renderCell(p, p.row.status !== 'SUSPENDED' && <DuplicateIcon p={p} party={party} t={t} />),
+          : renderCell(
+              p,
+              p.row.status !== 'SUSPENDED' && <DuplicateIcon p={p} party={party} t={t} />
+            ),
       sortable: false,
     },
   ] as Array<GridColDef>;
@@ -181,7 +184,7 @@ function showName(
         <>
           <Grid container sx={{ width: '100%' }}>
             <Grid item xs={showChip ? 7 : 12} sx={{ width: '100%' }}>
-              <Typography variant="h6" color={isSuspended ? '#9E9E9E' : undefined}>
+              <Typography variant="h6" color="primary">
                 {params.row.name}
               </Typography>
             </Grid>

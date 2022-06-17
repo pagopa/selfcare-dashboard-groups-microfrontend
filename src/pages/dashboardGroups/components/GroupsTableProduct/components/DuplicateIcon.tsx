@@ -1,9 +1,9 @@
 import { IconButton, Box, Tooltip } from '@mui/material';
-import CopyAllIcon from '@mui/icons-material/CopyAll';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { GridRenderCellParams } from '@mui/x-data-grid';
 import { useHistory } from 'react-router-dom';
 import { TFunction } from 'react-i18next';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { DASHBOARD_GROUPS_ROUTES } from '../../../../../routes';
 import { PartyGroup } from '../../../../../model/PartyGroup';
 import { Party } from '../../../../../model/Party';
@@ -37,7 +37,7 @@ export default function DuplicateIcon({ party, p, t }: Props) {
             )
           }
         >
-          <CopyAllIcon color="primary" />
+          <ArrowForwardIosIcon color="primary" fontSize="small" sx={{ padding: '3px' }} />
         </IconButton>
       </Tooltip>
     </Box>

@@ -12,6 +12,7 @@ export default {
     },
     title: 'Anagrafe',
     backActionLabel: 'Indietro',
+    usersTitle: 'Utenti',
   },
   groupActions: {
     actionOnUser: "Azioni sull'utente",
@@ -71,23 +72,21 @@ export default {
     duplicate: 'Duplica',
   },
   groupDetail: {
-    name: 'NOME',
-    description: 'DESCRIZIONE',
-    product: 'PRODOTTO',
-    referents: 'REFERENTI',
-    creationDate: 'DATA CREAZIONE',
+    description: 'Descrizione',
+    product: 'Prodotto',
+    creationDate: 'Creato da - in data',
     createdByLabel: 'DA',
-    modifiedAt: 'DATA ULTIMA MODIFICA',
+    modifiedAt: 'Modificato da - in data',
     modifiedBy: 'DA',
     status: 'Sospeso',
   },
   groupMenu: {
     dissociateMenuItem: {
-      label: 'Dissocia dal gruppo',
+      label: 'Rimuovi dal gruppo',
     },
     suspendMenuItem: {
-      suspendLabel: 'Sospendi Referente',
-      activeLabel: 'Riabilita Referente',
+      suspendLabel: 'Sospendi Ruolo',
+      activeLabel: 'Riabilita Ruolo',
     },
     confirmAction: {
       titleSuspended: 'Sospendi Ruolo',

@@ -1,13 +1,14 @@
-import { Grid, Link, Divider, Typography, Chip } from '@mui/material';
+import { Grid, Link, Typography, Chip, Box, Tooltip } from '@mui/material';
 import { useHistory } from 'react-router';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
 import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
 import { Product } from '../../../model/Product';
 import { Party, UserStatus } from '../../../model/Party';
 import { ProductRolesLists, transcodeProductRole2Title } from '../../../model/ProductRole';
-import { PartyProductUser, PartyUserProduct } from '../../../model/PartyUser';
+import { PartyProductUser, PartyUserProduct, PartyUserProductRole } from '../../../model/PartyUser';
 import { ENV } from '../../../utils/env';
 import GroupMenu from './GroupMenu';
 
@@ -61,121 +62,198 @@ export default function MembersGroup({
     setMembers(members.slice());
   };
 
-  return (
-    <Grid container py={2}>
-      {/* eslint-disable-next-line sonarjs/cognitive-complexity */}
-      {members.map((member, index) => {
-        const userProduct = member.product;
-        const isMemeberSuspended =
-          member.status === 'SUSPENDED' ||
-          !userProduct?.roles.find((r) => r.status !== 'SUSPENDED');
+  const length = 19;
 
+  const columns = [
+    {
+      field: 'name',
+      headerName: 'Nome',
+      flex: 1,
+      minWidth: 150,
+      renderCell: (member: GridRenderCellParams<any, any, any>) => (
+        <Link
+          component="button"
+          disabled={isSuspended}
+          sx={{
+            width: `${length}ch`,
+            textDecoration: 'none',
+            fontWeight: 600,
+            cursor: isSuspended ? 'text' : 'pointer',
+            display: 'flex',
+          }}
+          onClick={() =>
+            history.push(
+              resolvePathVariables(ENV.ROUTES.USERS_DETAIL, {
+                partyId: partyGroup.partyId,
+                userId: member.row.id,
+              })
+            )
+          }
+        >
+          <Tooltip
+            title={
+              // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+              member.row.name.length + member.row.surname.length > length - 1
+                ? `${member.row.name} ${member.row.surname}`
+                : ''
+            }
+          >
+            <Typography
+              className="ShowDots"
+              variant="h6"
+              sx={{
+                color: isSuspended ? '#a2adb8' : '#0073E6',
+                justifyContent: 'flexStart',
+              }}
+            >
+              {`${member.row.name} ${member.row.surname}
+              ${member.row.isCurrentUser ? t('membersGroup.currentUser') : ''}`}
+            </Typography>
+          </Tooltip>
+        </Link>
+      ),
+    },
+    {
+      field: 'email',
+      headerName: 'Email',
+      flex: 1,
+      minWidth: 180,
+      renderCell: (member: GridRenderCellParams<any, any, any>) => {
+        const userProduct = member.row.product;
+        const isMemeberSuspended =
+          member.row.status === 'SUSPENDED' ||
+          !userProduct?.roles.find((r: PartyUserProductRole) => r.status !== 'SUSPENDED');
         return (
-          <Grid key={member.id} item container spacing={1}>
-            <Grid item xs={3}>
-              <Link
-                component="button"
-                disabled={isSuspended}
-                sx={{
-                  width: '100%',
-                  textDecoration: 'none',
-                  fontWeight: 600,
-                  cursor: isSuspended ? 'text' : 'pointer',
-                  display: 'flex',
-                }}
-                onClick={() =>
-                  history.push(
-                    resolvePathVariables(ENV.ROUTES.USERS_DETAIL, {
-                      partyId: partyGroup.partyId,
-                      userId: member.id,
-                    })
-                  )
-                }
-              >
-                <Typography
-                  className="ShowDots"
-                  variant="h6"
-                  sx={{
-                    color: isSuspended ? '#a2adb8' : '#0073E6',
-                    justifyContent: 'flexStart',
-                  }}
-                  title={`${member.name} ${member.surname}`}
-                >
-                  {`${member.name} ${member.surname}${
-                    member.isCurrentUser ? t('membersGroup.currentUser') : ''
-                  }`}
-                </Typography>
-              </Link>
-            </Grid>
-            <Grid item xs={4}>
+          <Typography
+            sx={{ fontSize: '14px' }}
+            variant="body2"
+            className="ShowDots"
+            color={isMemeberSuspended || isSuspended ? '#9E9E9E' : undefined}
+            title={member.row.email}
+            width="100%"
+          >
+            {member.row.email}
+          </Typography>
+        );
+      },
+    },
+    {
+      field: 'role',
+      headerName: 'Ruolo',
+      flex: 1,
+      minWidth: 180,
+      renderCell: (member: GridRenderCellParams<any, any, any>) => {
+        const userProduct = member.row.product;
+        const isMemeberSuspended =
+          member.row.status === 'SUSPENDED' ||
+          !userProduct?.roles.find((r: PartyUserProductRole) => r.status !== 'SUSPENDED');
+        return userProduct?.roles?.map((r: PartyUserProductRole, index: number) => (
+          <Grid container key={index}>
+            <Grid item xs={isMemeberSuspended ? 8 : 12}>
               <Typography
-                sx={{ fontSize: '14px' }}
                 variant="body2"
+                sx={{ fontSize: '14px' }}
+                title={transcodeProductRole2Title(r.role, productRolesLists)}
                 className="ShowDots"
-                color={isMemeberSuspended || isSuspended ? '#9E9E9E' : undefined}
-                title={member.email}
-                width="100%"
+                width={isMemeberSuspended ? '16ch' : '30ch'}
+                color={r.status === 'SUSPENDED' || isSuspended ? '#9E9E9E' : undefined}
               >
-                {member.email}
+                {transcodeProductRole2Title(r.role, productRolesLists)}
               </Typography>
             </Grid>
-            <Grid item xs={2}>
-              {userProduct?.roles?.map((r, index) => (
-                <Grid container key={index}>
-                  <Grid item xs={isMemeberSuspended ? 8 : 12}>
-                    <Typography
-                      variant="body2"
-                      sx={{ fontSize: '14px' }}
-                      title={transcodeProductRole2Title(r.role, productRolesLists)}
-                      className="ShowDots"
-                      width={isMemeberSuspended ? '16ch' : '30ch'}
-                      color={r.status === 'SUSPENDED' || isSuspended ? '#9E9E9E' : undefined}
-                    >
-                      {transcodeProductRole2Title(r.role, productRolesLists)}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              ))}
-            </Grid>
-
-            <Grid item xs={2} display="flex" justifyContent="center">
-              {isMemeberSuspended && (
-                <Chip
-                  label={t('groupDetail.status')}
-                  aria-label="Suspended"
-                  variant="outlined"
-                  sx={{
-                    fontWeight: '600',
-                    fontSize: '14px',
-                    background: '#E0E0E0',
-                    border: 'none',
-                    borderRadius: '16px',
-                    width: '76px',
-                    height: '24px',
-                  }}
-                />
-              )}
-            </Grid>
-            <GroupMenu
-              member={member}
-              party={party}
-              product={product}
-              partyGroup={partyGroup}
-              userProduct={userProduct}
-              isSuspended={isSuspended}
-              productRolesLists={productRolesLists}
-              onMemberStatusUpdate={onMemberStatusUpdate}
-              onMemberDelete={onMemberDelete}
-              canEdit={canEdit}
-            />
-            {index !== partyGroup.members.length - 1 && (
-              <Grid item xs={12} py={2}>
-                <Divider />
-              </Grid>
-            )}
           </Grid>
+        ));
+      },
+    },
+    {
+      field: 'status',
+      headerName: '',
+      flex: 1,
+      minWidth: 100,
+      sortable: false,
+      renderCell: (member: GridRenderCellParams<any, any, any>) => {
+        const userProduct = member.row.product;
+        const isMemeberSuspended =
+          member.row.status === 'SUSPENDED' ||
+          !userProduct?.roles.find((r: PartyUserProductRole) => r.status !== 'SUSPENDED');
+        return (
+          isMemeberSuspended && (
+            <Chip
+              label={t('groupDetail.status')}
+              aria-label="Suspended"
+              variant="outlined"
+              sx={{
+                fontWeight: '600',
+                fontSize: '14px',
+                background: '#FFD25E',
+                border: 'none',
+                borderRadius: '16px',
+                width: '76px',
+                height: '24px',
+              }}
+            />
+          )
         );
-      })}
-    </Grid>
+      },
+    },
+    {
+      field: 'actions',
+      headerName: '',
+      flex: 1,
+      minWidth: 50,
+      sortable: false,
+      renderCell: (member: GridRenderCellParams<any, any, any>) => {
+        const userProduct = member.row.product;
+        const isMemeberSuspended =
+          member.row.status === 'SUSPENDED' ||
+          !userProduct?.roles.find((r: PartyUserProductRole) => r.status !== 'SUSPENDED');
+        return (
+          !isMemeberSuspended && (
+            <Box display="flex" justifyContent="center" width="100%">
+              <GroupMenu
+                member={member.row}
+                party={party}
+                product={product}
+                partyGroup={partyGroup}
+                userProduct={userProduct}
+                isSuspended={isSuspended}
+                productRolesLists={productRolesLists}
+                onMemberStatusUpdate={onMemberStatusUpdate}
+                onMemberDelete={onMemberDelete}
+                canEdit={canEdit}
+              />
+            </Box>
+          )
+        );
+      },
+    },
+  ];
+
+  return (
+    <DataGrid
+      disableColumnMenu
+      sx={{
+        border: 'none',
+        '& .MuiDataGrid-columnSeparator': {
+          display: 'none',
+        },
+        '& .MuiDataGrid-columnHeaders': {
+          borderBottom: 'transparent',
+        },
+        '& .MuiDataGrid-row': {
+          backgroundColor: 'white',
+          marginTop: '-2px',
+        },
+        '& .MuiDataGrid-columnHeader:focus-within': {
+          outline: 'none',
+        },
+      }}
+      rows={members}
+      columns={columns}
+      autoHeight
+      hideFooter={true}
+      showCellRightBorder={false}
+      showColumnRightBorder={false}
+    />
   );
 }

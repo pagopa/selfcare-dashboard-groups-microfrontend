@@ -1,121 +1,76 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { Party } from '../../../model/Party';
-import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
-import { Product, ProductsMap } from '../../../model/Product';
-import { ProductRolesLists } from '../../../model/ProductRole';
-import MembersGroup from './MembersGroup';
+import { PartyGroupDetail } from '../../../model/PartyGroup';
+import { ProductsMap } from '../../../model/Product';
 
 type Props = {
   partyGroup: PartyGroupDetail;
   productsMap: ProductsMap;
   isSuspended: boolean;
-  product: Product;
-  party: Party;
-  productRolesLists: ProductRolesLists;
-  canEdit: boolean;
-  onGroupStatusUpdate: (nextGroupStatus: PartyGroupStatus) => void;
 };
 
-function GroupDetail({
-  partyGroup,
-  productsMap,
-  isSuspended,
-  product,
-  party,
-  productRolesLists,
-  canEdit,
-  onGroupStatusUpdate,
-}: Props) {
+function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
   function formatDate(data?: Date) {
     const d = new Date(data as Date);
     return d.toLocaleDateString('it', { day: '2-digit', month: '2-digit', year: 'numeric' });
   }
 
   const groupStatusClass = isSuspended ? 'CustomDisabledLabel' : 'CustomInfoStyle';
+  const groupLabelClass = isSuspended ? 'CustomDisabledLabel' : 'CustomLabelStyle';
   const { t } = useTranslation();
 
   return (
     <Grid container spacing={2}>
       <Grid container item alignContent="center">
         <Grid item xs={3}>
-          <Typography className="CustomLabelStyle" variant="h6">
-            {t('groupDetail.name')}
-          </Typography>
-        </Grid>
-        <Grid item xs={9}>
-          <Typography variant="body2" className={groupStatusClass}>
-            {partyGroup.name}
-          </Typography>
-        </Grid>
-      </Grid>
-      <Grid container item alignContent="center">
-        <Grid item xs={3}>
-          <Typography variant="h6" className="CustomLabelStyle">
+          <Typography variant="body2" className={groupLabelClass}>
             {t('groupDetail.description')}
           </Typography>
         </Grid>
         <Grid item xs={9}>
-          <Typography variant="body2" className={groupStatusClass}>
+          <Typography
+            variant="body2"
+            sx={{ color: isSuspended ? '#A2ADB8' : '#5C6F82', fontWeight: '600' }}
+          >
             {partyGroup.description}
           </Typography>
         </Grid>
       </Grid>
       <Grid container item alignContent="center">
         <Grid item xs={3}>
-          <Typography variant="h6" className="CustomLabelStyle">
+          <Typography variant="body2" className={groupLabelClass}>
             {t('groupDetail.product')}
           </Typography>
         </Grid>
         <Grid item xs={9}>
-          <Typography variant="body2" className={groupStatusClass}>
+          <Typography variant="body2" className={groupStatusClass} sx={{ fontWeight: '600' }}>
             {productsMap[partyGroup.productId].title}
           </Typography>
         </Grid>
       </Grid>
       <Grid container item alignContent="center">
-        <Grid item xs={12}>
-          <Typography variant="h6" className="CustomLabelStyle">
-            {t('groupDetail.referents')}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <MembersGroup
-            partyGroup={partyGroup}
-            party={party}
-            product={product}
-            isSuspended={isSuspended}
-            productRolesLists={productRolesLists}
-            canEdit={canEdit}
-            onGroupStatusUpdate={onGroupStatusUpdate}
-          />
-        </Grid>
-      </Grid>
-      <Grid container item alignContent="center">
         <Grid item xs={3}>
-          <Typography variant="h6" className="CustomLabelStyle">
+          <Typography variant="body2" className={groupLabelClass}>
             {t('groupDetail.creationDate')}
           </Typography>
         </Grid>
-        <Grid item xs={9}>
-          {partyGroup.createdAt ? (
-            <Typography variant="body2" className={groupStatusClass}>
-              {formatDate(partyGroup.createdAt)}
-            </Typography>
+        <Grid item xs={9} display="flex">
+          {partyGroup.createdBy ? (
+            <Box>
+              <Typography variant="body2" className={groupStatusClass} sx={{ fontWeight: '600' }}>
+                {`${partyGroup.createdBy.name} ${partyGroup.createdBy?.surname}`}
+              </Typography>
+            </Box>
           ) : (
             ''
           )}
-        </Grid>
-        <Grid item xs={3}>
-          <Typography variant="h6" className="CustomLabelStyle">
-            {t('groupDetail.createdByLabel')}
-          </Typography>
-        </Grid>
-        <Grid item xs={9}>
-          {partyGroup.createdBy ? (
-            <Typography variant="body2" className={groupStatusClass}>
-              {`${partyGroup.createdBy.name} ${partyGroup.createdBy?.surname}`}
-            </Typography>
+          &nbsp; - &nbsp;
+          {partyGroup.createdAt ? (
+            <Box>
+              <Typography variant="body2" className={groupStatusClass} sx={{ fontWeight: '600' }}>
+                {formatDate(partyGroup.createdAt)}
+              </Typography>
+            </Box>
           ) : (
             ''
           )}
@@ -123,30 +78,29 @@ function GroupDetail({
       </Grid>
       <Grid container item alignContent="center">
         <Grid item xs={3}>
-          <Typography variant="h6" className="CustomLabelStyle">
+          <Typography variant="body2" className={groupLabelClass}>
             {t('groupDetail.modifiedAt')}
           </Typography>
         </Grid>
-        <Grid item xs={9}>
-          {partyGroup.modifiedAt ? (
-            <Typography variant="body2" className={groupStatusClass}>
-              {formatDate(partyGroup.modifiedAt)}
-            </Typography>
+        <Grid item xs={9} display="flex">
+          {partyGroup.modifiedBy ? (
+            <Box>
+              <Typography
+                variant="body2"
+                className={groupStatusClass}
+                sx={{ fontWeight: '600' }}
+              >{`${partyGroup.modifiedBy?.name} ${partyGroup.modifiedBy?.surname}`}</Typography>
+            </Box>
           ) : (
             ''
           )}
-        </Grid>
-        <Grid item xs={3}>
-          <Typography variant="h6" className="CustomLabelStyle">
-            {t('groupDetail.modifiedBy')}
-          </Typography>
-        </Grid>
-        <Grid item xs={9}>
-          {partyGroup.modifiedBy ? (
-            <Typography
-              variant="body2"
-              className={groupStatusClass}
-            >{`${partyGroup.modifiedBy?.name} ${partyGroup.modifiedBy?.surname}`}</Typography>
+          &nbsp; - &nbsp;
+          {partyGroup.modifiedAt ? (
+            <Box>
+              <Typography variant="body2" className={groupStatusClass} sx={{ fontWeight: '600' }}>
+                {formatDate(partyGroup.modifiedAt)}
+              </Typography>
+            </Box>
           ) : (
             ''
           )}
