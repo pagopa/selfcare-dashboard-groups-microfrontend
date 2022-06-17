@@ -138,16 +138,12 @@ export default {
     },
     groupForm: {
       formLabels: {
-        groupName: 'Nome del gruppo',
+        groupName: 'Inserisci il nome del gruppo',
         groupNameDuplicated: 'Questo nome è già in uso',
         groupNamePlaceholder: 'Inserisci il nome del gruppo',
-        description: 'Descrizione',
-        descriptionMaxLength: 'Max 200 caratteri',
-        descriptionPlaceholder: 'Inserisci una descrizione',
-        product: 'Prodotto',
+        description: 'Descrivi il gruppo e indica la sua funzione',
         prductPlaceholter: 'Seleziona il prodotto',
         noProductSelected: 'Nessun prodotto selezionato',
-        referents: 'Utenti',
         referentsPlaceholter: 'Seleziona gli utenti che vuoi associare al gruppo',
         cancelActionLabel: 'Indietro',
         confirmActionLabel: 'Conferma',
@@ -178,7 +174,7 @@ export default {
       pathDescription: 'Crea un nuovo gruppo',
       title: 'Crea un nuovo gruppo',
       subTitle:
-        'Inserisci i dati del gruppo, associa i relativi utenti e seleziona il prodotto che gestirà.',
+        'Inserisci i dati del gruppo, associa i relativi utenti e seleziona il prodotto da gestire.',
     },
     cloneGroupPage: {
       groupPathDescription: 'Gruppi',

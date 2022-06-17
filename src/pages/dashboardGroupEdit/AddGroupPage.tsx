@@ -44,10 +44,19 @@ function AddGroupPage({ party, activeProducts, productsMap }: Props) {
         sx={{ width: '985px', backgroundColor: 'transparent !important' }}
       >
         <Grid item xs={12} mb={3}>
-          <ProductNavigationBar paths={paths} />
+          <ProductNavigationBar
+            paths={paths}
+            showBackComponent={true}
+            backLinkTextDecoration="none"
+            backLinkFontWeight="700"
+            backLinkFontSize="16px"
+            // TODO goBack={goBack}
+          />
         </Grid>
         <Grid item xs={12} mb={9}>
           <TitleBox
+            variantTitle="h4"
+            variantSubTitle="body1"
             title={t('dashboardGroupEdit.addGroupPage.title')}
             subTitle={t('dashboardGroupEdit.addGroupPage.subTitle')}
           />
