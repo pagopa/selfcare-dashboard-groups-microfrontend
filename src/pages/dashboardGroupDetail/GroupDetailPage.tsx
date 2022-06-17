@@ -163,19 +163,21 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
               {t('groupDetailPage.usersTitle')}
             </Typography>
           </Grid>
-          <Grid item xs={4} display="flex" justifyContent="flex-end" pr={1}>
-            <Link
-              onClick={goEdit}
-              sx={{
-                fontSize: '14px',
-                fontWeight: '700',
-                textDecoration: 'none',
-                cursor: 'pointer',
-              }}
-            >
-              {t('groupDetailPage.addUser')}
-            </Link>
-          </Grid>
+          {!isSuspended && (
+            <Grid item xs={4} display="flex" justifyContent="flex-end" pr={1}>
+              <Link
+                onClick={goEdit}
+                sx={{
+                  fontSize: '14px',
+                  fontWeight: '700',
+                  textDecoration: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                {t('groupDetailPage.addUser')}
+              </Link>
+            </Grid>
+          )}
         </Grid>
         <Grid item xs={12}>
           <MembersGroup
