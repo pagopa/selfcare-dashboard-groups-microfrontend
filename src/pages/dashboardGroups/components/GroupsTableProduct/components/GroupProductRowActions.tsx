@@ -231,7 +231,7 @@ export default function GroupProductRowActions({
         aria-label="SelectAction"
         title={t('dashboardGroup.groupProductRowActions.toolTipActions') as string}
       >
-        <IconButton onClick={handleClick}>
+        <IconButton onClick={handleClick} sx={{ p: 0 }}>
           <ArrowForwardIosIcon fontSize="small" color="primary" sx={{ padding: '3px' }} />
         </IconButton>
       </Tooltip>

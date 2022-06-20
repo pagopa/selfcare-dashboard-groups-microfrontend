@@ -264,6 +264,6 @@ function showActions(
       onStatusUpdate={onStatusUpdate}
     />,
     undefined,
-    { paddingLeft: 0, paddingRight: 0, textAlign: 'center' }
+    { paddingLeft: '24px', paddingRight: '24px', textAlign: 'center' }
   );
 }

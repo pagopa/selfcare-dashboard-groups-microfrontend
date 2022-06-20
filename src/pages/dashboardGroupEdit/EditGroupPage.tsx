@@ -55,7 +55,14 @@ function EditGroupPage({ party, activeProducts, productsMap, partyGroup }: Props
       sx={{ width: '985px', backgroundColor: 'transparent !important' }}
     >
       <Grid item xs={12} mb={3}>
-        <ProductNavigationBar paths={paths} />
+        <ProductNavigationBar
+          paths={paths}
+          showBackComponent={true}
+          backLinkTextDecoration="none"
+          backLinkFontWeight="700"
+          backLinkFontSize="16px"
+          goBack={goBack}
+        />
       </Grid>
       <Grid item xs={12} mb={9}>
         <TitleBox title={t('dashboardGroupEdit.editGroupPage.title')} />
