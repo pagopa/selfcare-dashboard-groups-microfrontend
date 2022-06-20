@@ -19,15 +19,18 @@ type Props = {
 function AddGroupPage({ party, activeProducts, productsMap }: Props) {
   const history = useHistory();
   const { t } = useTranslation();
+
+  const goBack = () =>
+    history.push(
+      resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.MAIN.path, {
+        partyId: party.partyId,
+      })
+    );
+
   const paths = [
     {
       description: t('dashboardGroupEdit.addGroupPage.groupPathDescription'),
-      onClick: () =>
-        history.push(
-          resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.MAIN.path, {
-            partyId: party.partyId,
-          })
-        ),
+      onClick: goBack,
     },
     {
       description: t('dashboardGroupEdit.addGroupPage.pathDescription'),
@@ -50,7 +53,7 @@ function AddGroupPage({ party, activeProducts, productsMap }: Props) {
             backLinkTextDecoration="none"
             backLinkFontWeight="700"
             backLinkFontSize="16px"
-            // TODO goBack={goBack}
+            goBack={goBack}
           />
         </Grid>
         <Grid item xs={12} mb={9}>

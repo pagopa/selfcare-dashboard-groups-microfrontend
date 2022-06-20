@@ -8,6 +8,7 @@ import {
   Select,
   styled,
   TextField,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
@@ -25,6 +26,7 @@ import { useHistory } from 'react-router-dom';
 import { User } from '@pagopa/selfcare-common-frontend/model/User';
 import { userSelectors } from '@pagopa/selfcare-common-frontend/redux/slices/userSlice';
 import { useTranslation, Trans } from 'react-i18next';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { ReactComponent as ClearIcon } from '../../../assets/clear.svg';
 import { Party } from '../../../model/Party';
 import { PartyGroupOnCreation, PartyGroupOnEdit } from '../../../model/PartyGroup';
@@ -59,7 +61,6 @@ const CustomTextField = styled(TextField)({
   '.MuiInput-root': {
     '&:after': {
       borderBottom: '2px solid #5C6F82',
-      color: 'green',
     },
   },
   '.MuiInputLabel-root.Mui-focused': {
@@ -68,8 +69,8 @@ const CustomTextField = styled(TextField)({
   },
   '.MuiInputLabel-root': {
     color: '#5C6F82',
-    fontSize: '16px',
     fontWeight: '700',
+    top: '-1px',
   },
   input: {
     '&::placeholder': {
@@ -412,6 +413,17 @@ export default function GroupForm({
             multiline
             rows={2}
             inputProps={{ maxLength: 200 }}
+            InputProps={{
+              endAdornment: (
+                <Box>
+                  <Tooltip
+                    title={t('dashboardGroupEdit.groupForm.formLabels.descriptionMaxLength')}
+                  >
+                    <InfoOutlinedIcon sx={{ ml: 1, mb: 2, color: '#5C6F82', cursor: 'pointer' }} />
+                  </Tooltip>
+                </Box>
+              ),
+            }}
           />
         </Grid>
         {/* Product */}
@@ -425,7 +437,9 @@ export default function GroupForm({
             variant="outlined"
             renderValue={(productSelected) =>
               productSelected === '' ? (
-                <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
+                <Typography
+                  sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium', color: '#5C6F82' }}
+                >
                   {t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
                 </Typography>
               ) : (
@@ -465,9 +479,11 @@ export default function GroupForm({
             value={formik.values.members}
             displayEmpty
             renderValue={(selectedUsers) => (
-              <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+              <Box>
                 {selectedUsers.length === 0 ? (
-                  <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
+                  <Typography
+                    sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium', color: '#5C6F82' }}
+                  >
                     {t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholter')}
                   </Typography>
                 ) : undefined}
@@ -503,7 +519,7 @@ export default function GroupForm({
                     }}
                   >
                     <Checkbox checked={isChecked} onClick={onItemSelected} />
-                    {u.name} {u.surname} aaa
+                    {u.name} {u.surname}
                   </MenuItem>
                 );
               })}
