@@ -145,7 +145,7 @@ export default function GroupActions({
             <strong>{{ productTitle: productsMap[partyGroup.productId].title }}</strong>
             .
             <br />
-            Vuoi continuare?
+            Puoi riabilitarlo in qualsiasi momento.
           </Trans>
         </>
       ),
@@ -173,16 +173,11 @@ export default function GroupActions({
         addNotify({
           id: 'ACTION_ON_PARTY_GROUP_COMPLETED',
           title: t('groupActions.confirmChangeStatus.updatePartyGroupStatusThen.title', {
-            selectedGroupStatus: `${selectedGroupStatus.toUpperCase()}`,
+            selectedGroupStatus: `${selectedGroupStatus}`,
           }),
           message: (
             <>
-              <Trans i18nKey="groupActions.confirmChangeStatus.updatePartyGroupStatusThen.message">
-                Hai
-                {{ selectedGroupStatus }}
-                correttamente il gruppo
-                <strong>{{ groupName: partyGroup.name }}</strong>.
-              </Trans>
+              <Trans i18nKey="groupActions.confirmChangeStatus.updatePartyGroupStatusThen.message"></Trans>
             </>
           ),
           component: 'Toast',

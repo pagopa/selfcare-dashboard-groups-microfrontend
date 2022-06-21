@@ -8,15 +8,17 @@ import { Party } from '../../model/Party';
 import { PartyGroupOnCreation } from '../../model/PartyGroup';
 import { Product, ProductsMap } from '../../model/Product';
 import { DASHBOARD_GROUPS_ROUTES } from '../../routes';
+import { ProductsRolesMap } from '../../model/ProductRole';
 import GroupForm from './components/GroupForm';
 
 type Props = {
   party: Party;
   productsMap: ProductsMap;
   activeProducts: Array<Product>;
+  productsRolesMap: ProductsRolesMap;
 };
 
-function AddGroupPage({ party, activeProducts, productsMap }: Props) {
+function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: Props) {
   const history = useHistory();
   const { t } = useTranslation();
 
@@ -66,6 +68,7 @@ function AddGroupPage({ party, activeProducts, productsMap }: Props) {
         </Grid>
         <Grid item xs={12}>
           <GroupForm
+            productsRolesMap={productsRolesMap}
             party={party}
             products={activeProducts}
             productsMap={productsMap}

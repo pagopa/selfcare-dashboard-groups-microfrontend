@@ -86,6 +86,18 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
     });
   };
 
+  const goEditCustom = () => {
+    history.push(
+      resolvePathVariables(
+        DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_EDIT.path + '#users',
+        {
+          partyId: partyGroup.partyId,
+          groupId: partyGroup.id,
+        }
+      )
+    );
+  };
+
   return (
     <Grid
       container
@@ -166,7 +178,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
           {!isSuspended && (
             <Grid item xs={4} display="flex" justifyContent="flex-end" pr={1}>
               <Link
-                onClick={goEdit}
+                onClick={goEditCustom}
                 sx={{
                   fontSize: '14px',
                   fontWeight: '700',

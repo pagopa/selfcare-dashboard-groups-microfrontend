@@ -129,7 +129,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
           sx={{ backgroundColor: '#EEEEEE' }}
           px={3}
           pb={3}
-          mt={!isLoading && productHavingGroups.length === 0 ? 5 : 0}
+          mt={productHavingGroups.length > 1 ? 0 : 5}
         >
           {activeProducts.map((product, i) => (
             <Grid key={product.id} item xs={12} ref={prodSectionRefs[i]}>

@@ -48,21 +48,21 @@ export default {
       addNotify: {
         titleActive: 'Sospendi Gruppo',
         titleSuspended: 'Riabilita Gruppo',
-        messageActive: 'Stai per sospendere il gruppo',
+        messageActive: 'Vuoi sospendere il gruppo',
         messageSuspended: 'Stai per riabilitare il gruppo',
-        messageGroup: ` <0>{{groupName}}</0> di <2>{{productTitle}}</2>.<4/>Vuoi continuare?`,
-        confirmLabel: 'Conferma',
+        messageGroup: ` <0>{{groupName}}</0> di <2>{{productTitle}}</2>.<4/>Puoi riabilitarlo in qualsiasi momento.`,
+        confirmLabel: 'Sospendi',
         closeLabel: 'Annulla',
       },
     },
     confirmChangeStatus: {
       updatePartyGroupStatusThen: {
-        title: `GRUPPO {{selectedGroupStatus}}`,
-        message: `Hai <1>{{selectedGroupStatus}}</1> correttamente il gruppo <3>{{groupName}}</3>.`,
+        title: `Gruppo {{selectedGroupStatus}} correttamente`,
+        message: ``,
       },
       updatePartyGroupStatusCatch: {
-        displayableTitle: 'ERRORE DURANTE LA {{selectedGroupStatusError}} DEL GRUPPO ',
-        displayableDescription: `C'è stato un errore durante la {{selectedGroupStatusError}} del gruppo <3>{{groupName}}</3>.`,
+        displayableTitle: 'Non è stato possibile sospendere il gruppo. Riprova.',
+        displayableDescription: ``,
       },
     },
   },
@@ -113,19 +113,18 @@ export default {
       },
     },
     confirmDisociateAction: {
-      title: 'Dissocia',
-      message: `Stai per dissociare <1>{{memberName}}</1> dal gruppo <3>{{groupName}}</3> di <5>{{productTitle}}</5>.<7/> Vuoi continuare?`,
-      confirmLabel: 'Conferma',
+      title: 'Rimuovi',
+      message: `Vuoi rimuovere <1>{{memberName}}</1> dal gruppo <3>{{groupName}}</3> di <5>{{productTitle}}</5>? Puoi aggiungerlo nuovamente in qualsiasi momento.`,
+      confirmLabel: 'Rimuovi',
       closeLabel: 'Annulla',
     },
     confirmUserDissociation: {
       deleteGroupRelationThen: {
-        title: 'UTENTE DISSOCIATO',
-        message: ` Hai dissociato correttamente <1>{{memberName}}</1> dal gruppo <3>{{groupName}}</3>.`,
+        title: 'Utente rimosso correttamente.',
       },
       deleteGroupRelationCatch: {
-        displayableTitle: "ERRORE DURANTE LA DISSOCIAZIONE DELL'UTENTE",
-        displayableDescription: `C'è stato un errore durante la dissociazione dell'utente <1>{{memberName}}</1>.`,
+        displayableTitle: 'Non è stato possibile rimuovere l’utente. Riprova.',
+        displayableDescription: ``,
       },
     },
   },
@@ -134,13 +133,12 @@ export default {
   },
   dashboardGroupEdit: {
     alertRemoveUsersInClone: {
-      label: `Alcuni referenti sono stati eliminati dal gruppo duplicato perchè <1> non presenti </1> nel prodotto selezionato o perchè <3>sospesi</3>. Puoi comunque assegnare altri referenti al gruppo duplicato.`,
+      label: `Alcuni utenti sono stati rimossi dal gruppo duplicato perché non presenti nel prodotto <1 /> selezionato. Puoi comunque assegnare altri utenti al gruppo duplicato.`,
     },
     groupForm: {
       formLabels: {
         groupName: 'Inserisci il nome del gruppo',
         groupNameDuplicated: 'Questo nome è già in uso',
-        groupNamePlaceholder: 'Inserisci il nome del gruppo',
         description: 'Descrivi il gruppo e indica la sua funzione',
         prductPlaceholter: 'Seleziona il prodotto',
         descriptionMaxLength: 'Max 200 caratteri',
@@ -247,10 +245,9 @@ export default {
     groupProductTableColumns: {
       duplicateActionLink: 'Duplica',
       headerFields: {
-        name: 'NOME',
-        description: 'DESCRIZIONE',
-        product: 'PRODOTTO',
-        referents: 'N. REFERENTI',
+        name: 'Nome',
+        description: 'Descrizione',
+        referents: 'n. utenti',
       },
     },
     groupsProductFetchError: {

@@ -141,7 +141,7 @@ function showCustmHeader(params: GridColumnHeaderParams) {
   return (
     <React.Fragment>
       <Typography
-        color="text.secondary"
+        color="colorTextPrimary"
         sx={{ fontSize: '14px', fontWeight: '700', outline: 'none', paddingLeft: 1 }}
       >
         {params.colDef.headerName}

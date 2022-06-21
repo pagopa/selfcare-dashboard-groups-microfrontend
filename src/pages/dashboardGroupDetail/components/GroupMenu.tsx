@@ -191,15 +191,13 @@ export default function GroupMenu({
       message: (
         <>
           <Trans i18nKey="groupMenu.confirmDisociateAction.message">
-            Stai per dissociare
+            Vuoi rimuovere
             <strong>{{ memberName: member.name }}</strong>
             dal gruppo
             <strong>{{ groupName: partyGroup.name }}</strong>
             di
-            <strong>{{ productTitle: product.title }}</strong>
-            .
-            <br />
-            Vuoi continuare?
+            <strong>{{ productTitle: product.title }}</strong>? Puoi aggiungerlo nuovamente in
+            qualsiasi momento.
           </Trans>
         </>
       ),
@@ -218,16 +216,7 @@ export default function GroupMenu({
         addNotify({
           id: 'ACTION_ON_PARTY_USER_COMPLETED',
           title: t('groupMenu.confirmUserDissociation.deleteGroupRelationThen.title'),
-          message: (
-            <>
-              <Trans i18nKey="groupMenu.confirmUserDissociation.deleteGroupRelationThen.message">
-                Hai dissociato correttamente
-                <strong>{{ memberName: `${member.name} ${member.surname} ` }}</strong>
-                dal gruppo
-                <strong>{{ groupName: partyGroup.name }}</strong>.
-              </Trans>
-            </>
-          ),
+          message: undefined,
           component: 'Toast',
         });
       })
@@ -244,10 +233,7 @@ export default function GroupMenu({
           toNotify: true,
           displayableDescription: (
             <>
-              <Trans i18nKey="groupMenu.confirmUserDissociation.deleteGroupRelationCatch.displayableDescription">
-                C&apos;è stato un errore durante la dissociazione dell&apos;utente
-                <strong>{{ memberName: `${member.name} ${member.surname}` }}</strong>.
-              </Trans>
+              <Trans i18nKey="groupMenu.confirmUserDissociation.deleteGroupRelationCatch.displayableDescription"></Trans>
             </>
           ),
         })

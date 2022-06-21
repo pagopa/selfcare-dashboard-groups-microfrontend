@@ -1,4 +1,4 @@
-import { Link, Typography, Box, Tooltip } from '@mui/material';
+import { Link, Typography, Box, Tooltip, Chip } from '@mui/material';
 import { useHistory } from 'react-router';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { useEffect, useState } from 'react';
@@ -71,7 +71,7 @@ export default function MembersGroup({
       field: 'name',
       headerName: 'Nome',
       flex: 1,
-      minWidth: 300,
+      minWidth: 400,
       renderCell: (member: GridRenderCellParams<any, any, any>) => (
         <Link
           component="button"
@@ -120,23 +120,25 @@ export default function MembersGroup({
       field: 'email',
       headerName: 'Email',
       flex: 1,
-      minWidth: 350,
+      minWidth: 400,
       renderCell: (member: GridRenderCellParams<any, any, any>) => {
         const userProduct = member.row.product;
         const isMemeberSuspended =
           member.row.status === 'SUSPENDED' ||
           !userProduct?.roles.find((r: PartyUserProductRole) => r.status !== 'SUSPENDED');
         return (
-          <Typography
-            sx={{ fontSize: '14px' }}
-            variant="body2"
-            className="ShowDots"
-            color={isMemeberSuspended || isSuspended ? '#9E9E9E' : undefined}
-            title={member.row.email}
-            width="100%"
-          >
-            {member.row.email}
-          </Typography>
+          <Tooltip title={member.row.email.length > 48 ? member.row.email : ''}>
+            <Typography
+              sx={{ fontSize: '14px' }}
+              variant="body2"
+              className="ShowDots"
+              color={isMemeberSuspended || isSuspended ? '#9E9E9E' : undefined}
+              title={member.row.email}
+              width="100%"
+            >
+              {member.row.email}
+            </Typography>
+          </Tooltip>
         );
       },
     },
@@ -144,24 +146,68 @@ export default function MembersGroup({
       field: 'role',
       headerName: 'Ruolo',
       flex: 1,
-      minWidth: 320,
+      minWidth: 400,
+      sortable: false,
       renderCell: (member: GridRenderCellParams<any, any, any>) => {
-        console.log('member', member);
         const userProduct = member.row.product;
-
-        return userProduct?.roles?.map((r: PartyUserProductRole, index: number) => (
-          <Typography
-            key={index}
-            variant="body2"
-            sx={{ fontSize: '14px' }}
-            title={transcodeProductRole2Title(r.role, productRolesLists)}
-            className="ShowDots"
-            width="100%"
-            color={r.status === 'SUSPENDED' || isSuspended ? '#9E9E9E' : undefined}
-          >
-            {transcodeProductRole2Title(r.role, productRolesLists)}
-          </Typography>
-        ));
+        return (
+          <Box display="flex" flexDirection="column">
+            {userProduct?.roles?.map((r: any, index: number) => (
+              <Box key={index}>
+                <Tooltip
+                  title={
+                    r.role.length > 48 ? transcodeProductRole2Title(r.role, productRolesLists) : ''
+                  }
+                >
+                  <Typography
+                    variant="body2"
+                    sx={{ fontSize: '14px' }}
+                    className="ShowDots"
+                    width="48ch"
+                    color={r.status === 'SUSPENDED' || isSuspended ? '#9E9E9E' : undefined}
+                  >
+                    {transcodeProductRole2Title(r.role, productRolesLists)}
+                  </Typography>
+                </Tooltip>
+              </Box>
+            ))}
+          </Box>
+        );
+      },
+    },
+    {
+      field: 'status',
+      headerName: '',
+      flex: 1,
+      minWidth: 50,
+      sortable: false,
+      renderCell: (member: GridRenderCellParams<any, any, any>) => {
+        const userProduct = member.row.product;
+        const isMemeberSuspended =
+          member.row.status === 'SUSPENDED' ||
+          !userProduct?.roles.find((r: any) => r.status !== 'SUSPENDED');
+        return (
+          isMemeberSuspended && (
+            <Box display="flex" justifyContent="center">
+              {isMemeberSuspended && (
+                <Chip
+                  label={t('groupDetail.status')}
+                  aria-label="Suspended"
+                  variant="outlined"
+                  sx={{
+                    fontWeight: '600',
+                    fontSize: '14px',
+                    backgroundColor: 'warning.light',
+                    border: 'none',
+                    borderRadius: '16px',
+                    width: '100%',
+                    height: '24px',
+                  }}
+                />
+              )}
+            </Box>
+          )
+        );
       },
     },
     {

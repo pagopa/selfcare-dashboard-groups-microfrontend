@@ -47,6 +47,7 @@ export const DASHBOARD_GROUPS_ROUTES = {
         path: `${ENV.ROUTES.GROUPS}/add`,
         exact: true,
         component: AddGroupPage,
+        withProductRolesMap: true,
       },
       PARTY_GROUP_DETAIL: {
         path: ENV.ROUTES.GROUP_DETAIL,
@@ -58,11 +59,13 @@ export const DASHBOARD_GROUPS_ROUTES = {
         path: `${ENV.ROUTES.GROUPS}/:groupId/edit`,
         exact: true,
         component: EditGroupPage,
+        withProductRolesMap: true,
       },
       PARTY_GROUP_CLONE: {
         path: `${ENV.ROUTES.GROUPS}/:groupId/clone`,
         exact: true,
         component: CloneGroupPage,
+        withProductRolesMap: true,
       },
     },
     ...buildRedirectToBasePath(ENV.ROUTES.GROUPS),

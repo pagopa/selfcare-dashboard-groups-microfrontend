@@ -8,13 +8,21 @@ import withGroupDetail, { withGroupDetailProps } from '../../decorators/withGrou
 import { PartyGroupOnEdit } from '../../model/PartyGroup';
 import { Product } from '../../model/Product';
 import { DASHBOARD_GROUPS_ROUTES } from '../../routes';
+import { ProductsRolesMap } from '../../model/ProductRole';
 import GroupForm from './components/GroupForm';
 
 type Props = {
   activeProducts: Array<Product>;
+  productsRolesMap: ProductsRolesMap;
 } & withGroupDetailProps;
 
-function CloneGroupPage({ party, activeProducts, productsMap, partyGroup }: Props) {
+function CloneGroupPage({
+  party,
+  activeProducts,
+  productsMap,
+  partyGroup,
+  productsRolesMap,
+}: Props) {
   const history = useHistory();
   const { t } = useTranslation();
 
@@ -72,6 +80,7 @@ function CloneGroupPage({ party, activeProducts, productsMap, partyGroup }: Prop
       </Grid>
       <Grid item xs={12}>
         <GroupForm
+          productsRolesMap={productsRolesMap}
           party={party}
           products={activeProducts}
           productsMap={productsMap}
