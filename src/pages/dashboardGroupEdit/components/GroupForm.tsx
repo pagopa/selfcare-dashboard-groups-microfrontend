@@ -293,12 +293,12 @@ export default function GroupForm({
   });
 
   useEffect(() => {
-    if (formik.dirty || productSelected) {
+    if (formik.dirty || (productSelected && !(initialFormData as PartyGroupOnEdit).productId)) {
       registerUnloadEvent();
     } else {
       unregisterUnloadEvent();
     }
-  }, [formik.dirty, productSelected]);
+  }, [formik.dirty, productSelected, !(initialFormData as PartyGroupOnEdit).productId]);
 
   const baseTextFieldProps = (
     field: keyof PartyGroupOnCreation,
