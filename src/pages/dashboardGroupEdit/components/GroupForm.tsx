@@ -480,7 +480,6 @@ function GroupForm({
         <Grid item xs={12} mb={3}>
           <FormControl sx={{ width: '57rem' }}>
             <Select
-              onClick={() => console.log('click')}
               id="members-select"
               disabled={!productSelected}
               multiple
@@ -524,9 +523,9 @@ function GroupForm({
                     }
                     void formik.setFieldValue('members', nextUsersSelected, true);
                   };
-                  const isMemeberSuspended =
-                    u.status === 'SUSPENDED' ||
-                    !u.product.roles.find((r: any) => r.status !== 'SUSPENDED');
+                  const isAllMemeberSuspended = !u.product.roles.find(
+                    (r: any) => r.status !== 'SUSPENDED'
+                  );
                   return (
                     <MenuItem
                       key={u.id}
@@ -534,44 +533,85 @@ function GroupForm({
                       sx={{
                         fontSize: '14px',
                         color: '#000000',
-                        borderBottom: 'solid',
-                        borderBottomWidth: 'thin',
-                        borderBottomColor: '#CFDCE6',
                         width: '100%',
                         height: '48px',
+                        my: 1,
                       }}
                     >
                       <Checkbox checked={isChecked} onClick={onItemSelected} />
                       <Grid container>
-                        <Grid item xs={8}>
-                          {u.name} {u.surname}
-                        </Grid>
-                        <Grid item xs={8}>
-                          {u.email}
-                        </Grid>
-                        <Grid item xs={4} display="flex" justifyContent="flex-end">
-                          {isMemeberSuspended && (
-                            <Chip
-                              label={t('groupDetail.status')}
-                              aria-label="Suspended"
-                              variant="outlined"
-                              sx={{
-                                mr: 1,
-                                fontWeight: '600',
-                                fontSize: '14px',
-                                backgroundColor: 'warning.light',
-                                border: 'none',
-                                borderRadius: '16px',
-                                width: '78px',
-                                height: '24px',
-                              }}
-                            />
-                          )}
-                          {u.product.roles.map((r) => (
-                            <Typography key={u.id}>
-                              {transcodeProductRole2Title(r.role, productsRolesMap[u.product.id])}
+                        <Grid container item xs={8}>
+                          {/* isAllMemeberSuspended ? 6 : */}
+                          <Grid item xs={12}>
+                            <Typography>
+                              {u.name} {u.surname}
                             </Typography>
-                          ))}
+                          </Grid>
+                          <Grid item xs={12}>
+                            {u.email}
+                          </Grid>
+                        </Grid>
+                        <Grid container item xs={4} display="flex" justifyContent="end">
+                          <Box display="flex">
+                            {isAllMemeberSuspended && (
+                              <Box justifyContent="center" display="flex" flexDirection="column">
+                                <Chip
+                                  label={t('groupDetail.status')}
+                                  aria-label="Suspended"
+                                  variant="outlined"
+                                  sx={{
+                                    mr: 1,
+                                    fontWeight: '600',
+                                    fontSize: '14px',
+                                    backgroundColor: 'warning.light',
+                                    border: 'none',
+                                    borderRadius: '16px',
+                                    width: '78px',
+                                    height: '24px',
+                                  }}
+                                />
+                              </Box>
+                            )}
+                            <Box
+                              justifyContent="center"
+                              display="flex"
+                              flexDirection="column"
+                              alignItems="flex-end"
+                            >
+                              {u.product.roles.map((r) => (
+                                <Box display="flex" key={u.id}>
+                                  {r.status === 'SUSPENDED' && !isAllMemeberSuspended && (
+                                    <Box>
+                                      <Chip
+                                        label={t('groupDetail.status')}
+                                        aria-label="Suspended"
+                                        variant="outlined"
+                                        sx={{
+                                          mr: 2,
+                                          fontWeight: '600',
+                                          fontSize: '14px',
+                                          backgroundColor: 'warning.light',
+                                          border: 'none',
+                                          borderRadius: '16px',
+                                          width: '78px',
+                                          height: '24px',
+                                        }}
+                                      />
+                                    </Box>
+                                  )}
+
+                                  <Box>
+                                    <Typography key={u.id} color={'#5C6F82'}>
+                                      {transcodeProductRole2Title(
+                                        r.role,
+                                        productsRolesMap[u.product.id]
+                                      )}
+                                    </Typography>
+                                  </Box>
+                                </Box>
+                              ))}
+                            </Box>
+                          </Box>
                         </Grid>
                       </Grid>
                     </MenuItem>
