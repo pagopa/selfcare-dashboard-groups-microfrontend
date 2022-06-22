@@ -29,7 +29,7 @@ import { User } from '@pagopa/selfcare-common-frontend/model/User';
 import { userSelectors } from '@pagopa/selfcare-common-frontend/redux/slices/userSlice';
 import { useTranslation, Trans } from 'react-i18next';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { ReactComponent as ClearIcon } from '../../../assets/clear.svg';
+import { ReactComponent as ClearCircleIcon } from '../../../assets/clear.svg';
 import { Party } from '../../../model/Party';
 import { PartyGroupOnCreation, PartyGroupOnEdit } from '../../../model/PartyGroup';
 import { PartyProductUser } from '../../../model/PartyUser';
@@ -132,6 +132,7 @@ function GroupForm({
   const [productUsers, setProductUsers] = useState<Array<PartyProductUser>>([]);
   const [automaticRemove, setAutomaticRemove] = useState(false);
   const [isNameDuplicated, setIsNameDuplicated] = useState(false);
+  // const [selectedUser, setSelectedUser] = useState<Array<PartyProductUser>>([]);
 
   const { registerUnloadEvent, unregisterUnloadEvent } = useUnloadEventInterceptor();
   const onExit = useUnloadEventOnExit();
@@ -383,6 +384,7 @@ function GroupForm({
       .finally(() => setLoadingFetchUserProduct(false));
   };
   const isProductError = isClone && productSelected === undefined;
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <Grid container direction="column" sx={{ backgroundColor: 'background.paper' }} p={3}>
@@ -436,7 +438,6 @@ function GroupForm({
         <Grid item xs={12} mb={3}>
           <Select
             error={isProductError}
-            sx={{ '&:focus': { color: 'red' } }}
             id="product-select"
             disabled={isEdit}
             fullWidth
@@ -459,9 +460,9 @@ function GroupForm({
           >
             {products
               .filter((p) => p.userRole === 'ADMIN')
-              .map((p) => (
+              .map((p: Product, index) => (
                 <MenuItem
-                  key={p.id}
+                  key={index}
                   value={p.title}
                   sx={{ fontSize: '14px', color: '#000000' }}
                   onClick={() => setProductSelected(p)}
@@ -480,6 +481,13 @@ function GroupForm({
         <Grid item xs={12} mb={3}>
           <FormControl sx={{ width: '57rem' }}>
             <Select
+              // endAdornment={
+              //   <InputAdornment position="end">
+              //     <IconButton sx={{ right: '24px' }}>
+              //       <ClearIcon fontSize="small" onClick={() => setSelectedUser([])} />
+              //     </IconButton>
+              //   </InputAdornment>
+              // }
               id="members-select"
               disabled={!productSelected}
               multiple
@@ -487,8 +495,8 @@ function GroupForm({
               fullWidth
               value={formik.values.members}
               input={<OutlinedInput />}
-              renderValue={(selectedUsers) =>
-                selectedUsers.length === 0 ? (
+              renderValue={(selectedUser: Array<PartyProductUser>) =>
+                selectedUser.length === 0 ? (
                   <Typography
                     sx={{
                       fontSize: 'fontSize',
@@ -499,7 +507,7 @@ function GroupForm({
                     {t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholter')}
                   </Typography>
                 ) : (
-                  selectedUsers.map((su) => su.name + ' ' + su.surname).join(', ')
+                  selectedUser.map((su) => su.name + ' ' + su.surname).join(', ')
                 )
               }
               inputProps={{ 'aria-label': 'Without label' }}
@@ -511,7 +519,7 @@ function GroupForm({
               }}
             >
               <CustomBox>
-                {Object.values(productUsers).map((u) => {
+                {Object.values(productUsers).map((u: PartyProductUser) => {
                   const checkedIndex = formik.values.members.findIndex((s) => s.id === u.id);
                   const isChecked = checkedIndex > -1;
                   const onItemSelected = () => {
@@ -579,7 +587,7 @@ function GroupForm({
                               alignItems="flex-end"
                             >
                               {u.product.roles.map((r) => (
-                                <Box display="flex" key={u.id}>
+                                <Box display="flex" key={r.role}>
                                   {r.status === 'SUSPENDED' && !isAllMemeberSuspended && (
                                     <Box>
                                       <Chip
@@ -601,7 +609,7 @@ function GroupForm({
                                   )}
 
                                   <Box>
-                                    <Typography key={u.id} color={'#5C6F82'}>
+                                    <Typography color={'#5C6F82'}>
                                       {transcodeProductRole2Title(
                                         r.role,
                                         productsRolesMap[u.product.id]
@@ -641,7 +649,7 @@ function GroupForm({
                     true
                   )
                 }
-                deleteIcon={<ClearIcon onMouseDown={(e) => e.stopPropagation()} />}
+                deleteIcon={<ClearCircleIcon onMouseDown={(e) => e.stopPropagation()} />}
               />
             ))}
           </Grid>
