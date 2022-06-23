@@ -3,6 +3,7 @@ import { TitleBox } from '@pagopa/selfcare-common-frontend';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { SupervisedUserCircle } from '@mui/icons-material';
 import ProductNavigationBar from '../../components/ProductNavigationBar';
 import withGroupDetail, { withGroupDetailProps } from '../../decorators/withGroupDetail';
 import { PartyGroupOnEdit } from '../../model/PartyGroup';
@@ -36,6 +37,7 @@ function CloneGroupPage({
 
   const paths = [
     {
+      icon: SupervisedUserCircle,
       description: t('dashboardGroupEdit.cloneGroupPage.groupPathDescription'),
       onClick: () =>
         history.push(
@@ -44,10 +46,6 @@ function CloneGroupPage({
             groupId: partyGroup.id,
           })
         ),
-    },
-    {
-      description: `${partyGroup.name}`,
-      onClick: goBack,
     },
     {
       description: t('dashboardGroupEdit.cloneGroupPage.pathDescription'),

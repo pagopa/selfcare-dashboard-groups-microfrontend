@@ -3,6 +3,7 @@ import { TitleBox } from '@pagopa/selfcare-common-frontend';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { SupervisedUserCircle } from '@mui/icons-material';
 import ProductNavigationBar from '../../components/ProductNavigationBar';
 import { Party } from '../../model/Party';
 import { PartyGroupOnCreation } from '../../model/PartyGroup';
@@ -31,6 +32,7 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
 
   const paths = [
     {
+      icon: SupervisedUserCircle,
       description: t('dashboardGroupEdit.addGroupPage.groupPathDescription'),
       onClick: goBack,
     },
