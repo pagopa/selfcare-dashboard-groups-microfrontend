@@ -71,7 +71,7 @@ function EditGroupPage({
         />
       </Grid>
       <Grid item xs={12} mb={9}>
-        <TitleBox title={t('dashboardGroupEdit.editGroupPage.title')} />
+        <TitleBox variantTitle="h4" title={t('dashboardGroupEdit.editGroupPage.title')} />
       </Grid>
       <Grid item xs={12}>
         <GroupForm
