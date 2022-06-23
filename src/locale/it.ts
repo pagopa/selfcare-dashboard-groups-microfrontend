@@ -194,47 +194,6 @@ export default {
     noGroups: {
       noGroupsLabel: 'Non è ancora stato creato alcun Gruppo. <1><0>Crea un gruppo</0></1>',
     },
-    groupProductRowActions: {
-      toolTipActions: 'Seleziona il tipo di azione',
-      modifyActionLink: 'Modifica',
-      duplicateActionLink: 'Duplica',
-      suspendActionLink: 'Sospendi',
-      activateActionLink: 'Riattiva',
-      askConfirm: {
-        message: `{{message}} il gruppo <2>{{groupName}}</2> di <4>{{productTitle}}</4>.<6 />Vuoi continuare?`,
-        confirmLabel: 'Conferma',
-      },
-      performAction: {
-        updatePartyGroupStatusThen: {
-          message: `{{message}} il gruppo <2>{{groupName}}</2>.`,
-        },
-        updatePartyGroupStatusCatch: {
-          displayableTitle: 'ERRORE DURANTE LA {{selectedGroupStatusError}} DEL GRUPPO ',
-          displayableDescription: `C'è stato un errore durante la {{selectedGroupStatusError}} del gruppo <3>{{groupName}}</3>.`,
-          selectedGroupStatusErrorSuspended: 'sospensione ',
-          selectedGroupStatusErrorActive: 'riattivazione ',
-        },
-      },
-      handleChangeState: {
-        askConfirmSuspend: 'Sospendi Gruppo',
-        askConfirmActive: 'Riattiva Gruppo',
-        askConfirmBeforeSuspend: 'Stai per sospendere',
-        askConfirmBeforeActive: 'Stai per riattivare',
-      },
-      updateStatus: {
-        nextStatusSuspended: 'sospeso',
-        nextStatusActive: 'riattivato',
-        performActionTitle: `Gruppo {{selectedUserStatus}} correttamente`,
-        performActionActionMessage: `Hai {{selectedUserStatus}} correttamente`,
-      },
-      handleDelete: {
-        askConfirmDeleted: 'Elimina Gruppo',
-        askConfirmBeforeDeleted: 'Stai per eliminare',
-      },
-      deleteGroup: {
-        performActionTitle: 'Gruppo eliminato correttamente',
-      },
-    },
     groupProductTableColumns: {
       duplicateActionLink: 'Duplica',
       headerFields: {

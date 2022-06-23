@@ -106,14 +106,12 @@ export default function GroupsProductTable({
   sort,
   onSortRequest,
   onRowClick,
-  onDelete,
-  onStatusUpdate,
 }: GroupsTableProps) {
   const sortSplitted = sort && sort !== '' ? sort.split(',') : undefined;
   const { t } = useTranslation();
 
   const columns: Array<GridColDef> = useMemo(
-    () => buildColumnDefs(canEdit, party, product, onRowClick, onDelete, onStatusUpdate, t),
+    () => buildColumnDefs(canEdit, onRowClick, t),
     [party, product, groups]
   );
 

@@ -4,19 +4,12 @@ import React, { CSSProperties, ReactNode } from 'react';
 import { TFunction } from 'react-i18next';
 import i18n from '@pagopa/selfcare-common-frontend/locale/locale-utils';
 import GroupIcon from '@mui/icons-material/Group';
-import { Party } from '../../../../../model/Party';
-import { Product } from '../../../../../model/Product';
-import { PartyGroup, PartyGroupStatus } from '../../../../../model/PartyGroup';
-import GroupProductRowActions from './GroupProductRowActions';
-import DuplicateIcon from './DuplicateIcon';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { PartyGroup } from '../../../../../model/PartyGroup';
 
 export function buildColumnDefs(
   canEdit: boolean,
-  party: Party,
-  product: Product,
   onRowClick: (partyGroup: PartyGroup) => void,
-  onDelete: (partyGroup: PartyGroup) => void,
-  onStatusUpdate: (partyGroup: PartyGroup, nextStatus: PartyGroupStatus) => void,
   t: TFunction<'translation', undefined>
 ) {
   return [
@@ -83,10 +76,27 @@ export function buildColumnDefs(
       editable: false,
       renderCell: (p) =>
         canEdit
-          ? showActions(party, product, p, onDelete, onStatusUpdate)
+          ? renderCell(
+              p,
+              <Box display="flex" justifyContent="flex-end">
+                <ArrowForwardIosIcon
+                  fontSize="small"
+                  sx={{ color: 'primary.main', p: '4px' }}
+                  onClick={onRowClick ? () => onRowClick(p.row) : undefined}
+                />
+              </Box>
+            )
           : renderCell(
               p,
-              p.row.status !== 'SUSPENDED' && <DuplicateIcon p={p} party={party} t={t} />
+              p.row.status !== 'SUSPENDED' && (
+                <Box display="flex" justifyContent="flex-end">
+                  <ArrowForwardIosIcon
+                    fontSize="small"
+                    sx={{ color: 'primary.main', p: '4px' }}
+                    onClick={onRowClick ? () => onRowClick(p.row) : undefined}
+                  />
+                </Box>
+              )
             ),
       sortable: false,
     },
@@ -225,6 +235,7 @@ function TableChip({ text }: { text: string }) {
       label={text}
       aria-label="Suspended"
       sx={{
+        cursor: 'pointer',
         fontSize: '14px',
         fontWeight: '600',
         color: '#17324D',
@@ -239,31 +250,20 @@ function TableChip({ text }: { text: string }) {
 
 function showStatus(params: GridRenderCellParams, onRowClick: (partyGroup: PartyGroup) => void) {
   const showChip = isGroupSuspended(params.row as PartyGroup);
-  return renderCell(params, <>{showChip && <TableChip text="Sospeso" />}</>, onRowClick, {
-    paddingLeft: 0,
-    paddingRight: 0,
-    textAlign: 'center',
-  });
-}
-
-function showActions(
-  party: Party,
-  product: Product,
-  params: GridRenderCellParams<PartyGroup>,
-  onDelete: (partyGroup: PartyGroup) => void,
-  onStatusUpdate: (partyGroup: PartyGroup, nextStatus: PartyGroupStatus) => void
-) {
-  const row = params.row as PartyGroup;
   return renderCell(
     params,
-    <GroupProductRowActions
-      party={party}
-      product={product}
-      partyGroup={row}
-      onDelete={onDelete}
-      onStatusUpdate={onStatusUpdate}
-    />,
-    undefined,
-    { paddingLeft: '24px', paddingRight: '24px', textAlign: 'center' }
+    <>
+      {showChip && (
+        <Box sx={{ cursor: 'pointer' }}>
+          <TableChip text="Sospeso" />
+        </Box>
+      )}
+    </>,
+    onRowClick,
+    {
+      paddingLeft: 0,
+      paddingRight: 0,
+      textAlign: 'center',
+    }
   );
 }
