@@ -130,14 +130,20 @@ test('Test fetchPartyGroup', async () => {
 });
 
 test('Test savePartyGroup', async () => {
-  await savePartyGroup(mockedParties[0], mockedPartyProducts[0], groupOnCreation);
+  const newGroupId = await savePartyGroup(
+    mockedParties[0],
+    mockedPartyProducts[0],
+    groupOnCreation
+  );
   expect(DashboardApi.savePartyGroup).toBeCalledWith(groupOnCreation);
+  expect(newGroupId).toBe('newGroupId');
 });
 
 test('Test updatePartyGroup', async () => {
-  await updatePartyGroup(mockedParties[0], mockedPartyProducts[0], groupOnEdit);
+  const groupId = await updatePartyGroup(mockedParties[0], mockedPartyProducts[0], groupOnEdit);
   // expect(DashboardApi.updatePartyGroup).toBeCalledTimes(1);
   expect(DashboardApi.updatePartyGroup).toBeCalledWith(groupOnEdit.id, groupOnEdit);
+  expect(groupId).toBe(groupOnEdit.id);
 });
 
 describe('Test updatePartyGroupStatus', () => {

@@ -93,7 +93,7 @@ export default function GroupActions({
         addNotify({
           component: 'Toast',
           id: 'DELETE_PARTY_USER',
-          title: 'Gruppo eliminato correttamente',
+          title: t('groupActions.title'),
           message: '',
         });
       })

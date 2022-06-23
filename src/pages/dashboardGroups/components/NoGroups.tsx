@@ -21,8 +21,8 @@ export default function NoGroups({ party }: Props) {
       sx={{
         mt: 3,
         padding: 2,
-        backgroundColor: 'white',
-        border: '0px solid #EEEEEE',
+        backgroundColor: 'background.paper',
+        border: '0px',
       }}
       justifyContent="center"
     >
@@ -31,7 +31,11 @@ export default function NoGroups({ party }: Props) {
           <Trans i18nKey="dashboardGroup.noGroups.noGroupsLabel">
             Non è ancora stato creato alcun Gruppo.
             <Link
-              sx={{ textDecoration: 'none!important', cursor: 'pointer', fontWeight: 'bold' }}
+              sx={{
+                textDecoration: 'none!important',
+                cursor: 'pointer',
+                fontWeight: 'fontWeightBold',
+              }}
               onClick={() =>
                 onExit(() =>
                   history.push(

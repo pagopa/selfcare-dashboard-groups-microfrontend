@@ -15,9 +15,10 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
     return d.toLocaleDateString('it', { day: '2-digit', month: '2-digit', year: 'numeric' });
   }
 
-  const groupStatusClass = isSuspended ? 'CustomDisabledLabel' : 'CustomInfoStyle';
   const groupLabelClass = isSuspended ? 'CustomDisabledLabel' : 'CustomLabelStyle';
   const { t } = useTranslation();
+  const disabledTextDescription = isSuspended ? 'text.disabled' : 'text.secondary';
+  const disabledText = isSuspended ? 'text.disabled' : 'text.primary';
 
   return (
     <Grid container spacing={2}>
@@ -30,7 +31,10 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
         <Grid item xs={9}>
           <Typography
             variant="body2"
-            sx={{ color: isSuspended ? '#A2ADB8' : '#5C6F82', fontWeight: '600' }}
+            sx={{
+              color: disabledTextDescription,
+              fontWeight: 'fontWeightMedium',
+            }}
           >
             {partyGroup.description}
           </Typography>
@@ -43,7 +47,14 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
           </Typography>
         </Grid>
         <Grid item xs={9}>
-          <Typography variant="body2" className={groupStatusClass} sx={{ fontWeight: '600' }}>
+          <Typography
+            variant="body2"
+            className={groupLabelClass}
+            sx={{
+              color: disabledText,
+              fontWeight: 'fontWeightMedium',
+            }}
+          >
             {productsMap[partyGroup.productId].title}
           </Typography>
         </Grid>
@@ -57,7 +68,14 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
         <Grid item xs={9} display="flex">
           {partyGroup.createdBy ? (
             <Box>
-              <Typography variant="body2" className={groupStatusClass} sx={{ fontWeight: '600' }}>
+              <Typography
+                variant="body2"
+                className={groupLabelClass}
+                sx={{
+                  color: disabledText,
+                  fontWeight: 'fontWeightMedium',
+                }}
+              >
                 {`${partyGroup.createdBy.name} ${partyGroup.createdBy?.surname}`} &nbsp;- &nbsp;
               </Typography>
             </Box>
@@ -66,7 +84,14 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
           )}
           {partyGroup.createdAt ? (
             <Box>
-              <Typography variant="body2" className={groupStatusClass} sx={{ fontWeight: '600' }}>
+              <Typography
+                variant="body2"
+                className={groupLabelClass}
+                sx={{
+                  color: disabledText,
+                  fontWeight: 'fontWeightMedium',
+                }}
+              >
                 {formatDate(partyGroup.createdAt)}
               </Typography>
             </Box>
@@ -84,7 +109,14 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
         <Grid item xs={9} display="flex">
           {partyGroup.modifiedBy ? (
             <Box>
-              <Typography variant="body2" className={groupStatusClass} sx={{ fontWeight: '600' }}>
+              <Typography
+                variant="body2"
+                className={groupLabelClass}
+                sx={{
+                  color: disabledText,
+                  fontWeight: 'fontWeightMedium',
+                }}
+              >
                 {`${partyGroup.modifiedBy?.name} ${partyGroup.modifiedBy?.surname}`} &nbsp;- &nbsp;
               </Typography>
             </Box>
@@ -93,7 +125,14 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
           )}
           {partyGroup.modifiedAt ? (
             <Box>
-              <Typography variant="body2" className={groupStatusClass} sx={{ fontWeight: '600' }}>
+              <Typography
+                variant="body2"
+                className={groupLabelClass}
+                sx={{
+                  color: disabledText,
+                  fontWeight: 'fontWeightMedium',
+                }}
+              >
                 {formatDate(partyGroup.modifiedAt)}
               </Typography>
             </Box>

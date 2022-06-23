@@ -63,15 +63,15 @@ const CustomTextField = styled(TextField)({
   },
   '.MuiInput-root': {
     '&:after': {
-      borderBottom: '2px solid #5C6F82',
+      borderBottom: '2px solid text.primary',
     },
   },
   '.MuiInputLabel-root.Mui-focused': {
-    color: '#5C6F82',
+    color: 'text.primary',
     fontWeight: '700',
   },
   '.MuiInputLabel-root': {
-    color: '#5C6F82',
+    color: 'text.primary',
     fontWeight: '700',
     top: '-1px',
   },
@@ -79,8 +79,9 @@ const CustomTextField = styled(TextField)({
     '&::placeholder': {
       fontSize: '16px',
       fontWeight: '400',
-      color: '#5C6F82',
+      color: 'text.primary',
       opacity: '1',
+      pointerEvents: 'auto',
     },
   },
   textArea: {
@@ -88,7 +89,7 @@ const CustomTextField = styled(TextField)({
       fontStyle: 'italic',
       fontSize: '16px',
       fontWeight: '400',
-      color: '#5C6F82',
+      color: 'text.primary',
       opacity: '1',
     },
   },
@@ -240,11 +241,19 @@ function GroupForm({
       productSelected as Product,
       values as PartyGroupOnEdit
     )
-      .then(() => {
+      .then((groupId) => {
         unregisterUnloadEvent();
         trackSaveEvent();
         notifySuccessfulSave(values);
-        goBackInner();
+        history.push(
+          resolvePathVariables(
+            DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_DETAIL.path,
+            {
+              partyId: party.partyId,
+              groupId,
+            }
+          )
+        );
       })
       .catch((reason) => {
         if (reason.httpStatus === 409) {
@@ -271,12 +280,12 @@ function GroupForm({
   });
 
   useEffect(() => {
-    if (formik.dirty) {
+    if (formik.dirty || (productSelected && !isEdit)) {
       registerUnloadEvent();
     } else {
       unregisterUnloadEvent();
     }
-  }, [formik.dirty]);
+  }, [formik.dirty, productSelected, isEdit]);
 
   const baseTextFieldProps = (
     field: keyof PartyGroupOnCreation,
@@ -303,7 +312,7 @@ function GroupForm({
           fontSize,
           fontWeight,
           lineHeight: '24px',
-          color: '#5C6F82',
+          color: 'text.primary',
           textAlign: 'start' as const,
           paddingLeft: '16px',
         },
@@ -400,7 +409,9 @@ function GroupForm({
                   <Tooltip
                     title={t('dashboardGroupEdit.groupForm.formLabels.descriptionMaxLength')}
                   >
-                    <InfoOutlinedIcon sx={{ ml: 1, mb: 2, color: '#5C6F82', cursor: 'pointer' }} />
+                    <InfoOutlinedIcon
+                      sx={{ ml: 1, mb: 2, color: 'text.primary', cursor: 'pointer' }}
+                    />
                   </Tooltip>
                 </Box>
               ),
@@ -420,7 +431,11 @@ function GroupForm({
             renderValue={(productSelected) =>
               productSelected === '' ? (
                 <Typography
-                  sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium', color: '#5C6F82' }}
+                  sx={{
+                    fontSize: 'fontSize',
+                    fontWeight: 'fontWeightMedium',
+                    color: 'text.primary',
+                  }}
                 >
                   {t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
                 </Typography>
@@ -474,7 +489,7 @@ function GroupForm({
                     sx={{
                       fontSize: 'fontSize',
                       fontWeight: 'fontWeightMedium',
-                      color: '#5C6F82',
+                      color: 'text.primary',
                     }}
                   >
                     {t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholter')}
@@ -582,7 +597,7 @@ function GroupForm({
                                   )}
 
                                   <Box>
-                                    <Typography color={'#5C6F82'}>
+                                    <Typography color={'text.primary'}>
                                       {transcodeProductRole2Title(
                                         r.role,
                                         productsRolesMap[u.product.id]

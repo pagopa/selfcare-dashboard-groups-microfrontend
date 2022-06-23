@@ -100,8 +100,8 @@ function renderCell(
   overrideStyle: CSSProperties = {}
 ) {
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         backgroundColor: 'white',
         width: '100%',
         height: '100%',
@@ -115,21 +115,21 @@ function renderCell(
       }}
       onClick={onRowClick ? () => onRowClick(params.row) : undefined}
     >
-      <div
-        style={{
+      <Box
+        sx={{
           overflow: 'hidden',
           textOverflow: 'ellipsis',
           display: '-webkit-box',
           WebkitLineClamp: 2,
           WebkitBoxOrient: 'vertical' as const,
           width: '100%',
-          color: params.row.status === 'SUSPENDED' ? '#9E9E9E' : undefined,
+          color: params.row.status === 'SUSPENDED' ? 'text.disabled' : undefined,
           fontSize: '14px',
         }}
       >
         {value}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 
@@ -196,6 +196,7 @@ function showRefernts(params: GridRenderCellParams, onRowClick: (partyGroup: Par
           </Box>
           <Box>
             <Typography
+              variant="caption"
               sx={{
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -203,9 +204,8 @@ function showRefernts(params: GridRenderCellParams, onRowClick: (partyGroup: Par
                 WebkitLineClamp: 2,
                 WebkitBoxOrient: 'vertical' as const,
                 width: '100%',
-                color: params.row.status === 'SUSPENDED' ? '#9E9E9E' : undefined,
-                fontSize: '14px',
-                fontWeight: 600,
+                color: params.row.status === 'SUSPENDED' ? 'text.disabled' : undefined,
+                fontWeight: 'fontWeightMedium',
                 padding: '4px',
               }}
             >
@@ -228,7 +228,7 @@ function TableChip({ text }: { text: string }) {
         fontSize: '14px',
         fontWeight: '600',
         color: '#17324D',
-        backgroundColor: '#FFD25E',
+        backgroundColor: 'warning.light',
         paddingBottom: '1px',
         height: '24px',
         width: '100%',

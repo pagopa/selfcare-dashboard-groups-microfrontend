@@ -238,7 +238,7 @@ export const savePartyGroup = (
   _party: Party,
   _product: Product,
   group: PartyGroupOnCreation
-): Promise<any> => {
+): Promise<string> => {
   const errorHttpStatus =
     group.name === 'ERROR' ? 500 : group.name === 'DUPLICATE' ? 409 : undefined;
   if (!errorHttpStatus) {
@@ -257,7 +257,7 @@ export const savePartyGroup = (
     mockedGroups.push(clone);
   }
   return new Promise((resolve, error) =>
-    errorHttpStatus ? error({ httpStatus: errorHttpStatus }) : resolve(200)
+    errorHttpStatus ? error({ httpStatus: errorHttpStatus }) : resolve('newGroupId')
   );
 };
 
@@ -265,7 +265,7 @@ export const updatePartyGroup = (
   _party: Party,
   _product: Product,
   group: PartyGroupOnEdit
-): Promise<any> => {
+): Promise<string> => {
   const updatingGroupIndex = mockedGroups.findIndex((u) => u.id === group.id);
   const clone: PartyGroupMock = {
     ...mockedGroups[updatingGroupIndex],
@@ -277,7 +277,7 @@ export const updatePartyGroup = (
   };
   // eslint-disable-next-line functional/immutable-data
   mockedGroups.splice(updatingGroupIndex, 1, clone);
-  return new Promise((resolve) => resolve(200));
+  return new Promise((resolve) => resolve(group.id));
 };
 
 export const fetchPartyGroup = (

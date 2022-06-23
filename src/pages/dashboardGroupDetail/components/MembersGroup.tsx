@@ -164,7 +164,7 @@ export default function MembersGroup({
                     sx={{ fontSize: '14px' }}
                     className="ShowDots"
                     width="48ch"
-                    color={r.status === 'SUSPENDED' || isSuspended ? '#9E9E9E' : undefined}
+                    color={r.status === 'SUSPENDED' || isSuspended ? 'text.disabled' : undefined}
                   >
                     {transcodeProductRole2Title(r.role, productRolesLists)}
                   </Typography>

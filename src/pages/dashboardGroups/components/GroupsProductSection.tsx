@@ -10,7 +10,7 @@ type Props = {
   party: Party;
   product: Product;
   currentUser: User;
-  onFetchStatusUpdate: (loading: boolean, noData: boolean) => void;
+  onFetchStatusUpdate: (loading: boolean, noData: boolean, error: boolean) => void;
 };
 
 export default function GroupsProductSection({
@@ -19,7 +19,7 @@ export default function GroupsProductSection({
   currentUser,
   onFetchStatusUpdate,
 }: Props) {
-  const [fetchStatus, setFetchStatus] = useState({ loading: true, noData: false });
+  const [fetchStatus, setFetchStatus] = useState({ loading: true, noData: false, error: false });
 
   return (
     <Grid container direction="row">
@@ -40,14 +40,14 @@ export default function GroupsProductSection({
           party={party}
           product={product}
           onCompleteDelete={() => {
-            setFetchStatus({ loading: false, noData: true });
-            onFetchStatusUpdate(false, true);
+            setFetchStatus({ loading: false, noData: true, error: false });
+            onFetchStatusUpdate(false, true, false);
           }}
           currentUser={currentUser}
-          onFetchStatusUpdate={(isFetching, count) => {
+          onFetchStatusUpdate={(isFetching, count, error) => {
             const noData = !count || count === 0;
-            setFetchStatus({ loading: isFetching, noData });
-            onFetchStatusUpdate(isFetching, noData);
+            setFetchStatus({ loading: isFetching, noData, error });
+            onFetchStatusUpdate(isFetching, noData, error);
           }}
         />
       </Grid>

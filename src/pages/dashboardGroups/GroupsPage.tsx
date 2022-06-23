@@ -126,7 +126,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
           container
           direction="row"
           alignItems={'center'}
-          sx={{ backgroundColor: '#EEEEEE' }}
+          sx={{ backgroundColor: 'background.default' }}
           px={3}
           pb={3}
           mt={productHavingGroups.length > 1 ? 0 : 5}

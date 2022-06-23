@@ -16,6 +16,7 @@ export default {
     addUser: '+ Aggiungi utente',
   },
   groupActions: {
+    title: 'Gruppo eliminato correttamente',
     actionOnUser: "Azioni sull'utente",
     selectedGroupStatusSuspended: 'sospeso',
     selectedGroupStatusActive: 'riattivato',
@@ -64,12 +65,6 @@ export default {
         displayableDescription: ``,
       },
     },
-  },
-  groupActionsLinks: {
-    delete: 'Elimina',
-    update: 'Modifica',
-    suspend: 'Sospendi',
-    duplicate: 'Duplica',
   },
   groupDetail: {
     description: 'Descrizione',
