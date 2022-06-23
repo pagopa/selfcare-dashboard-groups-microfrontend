@@ -36,8 +36,7 @@ export default {
     },
     onDelete: {
       toastComponentThen: {
-        title: 'GRUPPO ELIMINATO',
-        message: `Hai eliminato correttamente il gruppo <1>{{groupName}}</1>.`,
+        title: 'Gruppo eliminato correttamente',
       },
       toastComponentCatch: {
         displayableTitle: "ERRORE DURANTE L'ELIMINAZIONE",
@@ -104,7 +103,7 @@ export default {
       selectedUserStatusErrorSuspended: 'sospensione',
       selectedUserStatusErrorActive: 'riabilitazione',
       updatePartyUserStatusThen: {
-        title: `REFERENTE {{selectedUserStatus}}`,
+        title: `Referente {{selectedUserStatus}}`,
         message: `Hai <1>{{selectedUserStatus}}</1> correttamente <3>{{membersName}}</3>.`,
       },
       updatePartyUserStatusCatch: {
@@ -230,7 +229,7 @@ export default {
       updateStatus: {
         nextStatusSuspended: 'sospeso',
         nextStatusActive: 'riattivato',
-        performActionTitle: `GRUPPO {{selectedUserStatus}}`,
+        performActionTitle: `Gruppo {{selectedUserStatus}} correttamente`,
         performActionActionMessage: `Hai {{selectedUserStatus}} correttamente`,
       },
       handleDelete: {
@@ -238,8 +237,7 @@ export default {
         askConfirmBeforeDeleted: 'Stai per eliminare',
       },
       deleteGroup: {
-        performActionTitle: 'GRUPPO ELIMINATO',
-        performActionMessage: 'Hai eliminato correttamente',
+        performActionTitle: 'Gruppo eliminato correttamente',
       },
     },
     groupProductTableColumns: {

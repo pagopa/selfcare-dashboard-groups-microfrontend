@@ -27,7 +27,7 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { User } from '@pagopa/selfcare-common-frontend/model/User';
 import { userSelectors } from '@pagopa/selfcare-common-frontend/redux/slices/userSlice';
-import { useTranslation, Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { ReactComponent as ClearCircleIcon } from '../../../assets/clear.svg';
 import { Party } from '../../../model/Party';
@@ -199,25 +199,16 @@ function GroupForm({
       )
     );
 
-  const notifySuccessfulSave = (values: PartyGroupOnCreation | PartyGroupOnEdit) =>
+  const notifySuccessfulSave = (_values: PartyGroupOnCreation | PartyGroupOnEdit) =>
     addNotify({
       component: 'Toast',
       id: isEdit ? 'EDIT_GROUP' : isClone ? 'GROUP_CLONE' : 'GROUP_CREATE',
-      title: isEdit ? 'GRUPPO MODIFICATO' : isClone ? 'GRUPPO DUPLICATO' : 'GRUPPO CREATO',
-      message: (
-        <>
-          {isEdit
-            ? t('dashboardGroupEdit.groupForm.notifySuccessfulSave.isEdit')
-            : isClone
-            ? t('dashboardGroupEdit.groupForm.notifySuccessfulSave.isClone')
-            : t('dashboardGroupEdit.groupForm.notifySuccessfulSave.isCreate')}
-          <Trans i18nKey="dashboardGroupEdit.groupForm.notifySuccessfulSave.message">
-            <strong>{{ valuesName: values.name }}</strong>
-            per il prodotto
-            <strong>{{ productSelectedtitle: productSelected?.title }}</strong>
-          </Trans>
-        </>
-      ),
+      title: isEdit
+        ? 'Gruppo modificato correttamente'
+        : isClone
+        ? 'Gruppo duplicato correttamente'
+        : 'Gruppo creato correttamente',
+      message: '',
     });
 
   const notifyErrorOnSave = (

@@ -93,15 +93,8 @@ export default function GroupActions({
         addNotify({
           component: 'Toast',
           id: 'DELETE_PARTY_USER',
-          title: 'GRUPPO ELIMINATO',
-          message: (
-            <>
-              <Trans i18nKey="groupActions.onDelete.toastComponentThen.message">
-                Hai eliminato correttamente il gruppo
-                <strong>{{ groupName: partyGroup.name }}</strong>.
-              </Trans>
-            </>
-          ),
+          title: 'Gruppo eliminato correttamente',
+          message: '',
         });
       })
       .catch((reason) =>
@@ -190,7 +183,7 @@ export default function GroupActions({
           displayableTitle: t(
             'groupActions.confirmChangeStatus.updatePartyGroupStatusCatch.displayableTitle',
             {
-              selectedGroupStatusError: `${selectedGroupStatusError.toUpperCase()}`,
+              selectedGroupStatusError: `${selectedGroupStatusError}`,
             }
           ),
           techDescription: `C'è stato un errore durante la ${selectedGroupStatusError} del gruppo (${partyGroup.name}) con id (${partyGroup.id}): ${partyGroup.status}`,

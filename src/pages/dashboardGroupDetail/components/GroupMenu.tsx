@@ -160,7 +160,7 @@ export default function GroupMenu({
           displayableTitle: t(
             'groupMenu.confirmChangeStatus.updatePartyUserStatusCatch.displayableTitle',
             {
-              selectedUserStatusError: `${selectedUserStatusError.toUpperCase()}`,
+              selectedUserStatusError: `${selectedUserStatusError}${member.id}`,
             }
           ),
           techDescription: `C'è stato un errore durante la ${selectedUserStatusError} dell'utente (${member.id}): ${member.status}`,

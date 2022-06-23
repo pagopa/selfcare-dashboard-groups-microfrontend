@@ -1,5 +1,4 @@
 import React from 'react';
-// import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
@@ -25,13 +24,7 @@ type Props = {
 
 const ITEM_HEIGHT = 48;
 
-export default function GroupProductRowActions({
-  party,
-  partyGroup,
-  product,
-  onDelete,
-  onStatusUpdate,
-}: Props) {
+export default function GroupProductRowActions({ party, partyGroup, product }: Props) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const history = useHistory();
   const { t } = useTranslation();
@@ -72,12 +65,7 @@ export default function GroupProductRowActions({
     });
   };
 
-  const performAction = (
-    action: () => Promise<void>,
-    title: string,
-    actionMessage: string,
-    onComplete: () => void
-  ) => {
+  const performAction = (action: () => Promise<void>, title: string) => {
     const selectedGroupStatusError =
       partyGroup.status === 'SUSPENDED'
         ? t(
@@ -90,19 +78,10 @@ export default function GroupProductRowActions({
     setLoading(true);
     action()
       .then((_) => {
-        onComplete();
         addNotify({
           id: 'ACTION_ON_PARTY_GROUP_COMPLETED',
           title,
-          message: (
-            <>
-              <Trans i18nKey="dashboardGroup.groupProductRowActions.performAction.updatePartyGroupStatusThen.message">
-                {{ message: actionMessage }}
-                il gruppo
-                <strong>{{ groupName: partyGroup.name }}</strong>.
-              </Trans>
-            </>
-          ),
+          message: '',
           component: 'Toast',
         });
       })
@@ -175,12 +154,8 @@ export default function GroupProductRowActions({
     performAction(
       () => updatePartyGroupStatus(party, product, partyGroup, nextStatus),
       t('dashboardGroup.groupProductRowActions.updateStatus.performActionTitle', {
-        selectedUserStatus: `${selectedUserStatus.toUpperCase()}`,
-      }),
-      t('dashboardGroup.groupProductRowActions.updateStatus.performActionActionMessage', {
         selectedUserStatus: `${selectedUserStatus}`,
-      }),
-      () => onStatusUpdate(partyGroup, nextStatus)
+      })
     );
   };
 
@@ -196,9 +171,7 @@ export default function GroupProductRowActions({
   const deleteGroup = () => {
     performAction(
       () => deletePartyGroup(party, product, partyGroup),
-      t('dashboardGroup.groupProductRowActions.deleteGroup.performActionTitle'),
-      t('dashboardGroup.groupProductRowActions.deleteGroup.performActionMessage'),
-      () => onDelete(partyGroup)
+      t('dashboardGroup.groupProductRowActions.deleteGroup.performActionTitle')
     );
   };
 
