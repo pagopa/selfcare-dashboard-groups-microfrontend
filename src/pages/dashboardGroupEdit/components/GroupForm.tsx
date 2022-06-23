@@ -368,123 +368,69 @@ function GroupForm({
   const isProductError = isClone && productSelected === undefined;
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <Grid container direction="column" sx={{ backgroundColor: 'background.paper' }} p={3}>
-        {/* Name */}
-        <Grid item xs={12} mb={3}>
-          <CustomTextField
-            {...baseTextFieldProps(
-              'name',
-              t('dashboardGroupEdit.groupForm.formLabels.groupName'),
-              '',
-              700,
-              20
-            )}
-            onChange={(e) => {
-              formik.handleChange(e);
-              setIsNameDuplicated(false);
-            }}
-          />
-          {isNameDuplicated ? (
-            <Typography color="#F83E5A" sx={{ fontSize: '14px', paddingLeft: '15px' }}>
-              {t('dashboardGroupEdit.groupForm.formLabels.groupNameDuplicated')}
-            </Typography>
-          ) : undefined}
-        </Grid>
-        {/* Description */}
-        <Grid item xs={12} mb={3}>
-          <CustomTextField
-            {...baseTextFieldProps(
-              'description',
-              t('dashboardGroupEdit.groupForm.formLabels.description'),
-              ''
-            )}
-            variant="outlined"
-            multiline
-            rows={2}
-            inputProps={{ maxLength: 200 }}
-            InputProps={{
-              endAdornment: (
-                <Box>
-                  <Tooltip
-                    title={t('dashboardGroupEdit.groupForm.formLabels.descriptionMaxLength')}
-                  >
-                    <InfoOutlinedIcon
-                      sx={{ ml: 1, mb: 2, color: 'text.primary', cursor: 'pointer' }}
-                    />
-                  </Tooltip>
-                </Box>
-              ),
-            }}
-          />
-        </Grid>
-        {/* Product */}
-        <Grid item xs={12} mb={3}>
-          <Select
-            error={isProductError}
-            id="product-select"
-            disabled={isEdit}
-            fullWidth
-            value={productSelected?.title ?? ''}
-            displayEmpty
-            variant="outlined"
-            renderValue={(productSelected) =>
-              productSelected === '' ? (
-                <Typography
-                  sx={{
-                    fontSize: 'fontSize',
-                    fontWeight: 'fontWeightMedium',
-                    color: 'text.primary',
-                  }}
-                >
-                  {t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
-                </Typography>
-              ) : (
-                <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
-                  {productSelected}
-                </Typography>
-              )
-            }
-          >
-            {products
-              .filter((p) => p.userRole === 'ADMIN')
-              .map((p: Product, index) => (
-                <MenuItem
-                  key={index}
-                  value={p.title}
-                  sx={{ fontSize: '14px', color: '#000000' }}
-                  onClick={() => setProductSelected(p)}
-                >
-                  {p.title}
-                </MenuItem>
-              ))}
-          </Select>
-          {isProductError ? (
-            <Typography color="#F83E5A" sx={{ fontSize: '14px' }}>
-              {t('dashboardGroupEdit.groupForm.formLabels.noProductSelected')}
-            </Typography>
-          ) : undefined}
-        </Grid>
-        {/* Members */}
-        <Grid item xs={12} mb={3}>
-          <FormControl sx={{ width: '57rem' }}>
+    <>
+      <form onSubmit={formik.handleSubmit}>
+        <Grid container direction="column" sx={{ backgroundColor: 'background.paper' }} p={3}>
+          {/* Name */}
+          <Grid item xs={12} mb={3}>
+            <CustomTextField
+              {...baseTextFieldProps(
+                'name',
+                t('dashboardGroupEdit.groupForm.formLabels.groupName'),
+                '',
+                700,
+                20
+              )}
+              onChange={(e) => {
+                formik.handleChange(e);
+                setIsNameDuplicated(false);
+              }}
+            />
+            {isNameDuplicated ? (
+              <Typography color="#F83E5A" sx={{ fontSize: '14px', paddingLeft: '15px' }}>
+                {t('dashboardGroupEdit.groupForm.formLabels.groupNameDuplicated')}
+              </Typography>
+            ) : undefined}
+          </Grid>
+          {/* Description */}
+          <Grid item xs={12} mb={3}>
+            <CustomTextField
+              {...baseTextFieldProps(
+                'description',
+                t('dashboardGroupEdit.groupForm.formLabels.description'),
+                ''
+              )}
+              variant="outlined"
+              multiline
+              rows={2}
+              inputProps={{ maxLength: 200 }}
+              InputProps={{
+                endAdornment: (
+                  <Box>
+                    <Tooltip
+                      title={t('dashboardGroupEdit.groupForm.formLabels.descriptionMaxLength')}
+                    >
+                      <InfoOutlinedIcon
+                        sx={{ ml: 1, mb: 2, color: 'text.primary', cursor: 'pointer' }}
+                      />
+                    </Tooltip>
+                  </Box>
+                ),
+              }}
+            />
+          </Grid>
+          {/* Product */}
+          <Grid item xs={12} mb={3}>
             <Select
-              // endAdornment={
-              //   <InputAdornment position="end">
-              //     <IconButton sx={{ right: '24px' }}>
-              //       <ClearIcon fontSize="small" onClick={() => setSelectedUser([])} />
-              //     </IconButton>
-              //   </InputAdornment>
-              // }
-              id="members-select"
-              disabled={!productSelected}
-              multiple
-              displayEmpty
+              error={isProductError}
+              id="product-select"
+              disabled={isEdit}
               fullWidth
-              value={formik.values.members}
-              input={<OutlinedInput />}
-              renderValue={(selectedUser: Array<PartyProductUser>) =>
-                selectedUser.length === 0 ? (
+              value={productSelected?.title ?? ''}
+              displayEmpty
+              variant="outlined"
+              renderValue={(productSelected) =>
+                productSelected === '' ? (
                   <Typography
                     sx={{
                       fontSize: 'fontSize',
@@ -492,178 +438,234 @@ function GroupForm({
                       color: 'text.primary',
                     }}
                   >
-                    {t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholter')}
+                    {t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
                   </Typography>
                 ) : (
-                  selectedUser.map((su) => su.name + ' ' + su.surname).join(', ')
+                  <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
+                    {productSelected}
+                  </Typography>
                 )
               }
-              inputProps={{ 'aria-label': 'Without label' }}
-              sx={{
-                '& .MuiSelect-select.MuiSelect-outlined.MuiSelect-multiple.MuiOutlinedInput-input.MuiInputBase-input.css-12l43fo-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input':
-                  {
-                    display: 'block !important',
-                  },
-              }}
             >
-              <CustomBox>
-                {Object.values(productUsers).map((u: PartyProductUser) => {
-                  const checkedIndex = formik.values.members.findIndex((s) => s.id === u.id);
-                  const isChecked = checkedIndex > -1;
-                  const onItemSelected = () => {
-                    const nextUsersSelected = isChecked
-                      ? formik.values.members.filter((_s, index) => index !== checkedIndex)
-                      : formik.values.members.concat(u);
-                    if (automaticRemove && containsInitialUsers(nextUsersSelected)) {
-                      setAutomaticRemove(false);
-                    }
-                    void formik.setFieldValue('members', nextUsersSelected, true);
-                  };
-                  const isAllMemeberSuspended = !u.product.roles.find(
-                    (r: any) => r.status !== 'SUSPENDED'
-                  );
-                  return (
-                    <MenuItem
-                      key={u.id}
-                      value={u.name}
+              {products
+                .filter((p) => p.userRole === 'ADMIN')
+                .map((p: Product, index) => (
+                  <MenuItem
+                    key={index}
+                    value={p.title}
+                    sx={{ fontSize: '14px', color: '#000000' }}
+                    onClick={() => setProductSelected(p)}
+                  >
+                    {p.title}
+                  </MenuItem>
+                ))}
+            </Select>
+            {isProductError ? (
+              <Typography color="#F83E5A" sx={{ fontSize: '14px' }}>
+                {t('dashboardGroupEdit.groupForm.formLabels.noProductSelected')}
+              </Typography>
+            ) : undefined}
+          </Grid>
+          {/* Members */}
+          <Grid item xs={12} mb={3}>
+            <FormControl sx={{ width: '57rem' }}>
+              <Select
+                // endAdornment={
+                //   <InputAdornment position="end">
+                //     <IconButton sx={{ right: '24px' }}>
+                //       <ClearIcon fontSize="small" onClick={() => setSelectedUser([])} />
+                //     </IconButton>
+                //   </InputAdornment>
+                // }
+                id="members-select"
+                disabled={!productSelected}
+                multiple
+                displayEmpty
+                fullWidth
+                value={formik.values.members}
+                input={<OutlinedInput />}
+                renderValue={(selectedUser: Array<PartyProductUser>) =>
+                  selectedUser.length === 0 ? (
+                    <Typography
                       sx={{
-                        fontSize: '14px',
-                        color: '#000000',
-                        width: '100%',
-                        height: '48px',
-                        my: 1,
+                        fontSize: 'fontSize',
+                        fontWeight: 'fontWeightMedium',
+                        color: 'text.primary',
                       }}
                     >
-                      <Checkbox checked={isChecked} onClick={onItemSelected} />
-                      <Grid container>
-                        <Grid container item xs={8}>
-                          {/* isAllMemeberSuspended ? 6 : */}
-                          <Grid item xs={12}>
-                            <Typography>
-                              {u.name} {u.surname}
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={12}>
-                            {u.email}
-                          </Grid>
-                        </Grid>
-                        <Grid container item xs={4} display="flex" justifyContent="end">
-                          <Box display="flex">
-                            {isAllMemeberSuspended && (
-                              <Box justifyContent="center" display="flex" flexDirection="column">
-                                <Chip
-                                  label={t('groupDetail.status')}
-                                  aria-label="Suspended"
-                                  variant="outlined"
-                                  sx={{
-                                    mr: 1,
-                                    fontWeight: '600',
-                                    fontSize: '14px',
-                                    backgroundColor: 'warning.light',
-                                    border: 'none',
-                                    borderRadius: '16px',
-                                    width: '78px',
-                                    height: '24px',
-                                  }}
-                                />
-                              </Box>
-                            )}
-                            <Box
-                              justifyContent="center"
-                              display="flex"
-                              flexDirection="column"
-                              alignItems="flex-end"
-                            >
-                              {u.product.roles.map((r) => (
-                                <Box display="flex" key={r.role}>
-                                  {r.status === 'SUSPENDED' && !isAllMemeberSuspended && (
-                                    <Box>
-                                      <Chip
-                                        label={t('groupDetail.status')}
-                                        aria-label="Suspended"
-                                        variant="outlined"
-                                        sx={{
-                                          mr: 2,
-                                          fontWeight: '600',
-                                          fontSize: '14px',
-                                          backgroundColor: 'warning.light',
-                                          border: 'none',
-                                          borderRadius: '16px',
-                                          width: '78px',
-                                          height: '24px',
-                                        }}
-                                      />
-                                    </Box>
-                                  )}
-
-                                  <Box>
-                                    <Typography color={'text.primary'}>
-                                      {transcodeProductRole2Title(
-                                        r.role,
-                                        productsRolesMap[u.product.id]
-                                      )}
-                                    </Typography>
-                                  </Box>
-                                </Box>
-                              ))}
-                            </Box>
-                          </Box>
-                        </Grid>
-                      </Grid>
-                    </MenuItem>
-                  );
-                })}
-              </CustomBox>
-            </Select>
-          </FormControl>
-          {/* Box */}
-          <Grid>
-            {formik.values.members.map((s) => (
-              <Chip
-                sx={{
-                  fontWeight: 600,
-                  marginTop: 2.2,
-                  marginRight: 1.6,
-                }}
-                color="default"
-                size="medium"
-                variant="outlined"
-                key={s.id}
-                label={s.name + ' ' + s.surname}
-                onDelete={() =>
-                  formik.setFieldValue(
-                    'members',
-                    formik.values.members.filter((us) => us !== s),
-                    true
+                      {t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholter')}
+                    </Typography>
+                  ) : (
+                    selectedUser.map((su) => su.name + ' ' + su.surname).join(', ')
                   )
                 }
-                deleteIcon={<ClearCircleIcon onMouseDown={(e) => e.stopPropagation()} />}
-              />
-            ))}
-          </Grid>
-        </Grid>
+                inputProps={{ 'aria-label': 'Without label' }}
+                sx={{
+                  '& .MuiSelect-select.MuiSelect-outlined.MuiSelect-multiple.MuiOutlinedInput-input.MuiInputBase-input.css-12l43fo-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input':
+                    {
+                      display: 'block !important',
+                    },
+                }}
+              >
+                <CustomBox>
+                  {Object.values(productUsers).map((u: PartyProductUser) => {
+                    const checkedIndex = formik.values.members.findIndex((s) => s.id === u.id);
+                    const isChecked = checkedIndex > -1;
+                    const onItemSelected = () => {
+                      const nextUsersSelected = isChecked
+                        ? formik.values.members.filter((_s, index) => index !== checkedIndex)
+                        : formik.values.members.concat(u);
+                      if (automaticRemove && containsInitialUsers(nextUsersSelected)) {
+                        setAutomaticRemove(false);
+                      }
+                      void formik.setFieldValue('members', nextUsersSelected, true);
+                    };
+                    const isAllMemeberSuspended = !u.product.roles.find(
+                      (r: any) => r.status !== 'SUSPENDED'
+                    );
+                    return (
+                      <MenuItem
+                        key={u.id}
+                        value={u.name}
+                        sx={{
+                          fontSize: '14px',
+                          color: '#000000',
+                          width: '100%',
+                          height: '48px',
+                          my: 1,
+                        }}
+                      >
+                        <Checkbox checked={isChecked} onClick={onItemSelected} />
+                        <Grid container>
+                          <Grid container item xs={8}>
+                            {/* isAllMemeberSuspended ? 6 : */}
+                            <Grid item xs={12}>
+                              <Typography>
+                                {u.name} {u.surname}
+                              </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                              {u.email}
+                            </Grid>
+                          </Grid>
+                          <Grid container item xs={4} display="flex" justifyContent="end">
+                            <Box display="flex">
+                              {isAllMemeberSuspended && (
+                                <Box justifyContent="center" display="flex" flexDirection="column">
+                                  <Chip
+                                    label={t('groupDetail.status')}
+                                    aria-label="Suspended"
+                                    variant="outlined"
+                                    sx={{
+                                      mr: 1,
+                                      fontWeight: '600',
+                                      fontSize: '14px',
+                                      backgroundColor: 'warning.light',
+                                      border: 'none',
+                                      borderRadius: '16px',
+                                      width: '78px',
+                                      height: '24px',
+                                    }}
+                                  />
+                                </Box>
+                              )}
+                              <Box
+                                justifyContent="center"
+                                display="flex"
+                                flexDirection="column"
+                                alignItems="flex-end"
+                              >
+                                {u.product.roles.map((r) => (
+                                  <Box display="flex" key={r.role}>
+                                    {r.status === 'SUSPENDED' && !isAllMemeberSuspended && (
+                                      <Box>
+                                        <Chip
+                                          label={t('groupDetail.status')}
+                                          aria-label="Suspended"
+                                          variant="outlined"
+                                          sx={{
+                                            mr: 2,
+                                            fontWeight: '600',
+                                            fontSize: '14px',
+                                            backgroundColor: 'warning.light',
+                                            border: 'none',
+                                            borderRadius: '16px',
+                                            width: '78px',
+                                            height: '24px',
+                                          }}
+                                        />
+                                      </Box>
+                                    )}
 
-        {/* Actions */}
-        {isClone && automaticRemove && <AlertRemoveUsersInClone />}
-        <Grid item container display="flex" justifyContent="space-between">
-          <Grid item xs={3} justifyContent="flex-start" display="flex">
-            <Button color="primary" variant="outlined" onClick={() => onExit(goBackInner)}>
-              {t('dashboardGroupEdit.groupForm.formLabels.cancelActionLabel')}
-            </Button>
+                                    <Box>
+                                      <Typography color={'text.primary'}>
+                                        {transcodeProductRole2Title(
+                                          r.role,
+                                          productsRolesMap[u.product.id]
+                                        )}
+                                      </Typography>
+                                    </Box>
+                                  </Box>
+                                ))}
+                              </Box>
+                            </Box>
+                          </Grid>
+                        </Grid>
+                      </MenuItem>
+                    );
+                  })}
+                </CustomBox>
+              </Select>
+            </FormControl>
+            {/* Box */}
+            <Grid>
+              {formik.values.members.map((s) => (
+                <Chip
+                  sx={{
+                    fontWeight: 600,
+                    marginTop: 2.2,
+                    marginRight: 1.6,
+                  }}
+                  color="default"
+                  size="medium"
+                  variant="outlined"
+                  key={s.id}
+                  label={s.name + ' ' + s.surname}
+                  onDelete={() =>
+                    formik.setFieldValue(
+                      'members',
+                      formik.values.members.filter((us) => us !== s),
+                      true
+                    )
+                  }
+                  deleteIcon={<ClearCircleIcon onMouseDown={(e) => e.stopPropagation()} />}
+                />
+              ))}
+            </Grid>
           </Grid>
-          <Grid item xs={3} justifyContent="flex-end" display="flex">
-            <Button
-              disabled={(!isClone && !formik.dirty) || !formik.isValid}
-              color="primary"
-              variant="contained"
-              type="submit"
-            >
-              {t('dashboardGroupEdit.groupForm.formLabels.confirmActionLabel')}
-            </Button>
-          </Grid>
+
+          {/* Actions */}
+          {isClone && automaticRemove && <AlertRemoveUsersInClone />}
+        </Grid>
+      </form>
+      <Grid item container display="flex" justifyContent="space-between" mt={5}>
+        <Grid item xs={3} justifyContent="flex-start" display="flex">
+          <Button color="primary" variant="outlined" onClick={() => onExit(goBackInner)}>
+            {t('dashboardGroupEdit.groupForm.formLabels.cancelActionLabel')}
+          </Button>
+        </Grid>
+        <Grid item xs={3} justifyContent="flex-end" display="flex">
+          <Button
+            disabled={(!isClone && !formik.dirty) || !formik.isValid}
+            color="primary"
+            variant="contained"
+            type="submit"
+          >
+            {t('dashboardGroupEdit.groupForm.formLabels.confirmActionLabel')}
+          </Button>
         </Grid>
       </Grid>
-    </form>
+    </>
   );
 }
 export default GroupForm;
