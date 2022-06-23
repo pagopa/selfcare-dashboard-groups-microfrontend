@@ -138,7 +138,7 @@ export default function GroupMenu({
         addNotify({
           id: 'ACTION_ON_PARTY_USER_COMPLETED',
           title: t('groupMenu.confirmChangeStatus.updatePartyUserStatusThen.title', {
-            selectedUserStatus: `${selectedUserStatus.toUpperCase()}`,
+            selectedUserStatus: `${selectedUserStatus}`,
           }),
           message: (
             <>
