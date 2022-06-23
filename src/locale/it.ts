@@ -161,7 +161,7 @@ export default {
         displayableDescriptionCreate: `An error occurred while creation of group {{valuesName}}`,
       },
       save: {
-        groupNameAlreadyExists: 'Il nome che hai scelto per il nuovo gruppo è già in uso. Cambialo',
+        groupNameAlreadyExists: 'Il nome scelto è già in uso. Scegli un nuovo nome.',
         isEdit: "C'è stato un errore durante la modifica del gruppo. Riprova.",
         isClone: "C'è stato un errore durante la duplicazione del gruppo. Riprova.",
         isCreate: "C'è stato un errore durante la creazione del gruppo. Riprova.",
