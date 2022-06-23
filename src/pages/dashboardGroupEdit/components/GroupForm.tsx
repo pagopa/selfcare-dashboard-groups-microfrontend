@@ -212,7 +212,7 @@ function GroupForm({
     });
 
   const notifyErrorOnSave = (
-    values: PartyGroupOnCreation | PartyGroupOnEdit,
+    _values: PartyGroupOnCreation | PartyGroupOnEdit,
     reason: any,
     displayableDescription: string
   ) =>
@@ -226,17 +226,7 @@ function GroupForm({
         ? t('dashboardGroupEdit.groupForm.notifyErrorOnSave.isClone')
         : t('dashboardGroupEdit.groupForm.notifyErrorOnSave.isCreate'),
       displayableDescription,
-      techDescription: isEdit
-        ? t('dashboardGroupEdit.groupForm.notifyErrorOnSave.displayableDescriptionEdit', {
-            valuesName: `${values.name}`,
-          })
-        : isClone
-        ? t('dashboardGroupEdit.groupForm.notifyErrorOnSave.displayableDescriptionClone', {
-            valuesName: `${values.name}`,
-          })
-        : t('dashboardGroupEdit.groupForm.notifyErrorOnSave.displayableDescriptionCreate', {
-            valuesName: `${values.name}`,
-          }),
+      techDescription: '',
       error: reason,
       toNotify: true,
     });
@@ -266,15 +256,7 @@ function GroupForm({
           );
         } else {
           setIsNameDuplicated(false);
-          notifyErrorOnSave(
-            values,
-            reason,
-            isEdit
-              ? t('dashboardGroupEdit.groupForm.save.isEdit')
-              : isClone
-              ? t('dashboardGroupEdit.groupForm.save.isClone')
-              : t('dashboardGroupEdit.groupForm.save.isCreate')
-          );
+          notifyErrorOnSave(values, reason, '');
         }
       })
       .finally(() => setLoadingSaveGroup(false));

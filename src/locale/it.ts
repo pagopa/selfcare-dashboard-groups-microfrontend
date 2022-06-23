@@ -153,9 +153,9 @@ export default {
         message: `<0>{{valuesName}}</0> per il prodotto <2>{{productSelectedtitle}}</>`,
       },
       notifyErrorOnSave: {
-        isEdit: 'ERRORE DURANTE LA MODIFICA ',
-        isClone: 'ERRORE DURANTE LA DUPLICAZIONE',
-        isCreate: 'ERRORE DURANTE LA CREAZIONE',
+        isEdit: 'Non è stato possibile modificare il gruppo. Riprova. ',
+        isClone: 'Non è stato possibile duplicare il gruppo. Riprova.',
+        isCreate: 'Non è stato possibile creare il gruppo. Riprova.',
         displayableDescriptionEdit: `An error occurred while edit of group {{valuesName}}`,
         displayableDescriptionClone: `An error occurred while clone of group {{valuesName}}`,
         displayableDescriptionCreate: `An error occurred while creation of group {{valuesName}}`,
