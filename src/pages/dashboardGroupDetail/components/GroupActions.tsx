@@ -9,13 +9,13 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { deletePartyGroup, updatePartyGroupStatus } from '../../../services/groupsService';
 import { LOADING_TASK_UPDATE_PARTY_USER_STATUS } from '../../../utils/constants';
 import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
 import { Party } from '../../../model/Party';
 import { Product, ProductsMap } from '../../../model/Product';
 import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
-
 type Props = {
   partyGroup: PartyGroupDetail;
   isSuspended: boolean;
@@ -118,21 +118,26 @@ export default function GroupActions({
       )
       .finally(() => setLoading(false));
   };
-
+  const activeGroup = partyGroup.status === 'ACTIVE';
   const handleOpen = () => {
     addNotify({
       component: 'SessionModal',
       id: 'Notify_Example',
-      title:
-        partyGroup.status === 'ACTIVE'
-          ? t('groupActions.handleOpen.addNotify.titleActive')
-          : t('groupActions.handleOpen.addNotify.titleSuspended'),
+      title: activeGroup
+        ? t('groupActions.handleOpen.addNotify.titleActive')
+        : t('groupActions.handleOpen.addNotify.titleSuspended'),
       message: (
         <>
-          {partyGroup.status === 'ACTIVE'
+          {activeGroup
             ? t('groupActions.handleOpen.addNotify.messageActive')
             : t('groupActions.handleOpen.addNotify.messageSuspended')}
-          <Trans i18nKey="groupActions.handleOpen.addNotify.messageGroup">
+          <Trans
+            i18nKey={
+              activeGroup
+                ? 'groupActions.handleOpen.addNotify.messageGroupActive'
+                : 'groupActions.handleOpen.addNotify.messageGroupSuspended'
+            }
+          >
             <strong>{{ groupName: partyGroup.name }}</strong>
             di
             <strong>{{ productTitle: productsMap[partyGroup.productId].title }}</strong>
@@ -142,7 +147,10 @@ export default function GroupActions({
           </Trans>
         </>
       ),
-      confirmLabel: t('groupActions.handleOpen.addNotify.confirmLabel'),
+      confirmLabel:
+        partyGroup.status === 'ACTIVE'
+          ? t('groupActions.handleOpen.addNotify.confirmLabelSuspend')
+          : t('groupActions.handleOpen.addNotify.confirmLabelActive'),
       closeLabel: t('groupActions.handleOpen.addNotify.closeLabel'),
       onConfirm: confirmChangeStatus,
     });
@@ -252,7 +260,11 @@ export default function GroupActions({
       {canEdit && (
         <>
           <Box mr={2}>
-            <HourglassEmptyIcon color="primary" fontSize="small" />
+            {isSuspended ? (
+              <RestartAltIcon color="primary" fontSize="small" />
+            ) : (
+              <HourglassEmptyIcon color="primary" fontSize="small" />
+            )}
           </Box>
 
           <Box mr={3}>
