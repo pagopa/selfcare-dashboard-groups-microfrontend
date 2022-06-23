@@ -133,7 +133,6 @@ export default function MembersGroup({
               variant="body2"
               className="ShowDots"
               color={isMemeberSuspended || isSuspended ? '#9E9E9E' : undefined}
-              title={member.row.email}
               width="100%"
             >
               {member.row.email}
