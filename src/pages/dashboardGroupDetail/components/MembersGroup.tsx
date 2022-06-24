@@ -70,8 +70,8 @@ export default function MembersGroup({
     {
       field: 'name',
       headerName: 'Nome',
-      flex: 1,
-      minWidth: 400,
+      flex: 2,
+      width: 300,
       renderCell: (member: GridRenderCellParams<any, any, any>) => (
         <Link
           component="button"
@@ -120,8 +120,8 @@ export default function MembersGroup({
     {
       field: 'email',
       headerName: 'Email',
-      flex: 1,
-      minWidth: 500,
+      flex: 2,
+      width: 300,
       renderCell: (member: GridRenderCellParams<any, any, any>) => {
         const userProduct = member.row.product;
         const isMemeberSuspended =
@@ -145,8 +145,8 @@ export default function MembersGroup({
     {
       field: 'role',
       headerName: 'Ruolo',
-      flex: 1,
-      minWidth: 300,
+      flex: 2,
+      width: 300,
       sortable: false,
       renderCell: (member: GridRenderCellParams<any, any, any>) => {
         const userProduct = member.row.product;
@@ -156,14 +156,14 @@ export default function MembersGroup({
               <Box key={index}>
                 <Tooltip
                   title={
-                    r.role.length > 37 ? transcodeProductRole2Title(r.role, productRolesLists) : ''
+                    r.role.length > 35 ? transcodeProductRole2Title(r.role, productRolesLists) : ''
                   }
                 >
                   <Typography
                     variant="body2"
-                    sx={{ fontSize: '14px' }}
+                    sx={{ fontSize: '14px', marginTop: 1 }}
                     className="ShowDots"
-                    width="37ch"
+                    width="35ch"
                     color={r.status === 'SUSPENDED' || isSuspended ? 'text.disabled' : undefined}
                   >
                     {transcodeProductRole2Title(r.role, productRolesLists)}
@@ -179,6 +179,7 @@ export default function MembersGroup({
       field: 'status',
       headerName: '',
       flex: 1,
+      width: 100,
       sortable: false,
       renderCell: (member: GridRenderCellParams<any, any, any>) => {
         const userProduct = member.row.product;
@@ -213,6 +214,7 @@ export default function MembersGroup({
       field: 'actions',
       headerName: '',
       flex: 1,
+      width: 100,
       sortable: false,
       renderCell: (member: GridRenderCellParams<any, any, any>) => {
         const userProduct = member.row.product;

@@ -12,6 +12,9 @@ import {
   Typography,
   OutlinedInput,
   FormControl,
+  InputLabel,
+  // InputAdornment,
+  // IconButton,
 } from '@mui/material';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
 import useLoading from '@pagopa/selfcare-common-frontend/hooks/useLoading';
@@ -29,6 +32,7 @@ import { User } from '@pagopa/selfcare-common-frontend/model/User';
 import { userSelectors } from '@pagopa/selfcare-common-frontend/redux/slices/userSlice';
 import { useTranslation } from 'react-i18next';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+// import ClearIcon from '@mui/icons-material/Clear';
 import { ReactComponent as ClearCircleIcon } from '../../../assets/clear.svg';
 import { Party } from '../../../model/Party';
 import { PartyGroupOnCreation, PartyGroupOnEdit } from '../../../model/PartyGroup';
@@ -133,7 +137,6 @@ function GroupForm({
   const [productUsers, setProductUsers] = useState<Array<PartyProductUser>>([]);
   const [automaticRemove, setAutomaticRemove] = useState(false);
   const [isNameDuplicated, setIsNameDuplicated] = useState(false);
-  // const [selectedUser, setSelectedUser] = useState<Array<PartyProductUser>>([]);
 
   const { registerUnloadEvent, unregisterUnloadEvent } = useUnloadEventInterceptor();
   const onExit = useUnloadEventOnExit();
@@ -367,6 +370,10 @@ function GroupForm({
   };
   const isProductError = isClone && productSelected === undefined;
 
+  // const onItemSelectedTest = () => {
+  //   void formik.setFieldValue('members', [], true);
+  // };
+
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
@@ -421,45 +428,45 @@ function GroupForm({
           </Grid>
           {/* Product */}
           <Grid item xs={12} mb={3}>
-            <Select
-              error={isProductError}
-              id="product-select"
-              disabled={isEdit}
-              fullWidth
-              value={productSelected?.title ?? ''}
-              displayEmpty
-              variant="outlined"
-              renderValue={(productSelected) =>
-                productSelected === '' ? (
-                  <Typography
-                    sx={{
-                      fontSize: 'fontSize',
-                      fontWeight: 'fontWeightMedium',
-                      color: 'text.primary',
-                    }}
-                  >
-                    {t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
-                  </Typography>
-                ) : (
+            <FormControl sx={{ width: '100%' }}>
+              <InputLabel id="select-label-products">
+                {t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
+              </InputLabel>
+              <Select
+                error={isProductError}
+                id="product-select"
+                disabled={isEdit}
+                fullWidth
+                value={productSelected?.title ?? ''}
+                displayEmpty
+                variant="outlined"
+                labelId="select-label-products"
+                label={t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
+                input={
+                  <OutlinedInput
+                    label={t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
+                  />
+                }
+                renderValue={(productSelected) => (
                   <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
                     {productSelected}
                   </Typography>
-                )
-              }
-            >
-              {products
-                .filter((p) => p.userRole === 'ADMIN')
-                .map((p: Product, index) => (
-                  <MenuItem
-                    key={index}
-                    value={p.title}
-                    sx={{ fontSize: '14px', color: '#000000' }}
-                    onClick={() => setProductSelected(p)}
-                  >
-                    {p.title}
-                  </MenuItem>
-                ))}
-            </Select>
+                )}
+              >
+                {products
+                  .filter((p) => p.userRole === 'ADMIN')
+                  .map((p: Product, index) => (
+                    <MenuItem
+                      key={index}
+                      value={p.title}
+                      sx={{ fontSize: '14px', color: '#000000' }}
+                      onClick={() => setProductSelected(p)}
+                    >
+                      {p.title}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
             {isProductError ? (
               <Typography color="#F83E5A" sx={{ fontSize: '14px' }}>
                 {t('dashboardGroupEdit.groupForm.formLabels.noProductSelected')}
@@ -467,13 +474,16 @@ function GroupForm({
             ) : undefined}
           </Grid>
           {/* Members */}
-          <Grid item xs={12} mb={3}>
+          <Grid item xs={12} mb={3} width="100%">
             <FormControl sx={{ width: '100%' }}>
+              <InputLabel id="select-label-members">
+                {t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholter')}
+              </InputLabel>
               <Select
                 // endAdornment={
                 //   <InputAdornment position="end">
                 //     <IconButton sx={{ right: '24px' }}>
-                //       <ClearIcon fontSize="small" onClick={() => setSelectedUser([])} />
+                //       <ClearIcon fontSize="small" onClick={onItemSelectedTest} />
                 //     </IconButton>
                 //   </InputAdornment>
                 // }
@@ -482,34 +492,26 @@ function GroupForm({
                 multiple
                 displayEmpty
                 fullWidth
+                label={t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholter')}
+                labelId="select-label-members"
                 value={formik.values.members}
-                input={<OutlinedInput />}
-                renderValue={(selectedUser: Array<PartyProductUser>) =>
-                  selectedUser.length === 0 ? (
-                    <Typography
-                      sx={{
-                        fontSize: 'fontSize',
-                        fontWeight: 'fontWeightMedium',
-                        color: 'text.primary',
-                      }}
-                    >
-                      {t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholter')}
-                    </Typography>
-                  ) : (
-                    <Typography
-                      sx={{
-                        height: 'auto',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        width: '54rem',
-                      }}
-                    >
-                      {selectedUser.map((su) => su.name + ' ' + su.surname).join(', ')}
-                    </Typography>
-                  )
+                input={
+                  <OutlinedInput
+                    label={t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholter')}
+                  />
                 }
-                inputProps={{ 'aria-label': 'Without label' }}
+                renderValue={(selectedUser: Array<PartyProductUser>) => (
+                  <Typography
+                    sx={{
+                      height: 'auto',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    {selectedUser.map((su) => su.name + ' ' + su.surname).join(', ')}
+                  </Typography>
+                )}
                 sx={{
                   '& .MuiSelect-select.MuiSelect-outlined.MuiSelect-multiple.MuiOutlinedInput-input.MuiInputBase-input.css-12l43fo-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input':
                     {

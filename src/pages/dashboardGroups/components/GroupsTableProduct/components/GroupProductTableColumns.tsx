@@ -25,6 +25,7 @@ export function buildColumnDefs(
       renderHeader: showCustmHeader,
       renderCell: (params) => showName(params, false, onRowClick),
       sortable: true,
+      flex: 2,
     },
     {
       field: 'description',
@@ -38,6 +39,7 @@ export function buildColumnDefs(
       renderHeader: showCustmHeader,
       renderCell: (params) => renderCell(params, undefined, onRowClick),
       sortable: false,
+      flex: 3,
     },
     {
       field: 'referenti',
@@ -52,6 +54,7 @@ export function buildColumnDefs(
       renderCell: (params) => showRefernts(params, onRowClick),
       renderHeader: showCustmHeader,
       sortable: false,
+      flex: 2,
     },
     {
       field: 'status',
@@ -64,6 +67,7 @@ export function buildColumnDefs(
       editable: false,
       renderCell: (params) => showStatus(params, onRowClick),
       sortable: false,
+      flex: 1,
     },
     {
       field: 'azioni',
@@ -99,6 +103,7 @@ export function buildColumnDefs(
               )
             ),
       sortable: false,
+      flex: 1,
     },
   ] as Array<GridColDef>;
 }
