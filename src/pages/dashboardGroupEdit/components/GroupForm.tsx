@@ -519,7 +519,32 @@ function GroupForm({
                     },
                 }}
               >
-                <CustomBox>
+                <CustomBox
+                  my={1}
+                  sx={{
+                    /* width */
+                    '::-webkit-scrollbar': {
+                      width: '4px',
+                    },
+                    /* Track */
+                    '::-webkit-scrollbar-track': {
+                      boxShadow: 'inset 0 0 5px #F2F6FA',
+                      borderRadius: '20px',
+                    },
+                    /* Handle */
+                    '::-webkit-scrollbar-thumb': {
+                      background: '#0073E6',
+                      backgroundClip: 'padding-box',
+                      borderRadius: '20px',
+                      height: '54px',
+                    },
+
+                    /* Handle on hover */
+                    '::-webkit-scrollbar-thumb:hover': {
+                      background: '#0073E6',
+                    },
+                  }}
+                >
                   {Object.values(productUsers).map((u: PartyProductUser) => {
                     const checkedIndex = formik.values.members.findIndex((s) => s.id === u.id);
                     const isChecked = checkedIndex > -1;
@@ -544,7 +569,9 @@ function GroupForm({
                           color: '#000000',
                           width: '100%',
                           height: '48px',
-                          my: 1,
+                          my: 2,
+                          pl: 0,
+                          pr: 3,
                         }}
                       >
                         <Checkbox checked={isChecked} onClick={onItemSelected} />
@@ -552,12 +579,14 @@ function GroupForm({
                           <Grid container item xs={8}>
                             {/* isAllMemeberSuspended ? 6 : */}
                             <Grid item xs={12}>
-                              <Typography>
+                              <Typography variant="body1">
                                 {u.name} {u.surname}
                               </Typography>
                             </Grid>
                             <Grid item xs={12}>
-                              {u.email}
+                              <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+                                {u.email}
+                              </Typography>
                             </Grid>
                           </Grid>
                           <Grid container item xs={4} display="flex" justifyContent="end">
@@ -569,7 +598,7 @@ function GroupForm({
                                     aria-label="Suspended"
                                     variant="outlined"
                                     sx={{
-                                      mr: 1,
+                                      mr: 2,
                                       fontWeight: '600',
                                       fontSize: '14px',
                                       backgroundColor: 'warning.light',
@@ -610,7 +639,11 @@ function GroupForm({
                                     )}
 
                                     <Box>
-                                      <Typography color={'text.primary'}>
+                                      <Typography
+                                        color={'text.primary'}
+                                        variant="caption"
+                                        sx={{ fontWeight: 'fontWeightMedium' }}
+                                      >
                                         {transcodeProductRole2Title(
                                           r.role,
                                           productsRolesMap[u.product.id]
