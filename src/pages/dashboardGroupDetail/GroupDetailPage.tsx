@@ -118,7 +118,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
           />
         </Box>
       </Grid>
-      <Grid container item mb={3} display="flex" justifyContent="space-between">
+      <Grid container item mb={5} display="flex" justifyContent="space-between">
         <Grid item xs={4}>
           <Box display="flex">
             <Box>
@@ -170,7 +170,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
       </Grid>
       <Grid container item xs={12}>
         <Grid item container display="flex" alignItems="center">
-          <Grid item xs={8} my={3}>
+          <Grid item xs={8} mt={5}>
             <Typography sx={{ fontSize: '24px', fontWeight: 'fontWeightMedium' }}>
               {t('groupDetailPage.usersTitle')}
             </Typography>

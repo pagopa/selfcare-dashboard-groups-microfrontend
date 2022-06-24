@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
+import { Box, Divider, Grid, IconButton, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import useLoading from '@pagopa/selfcare-common-frontend/hooks/useLoading';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
 import { useState } from 'react';
@@ -240,6 +240,7 @@ export default function GroupMenu({
       )
       .finally(() => setLoading(false));
   };
+  const itemBoxHover = { width: '100%', p: 2 };
   return (
     <>
       {!member.isCurrentUser && canEdit && (
@@ -269,28 +270,33 @@ export default function GroupMenu({
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
-            width: '20ch',
-            padding: '8px 0',
+            width: '16.5ch',
+            paddingTop: '0px',
+            paddingBottom: '0px',
           },
         }}
       >
         <Box width="100%" display="flex" justifyContent="start">
-          <MenuItem onClick={confirmDisociateAction}>
-            {t('groupMenu.dissociateMenuItem.label')}
+          <MenuItem onClick={confirmDisociateAction} sx={itemBoxHover}>
+            <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
+              {t('groupMenu.dissociateMenuItem.label')}
+            </Typography>
           </MenuItem>
         </Box>
         {userProduct?.roles.length === 1 && !member.isCurrentUser && (
           <Box key={userProduct.id}>
-            <Box width="170px" margin="4px auto">
+            <Box width="170px">
               <Divider />
             </Box>
             <Box width="100%" display="flex" justifyContent="start">
-              <MenuItem onClick={confirmAction}>
-                {role?.status === 'ACTIVE'
-                  ? t('groupMenu.suspendMenuItem.suspendLabel')
-                  : role?.status === 'SUSPENDED'
-                  ? t('groupMenu.suspendMenuItem.activeLabel')
-                  : ''}
+              <MenuItem onClick={confirmAction} sx={itemBoxHover}>
+                <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
+                  {role?.status === 'ACTIVE'
+                    ? t('groupMenu.suspendMenuItem.suspendLabel')
+                    : role?.status === 'SUSPENDED'
+                    ? t('groupMenu.suspendMenuItem.activeLabel')
+                    : ''}
+                </Typography>
               </MenuItem>
             </Box>
           </Box>

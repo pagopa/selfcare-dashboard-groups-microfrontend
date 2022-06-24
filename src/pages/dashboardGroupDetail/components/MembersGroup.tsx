@@ -103,6 +103,7 @@ export default function MembersGroup({
             <Typography
               className="ShowDots"
               sx={{
+                pl: 1,
                 fontSize: 'fontSize',
                 fontWeight: 'fontWeightMedium',
                 color: isSuspended ? '#a2adb8' : '#0073E6',
@@ -120,7 +121,7 @@ export default function MembersGroup({
       field: 'email',
       headerName: 'Email',
       flex: 1,
-      minWidth: 400,
+      minWidth: 500,
       renderCell: (member: GridRenderCellParams<any, any, any>) => {
         const userProduct = member.row.product;
         const isMemeberSuspended =
@@ -145,7 +146,7 @@ export default function MembersGroup({
       field: 'role',
       headerName: 'Ruolo',
       flex: 1,
-      minWidth: 400,
+      minWidth: 300,
       sortable: false,
       renderCell: (member: GridRenderCellParams<any, any, any>) => {
         const userProduct = member.row.product;
@@ -155,14 +156,14 @@ export default function MembersGroup({
               <Box key={index}>
                 <Tooltip
                   title={
-                    r.role.length > 48 ? transcodeProductRole2Title(r.role, productRolesLists) : ''
+                    r.role.length > 37 ? transcodeProductRole2Title(r.role, productRolesLists) : ''
                   }
                 >
                   <Typography
                     variant="body2"
                     sx={{ fontSize: '14px' }}
                     className="ShowDots"
-                    width="48ch"
+                    width="37ch"
                     color={r.status === 'SUSPENDED' || isSuspended ? 'text.disabled' : undefined}
                   >
                     {transcodeProductRole2Title(r.role, productRolesLists)}
@@ -178,7 +179,6 @@ export default function MembersGroup({
       field: 'status',
       headerName: '',
       flex: 1,
-      minWidth: 50,
       sortable: false,
       renderCell: (member: GridRenderCellParams<any, any, any>) => {
         const userProduct = member.row.product;
@@ -187,7 +187,7 @@ export default function MembersGroup({
           !userProduct?.roles.find((r: any) => r.status !== 'SUSPENDED');
         return (
           isMemeberSuspended && (
-            <Box display="flex" justifyContent="center">
+            <Box display="flex" justifyContent="center" width="100%">
               {isMemeberSuspended && (
                 <Chip
                   label={t('groupDetail.status')}
@@ -199,7 +199,7 @@ export default function MembersGroup({
                     backgroundColor: 'warning.light',
                     border: 'none',
                     borderRadius: '16px',
-                    width: '100%',
+                    width: '78px',
                     height: '24px',
                   }}
                 />
@@ -213,14 +213,13 @@ export default function MembersGroup({
       field: 'actions',
       headerName: '',
       flex: 1,
-      minWidth: 50,
       sortable: false,
       renderCell: (member: GridRenderCellParams<any, any, any>) => {
         const userProduct = member.row.product;
 
         return (
           !isGroupSuspended && (
-            <Box width="100%" display="flex" justifyContent="flex-end" pr={2}>
+            <Box width="100%" display="flex" justifyContent="flex-end" pr={3}>
               <GroupMenu
                 member={member.row}
                 party={party}
