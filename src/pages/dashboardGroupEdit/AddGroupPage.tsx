@@ -46,45 +46,47 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
       <Grid
         container
         alignItems={'center'}
-        px={2}
+        px={3}
         mt={10}
-        sx={{ width: '985px', backgroundColor: 'transparent !important' }}
+        sx={{ width: '100%', backgroundColor: 'transparent !important' }}
       >
-        <Grid item xs={12} mb={3}>
-          <ProductNavigationBar
-            paths={paths}
-            showBackComponent={true}
-            backLinkTextDecoration="none"
-            backLinkFontWeight="700"
-            backLinkFontSize="16px"
-            goBack={goBack}
-          />
-        </Grid>
-        <Grid item xs={12} mb={9}>
-          <TitleBox
-            variantTitle="h4"
-            variantSubTitle="body1"
-            title={t('dashboardGroupEdit.addGroupPage.title')}
-            subTitle={t('dashboardGroupEdit.addGroupPage.subTitle')}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <GroupForm
-            productsRolesMap={productsRolesMap}
-            party={party}
-            products={activeProducts}
-            productsMap={productsMap}
-            initialFormData={
-              {
-                name: '',
-                description: '',
-                members: [],
-                partyId: party.partyId,
-                productId: '',
-              } as PartyGroupOnCreation
-            }
-            isClone={false}
-          />
+        <Grid container item xs={9}>
+          <Grid item xs={12} mb={3}>
+            <ProductNavigationBar
+              paths={paths}
+              showBackComponent={true}
+              backLinkTextDecoration="none"
+              backLinkFontWeight="700"
+              backLinkFontSize="16px"
+              goBack={goBack}
+            />
+          </Grid>
+          <Grid item xs={12} mb={9}>
+            <TitleBox
+              variantTitle="h4"
+              variantSubTitle="body1"
+              title={t('dashboardGroupEdit.addGroupPage.title')}
+              subTitle={t('dashboardGroupEdit.addGroupPage.subTitle')}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <GroupForm
+              productsRolesMap={productsRolesMap}
+              party={party}
+              products={activeProducts}
+              productsMap={productsMap}
+              initialFormData={
+                {
+                  name: '',
+                  description: '',
+                  members: [],
+                  partyId: party.partyId,
+                  productId: '',
+                } as PartyGroupOnCreation
+              }
+              isClone={false}
+            />
+          </Grid>
         </Grid>
       </Grid>
     </div>

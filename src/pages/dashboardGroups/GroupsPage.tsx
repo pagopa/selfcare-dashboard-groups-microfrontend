@@ -74,9 +74,9 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
   return (
     <Grid
       container
-      px={2}
+      px={3}
       mt={10}
-      sx={{ width: '985px', backgroundColor: 'transparent !important' }}
+      sx={{ width: '100%', backgroundColor: 'transparent !important' }}
     >
       <Grid container item display="flex" justifyContent="space-between">
         <Grid item xs={9}>

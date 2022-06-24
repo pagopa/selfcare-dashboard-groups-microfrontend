@@ -468,7 +468,7 @@ function GroupForm({
           </Grid>
           {/* Members */}
           <Grid item xs={12} mb={3}>
-            <FormControl sx={{ width: '57rem' }}>
+            <FormControl sx={{ width: '100%' }}>
               <Select
                 // endAdornment={
                 //   <InputAdornment position="end">
@@ -496,7 +496,17 @@ function GroupForm({
                       {t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholter')}
                     </Typography>
                   ) : (
-                    selectedUser.map((su) => su.name + ' ' + su.surname).join(', ')
+                    <Typography
+                      sx={{
+                        height: 'auto',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        width: '60rem',
+                      }}
+                    >
+                      {selectedUser.map((su) => su.name + ' ' + su.surname).join(', ')}
+                    </Typography>
                   )
                 }
                 inputProps={{ 'aria-label': 'Without label' }}

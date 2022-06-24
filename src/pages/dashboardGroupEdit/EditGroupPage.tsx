@@ -56,41 +56,43 @@ function EditGroupPage({
     <Grid
       container
       alignItems={'center'}
-      px={2}
+      px={3}
       mt={10}
-      sx={{ width: '985px', backgroundColor: 'transparent !important' }}
+      sx={{ width: '100%', backgroundColor: 'transparent !important' }}
     >
-      <Grid item xs={12} mb={3}>
-        <ProductNavigationBar
-          paths={paths}
-          showBackComponent={true}
-          backLinkTextDecoration="none"
-          backLinkFontWeight="700"
-          backLinkFontSize="16px"
-          goBack={goBack}
-        />
-      </Grid>
-      <Grid item xs={12} mb={9}>
-        <TitleBox variantTitle="h4" title={t('dashboardGroupEdit.editGroupPage.title')} />
-      </Grid>
-      <Grid item xs={12}>
-        <GroupForm
-          productsRolesMap={productsRolesMap}
-          party={party}
-          products={activeProducts}
-          productsMap={productsMap}
-          initialFormData={
-            {
-              id: partyGroup.id,
-              name: partyGroup.name,
-              description: partyGroup.description,
-              members: partyGroup.members,
-              partyId: partyGroup.partyId,
-              productId: partyGroup.productId,
-            } as PartyGroupOnEdit
-          }
-          isClone={false}
-        />
+      <Grid container item xs={9}>
+        <Grid item xs={12} mb={3}>
+          <ProductNavigationBar
+            paths={paths}
+            showBackComponent={true}
+            backLinkTextDecoration="none"
+            backLinkFontWeight="700"
+            backLinkFontSize="16px"
+            goBack={goBack}
+          />
+        </Grid>
+        <Grid item xs={12} mb={9}>
+          <TitleBox variantTitle="h4" title={t('dashboardGroupEdit.editGroupPage.title')} />
+        </Grid>
+        <Grid item xs={12}>
+          <GroupForm
+            productsRolesMap={productsRolesMap}
+            party={party}
+            products={activeProducts}
+            productsMap={productsMap}
+            initialFormData={
+              {
+                id: partyGroup.id,
+                name: partyGroup.name,
+                description: partyGroup.description,
+                members: partyGroup.members,
+                partyId: partyGroup.partyId,
+                productId: partyGroup.productId,
+              } as PartyGroupOnEdit
+            }
+            isClone={false}
+          />
+        </Grid>
       </Grid>
     </Grid>
   );
