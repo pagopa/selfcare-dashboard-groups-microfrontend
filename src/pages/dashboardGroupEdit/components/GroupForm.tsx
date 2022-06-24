@@ -502,7 +502,7 @@ function GroupForm({
                         textOverflow: 'ellipsis',
                         whiteSpace: 'nowrap',
                         overflow: 'hidden',
-                        width: '60rem',
+                        width: '54rem',
                       }}
                     >
                       {selectedUser.map((su) => su.name + ' ' + su.surname).join(', ')}
