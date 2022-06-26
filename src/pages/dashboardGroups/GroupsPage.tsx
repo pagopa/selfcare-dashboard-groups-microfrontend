@@ -72,12 +72,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
   const mbTitle = 2;
 
   return (
-    <Grid
-      container
-      px={3}
-      mt={10}
-      sx={{ width: '100%', backgroundColor: 'transparent !important' }}
-    >
+    <Grid container px={3} mt={3} sx={{ width: '100%', backgroundColor: 'transparent !important' }}>
       <Grid container item display="flex" justifyContent="space-between">
         <Grid item xs={9}>
           <TitleBox
