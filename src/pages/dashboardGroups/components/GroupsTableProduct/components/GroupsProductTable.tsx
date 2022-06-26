@@ -12,7 +12,7 @@ import { buildColumnDefs } from './GroupProductTableColumns';
 import GroupsProductLoading from './GroupsProductLoading';
 import GroupsTableLoadMoreData from './GroupsProductLoadMoreData';
 
-const rowHeight = 81;
+const rowHeight = 80;
 const headerHeight = 56;
 
 interface GroupsTableProps {

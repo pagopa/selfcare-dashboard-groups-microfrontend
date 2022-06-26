@@ -161,7 +161,7 @@ export default function MembersGroup({
                 >
                   <Typography
                     variant="body2"
-                    sx={{ fontSize: '14px', marginTop: 1 }}
+                    sx={{ fontSize: '14px' }}
                     className="ShowDots"
                     width="35ch"
                     color={r.status === 'SUSPENDED' || isSuspended ? 'text.disabled' : undefined}
@@ -243,6 +243,7 @@ export default function MembersGroup({
 
   return (
     <DataGrid
+      rowHeight={64}
       disableSelectionOnClick
       disableColumnMenu
       sx={{

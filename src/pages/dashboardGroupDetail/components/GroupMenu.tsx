@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, IconButton, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
+import { Box, Grid, IconButton, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import useLoading from '@pagopa/selfcare-common-frontend/hooks/useLoading';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
 import { useState } from 'react';
@@ -285,9 +285,6 @@ export default function GroupMenu({
         </Box>
         {userProduct?.roles.length === 1 && !member.isCurrentUser && (
           <Box key={userProduct.id}>
-            <Box width="170px">
-              <Divider />
-            </Box>
             <Box width="100%" display="flex" justifyContent="start">
               <MenuItem onClick={confirmAction} sx={itemBoxHover}>
                 <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
