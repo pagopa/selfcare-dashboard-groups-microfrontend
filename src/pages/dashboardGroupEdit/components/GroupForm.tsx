@@ -54,7 +54,7 @@ const CustomBox = styled(Box)({
     boxShadow: `inset 10px 10px  #E6E9F2`,
   },
   '&::-webkit-scrollbar-thumb': {
-    backgroundColor: 'primary.main',
+    backgroundColor: '#0073E6',
   },
   overflowY: 'auto',
   height: '100%',
@@ -317,7 +317,6 @@ function GroupForm({
           lineHeight: '24px',
           color: 'text.primary',
           textAlign: 'start' as const,
-          paddingLeft: '16px',
         },
       },
     };
@@ -381,12 +380,13 @@ function GroupForm({
           {/* Name */}
           <Grid item xs={12} mb={3}>
             <CustomTextField
+              inputProps={{ maxLength: 50 }}
               {...baseTextFieldProps(
                 'name',
                 t('dashboardGroupEdit.groupForm.formLabels.groupName'),
                 '',
-                700,
-                20
+                600,
+                16
               )}
               onChange={(e) => {
                 formik.handleChange(e);
@@ -400,7 +400,14 @@ function GroupForm({
             ) : undefined}
           </Grid>
           {/* Description */}
-          <Grid item xs={12} mb={3}>
+          <Grid
+            item
+            xs={12}
+            mb={3}
+            sx={{
+              '& textarea#description': { fontSize: 'fontSize', fontWeight: 'fontWeightMedium' },
+            }}
+          >
             <CustomTextField
               {...baseTextFieldProps(
                 'description',
@@ -482,12 +489,13 @@ function GroupForm({
             ) : undefined}
           </Grid>
           {/* Members */}
-          <Grid item xs={12} mb={3} width="100%">
+          <Grid item xs={12} width="100%">
             <FormControl sx={{ width: '100%' }}>
               <InputLabel id="select-label-members">
                 {t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholter')}
               </InputLabel>
               <Select
+                // TODO
                 // endAdornment={
                 //   <InputAdornment position="end">
                 //     <IconButton sx={{ right: '24px' }}>
@@ -515,6 +523,8 @@ function GroupForm({
                       textOverflow: 'ellipsis',
                       whiteSpace: 'nowrap',
                       overflow: 'hidden',
+                      fontSize: 'fontSize',
+                      fontWeight: 'fontWeightMedium',
                     }}
                   >
                     {selectedUser.map((su) => su.name + ' ' + su.surname).join(', ')}
@@ -573,11 +583,8 @@ function GroupForm({
                         key={u.id}
                         value={u.name}
                         sx={{
-                          fontSize: '14px',
-                          color: '#000000',
                           width: '100%',
-                          height: '48px',
-                          my: 2,
+                          height: '70px',
                           pl: 0,
                           pr: 3,
                         }}
@@ -585,7 +592,6 @@ function GroupForm({
                         <Checkbox checked={isChecked} onClick={onItemSelected} />
                         <Grid container>
                           <Grid container item xs={8}>
-                            {/* isAllMemeberSuspended ? 6 : */}
                             <Grid item xs={12}>
                               <Typography variant="body1">
                                 {u.name} {u.surname}

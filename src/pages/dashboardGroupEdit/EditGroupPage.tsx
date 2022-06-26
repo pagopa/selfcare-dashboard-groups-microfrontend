@@ -71,8 +71,12 @@ function EditGroupPage({
             goBack={goBack}
           />
         </Grid>
-        <Grid item xs={12} mb={9}>
-          <TitleBox variantTitle="h4" title={t('dashboardGroupEdit.editGroupPage.title')} />
+        <Grid item xs={12} mb={5}>
+          <TitleBox
+            mbTitle={1}
+            variantTitle="h4"
+            title={t('dashboardGroupEdit.editGroupPage.title')}
+          />
         </Grid>
         <Grid item xs={12}>
           <GroupForm

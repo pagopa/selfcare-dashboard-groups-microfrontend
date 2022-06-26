@@ -61,8 +61,9 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
               goBack={goBack}
             />
           </Grid>
-          <Grid item xs={12} mb={9}>
+          <Grid item xs={12} mb={5}>
             <TitleBox
+              mbTitle={1}
               variantTitle="h4"
               variantSubTitle="body1"
               title={t('dashboardGroupEdit.addGroupPage.title')}
