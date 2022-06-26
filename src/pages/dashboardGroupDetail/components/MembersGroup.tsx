@@ -79,7 +79,7 @@ export default function MembersGroup({
           sx={{
             width: '100%',
             textDecoration: 'none',
-            fontWeight: 600,
+            fontWeight: 'fontWeightMedium',
             cursor: isSuspended ? 'text' : 'pointer',
             display: 'flex',
           }}
@@ -106,7 +106,7 @@ export default function MembersGroup({
                 pl: 1,
                 fontSize: 'fontSize',
                 fontWeight: 'fontWeightMedium',
-                color: isSuspended ? '#a2adb8' : '#0073E6',
+                color: isSuspended ? 'text.disabled' : 'primary.main',
                 justifyContent: 'flexStart',
               }}
             >
@@ -133,7 +133,7 @@ export default function MembersGroup({
               sx={{ fontSize: '14px' }}
               variant="body2"
               className="ShowDots"
-              color={isMemeberSuspended || isSuspended ? '#9E9E9E' : undefined}
+              color={isMemeberSuspended || isSuspended ? 'text.disabled' : undefined}
               width="100%"
             >
               {member.row.email}
@@ -195,7 +195,7 @@ export default function MembersGroup({
                   aria-label="Suspended"
                   variant="outlined"
                   sx={{
-                    fontWeight: '600',
+                    fontWeight: 'fontWeightMedium',
                     fontSize: '14px',
                     backgroundColor: 'warning.light',
                     border: 'none',

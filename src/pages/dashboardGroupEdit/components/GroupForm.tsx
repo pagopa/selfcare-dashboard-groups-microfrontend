@@ -54,7 +54,7 @@ const CustomBox = styled(Box)({
     boxShadow: `inset 10px 10px  #E6E9F2`,
   },
   '&::-webkit-scrollbar-thumb': {
-    backgroundColor: '#0073E6',
+    backgroundColor: 'primary.main',
   },
   overflowY: 'auto',
   height: '100%',
@@ -72,17 +72,17 @@ const CustomTextField = styled(TextField)({
   },
   '.MuiInputLabel-root.Mui-focused': {
     color: 'text.primary',
-    fontWeight: '700',
+    fontWeight: 'fontWeightBold',
   },
   '.MuiInputLabel-root': {
     color: 'text.primary',
-    fontWeight: '700',
+    fontWeight: 'fontWeightBold',
     top: '-1px',
   },
   input: {
     '&::placeholder': {
-      fontSize: '16px',
-      fontWeight: '400',
+      fontSize: 'fontSize',
+      fontWeight: 'fontWeightRegular',
       color: 'text.primary',
       opacity: '1',
       pointerEvents: 'auto',
@@ -91,8 +91,8 @@ const CustomTextField = styled(TextField)({
   textArea: {
     '&::placeholder': {
       fontStyle: 'italic',
-      fontSize: '16px',
-      fontWeight: '400',
+      fontSize: 'fontSize',
+      fontWeight: 'fontWeightRegular',
       color: 'text.primary',
       opacity: '1',
     },
@@ -429,7 +429,15 @@ function GroupForm({
           {/* Product */}
           <Grid item xs={12} mb={3}>
             <FormControl sx={{ width: '100%' }}>
-              <InputLabel id="select-label-products">
+              <InputLabel
+                id="select-label-products"
+                sx={{
+                  '.MuiInputLabel-root.Mui-focused': {
+                    color: 'text.primary',
+                    fontWeight: 'fontWeightBold',
+                  },
+                }}
+              >
                 {t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
               </InputLabel>
               <Select
@@ -533,7 +541,7 @@ function GroupForm({
                     },
                     /* Handle */
                     '::-webkit-scrollbar-thumb': {
-                      background: '#0073E6',
+                      background: 'primary.main',
                       backgroundClip: 'padding-box',
                       borderRadius: '20px',
                       height: '54px',
@@ -541,7 +549,7 @@ function GroupForm({
 
                     /* Handle on hover */
                     '::-webkit-scrollbar-thumb:hover': {
-                      background: '#0073E6',
+                      background: 'primary.main',
                     },
                   }}
                 >
@@ -599,7 +607,7 @@ function GroupForm({
                                     variant="outlined"
                                     sx={{
                                       mr: 2,
-                                      fontWeight: '600',
+                                      fontWeight: 'fontWeightMedium',
                                       fontSize: '14px',
                                       backgroundColor: 'warning.light',
                                       border: 'none',
@@ -626,7 +634,7 @@ function GroupForm({
                                           variant="outlined"
                                           sx={{
                                             mr: 2,
-                                            fontWeight: '600',
+                                            fontWeight: 'fontWeightMedium',
                                             fontSize: '14px',
                                             backgroundColor: 'warning.light',
                                             border: 'none',
@@ -667,7 +675,7 @@ function GroupForm({
               {formik.values.members.map((s) => (
                 <Chip
                   sx={{
-                    fontWeight: 600,
+                    fontWeight: 'fontWeightMedium',
                     marginTop: 2.2,
                     marginRight: 1.6,
                   }}

@@ -157,7 +157,8 @@ function showCustmHeader(params: GridColumnHeaderParams) {
     <React.Fragment>
       <Typography
         color="colorTextPrimary"
-        sx={{ fontSize: '14px', fontWeight: '700', outline: 'none', paddingLeft: 1 }}
+        variant="caption"
+        sx={{ fontWeight: 'fontWeightBold', outline: 'none', paddingLeft: 1 }}
       >
         {params.colDef.headerName}
       </Typography>
@@ -242,7 +243,7 @@ function TableChip({ text }: { text: string }) {
       sx={{
         cursor: 'pointer',
         fontSize: '14px',
-        fontWeight: '600',
+        fontWeight: 'fontWeightMedium',
         color: '#17324D',
         backgroundColor: 'warning.light',
         paddingBottom: '1px',

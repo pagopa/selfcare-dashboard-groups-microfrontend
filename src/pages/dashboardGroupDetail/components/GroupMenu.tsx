@@ -257,7 +257,7 @@ export default function GroupMenu({
             >
               <MoreVertIcon
                 fontSize="medium"
-                sx={{ color: isSuspended ? '#a2adb8' : '#0073E6', padding: '3px' }}
+                sx={{ color: isSuspended ? 'text.disabled' : 'primary.main', padding: '3px' }}
               />
             </IconButton>
           </Tooltip>

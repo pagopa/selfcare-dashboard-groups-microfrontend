@@ -131,9 +131,9 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
                   aria-label="Suspended"
                   variant="outlined"
                   sx={{
-                    fontWeight: '600',
+                    fontWeight: 'fontWeightMedium',
                     fontSize: '14px',
-                    background: '#FFD25E',
+                    background: 'warning.light',
                     border: 'none',
                     borderRadius: '16px',
                     width: '78px',
@@ -159,7 +159,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
           />
         </Grid>
       </Grid>
-      <Grid container item xs={12} sx={{ backgroundColor: '#FFFFFF', padding: '24px' }}>
+      <Grid container item xs={12} sx={{ backgroundColor: 'background.paper', padding: '24px' }}>
         <Grid item mb={3} width="100%">
           <GroupDetail
             partyGroup={partyGroupState}
@@ -181,7 +181,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
                 onClick={goEditCustom}
                 sx={{
                   fontSize: '14px',
-                  fontWeight: '700',
+                  fontWeight: 'fontWeightBold',
                   textDecoration: 'none',
                   cursor: 'pointer',
                 }}

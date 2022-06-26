@@ -44,7 +44,7 @@ const CustomDataGrid = styled(DataGrid)({
   '&.MuiDataGrid-columnHeaders': { borderBottom: 'none !important' },
   '.justifyContentBold': {
     fontSize: '16px',
-    fontWeight: '600',
+    fontWeight: 'fontWeightMedium',
     '&>div': {
       display: 'flex !important',
       alignItems: 'center',
@@ -83,8 +83,8 @@ const CustomDataGrid = styled(DataGrid)({
   },
   '.MuiButtonBase-root.MuiPaginationItem-root': {
     fontSize: '16px',
-    fontWeight: '600 !important',
-    color: '#0073E6',
+    fontWeight: 'fontWeightMedium !important',
+    color: 'primary.main',
     '&.Mui-selected ': {
       border: 'none !important',
       backgroundColor: 'transparent !important',

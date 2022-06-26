@@ -225,7 +225,7 @@ export default function GroupActions({
             <Link
               sx={{
                 fontSize: '14px',
-                fontWeight: 'bold',
+                fontWeight: 'fontWeightBold',
                 textDecoration: 'none',
                 cursor: 'pointer',
               }}
@@ -246,7 +246,7 @@ export default function GroupActions({
             <Link
               sx={{
                 fontSize: '14px',
-                fontWeight: 'bold',
+                fontWeight: 'fontWeightBold',
                 textDecoration: 'none',
                 cursor: 'pointer',
               }}
@@ -271,7 +271,7 @@ export default function GroupActions({
             <Link
               sx={{
                 fontSize: '14px',
-                fontWeight: 'bold',
+                fontWeight: 'fontWeightBold',
                 textDecoration: 'none',
                 cursor: 'pointer',
               }}
@@ -295,7 +295,7 @@ export default function GroupActions({
             <Link
               sx={{
                 fontSize: '14px',
-                fontWeight: 'bold',
+                fontWeight: 'fontWeightBold',
                 textDecoration: 'none',
                 cursor: 'pointer',
               }}

@@ -7,13 +7,13 @@ export default function AlertRemoveUsersInClone() {
       <Alert
         severity="error"
         sx={{
-          background: '#FFFFFF',
+          background: 'background.paper',
           fontSize: 'fontSize',
           height: '80px',
           alignItems: 'center',
-          color: '#17324D',
+          color: 'colorTextPrimary',
           borderLeft: 'solid',
-          borderLeftColor: '#FE6666',
+          borderLeftColor: 'error.main',
           borderLeftWidth: '4px',
           backgroundColor: 'rgba(255, 0, 0, 0.1)',
           width: '100%',

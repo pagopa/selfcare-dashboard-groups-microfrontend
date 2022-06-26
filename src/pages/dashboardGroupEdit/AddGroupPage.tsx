@@ -56,7 +56,7 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
               paths={paths}
               showBackComponent={true}
               backLinkTextDecoration="none"
-              backLinkFontWeight="700"
+              backLinkFontWeight="fontWeightBold"
               backLinkFontSize="16px"
               goBack={goBack}
             />
