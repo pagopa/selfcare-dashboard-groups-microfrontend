@@ -54,6 +54,7 @@ const CustomDataGrid = styled(DataGrid)({
   '.MuiDataGrid-cell ': { padding: '0px', borderBottom: 'none' },
   '.MuiDataGrid-columnHeaders': { borderBottom: 'none' },
   '.MuiDataGrid-row': {
+    backgroundColor: 'white',
     // borderBottom: '1px solid #CCD4DC',
     marginBottom: '-1px',
     '&.Mui-selected': {
@@ -61,7 +62,7 @@ const CustomDataGrid = styled(DataGrid)({
       '&:hover': { backgroundColor: 'transparent' },
     },
     '&:hover': {
-      backgroundColor: 'transparent',
+      backgroundColor: 'rgba(23, 50, 77, 0.04)',
     },
   },
   '.justifyContentNormal': {

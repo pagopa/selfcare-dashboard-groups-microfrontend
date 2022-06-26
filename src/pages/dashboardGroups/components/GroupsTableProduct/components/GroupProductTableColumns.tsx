@@ -117,7 +117,6 @@ function renderCell(
   return (
     <Box
       sx={{
-        backgroundColor: 'white',
         width: '100%',
         height: '100%',
         paddingRight: '24px',
