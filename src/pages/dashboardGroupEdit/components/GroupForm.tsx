@@ -147,6 +147,7 @@ function GroupForm({
     if (window.location.hash === '#users' && isEdit && productSelected && productUsers) {
       const event = new MouseEvent('mousedown', { bubbles: true });
       document.getElementById('members-select')?.dispatchEvent(event);
+      window.scrollTo(0, document.body.scrollHeight);
     }
   }, [isEdit, productSelected, productUsers]);
 
@@ -630,8 +631,8 @@ function GroupForm({
                                 flexDirection="column"
                                 alignItems="flex-end"
                               >
-                                {u.product.roles.map((r) => (
-                                  <Box display="flex" key={r.role}>
+                                {u.product.roles.map((r, indexRole) => (
+                                  <Box display="flex" key={indexRole}>
                                     {r.status === 'SUSPENDED' && !isAllMemeberSuspended && (
                                       <Box>
                                         <Chip
