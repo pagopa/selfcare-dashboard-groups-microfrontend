@@ -105,7 +105,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
       container
       alignItems={'center'}
       px={3}
-      mt={10}
+      mt={4}
       sx={{ width: '100%', backgroundColor: 'transparent !important' }}
     >
       <Grid item xs={12} mb={3} display="flex">

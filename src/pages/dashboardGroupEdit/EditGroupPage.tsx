@@ -57,7 +57,7 @@ function EditGroupPage({
       container
       alignItems={'center'}
       px={3}
-      mt={10}
+      mt={4}
       sx={{ width: '100%', backgroundColor: 'transparent !important' }}
     >
       <Grid container item xs={8}>
