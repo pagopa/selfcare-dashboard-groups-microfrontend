@@ -1,5 +1,6 @@
 import { Grid, Typography, Chip, Box, useTheme } from '@mui/material';
-import { Link } from '@mui/material';
+import { ButtonNaked } from '@pagopa/mui-italia';
+import AddIcon from '@mui/icons-material/Add';
 import { trackEvent } from '@pagopa/selfcare-common-frontend/services/analyticsService';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import React, { useEffect } from 'react';
@@ -171,17 +172,15 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
           </Grid>
           {!isSuspended && (
             <Grid item xs={4} display="flex" justifyContent="flex-end" pr={1}>
-              <Link
+              <ButtonNaked
+                component="button"
                 onClick={goEditCustom}
-                sx={{
-                  fontSize: '14px',
-                  fontWeight: 'fontWeightBold',
-                  textDecoration: 'none',
-                  cursor: 'pointer',
-                }}
+                startIcon={<AddIcon />}
+                sx={{ color: 'primary.main' }}
+                weight="default"
               >
                 {t('groupDetailPage.addUser')}
-              </Link>
+              </ButtonNaked>
             </Grid>
           )}
         </Grid>

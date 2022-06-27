@@ -13,7 +13,7 @@ export default {
     title: 'Anagrafe',
     backActionLabel: 'Indietro',
     usersTitle: 'Utenti',
-    addUser: '+ Aggiungi utente',
+    addUser: 'Aggiungi utente',
   },
   groupActions: {
     title: 'Gruppo eliminato correttamente',
