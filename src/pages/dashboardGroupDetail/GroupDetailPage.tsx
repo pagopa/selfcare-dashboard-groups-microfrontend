@@ -1,4 +1,4 @@
-import { Grid, Typography, Chip, Box } from '@mui/material';
+import { Grid, Typography, Chip, Box, useTheme } from '@mui/material';
 import { Link } from '@mui/material';
 import { trackEvent } from '@pagopa/selfcare-common-frontend/services/analyticsService';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
@@ -39,6 +39,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
 
   const product = productsMap[partyGroupState.productId];
   const canEdit = product.userRole === 'ADMIN' && product.status === 'ACTIVE';
+  const theme = useTheme();
 
   const isSuspended = partyGroupState.status === 'SUSPENDED';
 
@@ -126,7 +127,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
                   sx={{
                     fontWeight: 'fontWeightMedium',
                     fontSize: '14px',
-                    background: 'warning.light',
+                    background: theme.palette.warning.light,
                     border: 'none',
                     borderRadius: '16px',
                     width: '78px',

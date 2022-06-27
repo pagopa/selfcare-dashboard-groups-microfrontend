@@ -30,7 +30,7 @@ export default {
     handleOpenDelete: {
       addNotify: {
         title: 'Elimina gruppo',
-        message: `Stai per eliminare il gruppo <1>{{groupName}}</1>. <3/>Vuoi continuare?`,
+        message: `Vuoi eliminare il gruppo <1>{{groupName}}</1> di <3>{{productName}}</3>?`,
         confirmLabel: 'Conferma',
         closeLabel: 'Annulla',
       },

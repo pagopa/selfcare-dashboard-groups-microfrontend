@@ -1,4 +1,4 @@
-import { Link, Box } from '@mui/material';
+import { Stack } from '@mui/material';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
 import useUserNotify from '@pagopa/selfcare-common-frontend/hooks/useUserNotify';
 import useLoading from '@pagopa/selfcare-common-frontend/hooks/useLoading';
@@ -10,12 +10,14 @@ import EditIcon from '@mui/icons-material/Edit';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import { ButtonNaked } from '@pagopa/mui-italia';
 import { deletePartyGroup, updatePartyGroupStatus } from '../../../services/groupsService';
 import { LOADING_TASK_UPDATE_PARTY_USER_STATUS } from '../../../utils/constants';
 import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
 import { Party } from '../../../model/Party';
 import { Product, ProductsMap } from '../../../model/Product';
 import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
+
 type Props = {
   partyGroup: PartyGroupDetail;
   isSuspended: boolean;
@@ -71,11 +73,8 @@ export default function GroupActions({
       message: (
         <>
           <Trans i18nKey="groupActions.handleOpenDelete.addNotify.message">
-            Stai per eliminare il gruppo
-            <strong>{{ groupName: partyGroup.name }}</strong>
-            .
-            <br />
-            Vuoi continuare?
+            Vuoi eliminare il gruppo <strong>{{ groupName: partyGroup.name }}</strong> di
+            <strong>{{ productName: product.title }}</strong>?
           </Trans>
         </>
       ),
@@ -214,98 +213,56 @@ export default function GroupActions({
   };
 
   return (
-    <Box display="flex">
+    <Stack direction="row" spacing={2}>
       {canEdit && (
-        <>
-          <Box display="flex" alignItems="center" mr={2}>
-            <DeleteOutlinedIcon color="primary" fontSize="small" />
-          </Box>
-
-          <Box mr={3}>
-            <Link
-              sx={{
-                fontSize: '14px',
-                fontWeight: 'fontWeightBold',
-                textDecoration: 'none',
-                cursor: 'pointer',
-              }}
-              onClick={handleOpenDelete}
-            >
-              {t('groupActions.groupDeleteAction')}
-            </Link>
-          </Box>
-        </>
+        <ButtonNaked
+          component="button"
+          onClick={handleOpenDelete}
+          startIcon={<DeleteOutlinedIcon />}
+          sx={{ color: 'primary.main' }}
+          weight="default"
+        >
+          {t('groupActions.groupDeleteAction')}
+        </ButtonNaked>
       )}
 
       {!isSuspended && canEdit && (
-        <>
-          <Box mr={2}>
-            <EditIcon color="primary" fontSize="small" />
-          </Box>
-          <Box mr={3}>
-            <Link
-              sx={{
-                fontSize: '14px',
-                fontWeight: 'fontWeightBold',
-                textDecoration: 'none',
-                cursor: 'pointer',
-              }}
-              onClick={goEdit}
-            >
-              {t('groupActions.editActionLabel')}
-            </Link>
-          </Box>
-        </>
+        <ButtonNaked
+          component="button"
+          onClick={goEdit}
+          startIcon={<EditIcon />}
+          sx={{ color: 'primary.main' }}
+          weight="default"
+        >
+          {t('groupActions.editActionLabel')}
+        </ButtonNaked>
       )}
       {canEdit && (
-        <>
-          <Box mr={2}>
-            {isSuspended ? (
-              <RestartAltIcon color="primary" fontSize="small" />
-            ) : (
-              <HourglassEmptyIcon color="primary" fontSize="small" />
-            )}
-          </Box>
-
-          <Box mr={3}>
-            <Link
-              sx={{
-                fontSize: '14px',
-                fontWeight: 'fontWeightBold',
-                textDecoration: 'none',
-                cursor: 'pointer',
-              }}
-              onClick={handleOpen}
-            >
-              {partyGroup.status === 'SUSPENDED'
-                ? t('groupActions.groupActionActive')
-                : partyGroup.status === 'ACTIVE'
-                ? t('groupActions.groupActionSuspend')
-                : ''}
-            </Link>
-          </Box>
-        </>
+        <ButtonNaked
+          component="button"
+          onClick={handleOpen}
+          startIcon={isSuspended ? <RestartAltIcon /> : <HourglassEmptyIcon />}
+          sx={{ color: 'primary.main' }}
+          weight="default"
+        >
+          {partyGroup.status === 'SUSPENDED'
+            ? t('groupActions.groupActionActive')
+            : partyGroup.status === 'ACTIVE'
+            ? t('groupActions.groupActionSuspend')
+            : ''}
+        </ButtonNaked>
       )}
       {!isSuspended && (
-        <>
-          <Box mr={2}>
-            <CopyAllIcon color="primary" fontSize="small" />
-          </Box>
-          <Box mr={3}>
-            <Link
-              sx={{
-                fontSize: '14px',
-                fontWeight: 'fontWeightBold',
-                textDecoration: 'none',
-                cursor: 'pointer',
-              }}
-              onClick={goToDuplicate}
-            >
-              {t('groupActions.groupDuplicateAction')}
-            </Link>
-          </Box>
-        </>
+        <ButtonNaked
+          component="button"
+          onClick={goToDuplicate}
+          startIcon={<CopyAllIcon />}
+          sx={{ color: 'primary.main' }}
+          weight="default"
+        >
+          {t('groupActions.groupDuplicateAction')}
+        </ButtonNaked>
       )}
-    </Box>
+    </Stack>
   );
 }
