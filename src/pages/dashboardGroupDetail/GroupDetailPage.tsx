@@ -108,14 +108,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
     >
       <Grid item xs={12} mb={3} display="flex">
         <Box>
-          <ProductNavigationBar
-            paths={paths}
-            showBackComponent={true}
-            backLinkTextDecoration="none"
-            backLinkFontWeight="700"
-            backLinkFontSize="16px"
-            goBack={goBack}
-          />
+          <ProductNavigationBar paths={paths} showBackComponent={true} goBack={goBack} />
         </Box>
       </Grid>
       <Grid container item mb={5} display="flex" justifyContent="space-between">

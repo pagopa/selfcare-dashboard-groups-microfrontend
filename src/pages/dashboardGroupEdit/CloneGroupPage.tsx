@@ -62,14 +62,7 @@ function CloneGroupPage({
     >
       <Grid container item xs={8}>
         <Grid item xs={12} mb={3}>
-          <ProductNavigationBar
-            paths={paths}
-            showBackComponent={true}
-            backLinkTextDecoration="none"
-            backLinkFontWeight="700"
-            backLinkFontSize="16px"
-            goBack={goBack}
-          />
+          <ProductNavigationBar paths={paths} showBackComponent={true} goBack={goBack} />
         </Grid>
         <Grid item xs={12} mb={5}>
           <TitleBox

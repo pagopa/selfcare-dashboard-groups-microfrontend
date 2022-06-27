@@ -140,16 +140,7 @@ export default function GroupMenu({
           title: t('groupMenu.confirmChangeStatus.updatePartyUserStatusThen.title', {
             selectedUserStatus: `${selectedUserStatus}`,
           }),
-          message: (
-            <>
-              <Trans i18nKey="groupMenu.confirmChangeStatus.updatePartyUserStatusThen.message">
-                Hai
-                {{ selectedUserStatus }}
-                correttamente
-                <strong>{{ membersName: `${member.name} ${member.surname}` }}</strong>.
-              </Trans>
-            </>
-          ),
+          message: '',
           component: 'Toast',
         });
       })
@@ -167,16 +158,7 @@ export default function GroupMenu({
           blocking: false,
           error: reason,
           toNotify: true,
-          displayableDescription: (
-            <>
-              <Trans i18nKey="groupMenu.confirmChangeStatus.updatePartyUserStatusCatch.displayableDescription">
-                C&apos;è stato un errore durante la
-                {{ selectedUserStatusError }}
-                dell&apos;utente
-                <strong>{{ memberName: `${member.name} ${member.surname}` }}</strong>.
-              </Trans>
-            </>
-          ),
+          displayableDescription: '',
         })
       )
       .finally(() => setLoading(false));

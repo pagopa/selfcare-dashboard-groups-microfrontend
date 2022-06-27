@@ -100,12 +100,12 @@ export default {
       selectedUserStatusErrorSuspended: 'sospensione',
       selectedUserStatusErrorActive: 'riabilitazione',
       updatePartyUserStatusThen: {
-        title: `Referente {{selectedUserStatus}}`,
-        message: `Hai <1>{{selectedUserStatus}}</1> correttamente <3>{{membersName}}</3>.`,
+        title: `Ruolo {{selectedUserStatus}} correttamente. `,
+        message: '',
       },
       updatePartyUserStatusCatch: {
-        displayableTitle: `ERRORE DURANTE LA {{selectedUserStatusError}} DELL'UTENTE `,
-        displayableDescription: `C'è stato un errore durante la <1>{{selectedUserStatusError}}</1> dell'utente <3>{{memberName}}</3>.`,
+        displayableTitle: `Non è stato possibile sospendere il ruolo. Riprova.`,
+        displayableDescription: ``,
       },
     },
     confirmDisociateAction: {

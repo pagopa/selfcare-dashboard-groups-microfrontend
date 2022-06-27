@@ -8,9 +8,6 @@ type Props = {
   selectedProduct?: Product;
   paths: Array<NavigationPath>;
   showBackComponent?: boolean;
-  backLinkTextDecoration?: string;
-  backLinkFontWeight?: string;
-  backLinkFontSize?: string;
   goBack?: () => void;
 };
 
@@ -18,9 +15,6 @@ export default function ProductNavigationBar({
   selectedProduct,
   paths,
   showBackComponent,
-  backLinkTextDecoration,
-  backLinkFontWeight,
-  backLinkFontSize,
   goBack,
 }: Props) {
   const innerPaths = useMemo(
@@ -28,14 +22,5 @@ export default function ProductNavigationBar({
     [selectedProduct, paths]
   );
 
-  return (
-    <NavigationBar
-      paths={innerPaths}
-      showBackComponent={showBackComponent}
-      backLinkTextDecoration={backLinkTextDecoration}
-      backLinkFontWeight={backLinkFontWeight}
-      backLinkFontSize={backLinkFontSize}
-      goBack={goBack}
-    />
-  );
+  return <NavigationBar paths={innerPaths} showBackComponent={showBackComponent} goBack={goBack} />;
 }
