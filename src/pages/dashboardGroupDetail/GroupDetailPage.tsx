@@ -1,4 +1,6 @@
-import { Grid, Typography, Chip, Link, Box } from '@mui/material';
+import { Grid, Typography, Chip, Box, useTheme } from '@mui/material';
+import { ButtonNaked } from '@pagopa/mui-italia';
+import AddIcon from '@mui/icons-material/Add';
 import { trackEvent } from '@pagopa/selfcare-common-frontend/services/analyticsService';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import React, { useEffect } from 'react';
@@ -7,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { userSelectors } from '@pagopa/selfcare-common-frontend/redux/slices/userSlice';
 import { User } from '@pagopa/selfcare-common-frontend/model/User';
+import { SupervisedUserCircle } from '@mui/icons-material';
 import ProductNavigationBar from '../../components/ProductNavigationBar';
 import withGroupDetail, { withGroupDetailProps } from '../../decorators/withGroupDetail';
 import { DASHBOARD_GROUPS_ROUTES } from '../../routes';
@@ -14,7 +17,7 @@ import { PartyGroupDetail, PartyGroupStatus } from '../../model/PartyGroup';
 import { ProductsRolesMap } from '../../model/ProductRole';
 import GroupActions from './components/GroupActions';
 import GroupDetail from './components/GroupDetail';
-
+import MembersGroup from './components/MembersGroup';
 type Props = withGroupDetailProps & {
   fetchPartyGroup: () => void;
   productsRolesMap: ProductsRolesMap;
@@ -37,6 +40,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
 
   const product = productsMap[partyGroupState.productId];
   const canEdit = product.userRole === 'ADMIN' && product.status === 'ACTIVE';
+  const theme = useTheme();
 
   const isSuspended = partyGroupState.status === 'SUSPENDED';
 
@@ -56,14 +60,22 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
         partyId: party.partyId,
       })
     );
+  const goEdit = () =>
+    history.push(
+      resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_EDIT.path, {
+        partyId: partyGroup.partyId,
+        groupId: partyGroup.id,
+      })
+    );
 
   const paths = [
     {
+      icon: SupervisedUserCircle,
       description: t('groupDetailPage.path.groupDescription'),
       onClick: goBack,
     },
     {
-      description: `${partyGroupState.name}`,
+      description: t('groupDetailPage.path.selectedGroupDescription'),
     },
   ];
 
@@ -76,83 +88,114 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
     });
   };
 
+  const goEditCustom = () => {
+    history.push(
+      resolvePathVariables(
+        DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_EDIT.path + '#users',
+        {
+          partyId: partyGroup.partyId,
+          groupId: partyGroup.id,
+        }
+      )
+    );
+  };
+
   return (
     <Grid
       container
       alignItems={'center'}
-      px={2}
-      mt={10}
-      sx={{ width: '985px', backgroundColor: 'transparent !important' }}
+      px={3}
+      mt={4}
+      sx={{ width: '100%', backgroundColor: 'transparent !important' }}
     >
-      <Grid item xs={12} mb={3}>
-        <ProductNavigationBar paths={paths} />
+      <Grid item xs={12} mb={3} display="flex">
+        <Box>
+          <ProductNavigationBar paths={paths} showBackComponent={true} goBack={goBack} />
+        </Box>
       </Grid>
-      <Grid container item mb={3}>
-        <Grid item xs={6}>
+      <Grid container item mb={5} display="flex" justifyContent="space-between">
+        <Grid item xs={4}>
           <Box display="flex">
             <Box>
-              <Typography variant="h1">{t('groupDetailPage.title')}</Typography>
+              <Typography variant="h4">{t('groupDetailPage.title')}</Typography>
             </Box>
-            <Box>
+            <Box display="flex" alignItems="center" ml={2}>
               {isSuspended && (
                 <Chip
                   label={t('groupDetail.status')}
                   aria-label="Suspended"
                   variant="outlined"
                   sx={{
-                    fontWeight: '600',
+                    fontWeight: 'fontWeightMedium',
                     fontSize: '14px',
-                    background: '#E0E0E0',
+                    background: theme.palette.warning.light,
                     border: 'none',
                     borderRadius: '16px',
-                    width: '76px',
+                    width: '78px',
                     height: '24px',
-                    marginTop: '23px',
-                    marginLeft: '20px',
                   }}
                 />
               )}
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={6} display="flex" alignItems="center" justifyContent="flex-end">
-          <Link
-            sx={{
-              fontWeight: 600,
-              cursor: 'pointer',
-            }}
-            onClick={goBack}
-          >
-            {t('groupDetailPage.backActionLabel')}
-          </Link>
+        <Grid item xs={7} display="flex" alignItems="center" justifyContent="end">
+          <GroupActions
+            partyGroup={partyGroupState}
+            isSuspended={isSuspended}
+            goBack={goBack}
+            party={party}
+            product={product}
+            productsMap={productsMap}
+            nextGroupStatus={nextGroupStatus}
+            onGroupStatusUpdate={onGroupStatusUpdate}
+            canEdit={canEdit}
+            goEdit={goEdit}
+          />
         </Grid>
       </Grid>
-      <Grid container item xs={12} sx={{ backgroundColor: '#FFFFFF', padding: '24px' }}>
-        <Grid item mb={3} width="100%">
+      <Grid container item xs={12} sx={{ backgroundColor: 'background.paper', padding: '24px' }}>
+        <Grid item width="100%">
           <GroupDetail
             partyGroup={partyGroupState}
             productsMap={productsMap}
             isSuspended={isSuspended}
-            product={product}
-            party={party}
-            productRolesLists={productsRolesMap[product.id]}
-            canEdit={canEdit}
-            onGroupStatusUpdate={onGroupStatusUpdate}
           />
         </Grid>
       </Grid>
-      <Grid item mb={3} mt={15} width="100%">
-        <GroupActions
-          partyGroup={partyGroupState}
-          isSuspended={isSuspended}
-          goBack={goBack}
-          party={party}
-          product={product}
-          productsMap={productsMap}
-          nextGroupStatus={nextGroupStatus}
-          onGroupStatusUpdate={onGroupStatusUpdate}
-          canEdit={canEdit}
-        />
+      <Grid container item xs={12}>
+        <Grid item container display="flex" alignItems="center">
+          <Grid item xs={8} mt={5}>
+            <Typography sx={{ fontSize: '24px', fontWeight: 'fontWeightMedium' }}>
+              {t('groupDetailPage.usersTitle')}
+            </Typography>
+          </Grid>
+          {!isSuspended && (
+            <Grid item xs={4} display="flex" justifyContent="flex-end" pr={1}>
+              <ButtonNaked
+                component="button"
+                onClick={goEditCustom}
+                startIcon={<AddIcon />}
+                sx={{ color: 'primary.main' }}
+                weight="default"
+              >
+                {t('groupDetailPage.addUser')}
+              </ButtonNaked>
+            </Grid>
+          )}
+        </Grid>
+        <Grid item xs={12}>
+          <MembersGroup
+            partyGroup={partyGroupState}
+            party={party}
+            product={product}
+            isSuspended={isSuspended}
+            productRolesLists={productsRolesMap[product.id]}
+            canEdit={canEdit}
+            onGroupStatusUpdate={onGroupStatusUpdate}
+            isGroupSuspended={isSuspended}
+          />
+        </Grid>
       </Grid>
     </Grid>
   );

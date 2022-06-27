@@ -23,9 +23,9 @@ export default function GroupsProductSection({
 
   return (
     <Grid container direction="row">
-      {fetchStatus.loading || fetchStatus.error || !fetchStatus.noData ? (
-        <Grid item xs={12} sx={{ mt: 7 }}>
-          <Typography variant="h2" id={product.id}>
+      {fetchStatus.loading || !fetchStatus.noData ? (
+        <Grid item xs={12} sx={{ mt: 3 }}>
+          <Typography id={product.id} sx={{ fontWeight: 'fontWeightMedium' }}>
             {product.title}
           </Typography>
         </Grid>
