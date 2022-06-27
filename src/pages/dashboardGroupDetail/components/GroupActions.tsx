@@ -213,7 +213,7 @@ export default function GroupActions({
   };
 
   return (
-    <Stack direction="row" spacing={2}>
+    <Stack direction="row" spacing={4}>
       {canEdit && (
         <ButtonNaked
           component="button"
