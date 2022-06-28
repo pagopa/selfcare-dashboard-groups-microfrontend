@@ -707,24 +707,24 @@ function GroupForm({
           {/* Actions */}
           {isClone && automaticRemove && <AlertRemoveUsersInClone />}
         </Grid>
+        <Grid item container display="flex" justifyContent="space-between" mt={5}>
+          <Grid item xs={3} justifyContent="flex-start" display="flex">
+            <Button color="primary" variant="outlined" onClick={() => onExit(goBackInner)}>
+              {t('dashboardGroupEdit.groupForm.formLabels.cancelActionLabel')}
+            </Button>
+          </Grid>
+          <Grid item xs={3} justifyContent="flex-end" display="flex">
+            <Button
+              disabled={(!isClone && !formik.dirty) || !formik.isValid}
+              color="primary"
+              variant="contained"
+              type="submit"
+            >
+              {t('dashboardGroupEdit.groupForm.formLabels.confirmActionLabel')}
+            </Button>
+          </Grid>
+        </Grid>
       </form>
-      <Grid item container display="flex" justifyContent="space-between" mt={5}>
-        <Grid item xs={3} justifyContent="flex-start" display="flex">
-          <Button color="primary" variant="outlined" onClick={() => onExit(goBackInner)}>
-            {t('dashboardGroupEdit.groupForm.formLabels.cancelActionLabel')}
-          </Button>
-        </Grid>
-        <Grid item xs={3} justifyContent="flex-end" display="flex">
-          <Button
-            disabled={(!isClone && !formik.dirty) || !formik.isValid}
-            color="primary"
-            variant="contained"
-            type="submit"
-          >
-            {t('dashboardGroupEdit.groupForm.formLabels.confirmActionLabel')}
-          </Button>
-        </Grid>
-      </Grid>
     </>
   );
 }

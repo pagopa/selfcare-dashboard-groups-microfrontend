@@ -75,7 +75,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
       onClick: goBack,
     },
     {
-      description: t('groupDetailPage.path.selectedGroupDescription'),
+      description: `${partyGroup.name}`,
     },
   ];
 
@@ -113,11 +113,11 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
           <ProductNavigationBar paths={paths} showBackComponent={true} goBack={goBack} />
         </Box>
       </Grid>
-      <Grid container item mb={5} display="flex" justifyContent="space-between">
+      <Grid container item mb={3} display="flex" justifyContent="space-between">
         <Grid item xs={4}>
           <Box display="flex">
             <Box>
-              <Typography variant="h4">{t('groupDetailPage.title')}</Typography>
+              <Typography variant="h4">{partyGroup.name}</Typography>
             </Box>
             <Box display="flex" alignItems="center" ml={2}>
               {isSuspended && (
