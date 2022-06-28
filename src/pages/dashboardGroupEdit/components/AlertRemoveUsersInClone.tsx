@@ -3,7 +3,7 @@ import { Trans } from 'react-i18next';
 
 export default function AlertRemoveUsersInClone() {
   return (
-    <Grid item xs={8}>
+    <Grid item xs={8} width="100%" mt={3}>
       <Alert
         severity="error"
         sx={{

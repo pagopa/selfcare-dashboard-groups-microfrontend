@@ -170,7 +170,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
               {t('groupDetailPage.usersTitle')}
             </Typography>
           </Grid>
-          {!isSuspended && (
+          {!isSuspended && canEdit && (
             <Grid item xs={4} display="flex" justifyContent="flex-end" pr={1}>
               <ButtonNaked
                 component="button"
