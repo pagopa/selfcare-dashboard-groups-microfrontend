@@ -1,5 +1,4 @@
 import { Button } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 import { useHistory } from 'react-router-dom';
 import { useUnloadEventOnExit } from '@pagopa/selfcare-common-frontend/hooks/useUnloadEventInterceptor';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
@@ -19,7 +18,6 @@ export default function AddGroupButton({ party }: AddGroupButtonProps) {
   return (
     <Button
       variant="contained"
-      startIcon={<AddIcon sx={{ stroke: 'white', strokeWidth: '1px' }} />}
       sx={{ py: '10px' }}
       onClick={() =>
         onExit(() =>

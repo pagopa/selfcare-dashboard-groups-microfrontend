@@ -25,7 +25,7 @@ export default function GroupsTableLoadMoreData({ fetchNextPage }: Props) {
             textDecoration: 'none!important',
             cursor: 'pointer',
             position: 'relative',
-            fontWeight: 600,
+            fontWeight: 'fontWeightMedium',
           }}
         >
           {t('dashboardGroup.groupsTableLoadMoreData.loadMoreMessage')}

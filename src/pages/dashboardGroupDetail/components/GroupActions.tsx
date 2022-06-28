@@ -1,10 +1,16 @@
-import { Button, Grid } from '@mui/material';
+import { Stack } from '@mui/material';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
 import useUserNotify from '@pagopa/selfcare-common-frontend/hooks/useUserNotify';
 import useLoading from '@pagopa/selfcare-common-frontend/hooks/useLoading';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { useHistory } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import EditIcon from '@mui/icons-material/Edit';
+import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
+import CopyAllIcon from '@mui/icons-material/CopyAll';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import { ButtonNaked } from '@pagopa/mui-italia';
 import { deletePartyGroup, updatePartyGroupStatus } from '../../../services/groupsService';
 import { LOADING_TASK_UPDATE_PARTY_USER_STATUS } from '../../../utils/constants';
 import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
@@ -22,6 +28,7 @@ type Props = {
   onGroupStatusUpdate: (nextGroupStatus: PartyGroupStatus) => void;
   nextGroupStatus: PartyGroupStatus | undefined;
   canEdit: boolean;
+  goEdit: () => void;
 };
 export default function GroupActions({
   partyGroup,
@@ -33,6 +40,7 @@ export default function GroupActions({
   onGroupStatusUpdate,
   nextGroupStatus,
   canEdit,
+  goEdit,
 }: Props) {
   const setLoading = useLoading(LOADING_TASK_UPDATE_PARTY_USER_STATUS);
   const addError = useErrorDispatcher();
@@ -48,14 +56,6 @@ export default function GroupActions({
     partyGroup.status === 'SUSPENDED'
       ? t('groupActions.selectedGroupStatusErrorSuspended')
       : t('groupActions.selectedGroupStatusErrorActive');
-
-  const goEdit = () =>
-    history.push(
-      resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_EDIT.path, {
-        partyId: partyGroup.partyId,
-        groupId: partyGroup.id,
-      })
-    );
 
   const goToDuplicate = () =>
     history.push(
@@ -73,11 +73,8 @@ export default function GroupActions({
       message: (
         <>
           <Trans i18nKey="groupActions.handleOpenDelete.addNotify.message">
-            Stai per eliminare il gruppo
-            <strong>{{ groupName: partyGroup.name }}</strong>
-            .
-            <br />
-            Vuoi continuare?
+            Vuoi eliminare il gruppo <strong>{{ groupName: partyGroup.name }}</strong> di
+            <strong>{{ productName: product.title }}</strong>?
           </Trans>
         </>
       ),
@@ -95,15 +92,8 @@ export default function GroupActions({
         addNotify({
           component: 'Toast',
           id: 'DELETE_PARTY_USER',
-          title: 'GRUPPO ELIMINATO',
-          message: (
-            <>
-              <Trans i18nKey="groupActions.onDelete.toastComponentThen.message">
-                Hai eliminato correttamente il gruppo
-                <strong>{{ groupName: partyGroup.name }}</strong>.
-              </Trans>
-            </>
-          ),
+          title: t('groupActions.title'),
+          message: '',
         });
       })
       .catch((reason) =>
@@ -127,31 +117,39 @@ export default function GroupActions({
       )
       .finally(() => setLoading(false));
   };
-
+  const activeGroup = partyGroup.status === 'ACTIVE';
   const handleOpen = () => {
     addNotify({
       component: 'SessionModal',
       id: 'Notify_Example',
-      title:
-        partyGroup.status === 'ACTIVE'
-          ? t('groupActions.handleOpen.addNotify.titleActive')
-          : t('groupActions.handleOpen.addNotify.titleSuspended'),
+      title: activeGroup
+        ? t('groupActions.handleOpen.addNotify.titleActive')
+        : t('groupActions.handleOpen.addNotify.titleSuspended'),
       message: (
         <>
-          {partyGroup.status === 'ACTIVE'
+          {activeGroup
             ? t('groupActions.handleOpen.addNotify.messageActive')
             : t('groupActions.handleOpen.addNotify.messageSuspended')}
-          <Trans i18nKey="groupActions.handleOpen.addNotify.messageGroup">
+          <Trans
+            i18nKey={
+              activeGroup
+                ? 'groupActions.handleOpen.addNotify.messageGroupActive'
+                : 'groupActions.handleOpen.addNotify.messageGroupSuspended'
+            }
+          >
             <strong>{{ groupName: partyGroup.name }}</strong>
             di
             <strong>{{ productTitle: productsMap[partyGroup.productId].title }}</strong>
             .
             <br />
-            Vuoi continuare?
+            Puoi riabilitarlo in qualsiasi momento.
           </Trans>
         </>
       ),
-      confirmLabel: t('groupActions.handleOpen.addNotify.confirmLabel'),
+      confirmLabel:
+        partyGroup.status === 'ACTIVE'
+          ? t('groupActions.handleOpen.addNotify.confirmLabelSuspend')
+          : t('groupActions.handleOpen.addNotify.confirmLabelActive'),
       closeLabel: t('groupActions.handleOpen.addNotify.closeLabel'),
       onConfirm: confirmChangeStatus,
     });
@@ -175,16 +173,11 @@ export default function GroupActions({
         addNotify({
           id: 'ACTION_ON_PARTY_GROUP_COMPLETED',
           title: t('groupActions.confirmChangeStatus.updatePartyGroupStatusThen.title', {
-            selectedGroupStatus: `${selectedGroupStatus.toUpperCase()}`,
+            selectedGroupStatus: `${selectedGroupStatus}`,
           }),
           message: (
             <>
-              <Trans i18nKey="groupActions.confirmChangeStatus.updatePartyGroupStatusThen.message">
-                Hai
-                {{ selectedGroupStatus }}
-                correttamente il gruppo
-                <strong>{{ groupName: partyGroup.name }}</strong>.
-              </Trans>
+              <Trans i18nKey="groupActions.confirmChangeStatus.updatePartyGroupStatusThen.message"></Trans>
             </>
           ),
           component: 'Toast',
@@ -197,7 +190,7 @@ export default function GroupActions({
           displayableTitle: t(
             'groupActions.confirmChangeStatus.updatePartyGroupStatusCatch.displayableTitle',
             {
-              selectedGroupStatusError: `${selectedGroupStatusError.toUpperCase()}`,
+              selectedGroupStatusError: `${selectedGroupStatusError}`,
             }
           ),
           techDescription: `C'è stato un errore durante la ${selectedGroupStatusError} del gruppo (${partyGroup.name}) con id (${partyGroup.id}): ${partyGroup.status}`,
@@ -220,48 +213,56 @@ export default function GroupActions({
   };
 
   return (
-    <Grid container spacing={4}>
+    <Stack direction="row" spacing={4}>
+      {canEdit && (
+        <ButtonNaked
+          component="button"
+          onClick={handleOpenDelete}
+          startIcon={<DeleteOutlinedIcon />}
+          sx={{ color: 'primary.main' }}
+          weight="default"
+        >
+          {t('groupActions.groupDeleteAction')}
+        </ButtonNaked>
+      )}
+
       {!isSuspended && canEdit && (
-        <Grid item xs={3}>
-          <Button variant="contained" sx={{ height: '40px', width: '100%' }} onClick={goEdit}>
-            {t('groupActions.editActionLabel')}
-          </Button>
-        </Grid>
+        <ButtonNaked
+          component="button"
+          onClick={goEdit}
+          startIcon={<EditIcon />}
+          sx={{ color: 'primary.main' }}
+          weight="default"
+        >
+          {t('groupActions.editActionLabel')}
+        </ButtonNaked>
       )}
       {canEdit && (
-        <Grid item xs={3}>
-          <Button variant="contained" sx={{ height: '40px', width: '100%' }} onClick={handleOpen}>
-            {partyGroup.status === 'SUSPENDED'
-              ? t('groupActions.groupActionActive')
-              : partyGroup.status === 'ACTIVE'
-              ? t('groupActions.groupActionSuspend')
-              : ''}
-          </Button>
-        </Grid>
+        <ButtonNaked
+          component="button"
+          onClick={handleOpen}
+          startIcon={isSuspended ? <RestartAltIcon /> : <HourglassEmptyIcon />}
+          sx={{ color: 'primary.main' }}
+          weight="default"
+        >
+          {partyGroup.status === 'SUSPENDED'
+            ? t('groupActions.groupActionActive')
+            : partyGroup.status === 'ACTIVE'
+            ? t('groupActions.groupActionSuspend')
+            : ''}
+        </ButtonNaked>
       )}
       {!isSuspended && (
-        <Grid item xs={3}>
-          <Button
-            variant="contained"
-            sx={{ height: '40px', width: '100%' }}
-            onClick={goToDuplicate}
-          >
-            {t('groupActions.groupDuplicateAction')}
-          </Button>
-        </Grid>
+        <ButtonNaked
+          component="button"
+          onClick={goToDuplicate}
+          startIcon={<CopyAllIcon />}
+          sx={{ color: 'primary.main' }}
+          weight="default"
+        >
+          {t('groupActions.groupDuplicateAction')}
+        </ButtonNaked>
       )}
-      {canEdit && (
-        <Grid item xs={3}>
-          <Button
-            variant="outlined"
-            color="error"
-            sx={{ height: '40px', width: '100%' }}
-            onClick={handleOpenDelete}
-          >
-            {t('groupActions.groupDeleteAction')}
-          </Button>
-        </Grid>
-      )}
-    </Grid>
+    </Stack>
   );
 }
