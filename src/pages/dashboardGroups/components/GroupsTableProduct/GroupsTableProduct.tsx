@@ -103,8 +103,6 @@ const GroupsTableProduct = ({
     setGroups({ page: groups.page, content: groups.content.slice() });
   };
 
-  const canEdit = product.userRole === 'ADMIN' && product.status === 'ACTIVE';
-
   if (error && !loading) {
     return <GroupsProductFetchError onRetry={fetchGroups} />;
   } else {
@@ -118,7 +116,6 @@ const GroupsTableProduct = ({
         party={party}
         product={product}
         groups={groups.content}
-        canEdit={canEdit}
         onRowClick={(partyGroup) =>
           history.push(
             resolvePathVariables(
