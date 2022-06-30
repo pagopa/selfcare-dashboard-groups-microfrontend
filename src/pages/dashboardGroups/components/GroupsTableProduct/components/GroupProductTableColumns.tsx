@@ -1,4 +1,4 @@
-import { Chip, Typography, Grid, Box } from '@mui/material';
+import { Chip, Typography, Grid, Box, IconButton } from '@mui/material';
 import { GridColDef, GridColumnHeaderParams, GridRenderCellParams } from '@mui/x-data-grid';
 import React, { CSSProperties, ReactNode } from 'react';
 import { TFunction } from 'react-i18next';
@@ -8,7 +8,6 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { PartyGroup } from '../../../../../model/PartyGroup';
 
 export function buildColumnDefs(
-  canEdit: boolean,
   onRowClick: (partyGroup: PartyGroup) => void,
   t: TFunction<'translation', undefined>
 ) {
@@ -78,30 +77,22 @@ export function buildColumnDefs(
       hideSortIcons: true,
       disableColumnMenu: true,
       editable: false,
-      renderCell: (p) =>
-        canEdit
-          ? renderCell(
-              p,
-              <Box display="flex" justifyContent="flex-end">
-                <ArrowForwardIosIcon
-                  fontSize="small"
-                  sx={{ color: 'primary.main', p: '4px' }}
-                  onClick={onRowClick ? () => onRowClick(p.row) : undefined}
-                />
-              </Box>
-            )
-          : renderCell(
-              p,
-              p.row.status !== 'SUSPENDED' && (
-                <Box display="flex" justifyContent="flex-end">
-                  <ArrowForwardIosIcon
-                    fontSize="small"
-                    sx={{ color: 'primary.main', p: '4px' }}
-                    onClick={onRowClick ? () => onRowClick(p.row) : undefined}
-                  />
-                </Box>
-              )
-            ),
+      renderCell: (p) => (
+        <Box
+          display="flex"
+          justifyContent="flex-end"
+          width="100%"
+          mr={2}
+          sx={{ cursor: 'pointer' }}
+        >
+          <IconButton
+            onClick={onRowClick ? () => onRowClick(p.row) : undefined}
+            sx={{ width: '100%', '&:hover': { backgroundColor: 'transparent !important' } }}
+          >
+            <ArrowForwardIosIcon fontSize="small" sx={{ color: 'primary.main', p: '4px' }} />
+          </IconButton>
+        </Box>
+      ),
       sortable: false,
       flex: 1,
     },
