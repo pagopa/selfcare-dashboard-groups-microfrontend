@@ -1,4 +1,4 @@
-import { Grid, Tab, Tabs, Typography } from '@mui/material';
+import { Grid, Tab, Tabs } from '@mui/material';
 import TitleBox from '@pagopa/selfcare-common-frontend/components/TitleBox';
 import React, { useEffect, useMemo, useState } from 'react';
 import { trackEvent } from '@pagopa/selfcare-common-frontend/services/analyticsService';
@@ -69,37 +69,24 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
     [productsFetchStatus]
   );
 
-  const titleVariant = 'h1';
   const mbTitle = 2;
 
   return (
-    <Grid
-      container
-      px={2}
-      mt={10}
-      sx={{ width: '985px', backgroundColor: 'transparent !important' }}
-    >
-      <Grid item xs={12}>
-        <Grid container direction="row" justifyContent="space-between" columns={9}>
-          <Grid item xs={6}>
-            <TitleBox
-              title={t('dashboardGroup.groupsPage.title')}
-              variantTitle={titleVariant}
-              mbTitle={mbTitle}
-              subTitle={t('dashboardGroup.groupsPage.subTitle')}
-            />
-          </Grid>
-          {productHavingGroups.length > 0 && (
-            <Grid item xs={1}>
-              <Typography variant={titleVariant} mb={mbTitle}>
-                &nbsp;
-              </Typography>
-              <AddGroupButton party={party} />
-            </Grid>
-          )}
+    <Grid container px={3} mt={3} sx={{ width: '100%', backgroundColor: 'transparent !important' }}>
+      <Grid container item display="flex" justifyContent="space-between">
+        <Grid item xs={9}>
+          <TitleBox
+            title={t('dashboardGroup.groupsPage.title')}
+            variantTitle="h4"
+            variantSubTitle="body1"
+            mbTitle={mbTitle}
+            subTitle={t('dashboardGroup.groupsPage.subTitle')}
+          />
+        </Grid>
+        <Grid item xs={3} display="flex" alignItems="center" justifyContent="end">
+          <AddGroupButton party={party} />
         </Grid>
       </Grid>
-
       {productHavingGroups.length > 1 && (
         <Grid
           item
@@ -130,7 +117,15 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
         </Grid>
       )}
       <Grid item xs={12} sx={{ height: '100%' }}>
-        <Grid container direction="row" alignItems={'center'}>
+        <Grid
+          container
+          direction="row"
+          alignItems={'center'}
+          sx={{ backgroundColor: 'background.default' }}
+          px={3}
+          pb={3}
+          mt={productHavingGroups.length > 1 ? 0 : 5}
+        >
           {activeProducts.map((product, i) => (
             <Grid key={product.id} item xs={12} ref={prodSectionRefs[i]}>
               <GroupsProductSection

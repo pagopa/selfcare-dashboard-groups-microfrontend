@@ -1,10 +1,10 @@
-import { Box, Divider, Grid, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
+import { Box, Grid, IconButton, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import useLoading from '@pagopa/selfcare-common-frontend/hooks/useLoading';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useState } from 'react';
 import useUserNotify from '@pagopa/selfcare-common-frontend/hooks/useUserNotify';
 import { useTranslation, Trans } from 'react-i18next';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { PartyProductUser, PartyUserProduct, PartyUserProductRole } from '../../../model/PartyUser';
 import { deleteGroupRelation } from '../../../services/groupsService';
 import { LOADING_TASK_UPDATE_PARTY_USER_STATUS } from '../../../utils/constants';
@@ -138,18 +138,9 @@ export default function GroupMenu({
         addNotify({
           id: 'ACTION_ON_PARTY_USER_COMPLETED',
           title: t('groupMenu.confirmChangeStatus.updatePartyUserStatusThen.title', {
-            selectedUserStatus: `${selectedUserStatus.toUpperCase()}`,
+            selectedUserStatus: `${selectedUserStatus}`,
           }),
-          message: (
-            <>
-              <Trans i18nKey="groupMenu.confirmChangeStatus.updatePartyUserStatusThen.message">
-                Hai
-                {{ selectedUserStatus }}
-                correttamente
-                <strong>{{ membersName: `${member.name} ${member.surname}` }}</strong>.
-              </Trans>
-            </>
-          ),
+          message: '',
           component: 'Toast',
         });
       })
@@ -160,23 +151,14 @@ export default function GroupMenu({
           displayableTitle: t(
             'groupMenu.confirmChangeStatus.updatePartyUserStatusCatch.displayableTitle',
             {
-              selectedUserStatusError: `${selectedUserStatusError.toUpperCase()}`,
+              selectedUserStatusError: `${selectedUserStatusError}${member.id}`,
             }
           ),
           techDescription: `C'è stato un errore durante la ${selectedUserStatusError} dell'utente (${member.id}): ${member.status}`,
           blocking: false,
           error: reason,
           toNotify: true,
-          displayableDescription: (
-            <>
-              <Trans i18nKey="groupMenu.confirmChangeStatus.updatePartyUserStatusCatch.displayableDescription">
-                C&apos;è stato un errore durante la
-                {{ selectedUserStatusError }}
-                dell&apos;utente
-                <strong>{{ memberName: `${member.name} ${member.surname}` }}</strong>.
-              </Trans>
-            </>
-          ),
+          displayableDescription: '',
         })
       )
       .finally(() => setLoading(false));
@@ -191,15 +173,13 @@ export default function GroupMenu({
       message: (
         <>
           <Trans i18nKey="groupMenu.confirmDisociateAction.message">
-            Stai per dissociare
+            Vuoi rimuovere
             <strong>{{ memberName: member.name }}</strong>
             dal gruppo
             <strong>{{ groupName: partyGroup.name }}</strong>
             di
-            <strong>{{ productTitle: product.title }}</strong>
-            .
-            <br />
-            Vuoi continuare?
+            <strong>{{ productTitle: product.title }}</strong>? Puoi aggiungerlo nuovamente in
+            qualsiasi momento.
           </Trans>
         </>
       ),
@@ -218,16 +198,7 @@ export default function GroupMenu({
         addNotify({
           id: 'ACTION_ON_PARTY_USER_COMPLETED',
           title: t('groupMenu.confirmUserDissociation.deleteGroupRelationThen.title'),
-          message: (
-            <>
-              <Trans i18nKey="groupMenu.confirmUserDissociation.deleteGroupRelationThen.message">
-                Hai dissociato correttamente
-                <strong>{{ memberName: `${member.name} ${member.surname} ` }}</strong>
-                dal gruppo
-                <strong>{{ groupName: partyGroup.name }}</strong>.
-              </Trans>
-            </>
-          ),
+          message: undefined,
           component: 'Toast',
         });
       })
@@ -244,28 +215,32 @@ export default function GroupMenu({
           toNotify: true,
           displayableDescription: (
             <>
-              <Trans i18nKey="groupMenu.confirmUserDissociation.deleteGroupRelationCatch.displayableDescription">
-                C&apos;è stato un errore durante la dissociazione dell&apos;utente
-                <strong>{{ memberName: `${member.name} ${member.surname}` }}</strong>.
-              </Trans>
+              <Trans i18nKey="groupMenu.confirmUserDissociation.deleteGroupRelationCatch.displayableDescription"></Trans>
             </>
           ),
         })
       )
       .finally(() => setLoading(false));
   };
+  const itemBoxHover = { width: '100%', p: 2 };
   return (
     <>
       {!member.isCurrentUser && canEdit && (
         <Grid item xs={1} display="flex" justifyContent="flex-start">
           <Tooltip aria-label="ActionsOnTheUser" title={t('groupActions.actionOnUser') as string}>
             <IconButton
-              sx={{ p: '0px', ':hover': { backgroundColor: 'transparent' } }}
+              sx={{
+                p: '0px',
+                '&:hover': { backgroundColor: 'transparent' },
+              }}
               disableRipple
               onClick={handleClick}
               disabled={isSuspended}
             >
-              <MoreVertIcon sx={{ color: isSuspended ? '#a2adb8' : 'primary' }} />
+              <MoreVertIcon
+                fontSize="medium"
+                sx={{ color: isSuspended ? 'text.disabled' : 'primary.main', padding: '3px' }}
+              />
             </IconButton>
           </Tooltip>
         </Grid>
@@ -277,28 +252,30 @@ export default function GroupMenu({
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
-            width: '20ch',
-            padding: '8px 0',
+            width: '16.5ch',
+            paddingTop: '0px',
+            paddingBottom: '0px',
           },
         }}
       >
-        <Box width="100%" display="flex" justifyContent="center">
-          <MenuItem onClick={confirmDisociateAction}>
-            {t('groupMenu.dissociateMenuItem.label')}
+        <Box width="100%" display="flex" justifyContent="start">
+          <MenuItem onClick={confirmDisociateAction} sx={itemBoxHover}>
+            <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
+              {t('groupMenu.dissociateMenuItem.label')}
+            </Typography>
           </MenuItem>
         </Box>
         {userProduct?.roles.length === 1 && !member.isCurrentUser && (
           <Box key={userProduct.id}>
-            <Box width="170px" margin="4px auto">
-              <Divider />
-            </Box>
-            <Box width="100%" display="flex" justifyContent="center">
-              <MenuItem onClick={confirmAction}>
-                {role?.status === 'ACTIVE'
-                  ? t('groupMenu.suspendMenuItem.suspendLabel')
-                  : role?.status === 'SUSPENDED'
-                  ? t('groupMenu.suspendMenuItem.activeLabel')
-                  : ''}
+            <Box width="100%" display="flex" justifyContent="start">
+              <MenuItem onClick={confirmAction} sx={itemBoxHover}>
+                <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
+                  {role?.status === 'ACTIVE'
+                    ? t('groupMenu.suspendMenuItem.suspendLabel')
+                    : role?.status === 'SUSPENDED'
+                    ? t('groupMenu.suspendMenuItem.activeLabel')
+                    : ''}
+                </Typography>
               </MenuItem>
             </Box>
           </Box>

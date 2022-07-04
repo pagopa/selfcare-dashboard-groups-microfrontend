@@ -12,7 +12,7 @@ import { buildColumnDefs } from './GroupProductTableColumns';
 import GroupsProductLoading from './GroupsProductLoading';
 import GroupsTableLoadMoreData from './GroupsProductLoadMoreData';
 
-const rowHeight = 81;
+const rowHeight = 80;
 const headerHeight = 56;
 
 interface GroupsTableProps {
@@ -44,7 +44,7 @@ const CustomDataGrid = styled(DataGrid)({
   '&.MuiDataGrid-columnHeaders': { borderBottom: 'none !important' },
   '.justifyContentBold': {
     fontSize: '16px',
-    fontWeight: '600',
+    fontWeight: 'fontWeightMedium',
     '&>div': {
       display: 'flex !important',
       alignItems: 'center',
@@ -54,13 +54,15 @@ const CustomDataGrid = styled(DataGrid)({
   '.MuiDataGrid-cell ': { padding: '0px', borderBottom: 'none' },
   '.MuiDataGrid-columnHeaders': { borderBottom: 'none' },
   '.MuiDataGrid-row': {
-    borderBottom: '1px solid #CCD4DC',
+    backgroundColor: 'white',
+    // borderBottom: '1px solid #CCD4DC',
+    marginBottom: '-1px',
     '&.Mui-selected': {
       backgroundColor: 'transparent',
       '&:hover': { backgroundColor: 'transparent' },
     },
     '&:hover': {
-      backgroundColor: 'transparent',
+      backgroundColor: 'rgba(23, 50, 77, 0.04)',
     },
   },
   '.justifyContentNormal': {
@@ -82,8 +84,8 @@ const CustomDataGrid = styled(DataGrid)({
   },
   '.MuiButtonBase-root.MuiPaginationItem-root': {
     fontSize: '16px',
-    fontWeight: '600 !important',
-    color: '#0073E6',
+    fontWeight: 'fontWeightMedium !important',
+    color: 'primary.main',
     '&.Mui-selected ': {
       border: 'none !important',
       backgroundColor: 'transparent !important',
@@ -105,14 +107,12 @@ export default function GroupsProductTable({
   sort,
   onSortRequest,
   onRowClick,
-  onDelete,
-  onStatusUpdate,
 }: GroupsTableProps) {
   const sortSplitted = sort && sort !== '' ? sort.split(',') : undefined;
   const { t } = useTranslation();
 
   const columns: Array<GridColDef> = useMemo(
-    () => buildColumnDefs(canEdit, party, product, onRowClick, onDelete, onStatusUpdate, t),
+    () => buildColumnDefs(canEdit, onRowClick, t),
     [party, product, groups]
   );
 
