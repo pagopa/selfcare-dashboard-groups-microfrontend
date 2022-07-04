@@ -142,7 +142,7 @@ export default function GroupActions({
             <strong>{{ productTitle: productsMap[partyGroup.productId].title }}</strong>
             .
             <br />
-            Puoi riabilitarlo in qualsiasi momento.
+            Puoi riattivarlo in qualsiasi momento.
           </Trans>
         </>
       ),
