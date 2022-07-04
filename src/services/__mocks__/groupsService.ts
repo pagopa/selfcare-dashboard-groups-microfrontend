@@ -142,7 +142,9 @@ export const mockedGroups: Array<PartyGroupMock> = [
   {
     id: 'groupId9',
     name: 'Gruppo9',
-    description: 'Group to have a significant number on prod-io',
+    // use case management of particulary long description
+    description:
+      'AparticularylongdescriptionofgroupAparticularylongdescriptionofgroupAparticularylongdescriptionofgroupAparticularylongdescriptionofgroupAparticularylongdescriptionofgroupAparticularylongdescriptionofgroupAparticularylongdescriptionofgroupAparticularylongdescriptionofgroupAparticularylongdescriptionofgroupAparticularylongdescriptionofgroupAparticularylongdescriptionofgroupAparticularylongdescriptionofgroupAparticularylongdescriptionofgroupAparticularylongdescriptionofgroupAparticularylongdescriptionofgroupAparticularylongdescriptionofgroupAparticularylongdescriptionofgroupAparticularylongdescriptionofgroupAparticularylongdescriptionofgroupAparticularylongdescriptionofgroup',
     partyId: 'onboarded',
     productId: 'prod-io',
     status: 'ACTIVE',

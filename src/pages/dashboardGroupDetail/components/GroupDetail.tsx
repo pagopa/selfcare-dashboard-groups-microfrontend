@@ -34,6 +34,12 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
             sx={{
               color: disabledTextDescription,
               fontWeight: 'fontWeightMedium',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitBoxOrient: 'vertical' as const,
+              overflowWrap: 'break-word',
+              maxWidth: '100%',
             }}
           >
             {partyGroup.description}
