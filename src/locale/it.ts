@@ -50,7 +50,7 @@ export default {
         titleSuspended: 'Riattiva gruppo',
         messageActive: 'Vuoi sospendere il gruppo',
         messageSuspended: 'Vuoi riattivare il gruppo',
-        messageGroupActive: ` <0>{{groupName}}</0> di <2>{{productTitle}}</2>? <4/>Puoi riabilitarlo in qualsiasi momento.`,
+        messageGroupActive: ` <0>{{groupName}}</0> di <2>{{productTitle}}</2>? <4/>Puoi riattivarlo in qualsiasi momento.`,
         messageGroupSuspended: ` <0>{{groupName}}</0> di <2>{{productTitle}}</2>? <4/>Puoi sospenderlo di nuovo in qualsiasi momento.`,
         confirmLabelSuspend: 'Sospendi',
         confirmLabelActive: 'Riattiva',
