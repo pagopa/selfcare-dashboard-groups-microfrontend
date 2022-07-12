@@ -258,7 +258,6 @@ export default function MembersGroup({
         '& .MuiDataGrid-row': {
           backgroundColor: 'white',
           marginTop: '-2px',
-          '&:hover': { backgroundColor: 'white' },
         },
         '& .MuiDataGrid-columnHeader:focus-within': {
           outline: 'none',
