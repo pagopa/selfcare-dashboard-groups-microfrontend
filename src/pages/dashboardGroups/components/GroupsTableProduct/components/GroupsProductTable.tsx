@@ -60,9 +60,6 @@ const CustomDataGrid = styled(DataGrid)({
       backgroundColor: 'transparent',
       '&:hover': { backgroundColor: 'transparent' },
     },
-    '&:hover': {
-      backgroundColor: 'rgba(23, 50, 77, 0.04)',
-    },
   },
   '.justifyContentNormal': {
     fontSize: '16px',
