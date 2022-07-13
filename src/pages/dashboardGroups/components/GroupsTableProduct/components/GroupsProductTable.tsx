@@ -22,7 +22,6 @@ interface GroupsTableProps {
   party: Party;
   groups: Array<PartyGroup>;
   product: Product;
-  canEdit: boolean;
   fetchPage: (page?: number, size?: number) => void;
   page: Page;
   sort?: string;
@@ -61,9 +60,6 @@ const CustomDataGrid = styled(DataGrid)({
       backgroundColor: 'transparent',
       '&:hover': { backgroundColor: 'transparent' },
     },
-    '&:hover': {
-      backgroundColor: 'rgba(23, 50, 77, 0.04)',
-    },
   },
   '.justifyContentNormal': {
     fontSize: '16px',
@@ -101,7 +97,6 @@ export default function GroupsProductTable({
   noMoreData,
   party,
   product,
-  canEdit,
   page,
   groups,
   sort,
@@ -112,7 +107,7 @@ export default function GroupsProductTable({
   const { t } = useTranslation();
 
   const columns: Array<GridColDef> = useMemo(
-    () => buildColumnDefs(canEdit, onRowClick, t),
+    () => buildColumnDefs(onRowClick, t),
     [party, product, groups]
   );
 
