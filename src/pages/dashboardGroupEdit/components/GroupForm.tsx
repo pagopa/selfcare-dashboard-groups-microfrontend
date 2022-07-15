@@ -8,13 +8,10 @@ import {
   Select,
   styled,
   TextField,
-  Tooltip,
   Typography,
   OutlinedInput,
   FormControl,
   InputLabel,
-  // InputAdornment,
-  // IconButton,
 } from '@mui/material';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
 import useLoading from '@pagopa/selfcare-common-frontend/hooks/useLoading';
@@ -31,8 +28,6 @@ import { useHistory } from 'react-router-dom';
 import { User } from '@pagopa/selfcare-common-frontend/model/User';
 import { userSelectors } from '@pagopa/selfcare-common-frontend/redux/slices/userSlice';
 import { useTranslation } from 'react-i18next';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-// import ClearIcon from '@mui/icons-material/Clear';
 import { ReactComponent as ClearCircleIcon } from '../../../assets/clear.svg';
 import { Party } from '../../../model/Party';
 import { PartyGroupOnCreation, PartyGroupOnEdit } from '../../../model/PartyGroup';
@@ -419,20 +414,10 @@ function GroupForm({
               multiline
               rows={2}
               inputProps={{ maxLength: 200 }}
-              InputProps={{
-                endAdornment: (
-                  <Box>
-                    <Tooltip
-                      title={t('dashboardGroupEdit.groupForm.formLabels.descriptionMaxLength')}
-                    >
-                      <InfoOutlinedIcon
-                        sx={{ ml: 1, mb: 2, color: 'text.primary', cursor: 'pointer' }}
-                      />
-                    </Tooltip>
-                  </Box>
-                ),
-              }}
             />
+            <Typography sx={{ fontWeight: 'fontWeight', fontSize: '12px', paddingLeft: 2 }}>
+              {t('dashboardGroupEdit.groupForm.formLabels.descriptionMaxLength')}
+            </Typography>
           </Grid>
           {/* Product */}
           <Grid item xs={12} mb={3}>
