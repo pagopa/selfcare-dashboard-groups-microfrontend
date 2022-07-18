@@ -39,6 +39,10 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
   useEffect(() => trackEvent('GROUP_LIST', { party_id: party.partyId }), [party]);
   const { t } = useTranslation();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [!selectedProductSection]);
+
   const setSelectedProductSection = (productId?: string) =>
     // eslint-disable-next-line functional/immutable-data
     (window.location.hash = productId ?? '');
