@@ -11,6 +11,7 @@ type Props = {
   product: Product;
   currentUser: User;
   onFetchStatusUpdate: (loading: boolean, noData: boolean, error: boolean) => void;
+  incrementalLoad: boolean;
 };
 
 export default function GroupsProductSection({
@@ -18,6 +19,7 @@ export default function GroupsProductSection({
   product,
   currentUser,
   onFetchStatusUpdate,
+  incrementalLoad,
 }: Props) {
   const [fetchStatus, setFetchStatus] = useState({ loading: true, noData: false, error: false });
 
@@ -35,8 +37,10 @@ export default function GroupsProductSection({
 
       <Grid item xs={12}>
         <GroupsTableProduct
-          incrementalLoad={true}
-          initialPageSize={ENV.PARTY_GROUPS_PAGE_SIZE}
+          incrementalLoad={incrementalLoad}
+          initialPageSize={
+            incrementalLoad ? ENV.PARTY_GROUPS_PAGE_SIZE : ENV.PARTY_PRODUCT_GROUPS_PAGE_SIZE
+          }
           party={party}
           product={product}
           onCompleteDelete={() => {

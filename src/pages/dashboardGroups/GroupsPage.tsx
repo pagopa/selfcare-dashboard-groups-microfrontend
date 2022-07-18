@@ -1,9 +1,7 @@
 import { Grid, Tab, Tabs } from '@mui/material';
 import TitleBox from '@pagopa/selfcare-common-frontend/components/TitleBox';
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { trackEvent } from '@pagopa/selfcare-common-frontend/services/analyticsService';
-import { HashLink } from 'react-router-hash-link';
-import useScrollSpy from 'react-use-scrollspy';
 import { userSelectors } from '@pagopa/selfcare-common-frontend/redux/slices/userSlice';
 import { User } from '@pagopa/selfcare-common-frontend/model/User';
 import { useTranslation } from 'react-i18next';
@@ -26,6 +24,12 @@ interface Props {
 function GroupsPage({ party, activeProducts, productsMap }: Props) {
   const history = useHistory();
 
+  const selectedProductSection =
+    window.location.hash !== '' ? window.location.hash.substring(1) : undefined;
+  const selectedProducts = activeProducts.filter(
+    (p: Product) => !selectedProductSection || p.id === selectedProductSection
+  );
+
   useEffect(() => {
     if (party.userRole !== 'ADMIN') {
       history.push(resolvePathVariables(ENV.ROUTES.OVERVIEW, { partyId: party.partyId }));
@@ -35,20 +39,33 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
   useEffect(() => trackEvent('GROUP_LIST', { party_id: party.partyId }), [party]);
   const { t } = useTranslation();
 
-  const prodSectionRefs = useMemo(
-    () => activeProducts.map((_) => React.createRef<HTMLDivElement>()),
-    [activeProducts]
-  );
-
-  const activeSection = useScrollSpy({ sectionElementRefs: prodSectionRefs, offsetPx: -80 });
-
-  const scrollWithOffset = (el: HTMLElement) => {
-    const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
-    const yOffset = -80;
-    window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
-  };
+  const setSelectedProductSection = (productId?: string) =>
+    // eslint-disable-next-line functional/immutable-data
+    (window.location.hash = productId ?? '');
 
   const currentUser = useAppSelector(userSelectors.selectLoggedUser) as User;
+
+  const mappedProducts = (product: Product) => (
+    <Grid key={product.id} item xs={12}>
+      <GroupsProductSection
+        currentUser={currentUser}
+        party={party}
+        product={product}
+        onFetchStatusUpdate={(loading, noData) => {
+          setProductsFetchStatus((previousState) => ({
+            ...previousState,
+            [product.id]: { loading, noData },
+          }));
+        }}
+        incrementalLoad={!selectedProductSection}
+      />
+    </Grid>
+  );
+
+  const productsSection = useMemo(
+    () => selectedProducts.map(mappedProducts),
+    [selectedProductSection]
+  );
 
   const [productsFetchStatus, setProductsFetchStatus] = useState<
     Record<string, { loading: boolean; noData: boolean }>
@@ -102,15 +119,18 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
             backgroundColor: '#F5F6F7',
           }}
         >
-          <Tabs variant="fullWidth" scrollButtons="auto" value={activeSection}>
-            {productHavingGroups.map((p, i) => (
+          <Tabs variant="fullWidth" scrollButtons="auto" value={selectedProductSection ?? 'all'}>
+            <Tab
+              label={t('dashboardGroup.groupsPage.tabAll')}
+              value="all"
+              onClick={() => setSelectedProductSection(undefined)}
+            />
+            {productHavingGroups.map((p) => (
               <Tab
                 key={p.id}
                 label={p.title}
-                component={HashLink}
-                to={`#${p.id}`}
-                value={i}
-                scroll={scrollWithOffset}
+                value={p.id}
+                onClick={() => setSelectedProductSection(p.id)}
               />
             ))}
           </Tabs>
@@ -126,21 +146,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
           pb={3}
           mt={productHavingGroups.length > 1 ? 0 : 5}
         >
-          {activeProducts.map((product, i) => (
-            <Grid key={product.id} item xs={12} ref={prodSectionRefs[i]}>
-              <GroupsProductSection
-                currentUser={currentUser}
-                party={party}
-                product={product}
-                onFetchStatusUpdate={(loading, noData) => {
-                  setProductsFetchStatus((previousState) => ({
-                    ...previousState,
-                    [product.id]: { loading, noData },
-                  }));
-                }}
-              />
-            </Grid>
-          ))}
+          {productsSection}
           {!isLoading && productHavingGroups.length === 0 && <NoGroups party={party} />}
         </Grid>
       </Grid>
