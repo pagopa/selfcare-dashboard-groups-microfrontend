@@ -41,7 +41,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [!selectedProductSection]);
+  }, [selectedProductSection]);
 
   const setSelectedProductSection = (productId?: string) =>
     // eslint-disable-next-line functional/immutable-data
