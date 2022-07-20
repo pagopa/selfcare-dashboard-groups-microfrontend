@@ -44,11 +44,10 @@ const GroupsTableProduct = ({
   const [pageRequest, setPageRequest] = useState<PageRequest>({ page: 0, size: initialPageSize });
 
   useEffect(() => {
-    setPageRequest({
-      page: 0,
-      size: initialPageSize,
-    });
-  }, [product]);
+    if (pageRequest) {
+      fetchGroups();
+    }
+  }, [pageRequest]);
 
   const fetchGroups = () => {
     setLoading(true);
@@ -79,12 +78,6 @@ const GroupsTableProduct = ({
       })
       .finally(() => setLoading(false));
   };
-
-  useEffect(() => {
-    if (pageRequest) {
-      fetchGroups();
-    }
-  }, [pageRequest]);
 
   const onDelete = (partyGroup: PartyGroup) => {
     if (incrementalLoad) {
