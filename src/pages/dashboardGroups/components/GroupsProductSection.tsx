@@ -1,6 +1,7 @@
 import { Grid, Typography } from '@mui/material';
 import { User } from '@pagopa/selfcare-common-frontend/model/User';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Party } from '../../../model/Party';
 import { Product } from '../../../model/Product';
 import { ENV } from '../../../utils/env';
@@ -22,18 +23,32 @@ export default function GroupsProductSection({
   incrementalLoad,
 }: Props) {
   const [fetchStatus, setFetchStatus] = useState({ loading: true, noData: false, error: false });
+  const { t } = useTranslation();
 
   return (
     <Grid container direction="row">
-      {fetchStatus.loading || !fetchStatus.noData ? (
-        <Grid item xs={12} sx={{ mt: 3 }}>
-          <Typography id={product.id} sx={{ fontWeight: 'fontWeightMedium' }}>
-            {product.title}
-          </Typography>
-        </Grid>
-      ) : (
-        <></>
-      )}
+      <Grid item xs={12} sx={{ mt: 3 }}>
+        <Typography id={product.id} sx={{ fontWeight: 'fontWeightMedium' }}>
+          {product.title}
+        </Typography>
+      </Grid>
+      {fetchStatus.loading ||
+        (fetchStatus.noData && (
+          <Grid item xs={12}>
+            <Typography
+              sx={{
+                backgroundColor: 'background.paper',
+                height: '56px',
+                textAlign: 'center',
+              }}
+              variant={'body2'}
+              mt={2}
+              pt={2}
+            >
+              {t('dashboardGroup.noGroups.noGroupsForProduct')}
+            </Typography>
+          </Grid>
+        ))}
 
       <Grid item xs={12}>
         <GroupsTableProduct

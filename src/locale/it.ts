@@ -196,6 +196,7 @@ export default {
     },
     noGroups: {
       noGroupsLabel: 'Non è ancora stato creato alcun Gruppo. <1><0>Crea un gruppo</0></1>',
+      noGroupsForProduct: 'Non è ancora stato creato alcun gruppo per questo prodotto.',
     },
     groupProductTableColumns: {
       duplicateActionLink: 'Duplica',

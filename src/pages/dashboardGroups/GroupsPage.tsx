@@ -108,38 +108,36 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
           <AddGroupButton party={party} />
         </Grid>
       </Grid>
-      {productHavingGroups.length > 1 && (
-        <Grid
-          item
-          xs={12}
-          mt={5}
-          sx={{
-            borderBottom: 1,
-            borderBottomWidth: '2px',
-            borderColor: 'divider',
-            position: 'sticky',
-            top: 0,
-            zIndex: 100,
-            backgroundColor: '#F5F6F7',
-          }}
-        >
-          <Tabs variant="fullWidth" scrollButtons="auto" value={selectedProductSection ?? 'all'}>
+      <Grid
+        item
+        xs={12}
+        mt={5}
+        sx={{
+          borderBottom: 1,
+          borderBottomWidth: '2px',
+          borderColor: 'divider',
+          position: 'sticky',
+          top: 0,
+          zIndex: 100,
+          backgroundColor: '#F5F6F7',
+        }}
+      >
+        <Tabs variant="fullWidth" scrollButtons="auto" value={selectedProductSection ?? 'all'}>
+          <Tab
+            label={t('dashboardGroup.groupsPage.tabAll')}
+            value="all"
+            onClick={() => setSelectedProductSection(undefined)}
+          />
+          {activeProducts.map((p) => (
             <Tab
-              label={t('dashboardGroup.groupsPage.tabAll')}
-              value="all"
-              onClick={() => setSelectedProductSection(undefined)}
+              key={p.id}
+              label={p.title}
+              value={p.id}
+              onClick={() => setSelectedProductSection(p.id)}
             />
-            {productHavingGroups.map((p) => (
-              <Tab
-                key={p.id}
-                label={p.title}
-                value={p.id}
-                onClick={() => setSelectedProductSection(p.id)}
-              />
-            ))}
-          </Tabs>
-        </Grid>
-      )}
+          ))}
+        </Tabs>
+      </Grid>
       <Grid item xs={12} sx={{ height: '100%' }}>
         <Grid
           container
@@ -150,7 +148,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
           pb={3}
           mt={productHavingGroups.length > 1 ? 0 : 5}
         >
-          {productsSection}
+          {productHavingGroups.length !== 0 ? productsSection : <></>}
           {!isLoading && productHavingGroups.length === 0 && <NoGroups party={party} />}
         </Grid>
       </Grid>

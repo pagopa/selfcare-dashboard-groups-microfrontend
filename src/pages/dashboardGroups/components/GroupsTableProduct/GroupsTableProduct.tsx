@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router-dom';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { User } from '@pagopa/selfcare-common-frontend/model/User';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { PageRequest } from '@pagopa/selfcare-common-frontend/model/PageRequest';
 import { PageResource } from '@pagopa/selfcare-common-frontend/model/PageResource';
 import { handleErrors } from '@pagopa/selfcare-common-frontend/services/errorService';
@@ -42,6 +42,26 @@ const GroupsTableProduct = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [pageRequest, setPageRequest] = useState<PageRequest>({ page: 0, size: initialPageSize });
+
+  const previousInitialPageSize = useRef(initialPageSize);
+
+  useEffect(() => {
+    const requestPage = incrementalLoad ? 0 : pageRequest?.page ?? 0;
+    const requestPageSize =
+      previousInitialPageSize.current !== initialPageSize
+        ? initialPageSize
+        : pageRequest?.size ?? initialPageSize;
+    // eslint-disable-next-line functional/immutable-data
+    previousInitialPageSize.current = initialPageSize;
+    setGroups({
+      content: [],
+      page: { number: requestPage, size: requestPageSize, totalElements: 0, totalPages: 0 },
+    });
+    setPageRequest({
+      page: requestPage,
+      size: requestPageSize,
+    });
+  }, [product, initialPageSize]);
 
   useEffect(() => {
     if (pageRequest) {
