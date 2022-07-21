@@ -57,6 +57,14 @@ export default {
         closeLabel: 'Annulla',
       },
     },
+    handleDuplicate: {
+      addNotify: {
+        title: 'Duplica gruppo',
+        message: `Vuoi duplicare il gruppo <1>{{groupName}}</1> di <3>{{productName}}</3>?`,
+        confirmLabel: 'Duplica',
+        closeLabel: 'Annulla',
+      },
+    },
     confirmChangeStatus: {
       updatePartyGroupStatusThen: {
         title: `Gruppo {{selectedGroupStatus}} correttamente`,
