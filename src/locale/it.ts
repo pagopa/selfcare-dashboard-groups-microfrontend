@@ -110,7 +110,7 @@ export default {
     },
     confirmDisociateAction: {
       title: 'Rimuovi',
-      message: `Vuoi rimuovere <1>{{memberName}}</1> dal gruppo <3>{{groupName}}</3> di <5>{{productTitle}}</5>? Puoi aggiungerlo nuovamente in qualsiasi momento.`,
+      message: `Vuoi rimuovere <1>{{member}}</1> dal gruppo <3>{{groupName}}</3> di <5>{{productTitle}}</5>? Puoi aggiungerlo nuovamente in qualsiasi momento.`,
       confirmLabel: 'Rimuovi',
       closeLabel: 'Annulla',
     },
