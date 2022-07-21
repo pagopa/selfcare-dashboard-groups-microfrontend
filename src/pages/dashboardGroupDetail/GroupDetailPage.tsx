@@ -117,7 +117,18 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
         <Grid item xs={4}>
           <Box display="flex">
             <Box>
-              <Typography variant="h4">{partyGroup.name}</Typography>
+              <Typography
+                variant="h4"
+                sx={{
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  display: 'inline-block',
+                  maxWidth: '50ch',
+                  WebkitBoxOrient: 'vertical' as const,
+                }}
+              >
+                {partyGroup.name}
+              </Typography>
             </Box>
             <Box display="flex" alignItems="center" ml={2}>
               {isSuspended && (
