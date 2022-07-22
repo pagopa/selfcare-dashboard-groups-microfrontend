@@ -114,14 +114,14 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
         </Box>
       </Grid>
       <Grid container item mb={3} display="flex" justifyContent="space-between">
-        <Grid item xs={4}>
+        <Grid item xs={7}>
           <Box display="flex">
             <Box>
               <Typography
                 variant="h4"
                 sx={{
                   display: 'inline-block',
-                  maxWidth: '50ch',
+                  maxWidth: '35ch',
                   wordWrap: 'break-word',
                 }}
               >
@@ -148,7 +148,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
             )}
           </Box>
         </Grid>
-        <Grid item xs={8} display="flex" alignItems="center" justifyContent="end">
+        <Grid item xs={5} display="flex" alignItems="center" justifyContent="end">
           <GroupActions
             partyGroup={partyGroupState}
             isSuspended={isSuspended}
