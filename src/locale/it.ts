@@ -31,7 +31,7 @@ export default {
       addNotify: {
         title: 'Elimina gruppo',
         message: `Vuoi eliminare il gruppo <1>{{groupName}}</1> di <3>{{productName}}</3>?`,
-        confirmLabel: 'Conferma',
+        confirmLabel: 'Elimina',
         closeLabel: 'Annulla',
       },
     },
