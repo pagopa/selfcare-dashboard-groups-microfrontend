@@ -174,7 +174,11 @@ export default function GroupMenu({
         <>
           <Trans i18nKey="groupMenu.confirmDisociateAction.message">
             Vuoi rimuovere
-            <strong>{{ memberName: member.name }}</strong>
+            <strong>
+              {{
+                member: `${member.name} ${member.surname}`,
+              }}
+            </strong>
             dal gruppo
             <strong>{{ groupName: partyGroup.name }}</strong>
             di
