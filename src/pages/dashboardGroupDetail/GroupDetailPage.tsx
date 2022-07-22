@@ -120,18 +120,16 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
               <Typography
                 variant="h4"
                 sx={{
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
                   display: 'inline-block',
                   maxWidth: '50ch',
-                  WebkitBoxOrient: 'vertical' as const,
+                  wordWrap: 'break-word',
                 }}
               >
                 {partyGroup.name}
               </Typography>
             </Box>
-            <Box display="flex" alignItems="center" ml={2}>
-              {isSuspended && (
+            {isSuspended && (
+              <Box display="flex" alignItems="center" ml={2}>
                 <Chip
                   label={t('groupDetail.status')}
                   aria-label="Suspended"
@@ -146,11 +144,11 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
                     height: '24px',
                   }}
                 />
-              )}
-            </Box>
+              </Box>
+            )}
           </Box>
         </Grid>
-        <Grid item xs={7} display="flex" alignItems="center" justifyContent="end">
+        <Grid item xs={8} display="flex" alignItems="center" justifyContent="end">
           <GroupActions
             partyGroup={partyGroupState}
             isSuspended={isSuspended}
