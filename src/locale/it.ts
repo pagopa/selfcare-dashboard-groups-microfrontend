@@ -197,12 +197,14 @@ export default {
       title: 'Gruppi',
       subTitle:
         'I gruppi sono un insieme di utenti, per esempio appartenenti allo stesso ufficio o dipartimento, a cui si affida la gestione dei prodotti. Qui puoi consultare i gruppi dell’ente e creare di nuovi.',
+      tabAll: 'Tutti',
     },
     addGroupButton: {
       createActionLabel: 'Crea gruppo',
     },
     noGroups: {
       noGroupsLabel: 'Non è ancora stato creato alcun Gruppo. <1><0>Crea un gruppo</0></1>',
+      noGroupsForProduct: 'Non è ancora stato creato alcun gruppo per questo prodotto.',
     },
     groupProductTableColumns: {
       duplicateActionLink: 'Duplica',
