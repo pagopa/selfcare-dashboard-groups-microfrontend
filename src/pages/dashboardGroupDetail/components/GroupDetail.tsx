@@ -1,4 +1,4 @@
-import { Grid, Typography, Box } from '@mui/material';
+import { Grid, Typography, Box, Tooltip } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { PartyGroupDetail } from '../../../model/PartyGroup';
 import { ProductsMap } from '../../../model/Product';
@@ -14,51 +14,49 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
     const d = new Date(data as Date);
     return d.toLocaleDateString('it', { day: '2-digit', month: '2-digit', year: 'numeric' });
   }
-
-  const groupLabelClass = isSuspended ? 'CustomDisabledLabel' : 'CustomLabelStyle';
   const { t } = useTranslation();
-  const disabledTextDescription = isSuspended ? 'text.disabled' : 'text.secondary';
   const disabledText = isSuspended ? 'text.disabled' : 'text.primary';
 
   return (
     <Grid container spacing={2}>
       <Grid container item alignContent="center">
         <Grid item xs={3}>
-          <Typography variant="body2" className={groupLabelClass}>
+          <Typography variant="body2" sx={{ color: disabledText }}>
             {t('groupDetail.description')}
           </Typography>
         </Grid>
         <Grid item xs={9}>
-          <Typography
-            variant="body2"
-            sx={{
-              color: disabledTextDescription,
-              fontWeight: 'fontWeightMedium',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              display: '-webkit-box',
-              WebkitBoxOrient: 'vertical' as const,
-              overflowWrap: 'break-word',
-              maxWidth: '100%',
-            }}
-          >
-            {partyGroup.description}
-          </Typography>
+          <Tooltip title={partyGroup.description.length >= 215 ? partyGroup.description : ''}>
+            <Typography
+              variant="body2"
+              sx={{
+                color: disabledText,
+                fontWeight: 'fontWeightMedium',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical' as const,
+                maxWidth: '100%',
+              }}
+            >
+              {partyGroup.description}
+            </Typography>
+          </Tooltip>
         </Grid>
       </Grid>
       <Grid container item alignContent="center">
         <Grid item xs={3}>
-          <Typography variant="body2" className={groupLabelClass}>
-            {t('groupDetail.product')}
+          <Typography variant="body2" sx={{ color: disabledText }}>
+            {t('groupDetail.product')} {partyGroup.description.length}
           </Typography>
         </Grid>
         <Grid item xs={9}>
           <Typography
             variant="body2"
-            className={groupLabelClass}
             sx={{
-              color: disabledText,
               fontWeight: 'fontWeightMedium',
+              color: disabledText,
             }}
           >
             {productsMap[partyGroup.productId].title}
@@ -67,7 +65,7 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
       </Grid>
       <Grid container item alignContent="center">
         <Grid item xs={3}>
-          <Typography variant="body2" className={groupLabelClass}>
+          <Typography variant="body2" sx={{ color: disabledText }}>
             {t('groupDetail.creationDate')}
           </Typography>
         </Grid>
@@ -76,10 +74,9 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
             <Box>
               <Typography
                 variant="body2"
-                className={groupLabelClass}
                 sx={{
-                  color: disabledText,
                   fontWeight: 'fontWeightMedium',
+                  color: disabledText,
                 }}
               >
                 {`${partyGroup.createdBy.name} ${partyGroup.createdBy?.surname}`} &nbsp;- &nbsp;
@@ -92,10 +89,9 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
             <Box>
               <Typography
                 variant="body2"
-                className={groupLabelClass}
                 sx={{
-                  color: disabledText,
                   fontWeight: 'fontWeightMedium',
+                  color: disabledText,
                 }}
               >
                 {formatDate(partyGroup.createdAt)}
@@ -108,7 +104,7 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
       </Grid>
       <Grid container item alignContent="center">
         <Grid item xs={3}>
-          <Typography variant="body2" className={groupLabelClass}>
+          <Typography variant="body2" sx={{ color: disabledText }}>
             {t('groupDetail.modifiedAt')}
           </Typography>
         </Grid>
@@ -117,10 +113,9 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
             <Box>
               <Typography
                 variant="body2"
-                className={groupLabelClass}
                 sx={{
-                  color: disabledText,
                   fontWeight: 'fontWeightMedium',
+                  color: disabledText,
                 }}
               >
                 {`${partyGroup.modifiedBy?.name} ${partyGroup.modifiedBy?.surname}`} &nbsp;- &nbsp;
@@ -133,10 +128,9 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
             <Box>
               <Typography
                 variant="body2"
-                className={groupLabelClass}
                 sx={{
-                  color: disabledText,
                   fontWeight: 'fontWeightMedium',
+                  color: disabledText,
                 }}
               >
                 {formatDate(partyGroup.modifiedAt)}
