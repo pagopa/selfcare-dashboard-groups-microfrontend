@@ -42,6 +42,7 @@ export default function GroupActions({
   canEdit,
   goEdit,
 }: Props) {
+  const activeGroup = partyGroup.status === 'ACTIVE';
   const setLoading = useLoading(LOADING_TASK_UPDATE_PARTY_USER_STATUS);
   const addError = useErrorDispatcher();
   const addNotify = useUserNotify();
@@ -56,14 +57,6 @@ export default function GroupActions({
     partyGroup.status === 'SUSPENDED'
       ? t('groupActions.selectedGroupStatusErrorSuspended')
       : t('groupActions.selectedGroupStatusErrorActive');
-
-  const goToDuplicate = () =>
-    history.push(
-      resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_CLONE.path, {
-        partyId: partyGroup.partyId,
-        groupId: partyGroup.id,
-      })
-    );
 
   const handleOpenDelete = () => {
     addNotify({
@@ -117,7 +110,7 @@ export default function GroupActions({
       )
       .finally(() => setLoading(false));
   };
-  const activeGroup = partyGroup.status === 'ACTIVE';
+
   const handleOpen = () => {
     addNotify({
       component: 'SessionModal',
@@ -212,6 +205,33 @@ export default function GroupActions({
       .finally(() => setLoading(false));
   };
 
+  const handleOpenDuplicate = () => {
+    addNotify({
+      component: 'SessionModal',
+      id: 'Notify_Example',
+      title: t('groupActions.handleDuplicate.addNotify.title'),
+      message: (
+        <>
+          <Trans i18nKey="groupActions.handleDuplicate.addNotify.message">
+            Vuoi duplicare il gruppo <strong>{{ groupName: partyGroup.name }}</strong> di
+            <strong>{{ productName: product.title }}</strong>?
+          </Trans>
+        </>
+      ),
+      confirmLabel: t('groupActions.handleDuplicate.addNotify.confirmLabel'),
+      closeLabel: t('groupActions.handleDuplicate.addNotify.closeLabel'),
+      onConfirm: onDuplicate,
+    });
+  };
+
+  const onDuplicate = () =>
+    history.push(
+      resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_CLONE.path, {
+        partyId: partyGroup.partyId,
+        groupId: partyGroup.id,
+      })
+    );
+
   return (
     <Stack direction="row" spacing={4}>
       {canEdit && (
@@ -255,7 +275,7 @@ export default function GroupActions({
       {!isSuspended && (
         <ButtonNaked
           component="button"
-          onClick={goToDuplicate}
+          onClick={handleOpenDuplicate}
           startIcon={<CopyAllIcon />}
           sx={{ color: 'primary.main' }}
           weight="default"
