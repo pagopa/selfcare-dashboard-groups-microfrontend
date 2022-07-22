@@ -220,7 +220,9 @@ function GroupForm({
       component: 'Toast',
       id: isEdit ? 'EDIT_GROUP_ERROR' : isClone ? 'CLONE_GROUP_ERROR' : 'SAVE_GROUP_ERROR',
       blocking: false,
-      displayableTitle: isEdit
+      displayableTitle: isNameDuplicated
+        ? ''
+        : isEdit
         ? t('dashboardGroupEdit.groupForm.notifyErrorOnSave.isEdit')
         : isClone
         ? t('dashboardGroupEdit.groupForm.notifyErrorOnSave.isClone')
