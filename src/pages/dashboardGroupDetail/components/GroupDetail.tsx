@@ -48,7 +48,7 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
       <Grid container item alignContent="center">
         <Grid item xs={3}>
           <Typography variant="body2" sx={{ color: disabledText }}>
-            {t('groupDetail.product')} {partyGroup.description.length}
+            {t('groupDetail.product')}
           </Typography>
         </Grid>
         <Grid item xs={9}>
