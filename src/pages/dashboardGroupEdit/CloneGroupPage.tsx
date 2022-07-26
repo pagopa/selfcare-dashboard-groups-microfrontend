@@ -48,6 +48,10 @@ function CloneGroupPage({
         ),
     },
     {
+      description: partyGroup.name,
+      onClick: goBack,
+    },
+    {
       description: t('dashboardGroupEdit.cloneGroupPage.pathDescription'),
     },
   ];

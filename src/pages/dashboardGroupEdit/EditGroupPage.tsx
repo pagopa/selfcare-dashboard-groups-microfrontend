@@ -48,6 +48,10 @@ function EditGroupPage({
         ),
     },
     {
+      description: partyGroup.name,
+      onClick: goBack,
+    },
+    {
       description: t('dashboardGroupEdit.editGroupPage.pathDescription'),
     },
   ];
