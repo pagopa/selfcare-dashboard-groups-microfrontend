@@ -214,20 +214,20 @@ function GroupForm({
   const notifyErrorOnSave = (
     _values: PartyGroupOnCreation | PartyGroupOnEdit,
     reason: any,
-    displayableDescription: string
+    alreadyExistentGroupNameError: string
   ) =>
     addError({
       component: 'Toast',
       id: isEdit ? 'EDIT_GROUP_ERROR' : isClone ? 'CLONE_GROUP_ERROR' : 'SAVE_GROUP_ERROR',
       blocking: false,
-      displayableTitle: isNameDuplicated
-        ? ''
+      displayableTitle: '',
+      displayableDescription: isNameDuplicated
+        ? alreadyExistentGroupNameError
         : isEdit
         ? t('dashboardGroupEdit.groupForm.notifyErrorOnSave.isEdit')
         : isClone
         ? t('dashboardGroupEdit.groupForm.notifyErrorOnSave.isClone')
         : t('dashboardGroupEdit.groupForm.notifyErrorOnSave.isCreate'),
-      displayableDescription,
       techDescription: '',
       error: reason,
       toNotify: true,
