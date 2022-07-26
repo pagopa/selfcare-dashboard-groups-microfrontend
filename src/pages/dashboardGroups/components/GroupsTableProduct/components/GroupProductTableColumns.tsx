@@ -170,7 +170,18 @@ function showName(
         <>
           <Grid container sx={{ width: '100%' }}>
             <Grid item xs={showChip ? 7 : 12} sx={{ width: '100%' }}>
-              <Typography variant="body2" color="primary" sx={{ fontWeight: 'fontWeightMedium' }}>
+              <Typography
+                variant="body2"
+                color="primary"
+                sx={{
+                  fontWeight: 'fontWeightMedium',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical' as const,
+                }}
+              >
                 {params.row.name}
               </Typography>
             </Grid>
