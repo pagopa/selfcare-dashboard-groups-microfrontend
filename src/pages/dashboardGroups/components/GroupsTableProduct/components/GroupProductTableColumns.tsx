@@ -24,7 +24,7 @@ export function buildColumnDefs(
       renderHeader: showCustmHeader,
       renderCell: (params) => showName(params, false, onRowClick),
       sortable: true,
-      flex: 2,
+      flex: 4,
     },
     {
       field: 'description',
@@ -38,7 +38,7 @@ export function buildColumnDefs(
       renderHeader: showCustmHeader,
       renderCell: (params) => renderCell(params, undefined, onRowClick),
       sortable: false,
-      flex: 3,
+      flex: 4,
     },
     {
       field: 'referenti',
@@ -53,7 +53,7 @@ export function buildColumnDefs(
       renderCell: (params) => showRefernts(params, onRowClick),
       renderHeader: showCustmHeader,
       sortable: false,
-      flex: 2,
+      flex: 3,
     },
     {
       field: 'status',
@@ -66,7 +66,7 @@ export function buildColumnDefs(
       editable: false,
       renderCell: (params) => showStatus(params, onRowClick),
       sortable: false,
-      flex: 1,
+      flex: 2,
     },
     {
       field: 'azioni',
@@ -270,7 +270,7 @@ function showStatus(params: GridRenderCellParams, onRowClick: (partyGroup: Party
     {
       paddingLeft: 0,
       paddingRight: 0,
-      textAlign: 'center',
+      textAlign: 'right',
     }
   );
 }
