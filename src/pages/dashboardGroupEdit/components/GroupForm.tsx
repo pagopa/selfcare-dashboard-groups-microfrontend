@@ -103,6 +103,7 @@ type Props = {
   initialFormData: PartyGroupOnCreation | PartyGroupOnEdit;
   isClone: boolean;
   partyGroupCloneId?: string;
+  goBack?: () => void;
   productsRolesMap: ProductsRolesMap;
 };
 
@@ -113,6 +114,7 @@ function GroupForm({
   productsMap,
   isClone,
   partyGroupCloneId,
+  goBack,
   productsRolesMap,
 }: Props) {
   const currentUser = useAppSelector(userSelectors.selectLoggedUser);
@@ -156,19 +158,20 @@ function GroupForm({
     }
   }, [initialFormData.productId]);
 
-  const goBackInner = () => history.goBack();
-  // (() =>
-  //   history.push(
-  //     resolvePathVariables(
-  //       isEdit
-  //         ? DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_DETAIL.path
-  //         : DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.MAIN.path,
-  //       {
-  //         partyId: party.partyId,
-  //         groupId: (initialFormData as PartyGroupOnEdit).id,
-  //       }
-  //     )
-  //   ));
+  const goBackInner =
+    goBack ??
+    (() =>
+      history.push(
+        resolvePathVariables(
+          isEdit
+            ? DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_DETAIL.path
+            : DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.MAIN.path,
+          {
+            partyId: party.partyId,
+            groupId: (initialFormData as PartyGroupOnEdit).id,
+          }
+        )
+      ));
 
   const validate = (values: Partial<PartyGroupOnCreation>) =>
     Object.fromEntries(

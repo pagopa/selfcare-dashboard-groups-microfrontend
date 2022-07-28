@@ -92,6 +92,7 @@ function EditGroupPage({
               } as PartyGroupOnEdit
             }
             isClone={false}
+            goBack={goBack}
           />
         </Grid>
       </Grid>
