@@ -226,7 +226,11 @@ function showRefernts(params: GridRenderCellParams, onRowClick: (partyGroup: Par
                 padding: '4px',
               }}
             >
-              {`${(params.row as PartyGroup).membersCount} referenti`}
+              {`${(params.row as PartyGroup).membersCount}  ${
+                (params.row as PartyGroup).membersCount > 1
+                  ? i18n.t('groupDetail.referentsLabel')
+                  : i18n.t('groupDetail.referentLabel')
+              }`}
             </Typography>
           </Box>
         </Box>,
