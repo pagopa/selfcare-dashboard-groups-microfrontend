@@ -99,6 +99,7 @@ function CloneGroupPage({
               } as PartyGroupOnEdit
             }
             isClone={true}
+            goBack={goBack}
           />
         </Grid>
       </Grid>
