@@ -10,6 +10,7 @@ import { ProductUserResource } from './generated/b4f-dashboard/ProductUserResour
 import { UserGroupPlainResource } from './generated/b4f-dashboard/UserGroupPlainResource';
 import { UserGroupResource } from './generated/b4f-dashboard/UserGroupResource';
 import { UserGroupIdResource } from './generated/b4f-dashboard/UserGroupIdResource';
+import { PageOfUserGroupPlainResource } from './generated/b4f-dashboard/PageOfUserGroupPlainResource';
 
 const withBearerAndInstitutionId: WithDefaultsT<'bearerAuth'> =
   (wrappedOperation) => (params: any) => {
@@ -88,7 +89,7 @@ export const DashboardApi = {
     productId: string,
     institutionId: string,
     pageRequest: PageRequest
-  ): Promise<Array<UserGroupPlainResource>> => {
+  ): Promise<PageOfUserGroupPlainResource> => {
     const result = await apiClient.getUserGroupsUsingGET({
       institutionId,
       page: pageRequest.page,
