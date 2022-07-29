@@ -36,13 +36,13 @@ export const fetchPartyGroups = (
   } else {
     return DashboardApi.fetchPartyGroups(product.id, party.partyId, pageRequest).then(
       (resources) => ({
-        content: resources?.content.map(usersGroupPlainResource2PartyGroup) ?? [],
+        content: resources?.content?.map(usersGroupPlainResource2PartyGroup) ?? [],
         page: {
-          number: resources.page.number,
-          size: resources.page.size,
+          number: resources.page?.number,
+          size: resources.page?.size,
           // Math.min(pageRequest.size, resources?.length ?? 0),
-          totalElements: resources.page.totalElements,
-          totalPages: resources.page.totalPages,
+          totalElements: resources.page?.totalElements,
+          totalPages: resources.page?.totalPages,
         },
       })
     );
