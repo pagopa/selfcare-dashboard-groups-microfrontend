@@ -54,12 +54,8 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
     setPartyGroupState(partyGroup);
   }, [partyGroup]);
 
-  const goBack = () =>
-    history.push(
-      resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.MAIN.path, {
-        partyId: party.partyId,
-      })
-    );
+  const goBack = () => history.goBack();
+
   const goEdit = () =>
     history.push(
       resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_EDIT.path, {
@@ -72,7 +68,12 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
     {
       icon: SupervisedUserCircle,
       description: t('groupDetailPage.path.groupDescription'),
-      onClick: goBack,
+      onClick: () =>
+        history.push(
+          resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.MAIN.path, {
+            partyId: party.partyId,
+          })
+        ),
     },
     {
       description: `${partyGroup.name}`,
