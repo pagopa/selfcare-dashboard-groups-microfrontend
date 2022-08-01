@@ -79,6 +79,7 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
                 } as PartyGroupOnCreation
               }
               isClone={false}
+              goBack={goBack}
             />
           </Grid>
         </Grid>

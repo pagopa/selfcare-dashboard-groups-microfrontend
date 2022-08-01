@@ -48,6 +48,10 @@ function CloneGroupPage({
         ),
     },
     {
+      description: partyGroup.name,
+      onClick: goBack,
+    },
+    {
       description: t('dashboardGroupEdit.cloneGroupPage.pathDescription'),
     },
   ];
@@ -95,6 +99,7 @@ function CloneGroupPage({
               } as PartyGroupOnEdit
             }
             isClone={true}
+            goBack={goBack}
           />
         </Grid>
       </Grid>

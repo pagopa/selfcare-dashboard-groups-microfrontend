@@ -24,7 +24,7 @@ export function buildColumnDefs(
       renderHeader: showCustmHeader,
       renderCell: (params) => showName(params, false, onRowClick),
       sortable: true,
-      flex: 2,
+      flex: 4,
     },
     {
       field: 'description',
@@ -38,7 +38,7 @@ export function buildColumnDefs(
       renderHeader: showCustmHeader,
       renderCell: (params) => renderCell(params, undefined, onRowClick),
       sortable: false,
-      flex: 3,
+      flex: 4,
     },
     {
       field: 'referenti',
@@ -53,7 +53,7 @@ export function buildColumnDefs(
       renderCell: (params) => showRefernts(params, onRowClick),
       renderHeader: showCustmHeader,
       sortable: false,
-      flex: 2,
+      flex: 3,
     },
     {
       field: 'status',
@@ -66,7 +66,7 @@ export function buildColumnDefs(
       editable: false,
       renderCell: (params) => showStatus(params, onRowClick),
       sortable: false,
-      flex: 1,
+      flex: 2,
     },
     {
       field: 'azioni',
@@ -170,7 +170,18 @@ function showName(
         <>
           <Grid container sx={{ width: '100%' }}>
             <Grid item xs={showChip ? 7 : 12} sx={{ width: '100%' }}>
-              <Typography variant="body2" color="primary" sx={{ fontWeight: 'fontWeightMedium' }}>
+              <Typography
+                variant="body2"
+                color="primary"
+                sx={{
+                  fontWeight: 'fontWeightMedium',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical' as const,
+                }}
+              >
                 {params.row.name}
               </Typography>
             </Grid>
@@ -215,7 +226,11 @@ function showRefernts(params: GridRenderCellParams, onRowClick: (partyGroup: Par
                 padding: '4px',
               }}
             >
-              {`${(params.row as PartyGroup).membersCount} referenti`}
+              {`${(params.row as PartyGroup).membersCount}  ${
+                (params.row as PartyGroup).membersCount > 1
+                  ? i18n.t('groupDetail.referentsLabel')
+                  : i18n.t('groupDetail.referentLabel')
+              }`}
             </Typography>
           </Box>
         </Box>,
@@ -259,7 +274,7 @@ function showStatus(params: GridRenderCellParams, onRowClick: (partyGroup: Party
     {
       paddingLeft: 0,
       paddingRight: 0,
-      textAlign: 'center',
+      textAlign: 'right',
     }
   );
 }

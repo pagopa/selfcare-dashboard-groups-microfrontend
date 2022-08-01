@@ -31,7 +31,7 @@ export default {
       addNotify: {
         title: 'Elimina gruppo',
         message: `Vuoi eliminare il gruppo <1>{{groupName}}</1> di <3>{{productName}}</3>?`,
-        confirmLabel: 'Conferma',
+        confirmLabel: 'Elimina',
         closeLabel: 'Annulla',
       },
     },
@@ -57,6 +57,14 @@ export default {
         closeLabel: 'Annulla',
       },
     },
+    handleDuplicate: {
+      addNotify: {
+        title: 'Duplica gruppo',
+        message: `Vuoi duplicare il gruppo <1>{{groupName}}</1> di <3>{{productName}}</3>?`,
+        confirmLabel: 'Duplica',
+        closeLabel: 'Annulla',
+      },
+    },
     confirmChangeStatus: {
       updatePartyGroupStatusThen: {
         title: `Gruppo {{selectedGroupStatus}} correttamente`,
@@ -76,6 +84,8 @@ export default {
     modifiedAt: 'Modificato da - in data',
     modifiedBy: 'DA',
     status: 'Sospeso',
+    referentLabel: 'referente',
+    referentsLabel: 'referenti',
   },
   groupMenu: {
     dissociateMenuItem: {
@@ -110,7 +120,7 @@ export default {
     },
     confirmDisociateAction: {
       title: 'Rimuovi',
-      message: `Vuoi rimuovere <1>{{memberName}}</1> dal gruppo <3>{{groupName}}</3> di <5>{{productTitle}}</5>? Puoi aggiungerlo nuovamente in qualsiasi momento.`,
+      message: `Vuoi rimuovere <1>{{member}}</1> dal gruppo <3>{{groupName}}</3> di <5>{{productTitle}}</5>? Puoi aggiungerlo nuovamente in qualsiasi momento.`,
       confirmLabel: 'Rimuovi',
       closeLabel: 'Annulla',
     },
@@ -189,12 +199,14 @@ export default {
       title: 'Gruppi',
       subTitle:
         'I gruppi sono un insieme di utenti, per esempio appartenenti allo stesso ufficio o dipartimento, a cui si affida la gestione dei prodotti. Qui puoi consultare i gruppi dell’ente e creare di nuovi.',
+      tabAll: 'Tutti',
     },
     addGroupButton: {
       createActionLabel: 'Crea gruppo',
     },
     noGroups: {
       noGroupsLabel: 'Non è ancora stato creato alcun Gruppo. <1><0>Crea un gruppo</0></1>',
+      noGroupsForProduct: 'Non è ancora stato creato alcun gruppo per questo prodotto.',
     },
     groupProductTableColumns: {
       duplicateActionLink: 'Duplica',

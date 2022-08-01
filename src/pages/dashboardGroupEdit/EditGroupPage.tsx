@@ -48,6 +48,10 @@ function EditGroupPage({
         ),
     },
     {
+      description: partyGroup.name,
+      onClick: goBack,
+    },
+    {
       description: t('dashboardGroupEdit.editGroupPage.pathDescription'),
     },
   ];
@@ -88,6 +92,7 @@ function EditGroupPage({
               } as PartyGroupOnEdit
             }
             isClone={false}
+            goBack={goBack}
           />
         </Grid>
       </Grid>
