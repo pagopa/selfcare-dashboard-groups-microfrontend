@@ -38,11 +38,10 @@ export const fetchPartyGroups = (
       (resources) => ({
         content: resources?.content?.map(usersGroupPlainResource2PartyGroup) ?? [],
         page: {
-          number: resources.page?.number,
-          size: resources.page?.size,
-          // Math.min(pageRequest.size, resources?.length ?? 0),
-          totalElements: resources.page?.totalElements,
-          totalPages: resources.page?.totalPages,
+          number: resources.number,
+          size: resources.size,
+          totalElements: resources.totalElements,
+          totalPages: resources.totalPages,
         },
       })
     );
