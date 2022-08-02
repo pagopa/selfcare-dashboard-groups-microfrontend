@@ -579,16 +579,46 @@ function GroupForm({
                       >
                         <Checkbox checked={isChecked} onClick={onItemSelected} />
                         <Grid container>
-                          <Grid container item xs={8}>
+                          <Grid
+                            container
+                            item
+                            xs={8}
+                            sx={{
+                              width: '250px',
+                            }}
+                          >
                             <Grid item xs={12}>
-                              <Typography variant="body1">
+                              <Typography
+                                variant="body1"
+                                sx={{
+                                  height: 'auto',
+                                  textOverflow: 'ellipsis',
+                                  whiteSpace: 'nowrap',
+                                  overflow: 'hidden',
+                                  fontSize: 'fontSize',
+                                  fontWeight: 'fontWeightMedium',
+                                }}
+                              >
                                 {u.name} {u.surname}
                               </Typography>
                             </Grid>
                             <Grid item xs={12}>
-                              <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-                                {u.email}
-                              </Typography>
+                              <div
+                                style={{
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                  whiteSpace: 'nowrap',
+                                }}
+                              >
+                                <Typography
+                                  variant="caption"
+                                  sx={{
+                                    color: 'text.secondary',
+                                  }}
+                                >
+                                  {u.email}
+                                </Typography>
+                              </div>
                             </Grid>
                           </Grid>
                           <Grid container item xs={4} display="flex" justifyContent="end">
