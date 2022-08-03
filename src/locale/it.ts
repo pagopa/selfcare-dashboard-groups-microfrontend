@@ -84,8 +84,8 @@ export default {
     modifiedAt: 'Modificato da - in data',
     modifiedBy: 'DA',
     status: 'Sospeso',
-    referentLabel: 'referente',
-    referentsLabel: 'referenti',
+    userLabel: 'utente',
+    usersLabel: 'utenti',
   },
   groupMenu: {
     dissociateMenuItem: {
