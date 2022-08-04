@@ -17,6 +17,7 @@ type Props = {
   party: Party;
   product: Product;
   currentUser: User;
+  selected: boolean;
   incrementalLoad: boolean;
   initialPageSize: number;
   onFetchStatusUpdate: (isFetching: boolean, count: number, error: boolean) => void;
@@ -27,6 +28,7 @@ const GroupsTableProduct = ({
   party,
   product,
   currentUser,
+  selected,
   incrementalLoad,
   initialPageSize,
   onFetchStatusUpdate,
@@ -46,7 +48,7 @@ const GroupsTableProduct = ({
   const previousInitialPageSize = useRef(initialPageSize);
 
   useEffect(() => {
-    const requestPage = incrementalLoad ? 0 : pageRequest?.page ?? 0;
+    const requestPage = incrementalLoad ? 0 : selected ? 0 : pageRequest?.page ?? 0;
     const requestPageSize =
       previousInitialPageSize.current !== initialPageSize
         ? initialPageSize
