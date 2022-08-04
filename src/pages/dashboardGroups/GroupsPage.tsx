@@ -51,6 +51,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
         currentUser={currentUser}
         party={party}
         product={product}
+        selected={product.id === selectedProductSection}
         onFetchStatusUpdate={(loading, noData) => {
           setProductsFetchStatus((previousState) => ({
             ...previousState,
