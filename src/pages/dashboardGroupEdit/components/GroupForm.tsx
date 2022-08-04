@@ -281,12 +281,12 @@ function GroupForm({
   });
 
   useEffect(() => {
-    if (formik.dirty || (productSelected && !isEdit)) {
+    if (formik.dirty || (productSelected && !isEdit) || (!productSelected && isClone)) {
       registerUnloadEvent();
     } else {
       unregisterUnloadEvent();
     }
-  }, [formik.dirty, productSelected, isEdit]);
+  }, [formik.dirty, productSelected, isEdit, isClone]);
 
   const baseTextFieldProps = (
     field: keyof PartyGroupOnCreation,
