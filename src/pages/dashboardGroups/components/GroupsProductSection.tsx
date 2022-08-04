@@ -11,6 +11,7 @@ type Props = {
   party: Party;
   product: Product;
   currentUser: User;
+  selected: boolean;
   onFetchStatusUpdate: (loading: boolean, noData: boolean, error: boolean) => void;
   incrementalLoad: boolean;
 };
@@ -19,6 +20,7 @@ export default function GroupsProductSection({
   party,
   product,
   currentUser,
+  selected,
   onFetchStatusUpdate,
   incrementalLoad,
 }: Props) {
@@ -57,6 +59,7 @@ export default function GroupsProductSection({
             incrementalLoad ? ENV.PARTY_GROUPS_PAGE_SIZE : ENV.PARTY_PRODUCT_GROUPS_PAGE_SIZE
           }
           party={party}
+          selected={selected}
           product={product}
           onCompleteDelete={() => {
             setFetchStatus({ loading: false, noData: true, error: false });
