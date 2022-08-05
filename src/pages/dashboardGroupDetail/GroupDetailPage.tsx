@@ -195,16 +195,18 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
           )}
         </Grid>
         <Grid item xs={12}>
-          <MembersGroup
-            partyGroup={partyGroupState}
-            party={party}
-            product={product}
-            isSuspended={isSuspended}
-            productRolesLists={productsRolesMap[product.id]}
-            canEdit={canEdit}
-            onGroupStatusUpdate={onGroupStatusUpdate}
-            isGroupSuspended={isSuspended}
-          />
+          <Grid sx={{ pointerEvents: isSuspended ? 'none' : 'auto' }}>
+            <MembersGroup
+              partyGroup={partyGroupState}
+              party={party}
+              product={product}
+              isSuspended={isSuspended}
+              productRolesLists={productsRolesMap[product.id]}
+              canEdit={canEdit}
+              onGroupStatusUpdate={onGroupStatusUpdate}
+              isGroupSuspended={isSuspended}
+            />
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
