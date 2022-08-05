@@ -286,7 +286,7 @@ export default function MembersGroup({
       }}
     >
       <Trans i18nkey="groupDetail.emptyGroup">
-        {'Non è stato ancora aggiunto un utente. '}
+        {'Non è stato ancora aggiunto alcun utente. '}
         <Link
           sx={{
             variant: 'body2',
