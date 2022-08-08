@@ -84,8 +84,9 @@ export default {
     modifiedAt: 'Modificato da - in data',
     modifiedBy: 'DA',
     status: 'Sospeso',
-    referentLabel: 'referente',
-    referentsLabel: 'referenti',
+    userLabel: 'utente',
+    usersLabel: 'utenti',
+    emptyGroup: 'Non è stato ancora aggiunto alcun utente. <1>Aggiungi un utente</1>',
   },
   groupMenu: {
     dissociateMenuItem: {

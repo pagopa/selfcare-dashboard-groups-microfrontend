@@ -1,8 +1,8 @@
-import { Link, Typography, Box, Tooltip, Chip } from '@mui/material';
+import { Link, Typography, Box, Tooltip, Chip, Paper } from '@mui/material';
 import { useHistory } from 'react-router';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
 import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
 import { Product } from '../../../model/Product';
@@ -10,6 +10,7 @@ import { Party, UserStatus } from '../../../model/Party';
 import { ProductRolesLists, transcodeProductRole2Title } from '../../../model/ProductRole';
 import { PartyProductUser, PartyUserProduct, PartyUserProductRole } from '../../../model/PartyUser';
 import { ENV } from '../../../utils/env';
+import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
 import GroupMenu from './GroupMenu';
 
 type Props = {
@@ -23,6 +24,7 @@ type Props = {
   isGroupSuspended: boolean;
 };
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export default function MembersGroup({
   partyGroup,
   product,
@@ -241,7 +243,7 @@ export default function MembersGroup({
     },
   ];
 
-  return (
+  return members.length !== 0 ? (
     <DataGrid
       rowHeight={64}
       disableSelectionOnClick
@@ -272,5 +274,41 @@ export default function MembersGroup({
       showCellRightBorder={false}
       showColumnRightBorder={false}
     />
+  ) : (
+    <Paper
+      sx={{
+        height: '56px',
+        textAlign: 'center',
+        justifyContent: 'center',
+        fontSize: 'fontSize',
+        marginTop: 2,
+        paddingTop: 2,
+      }}
+    >
+      <Trans i18nkey="groupDetail.emptyGroup">
+        {'Non è stato ancora aggiunto alcun utente. '}
+        <Link
+          sx={{
+            variant: 'body2',
+            fontWeight: 'bold',
+            textDecoration: 'none',
+            cursor: 'pointer',
+          }}
+          onClick={() => {
+            history.push(
+              resolvePathVariables(
+                DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_EDIT.path + '#users',
+                {
+                  partyId: partyGroup.partyId,
+                  groupId: partyGroup.id,
+                }
+              )
+            );
+          }}
+        >
+          {'Aggiungi un utente'}
+        </Link>
+      </Trans>
+    </Paper>
   );
 }

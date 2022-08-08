@@ -36,12 +36,12 @@ export const fetchPartyGroups = (
   } else {
     return DashboardApi.fetchPartyGroups(product.id, party.partyId, pageRequest).then(
       (resources) => ({
-        content: resources?.map(usersGroupPlainResource2PartyGroup) ?? [],
+        content: resources?.content?.map(usersGroupPlainResource2PartyGroup) ?? [],
         page: {
-          number: pageRequest.page,
-          size: Math.min(pageRequest.size, resources?.length ?? 0),
-          totalElements: -1,
-          totalPages: -1,
+          number: resources.number,
+          size: resources.size,
+          totalElements: resources.totalElements,
+          totalPages: resources.totalPages,
         },
       })
     );

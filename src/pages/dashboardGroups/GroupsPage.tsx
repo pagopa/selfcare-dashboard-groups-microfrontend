@@ -51,6 +51,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
         currentUser={currentUser}
         party={party}
         product={product}
+        selected={product.id === selectedProductSection}
         onFetchStatusUpdate={(loading, noData) => {
           setProductsFetchStatus((previousState) => ({
             ...previousState,
@@ -88,6 +89,8 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
 
   const mbTitle = 2;
 
+  const moreThanOneActiveProduct = activeProducts.length > 1;
+
   return (
     <Grid container px={3} mt={3} sx={{ width: '100%', backgroundColor: 'transparent !important' }}>
       <Grid container item display="flex" justifyContent="space-between">
@@ -104,36 +107,38 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
           <AddGroupButton party={party} />
         </Grid>
       </Grid>
-      <Grid
-        item
-        xs={12}
-        mt={5}
-        sx={{
-          borderBottom: 1,
-          borderBottomWidth: '2px',
-          borderColor: 'divider',
-          position: 'sticky',
-          top: 0,
-          zIndex: 100,
-          backgroundColor: '#F5F6F7',
-        }}
-      >
-        <Tabs variant="fullWidth" scrollButtons="auto" value={selectedProductSection ?? 'all'}>
-          <Tab
-            label={t('dashboardGroup.groupsPage.tabAll')}
-            value="all"
-            onClick={() => setSelectedProductSection(undefined)}
-          />
-          {activeProducts.map((p) => (
+      {productHavingGroups.length !== 0 && moreThanOneActiveProduct && (
+        <Grid
+          item
+          xs={12}
+          mt={5}
+          sx={{
+            borderBottom: 1,
+            borderBottomWidth: '2px',
+            borderColor: 'divider',
+            position: 'sticky',
+            top: 0,
+            zIndex: 100,
+            backgroundColor: '#F5F6F7',
+          }}
+        >
+          <Tabs variant="fullWidth" scrollButtons="auto" value={selectedProductSection ?? 'all'}>
             <Tab
-              key={p.id}
-              label={p.title}
-              value={p.id}
-              onClick={() => setSelectedProductSection(p.id)}
+              label={t('dashboardGroup.groupsPage.tabAll')}
+              value="all"
+              onClick={() => setSelectedProductSection(undefined)}
             />
-          ))}
-        </Tabs>
-      </Grid>
+            {activeProducts.map((p) => (
+              <Tab
+                key={p.id}
+                label={p.title}
+                value={p.id}
+                onClick={() => setSelectedProductSection(p.id)}
+              />
+            ))}
+          </Tabs>
+        </Grid>
+      )}
       <Grid item xs={12} sx={{ height: '100%' }}>
         <Grid
           container
