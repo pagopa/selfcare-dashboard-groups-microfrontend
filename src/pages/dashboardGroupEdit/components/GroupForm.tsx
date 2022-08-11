@@ -105,6 +105,7 @@ type Props = {
   partyGroupCloneId?: string;
   goBack?: () => void;
   productsRolesMap: ProductsRolesMap;
+  isAddPage?: boolean;
 };
 
 function GroupForm({
@@ -116,6 +117,7 @@ function GroupForm({
   partyGroupCloneId,
   goBack,
   productsRolesMap,
+  isAddPage,
 }: Props) {
   const currentUser = useAppSelector(userSelectors.selectLoggedUser);
   const { t } = useTranslation();
@@ -367,6 +369,14 @@ function GroupForm({
   };
   const isProductError = isClone && productSelected === undefined;
 
+  const isEnabled = products.filter(
+    (p) => p.authorized && p.userRole && p.userRole === 'ADMIN' && p.status === 'ACTIVE'
+  );
+
+  const isTheOnlyProductInAddPage = isAddPage && Object.keys(isEnabled).length === 1;
+
+  const productValue = isEnabled[0].title;
+
   // const onItemSelectedTest = () => {
   //   void formik.setFieldValue('members', [], true);
   // };
@@ -438,9 +448,15 @@ function GroupForm({
               <Select
                 error={isProductError}
                 id="product-select"
-                disabled={isEdit}
+                disabled={isEdit || isTheOnlyProductInAddPage}
                 fullWidth
-                value={productSelected?.title ?? ''}
+                value={
+                  productSelected
+                    ? productSelected?.title
+                    : isTheOnlyProductInAddPage
+                    ? productValue
+                    : ''
+                }
                 displayEmpty
                 variant="outlined"
                 labelId="select-label-products"
@@ -452,7 +468,7 @@ function GroupForm({
                 }
                 renderValue={(productSelected) => (
                   <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
-                    {productSelected}
+                    {isTheOnlyProductInAddPage ? productValue : productSelected}
                   </Typography>
                 )}
               >
@@ -480,7 +496,7 @@ function GroupForm({
           <Grid item xs={12} width="100%">
             <FormControl sx={{ width: '100%' }}>
               <InputLabel id="select-label-members">
-                {t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholter')}
+                {t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholder')}
               </InputLabel>
               <Select
                 // TODO
@@ -496,12 +512,12 @@ function GroupForm({
                 multiple
                 displayEmpty
                 fullWidth
-                label={t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholter')}
+                label={t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholer')}
                 labelId="select-label-members"
                 value={formik.values.members}
                 input={
                   <OutlinedInput
-                    label={t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholter')}
+                    label={t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholder')}
                   />
                 }
                 renderValue={(selectedUser: Array<PartyProductUser>) => (
