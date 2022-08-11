@@ -67,32 +67,55 @@ export default function GroupMenu({
       id: 'CHANGE_ROLE_STATUS_MODAL',
       title:
         role?.status === 'ACTIVE'
-          ? t('groupMenu.confirmAction.titleSuspended')
-          : t('groupMenu.confirmAction.titleActive'),
+          ? t('groupMenu.confirmAction.suspend.title')
+          : t('groupMenu.confirmAction.reactivate.title'),
       message: (
         <>
-          {role?.status === 'ACTIVE'
-            ? t('groupMenu.confirmAction.messageSuspended')
-            : t('groupMenu.confirmAction.messageActive')}
-          <Trans i18nKey="groupMenu.confirmAction.message">
-            <strong>
-              {{
-                transcodeProductRole2Title: transcodeProductRole2Title(
-                  role?.role as string,
-                  productRolesLists
-                ),
-              }}
-            </strong>
-            di
-            <strong>{{ productTitle: product.title }}</strong>
-            assegnato a
-            <strong style={{ textTransform: 'capitalize' }}>
-              {{ memberMame: `${party && member.name.toLocaleLowerCase()} ${member.surname}` }}
-            </strong>
-            .
-            <br />
-            Vuoi continuare?
-          </Trans>
+          {role?.status === 'ACTIVE' ? (
+            <Trans i18nKey="groupMenu.confirmAction.suspend.message">
+              {'Vuoi sospendere '}
+              <strong style={{ textTransform: 'capitalize' }}>
+                {{ memberName: `${party && member.name.toLocaleLowerCase()} ${member.surname}` }}
+              </strong>
+              {' dal ruolo di '}
+              <strong style={{ textTransform: 'capitalize' }}>
+                {{
+                  transcodeProductRole2Title: transcodeProductRole2Title(
+                    role?.role as string,
+                    productRolesLists
+                  ).toLocaleLowerCase(),
+                }}
+              </strong>
+              {'?'}
+              <br /> {'Se lo sospendi, non potrà più operare su '}
+              <strong>{{ productTitle: product.title }}</strong>
+              {'.'}
+              <br />
+              {'Puoi riabilitarlo in qualsiasi momento.'}
+            </Trans>
+          ) : (
+            <Trans i18nKey="groupMenu.confirmAction.reactivate.message">
+              {'Vuoi riabilitare '}
+              <strong style={{ textTransform: 'capitalize' }}>
+                {{ memberName: `${party && member.name.toLocaleLowerCase()} ${member.surname}` }}
+              </strong>
+              {' nel ruolo di '}
+              <strong style={{ textTransform: 'capitalize' }}>
+                {{
+                  transcodeProductRole2Title: transcodeProductRole2Title(
+                    role?.role as string,
+                    productRolesLists
+                  ).toLocaleLowerCase(),
+                }}
+              </strong>
+              {'?'}
+              <br /> {'Se lo riabiliti, potrà operare di nuovo su '}
+              <strong>{{ productTitle: product.title }}</strong>
+              {'.'}
+              <br />
+              {'Puoi sospenderlo di nuovo in qualsiasi momento.'}
+            </Trans>
+          )}
         </>
       ),
       confirmLabel: t('groupMenu.confirmAction.confirmLabel'),
