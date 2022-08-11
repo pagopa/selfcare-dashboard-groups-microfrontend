@@ -227,15 +227,15 @@ function GroupForm({
   const notifyErrorOnSave = (
     _values: PartyGroupOnCreation | PartyGroupOnEdit,
     reason: any,
-    alreadyExistentGroupNameError: string
+    alreadyExistentGroupNameError: boolean
   ) =>
     addError({
       component: 'Toast',
       id: isEdit ? 'EDIT_GROUP_ERROR' : isClone ? 'CLONE_GROUP_ERROR' : 'SAVE_GROUP_ERROR',
       blocking: false,
       displayableTitle: '',
-      displayableDescription: isNameDuplicated
-        ? alreadyExistentGroupNameError
+      displayableDescription: alreadyExistentGroupNameError
+        ? t('dashboardGroupEdit.groupForm.save.groupNameAlreadyExists')
         : isEdit
         ? t('dashboardGroupEdit.groupForm.notifyErrorOnSave.isEdit')
         : isClone
@@ -272,14 +272,10 @@ function GroupForm({
       .catch((reason) => {
         if (reason.httpStatus === 409) {
           setIsNameDuplicated(true);
-          notifyErrorOnSave(
-            values,
-            reason,
-            t('dashboardGroupEdit.groupForm.save.groupNameAlreadyExists')
-          );
+          notifyErrorOnSave(values, reason, true);
         } else {
           setIsNameDuplicated(false);
-          notifyErrorOnSave(values, reason, '');
+          notifyErrorOnSave(values, reason, false);
         }
       })
       .finally(() => setLoadingSaveGroup(false));
@@ -509,7 +505,7 @@ function GroupForm({
                 multiple
                 displayEmpty
                 fullWidth
-                label={t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholer')}
+                label={t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholder')}
                 labelId="select-label-members"
                 value={formik.values.members}
                 input={
