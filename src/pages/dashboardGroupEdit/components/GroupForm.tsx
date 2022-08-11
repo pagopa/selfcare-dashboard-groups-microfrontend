@@ -105,6 +105,7 @@ type Props = {
   partyGroupCloneId?: string;
   goBack?: () => void;
   productsRolesMap: ProductsRolesMap;
+  isAddPage?: boolean;
 };
 
 function GroupForm({
@@ -116,6 +117,7 @@ function GroupForm({
   partyGroupCloneId,
   goBack,
   productsRolesMap,
+  isAddPage,
 }: Props) {
   const currentUser = useAppSelector(userSelectors.selectLoggedUser);
   const { t } = useTranslation();
@@ -132,6 +134,7 @@ function GroupForm({
   const [productUsers, setProductUsers] = useState<Array<PartyProductUser>>([]);
   const [automaticRemove, setAutomaticRemove] = useState(false);
   const [isNameDuplicated, setIsNameDuplicated] = useState(false);
+  const [productInAddPage, setProductInAddPage] = useState<boolean>();
 
   const { registerUnloadEvent, unregisterUnloadEvent } = useUnloadEventInterceptor();
   const onExit = useUnloadEventOnExit();
@@ -157,6 +160,16 @@ function GroupForm({
       setProductSelected(productsMap[initialFormData.productId]);
     }
   }, [initialFormData.productId]);
+
+  useEffect(() => {
+    const isEnabled = products.filter(
+      (p) => p.authorized && p.userRole === 'ADMIN' && p.status === 'ACTIVE'
+    );
+    setProductInAddPage(isAddPage && Object.keys(isEnabled).length === 1);
+    if (productInAddPage) {
+      setProductSelected(isEnabled[0]);
+    }
+  }, [productInAddPage]);
 
   const goBackInner =
     goBack ??
@@ -438,7 +451,7 @@ function GroupForm({
               <Select
                 error={isProductError}
                 id="product-select"
-                disabled={isEdit}
+                disabled={isEdit || productInAddPage}
                 fullWidth
                 value={productSelected?.title ?? ''}
                 displayEmpty
@@ -480,7 +493,7 @@ function GroupForm({
           <Grid item xs={12} width="100%">
             <FormControl sx={{ width: '100%' }}>
               <InputLabel id="select-label-members">
-                {t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholter')}
+                {t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholder')}
               </InputLabel>
               <Select
                 // TODO
@@ -496,12 +509,12 @@ function GroupForm({
                 multiple
                 displayEmpty
                 fullWidth
-                label={t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholter')}
+                label={t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholer')}
                 labelId="select-label-members"
                 value={formik.values.members}
                 input={
                   <OutlinedInput
-                    label={t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholter')}
+                    label={t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholder')}
                   />
                 }
                 renderValue={(selectedUser: Array<PartyProductUser>) => (
