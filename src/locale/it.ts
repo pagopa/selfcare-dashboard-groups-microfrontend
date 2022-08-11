@@ -150,7 +150,7 @@ export default {
         prductPlaceholter: 'Seleziona il prodotto',
         descriptionMaxLength: 'Max 200 caratteri',
         noProductSelected: 'Nessun prodotto selezionato',
-        referentsPlaceholter: 'Seleziona gli utenti che vuoi associare al gruppo',
+        referentsPlaceholder: 'Seleziona gli utenti che vuoi associare al gruppo',
         cancelActionLabel: 'Indietro',
         confirmActionLabel: 'Conferma',
       },

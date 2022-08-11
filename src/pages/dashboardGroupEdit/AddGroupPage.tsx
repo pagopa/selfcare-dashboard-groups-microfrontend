@@ -80,6 +80,7 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
               }
               isClone={false}
               goBack={goBack}
+              isAddPage={true}
             />
           </Grid>
         </Grid>
