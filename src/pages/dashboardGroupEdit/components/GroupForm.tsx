@@ -134,6 +134,7 @@ function GroupForm({
   const [productUsers, setProductUsers] = useState<Array<PartyProductUser>>([]);
   const [automaticRemove, setAutomaticRemove] = useState(false);
   const [isNameDuplicated, setIsNameDuplicated] = useState(false);
+  const [productInAddPage, setProductInAddPage] = useState<boolean>();
 
   const { registerUnloadEvent, unregisterUnloadEvent } = useUnloadEventInterceptor();
   const onExit = useUnloadEventOnExit();
@@ -159,6 +160,16 @@ function GroupForm({
       setProductSelected(productsMap[initialFormData.productId]);
     }
   }, [initialFormData.productId]);
+
+  useEffect(() => {
+    const isEnabled = products.filter(
+      (p) => p.authorized && p.userRole === 'ADMIN' && p.status === 'ACTIVE'
+    );
+    setProductInAddPage(isAddPage && Object.keys(isEnabled).length === 1);
+    if (productInAddPage) {
+      setProductSelected(isEnabled[0]);
+    }
+  }, [productInAddPage]);
 
   const goBackInner =
     goBack ??
@@ -369,14 +380,6 @@ function GroupForm({
   };
   const isProductError = isClone && productSelected === undefined;
 
-  const isEnabled = products.filter(
-    (p) => p.authorized && p.userRole && p.userRole === 'ADMIN' && p.status === 'ACTIVE'
-  );
-
-  const isTheOnlyProductInAddPage = isAddPage && Object.keys(isEnabled).length === 1;
-
-  const productValue = isEnabled[0].title;
-
   // const onItemSelectedTest = () => {
   //   void formik.setFieldValue('members', [], true);
   // };
@@ -448,15 +451,9 @@ function GroupForm({
               <Select
                 error={isProductError}
                 id="product-select"
-                disabled={isEdit || isTheOnlyProductInAddPage}
+                disabled={isEdit || productInAddPage}
                 fullWidth
-                value={
-                  productSelected
-                    ? productSelected?.title
-                    : isTheOnlyProductInAddPage
-                    ? productValue
-                    : ''
-                }
+                value={productSelected?.title ?? ''}
                 displayEmpty
                 variant="outlined"
                 labelId="select-label-products"
@@ -468,7 +465,7 @@ function GroupForm({
                 }
                 renderValue={(productSelected) => (
                   <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
-                    {isTheOnlyProductInAddPage ? productValue : productSelected}
+                    {productSelected}
                   </Typography>
                 )}
               >
