@@ -97,11 +97,16 @@ export default {
       activeLabel: 'Riabilita ruolo',
     },
     confirmAction: {
-      titleSuspended: 'Sospendi ruolo',
-      titleActive: 'Riabilita ruolo',
-      message: `<0>{{transcodeProductRole2Title}}</0> di <2>{{productTitle}}</2> assegnato a <4>{{memberMame}}</4>.<6/>Vuoi continuare?`,
-      messageActive: 'Stai per riabilitare il ruolo ',
-      messageSuspended: 'Stai per sospendere il ruolo ',
+      suspend: {
+        title: 'Sospendi ruolo',
+        message:
+          'Vuoi sospendere <1>{{memberName}}</1> dal ruolo di <3>{{transcodeProductRole2Title}}</3>? <5 /> Se lo sospendi, non potrà più operare su <8>{{productTitle}}</8>. <10 />Puoi riabilitarlo in qualsiasi momento.',
+      },
+      reactivate: {
+        title: 'Riabilita ruolo',
+        message:
+          'Vuoi riabilitare <1>{{memberName}}</1> nel ruolo di <3>{{transcodeProductRole2Title}}</3>? <5 /> Se lo riabiliti, potrà operare di nuovo su <8>{{productTitle}}</8>. <10 />Puoi sospenderlo di nuovo in qualsiasi momento.',
+      },
       confirmLabel: 'Conferma',
       closeLabel: 'Annulla',
     },
