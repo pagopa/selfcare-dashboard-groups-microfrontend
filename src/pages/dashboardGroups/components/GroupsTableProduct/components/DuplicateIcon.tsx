@@ -20,6 +20,8 @@ export default function DuplicateIcon({ party, p, t }: Props) {
       <Tooltip
         aria-label="DuplicateAction"
         title={t('dashboardGroup.groupProductTableColumns.duplicateActionLink') as string}
+        placement="top"
+        arrow={true}
       >
         <IconButton
           sx={{
