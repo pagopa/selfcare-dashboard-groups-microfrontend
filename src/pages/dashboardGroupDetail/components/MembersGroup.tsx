@@ -101,6 +101,8 @@ export default function MembersGroup({
                 ? `${member.row.name} ${member.row.surname}`
                 : ''
             }
+            placement="top"
+            arrow={true}
           >
             <Typography
               className="ShowDots"
@@ -130,7 +132,11 @@ export default function MembersGroup({
           member.row.status === 'SUSPENDED' ||
           !userProduct?.roles.find((r: PartyUserProductRole) => r.status !== 'SUSPENDED');
         return (
-          <Tooltip title={member.row.email.length > 48 ? member.row.email : ''}>
+          <Tooltip
+            title={member.row.email.length > 48 ? member.row.email : ''}
+            placement="top"
+            arrow={true}
+          >
             <Typography
               sx={{ fontSize: '14px' }}
               variant="body2"
@@ -160,6 +166,8 @@ export default function MembersGroup({
                   title={
                     r.role.length > 35 ? transcodeProductRole2Title(r.role, productRolesLists) : ''
                   }
+                  placement="top"
+                  arrow={true}
                 >
                   <Typography
                     variant="body2"
