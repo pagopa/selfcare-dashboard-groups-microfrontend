@@ -118,7 +118,10 @@ export default function GroupMenu({
           )}
         </>
       ),
-      confirmLabel: t('groupMenu.confirmAction.confirmLabel'),
+      confirmLabel:
+        role?.status === 'ACTIVE'
+          ? t('groupMenu.confirmAction.suspend.confirmLabel')
+          : t('groupMenu.confirmAction.reactivate.confirmLabel'),
       closeLabel: t('groupMenu.confirmAction.closeLabel'),
       onConfirm: confirmChangeStatus,
     });
