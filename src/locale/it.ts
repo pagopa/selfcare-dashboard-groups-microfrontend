@@ -97,12 +97,18 @@ export default {
       activeLabel: 'Riabilita ruolo',
     },
     confirmAction: {
-      titleSuspended: 'Sospendi ruolo',
-      titleActive: 'Riabilita ruolo',
-      message: `<0>{{transcodeProductRole2Title}}</0> di <2>{{productTitle}}</2> assegnato a <4>{{memberMame}}</4>.<6/>Vuoi continuare?`,
-      messageActive: 'Stai per riabilitare il ruolo ',
-      messageSuspended: 'Stai per sospendere il ruolo ',
-      confirmLabel: 'Conferma',
+      suspend: {
+        title: 'Sospendi ruolo',
+        message:
+          'Vuoi sospendere <1>{{memberName}}</1> dal ruolo di <3>{{transcodeProductRole2Title}}</3>? <5 /> Se lo sospendi, non potrà più operare su <8>{{productTitle}}</8>. <10 />Puoi riabilitarlo in qualsiasi momento.',
+        confirmLabel: 'Sospendi',
+      },
+      reactivate: {
+        title: 'Riabilita ruolo',
+        message:
+          'Vuoi riabilitare <1>{{memberName}}</1> nel ruolo di <3>{{transcodeProductRole2Title}}</3>? <5 /> Se lo riabiliti, potrà operare di nuovo su <8>{{productTitle}}</8>. <10 />Puoi sospenderlo di nuovo in qualsiasi momento.',
+        confirmLabel: 'Riabilita',
+      },
       closeLabel: 'Annulla',
     },
     confirmChangeStatus: {
@@ -150,7 +156,7 @@ export default {
         prductPlaceholter: 'Seleziona il prodotto',
         descriptionMaxLength: 'Max 200 caratteri',
         noProductSelected: 'Nessun prodotto selezionato',
-        referentsPlaceholter: 'Seleziona gli utenti che vuoi associare al gruppo',
+        referentsPlaceholder: 'Seleziona gli utenti che vuoi associare al gruppo',
         cancelActionLabel: 'Indietro',
         confirmActionLabel: 'Conferma',
       },
