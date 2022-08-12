@@ -26,7 +26,11 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
           </Typography>
         </Grid>
         <Grid item xs={9}>
-          <Tooltip title={partyGroup.description.length >= 215 ? partyGroup.description : ''}>
+          <Tooltip
+            title={partyGroup.description.length >= 215 ? partyGroup.description : ''}
+            placement="top"
+            arrow={true}
+          >
             <Typography
               variant="body2"
               sx={{
