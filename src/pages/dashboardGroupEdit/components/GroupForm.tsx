@@ -134,7 +134,7 @@ function GroupForm({
   const [productUsers, setProductUsers] = useState<Array<PartyProductUser>>([]);
   const [automaticRemove, setAutomaticRemove] = useState(false);
   const [isNameDuplicated, setIsNameDuplicated] = useState(false);
-  const [productInAddPage, setProductInAddPage] = useState<boolean>();
+  const [productInPage, setProductInPage] = useState<boolean>();
 
   const { registerUnloadEvent, unregisterUnloadEvent } = useUnloadEventInterceptor();
   const onExit = useUnloadEventOnExit();
@@ -165,11 +165,11 @@ function GroupForm({
     const isEnabled = products.filter(
       (p) => p.authorized && p.userRole === 'ADMIN' && p.status === 'ACTIVE'
     );
-    setProductInAddPage(isAddPage && Object.keys(isEnabled).length === 1);
-    if (productInAddPage) {
+    setProductInPage((isClone || isAddPage) && Object.keys(isEnabled).length === 1);
+    if (productInPage) {
       setProductSelected(isEnabled[0]);
     }
-  }, [productInAddPage]);
+  }, [productInPage]);
 
   const goBackInner =
     goBack ??
@@ -447,7 +447,7 @@ function GroupForm({
               <Select
                 error={isProductError}
                 id="product-select"
-                disabled={isEdit || productInAddPage}
+                disabled={isEdit || productInPage}
                 fullWidth
                 value={productSelected?.title ?? ''}
                 displayEmpty
