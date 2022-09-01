@@ -79,7 +79,7 @@ export const updatePartyUserStatus = (
   } else if (status === 'SUSPENDED') {
     trackEvent('USER_SUSPEND', {
       party_id: party.partyId,
-      product: product.id,
+      product_id: product.id,
       product_role: user.userRole,
     });
     return DashboardApi.suspendPartyRelation(role.relationshipId);

@@ -207,7 +207,7 @@ function GroupForm({
         isEdit
           ? { group_id: (initialFormData as PartyGroupOnEdit).id }
           : isClone
-          ? { cloned_group_id: partyGroupCloneId }
+          ? { cloned_group_id: partyGroupCloneId, product_id: productSelected }
           : {}
       )
     );
