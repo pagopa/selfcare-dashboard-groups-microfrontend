@@ -72,7 +72,7 @@ export const updatePartyUserStatus = (
   if (status === 'ACTIVE') {
     trackEvent('USER_RESUME', {
       party_id: party.partyId,
-      product: product.id,
+      product_id: product.id,
       product_role: user.userRole,
     });
     return DashboardApi.activatePartyRelation(role.relationshipId);
