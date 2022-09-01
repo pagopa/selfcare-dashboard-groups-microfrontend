@@ -78,16 +78,6 @@ const CustomDataGrid = styled(DataGrid)({
       justifyContent: 'right',
     },
   },
-  '.MuiButtonBase-root.MuiPaginationItem-root': {
-    fontSize: '16px',
-    fontWeight: 'fontWeightMedium !important',
-    color: 'primary.main',
-    '&.Mui-selected ': {
-      border: 'none !important',
-      backgroundColor: 'transparent !important',
-      color: '#000000',
-    },
-  },
 });
 
 export default function GroupsProductTable({
