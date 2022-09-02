@@ -83,6 +83,7 @@ const GroupsTableProduct = ({
             : { content: groups.content.concat(r.content), page: r.page };
         setGroups(nextGroups);
         setError(false);
+        onFetchStatusUpdate(false, nextGroups.content.length, false);
         if (
           r.page.totalElements <= pageRequest.size ||
           r.page.totalElements === newContentNumberElements
