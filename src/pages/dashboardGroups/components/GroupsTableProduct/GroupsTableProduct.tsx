@@ -44,6 +44,7 @@ const GroupsTableProduct = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [pageRequest, setPageRequest] = useState<PageRequest>({ page: 0, size: initialPageSize });
+  const [contentNumberElements, setContentNumberElements] = useState<number>(0);
 
   const previousInitialPageSize = useRef(initialPageSize);
 
@@ -75,14 +76,23 @@ const GroupsTableProduct = ({
     setLoading(true);
     fetchPartyGroups(party, product, currentUser, pageRequest)
       .then((r) => {
+        const newContentNumberElements = contentNumberElements + r.content.length;
         const nextGroups =
           pageRequest?.page === 0 || !incrementalLoad
             ? r
             : { content: groups.content.concat(r.content), page: r.page };
         setGroups(nextGroups);
         setError(false);
-        setNoMoreData(r.content.length < pageRequest.size);
         onFetchStatusUpdate(false, nextGroups.content.length, false);
+        if (
+          r.page.totalElements <= pageRequest.size ||
+          r.page.totalElements === newContentNumberElements
+        ) {
+          setNoMoreData(true);
+        } else {
+          setNoMoreData(false);
+          setContentNumberElements(newContentNumberElements);
+        }
       })
       .catch((reason) => {
         handleErrors([
