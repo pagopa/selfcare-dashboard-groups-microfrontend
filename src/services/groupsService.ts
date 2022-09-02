@@ -109,13 +109,13 @@ export const updatePartyGroupStatus = (
   if (status === 'ACTIVE') {
     trackEvent('GROUP_RESUME', {
       party_id: party.partyId,
-      product: product.id,
+      product_id: product.id,
     });
     return DashboardApi.updatePartyGroupStatusActivate(group.id);
   } else if (status === 'SUSPENDED') {
     trackEvent('GROUP_SUSPEND', {
       party_id: party.partyId,
-      product: product.id,
+      product_id: product.id,
     });
     return DashboardApi.updatePartyGroupStatusSuspend(group.id);
   } else {
@@ -130,7 +130,7 @@ export const deletePartyGroup = (
 ): Promise<any> => {
   trackEvent('GROUP_DELETE', {
     party_id: party.partyId,
-    product: product.id,
+    product_id: product.id,
   });
   /* istanbul ignore if */
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
@@ -148,7 +148,8 @@ export const deleteGroupRelation = (
 ): Promise<any> => {
   trackEvent('RELATION_GROUP_USER_DELETE', {
     party_id: party.partyId,
-    product: product.id,
+    product_id: product.id,
+    user_id: userId,
   });
   /* istanbul ignore if */
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
