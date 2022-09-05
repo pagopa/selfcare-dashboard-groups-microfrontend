@@ -257,7 +257,12 @@ export default function GroupMenu({
     <>
       {!member.isCurrentUser && canEdit && (
         <Grid item xs={1} display="flex" justifyContent="flex-start">
-          <Tooltip aria-label="ActionsOnTheUser" title={t('groupActions.actionOnUser') as string}>
+          <Tooltip
+            aria-label="ActionsOnTheUser"
+            title={t('groupActions.actionOnUser') as string}
+            placement="top"
+            arrow={true}
+          >
             <IconButton
               sx={{
                 p: '0px',
