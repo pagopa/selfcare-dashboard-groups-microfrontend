@@ -149,7 +149,6 @@ export const deleteGroupRelation = (
   trackEvent('RELATION_GROUP_USER_DELETE', {
     party_id: party.partyId,
     product_id: product.id,
-    user_id: userId,
   });
   /* istanbul ignore if */
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
