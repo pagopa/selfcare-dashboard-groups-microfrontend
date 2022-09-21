@@ -114,7 +114,6 @@ function GroupForm({
   initialFormData,
   productsMap,
   isClone,
-  partyGroupCloneId,
   goBack,
   productsRolesMap,
   isAddPage,
@@ -200,16 +199,9 @@ function GroupForm({
   const trackSaveEvent = () =>
     trackEvent(
       isEdit ? 'GROUP_UPDATE' : isClone ? 'GROUP_CLONE' : 'GROUP_CREATE',
-      Object.assign(
-        {
-          party_id: party.partyId,
-        },
-        isEdit
-          ? { group_id: (initialFormData as PartyGroupOnEdit).id }
-          : isClone
-          ? { cloned_group_id: partyGroupCloneId, product_id: productSelected }
-          : {}
-      )
+      Object.assign({
+        party_id: party.partyId,
+      })
     );
 
   const notifySuccessfulSave = (_values: PartyGroupOnCreation | PartyGroupOnEdit) =>
