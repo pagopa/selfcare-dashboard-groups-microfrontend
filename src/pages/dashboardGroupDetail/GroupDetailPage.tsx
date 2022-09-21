@@ -46,7 +46,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
 
   useEffect(() => {
     if (partyGroup) {
-      trackEvent('OPEN_GROUP_DETAIL', { group_id: partyGroup.id, party_id: party.partyId });
+      trackEvent('OPEN_GROUP_DETAIL', { party_id: party.partyId });
     }
   }, [partyGroup]);
 
