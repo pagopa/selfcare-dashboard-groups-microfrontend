@@ -14,6 +14,7 @@ type Props = {
   selected: boolean;
   onFetchStatusUpdate: (loading: boolean, noData: boolean, error: boolean) => void;
   incrementalLoad: boolean;
+  isProdPnpg?: boolean;
 };
 
 export default function GroupsProductSection({
@@ -23,17 +24,20 @@ export default function GroupsProductSection({
   selected,
   onFetchStatusUpdate,
   incrementalLoad,
+  isProdPnpg,
 }: Props) {
   const [fetchStatus, setFetchStatus] = useState({ loading: true, noData: false, error: false });
   const { t } = useTranslation();
 
   return (
     <Grid container direction="row">
-      <Grid item xs={12} sx={{ mt: 3 }}>
-        <Typography id={product.id} sx={{ fontWeight: 'fontWeightMedium' }}>
-          {product.title}
-        </Typography>
-      </Grid>
+      {!isProdPnpg && (
+        <Grid item xs={12} sx={{ mt: 3 }}>
+          <Typography id={product.id} sx={{ fontWeight: 'fontWeightMedium' }}>
+            {product.title}
+          </Typography>
+        </Grid>
+      )}
       {fetchStatus.loading ||
         (fetchStatus.noData && (
           <Grid item xs={12}>

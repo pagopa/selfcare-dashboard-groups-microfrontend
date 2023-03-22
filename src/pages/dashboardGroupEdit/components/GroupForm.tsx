@@ -139,6 +139,7 @@ function GroupForm({
   const onExit = useUnloadEventOnExit();
 
   const isEdit = !!(initialFormData as PartyGroupOnEdit).id;
+  const prodPnpg = products.find((p) => p.id === 'prod-pn-pg');
 
   useEffect(() => {
     if (window.location.hash === '#users' && isEdit && productSelected && productUsers) {
@@ -162,13 +163,19 @@ function GroupForm({
 
   useEffect(() => {
     const isEnabled = products.filter(
-      (p) => p.authorized && p.userRole === 'ADMIN' && p.productOnBoardingStatus === 'ACTIVE'
+      (p) => p.authorized && p.userRole === 'ADMIN' && p.status === 'ACTIVE'
     );
     setProductInPage((isClone || isAddPage) && Object.keys(isEnabled).length === 1);
     if (productInPage) {
       setProductSelected(isEnabled[0]);
     }
   }, [productInPage]);
+
+  useEffect(() => {
+    if (prodPnpg) {
+      setProductSelected(prodPnpg);
+    }
+  }, []);
 
   const goBackInner =
     goBack ??
@@ -423,60 +430,63 @@ function GroupForm({
             </Typography>
           </Grid>
           {/* Product */}
-          <Grid item xs={12} mb={3}>
-            <FormControl sx={{ width: '100%' }}>
-              <InputLabel
-                id="select-label-products"
-                sx={{
-                  '.MuiInputLabel-root.Mui-focused': {
-                    color: 'text.primary',
-                    fontWeight: 'fontWeightBold',
-                  },
-                }}
-              >
-                {t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
-              </InputLabel>
-              <Select
-                error={isProductError}
-                id="product-select"
-                disabled={isEdit || productInPage}
-                fullWidth
-                value={productSelected?.title ?? ''}
-                displayEmpty
-                variant="outlined"
-                labelId="select-label-products"
-                label={t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
-                input={
-                  <OutlinedInput
-                    label={t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
-                  />
-                }
-                renderValue={(productSelected) => (
-                  <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
-                    {productSelected}
-                  </Typography>
-                )}
-              >
-                {products
-                  .filter((p) => p.userRole === 'ADMIN')
-                  .map((p: Product, index) => (
-                    <MenuItem
-                      key={index}
-                      value={p.title}
-                      sx={{ fontSize: '14px', color: '#000000' }}
-                      onClick={() => setProductSelected(p)}
-                    >
-                      {p.title}
-                    </MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
-            {isProductError ? (
-              <Typography color="#F83E5A" sx={{ fontSize: '14px' }}>
-                {t('dashboardGroupEdit.groupForm.formLabels.noProductSelected')}
-              </Typography>
-            ) : undefined}
-          </Grid>
+          {!prodPnpg && (
+            <Grid item xs={12} mb={3}>
+              <FormControl sx={{ width: '100%' }}>
+                <InputLabel
+                  id="select-label-products"
+                  sx={{
+                    '.MuiInputLabel-root.Mui-focused': {
+                      color: 'text.primary',
+                      fontWeight: 'fontWeightBold',
+                    },
+                  }}
+                >
+                  {t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
+                </InputLabel>
+                <Select
+                  error={isProductError}
+                  id="product-select"
+                  disabled={isEdit || productInPage}
+                  fullWidth
+                  value={productSelected?.title ?? ''}
+                  displayEmpty
+                  variant="outlined"
+                  labelId="select-label-products"
+                  label={t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
+                  input={
+                    <OutlinedInput
+                      label={t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
+                    />
+                  }
+                  renderValue={(productSelected) => (
+                    <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
+                      {productSelected}
+                    </Typography>
+                  )}
+                >
+                  {products
+                    .filter((p) => p.userRole === 'ADMIN')
+                    .map((p: Product, index) => (
+                      <MenuItem
+                        key={index}
+                        value={p.title}
+                        sx={{ fontSize: '14px', color: '#000000' }}
+                        onClick={() => setProductSelected(p)}
+                      >
+                        {p.title}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+              {isProductError ? (
+                <Typography color="#F83E5A" sx={{ fontSize: '14px' }}>
+                  {t('dashboardGroupEdit.groupForm.formLabels.noProductSelected')}
+                </Typography>
+              ) : undefined}
+            </Grid>
+          )}
+
           {/* Members */}
           <Grid item xs={12} width="100%">
             <FormControl sx={{ width: '100%' }}>
