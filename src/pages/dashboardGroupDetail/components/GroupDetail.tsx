@@ -15,7 +15,9 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
     return d.toLocaleDateString('it', { day: '2-digit', month: '2-digit', year: 'numeric' });
   }
   const { t } = useTranslation();
+
   const disabledText = isSuspended ? 'text.disabled' : 'text.primary';
+  const isProdPnpg = partyGroup.productId === 'prod-pn-pg';
 
   return (
     <Grid container spacing={2}>
@@ -49,24 +51,26 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
           </Tooltip>
         </Grid>
       </Grid>
-      <Grid container item alignContent="center">
-        <Grid item xs={3}>
-          <Typography variant="body2" sx={{ color: disabledText }}>
-            {t('groupDetail.product')}
-          </Typography>
+      {!isProdPnpg && (
+        <Grid container item alignContent="center">
+          <Grid item xs={3}>
+            <Typography variant="body2" sx={{ color: disabledText }}>
+              {t('groupDetail.product')}
+            </Typography>
+          </Grid>
+          <Grid item xs={9}>
+            <Typography
+              variant="body2"
+              sx={{
+                fontWeight: 'fontWeightMedium',
+                color: disabledText,
+              }}
+            >
+              {productsMap[partyGroup.productId].title}
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item xs={9}>
-          <Typography
-            variant="body2"
-            sx={{
-              fontWeight: 'fontWeightMedium',
-              color: disabledText,
-            }}
-          >
-            {productsMap[partyGroup.productId].title}
-          </Typography>
-        </Grid>
-      </Grid>
+      )}
       <Grid container item alignContent="center">
         <Grid item xs={3}>
           <Typography variant="body2" sx={{ color: disabledText }}>

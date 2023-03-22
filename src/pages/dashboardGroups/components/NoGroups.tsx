@@ -8,9 +8,10 @@ import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
 
 type Props = {
   party: Party;
+  isProdPnpg: boolean;
 };
 
-export default function NoGroups({ party }: Props) {
+export default function NoGroups({ party, isProdPnpg }: Props) {
   const history = useHistory();
   const onExit = useUnloadEventOnExit();
 
@@ -19,7 +20,7 @@ export default function NoGroups({ party }: Props) {
       container
       direction="row"
       sx={{
-        mt: 3,
+        mt: isProdPnpg ? 0 : 3,
         padding: 2,
         backgroundColor: 'background.paper',
         border: '0px',
@@ -29,7 +30,7 @@ export default function NoGroups({ party }: Props) {
       <Grid item xs={12} display="flex" textAlign="center" justifyContent="center">
         <Typography variant="body2">
           <Trans i18nKey="dashboardGroup.noGroups.noGroupsLabel">
-            Non è ancora stato creato alcun Gruppo.
+            Non è ancora stato creato alcun gruppo.
             <Link
               sx={{
                 textDecoration: 'none!important',
