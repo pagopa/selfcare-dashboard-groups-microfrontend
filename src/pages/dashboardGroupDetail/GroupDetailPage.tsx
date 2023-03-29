@@ -31,6 +31,8 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
 
   const { t } = useTranslation();
 
+  const isProdPnpg = partyGroup.id === 'prod-pn-pg';
+
   const nextGroupStatus: PartyGroupStatus | undefined =
     partyGroupState.status === 'ACTIVE'
       ? 'SUSPENDED'
@@ -39,7 +41,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
       : undefined;
 
   const product = productsMap[partyGroupState.productId];
-  const canEdit = product.userRole === 'ADMIN' && product.status === 'ACTIVE';
+  const canEdit = (product.userRole === 'ADMIN' && product.status === 'ACTIVE') || isProdPnpg;
   const theme = useTheme();
 
   const isSuspended = partyGroupState.status === 'SUSPENDED';
