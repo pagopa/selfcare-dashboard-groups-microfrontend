@@ -1,4 +1,5 @@
 import { User } from '@pagopa/selfcare-common-frontend/model/User';
+import { EmailString } from '@pagopa/ts-commons/lib/strings';
 import { ProductInfoResource } from '../api/generated/b4f-dashboard/ProductInfoResource';
 import { ProductUserResource } from '../api/generated/b4f-dashboard/ProductUserResource';
 import { UserRole, UserStatus } from './Party';
@@ -53,7 +54,7 @@ export const productUserResource2PartyProductUser = (
   id: resource.id,
   name: resource.name,
   surname: resource.surname,
-  email: resource.email,
+  email: resource?.email as EmailString,
   userRole: resource.role,
   product: productInfoResource2PartyUserProduct(resource.product, product),
   status: resource.status as UserStatus,
