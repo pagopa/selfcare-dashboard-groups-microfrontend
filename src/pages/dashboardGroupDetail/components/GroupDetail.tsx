@@ -17,7 +17,7 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
   const { t } = useTranslation();
 
   const disabledText = isSuspended ? 'text.disabled' : 'text.primary';
-  const isProdPnpg = partyGroup.productId === 'prod-pn-pg';
+  const isPnpg = partyGroup.productId.startsWith('prod-pn-pg');
 
   return (
     <Grid container spacing={2}>
@@ -51,7 +51,7 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
           </Tooltip>
         </Grid>
       </Grid>
-      {!isProdPnpg && (
+      {!isPnpg && (
         <Grid container item alignContent="center">
           <Grid item xs={3}>
             <Typography variant="body2" sx={{ color: disabledText }}>
