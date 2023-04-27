@@ -8,10 +8,10 @@ import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
 
 type Props = {
   party: Party;
-  isProdPnpg: boolean;
+  isPnpg: boolean;
 };
 
-export default function NoGroups({ party, isProdPnpg }: Props) {
+export default function NoGroups({ party, isPnpg }: Props) {
   const history = useHistory();
   const onExit = useUnloadEventOnExit();
 
@@ -20,7 +20,7 @@ export default function NoGroups({ party, isProdPnpg }: Props) {
       container
       direction="row"
       sx={{
-        mt: isProdPnpg ? 0 : 3,
+        mt: isPnpg ? 0 : 3,
         padding: 2,
         backgroundColor: 'background.paper',
         border: '0px',
