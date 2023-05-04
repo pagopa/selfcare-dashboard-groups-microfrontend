@@ -45,7 +45,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
 
   const currentUser = useAppSelector(userSelectors.selectLoggedUser) as User;
 
-  const isProdPnpg = !!activeProducts.find((p) => p.id === 'prod-pn-pg');
+  const isPnpg = !!activeProducts.find((p) => p.id.startsWith('prod-pn-pg'));
 
   const mappedProducts = (product: Product) => (
     <Grid key={product.id} item xs={12}>
@@ -61,7 +61,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
           }));
         }}
         incrementalLoad={!selectedProductSection}
-        isProdPnpg={isProdPnpg}
+        isPnpg={isPnpg}
       />
     </Grid>
   );
@@ -104,7 +104,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
             variantSubTitle="body1"
             mbTitle={mbTitle}
             subTitle={
-              !isProdPnpg
+              !isPnpg
                 ? t('dashboardGroup.groupsPage.subTitle')
                 : t('dashboardGroup.groupsPage.subTitlePnpg')
             }
@@ -152,13 +152,13 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
           direction="row"
           alignItems={'center'}
           sx={{ backgroundColor: 'background.default' }}
-          px={isProdPnpg ? 0 : 3}
-          pb={isProdPnpg ? 0 : 3}
+          px={isPnpg ? 0 : 3}
+          pb={isPnpg ? 0 : 3}
           mt={productHavingGroups.length > 1 ? 0 : 5}
         >
           {productHavingGroups.length !== 0 ? productsSection : <></>}
           {!isLoading && productHavingGroups.length === 0 && (
-            <NoGroups party={party} isProdPnpg={isProdPnpg} />
+            <NoGroups party={party} isPnpg={isPnpg} />
           )}
         </Grid>
       </Grid>

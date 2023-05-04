@@ -41,7 +41,7 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
     },
   ];
 
-  const isProdPnpg = !!activeProducts.find((p) => p.id === 'prod-pn-pg');
+  const isPnpg = !!activeProducts.find((p) => p.id === 'prod-pn-pg');
 
   return (
     <div style={{ width: '100%' }}>
@@ -63,7 +63,7 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
               variantSubTitle="body1"
               title={t('dashboardGroupEdit.addGroupPage.title')}
               subTitle={
-                isProdPnpg
+                isPnpg
                   ? t('dashboardGroupEdit.addGroupPage.pnpgSubTitle')
                   : t('dashboardGroupEdit.addGroupPage.subTitle')
               }
