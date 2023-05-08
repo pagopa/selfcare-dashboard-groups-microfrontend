@@ -141,7 +141,8 @@ function GroupForm({
   const isEdit = !!(initialFormData as PartyGroupOnEdit).id;
   const prodPnpg = products.find((p) => p.id === 'prod-pn-pg');
 
-  const otherEnvironmentProdPnpg = prodPnpg && products.length > 1;
+  const otherEnvironmentProdPnpg =
+    prodPnpg && products.filter((p) => p.productOnBoardingStatus === 'ACTIVE').length === 1;
 
   useEffect(() => {
     if (window.location.hash === '#users' && isEdit && productSelected && productUsers) {
