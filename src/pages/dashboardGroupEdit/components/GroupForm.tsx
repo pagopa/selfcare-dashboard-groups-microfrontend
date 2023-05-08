@@ -141,6 +141,8 @@ function GroupForm({
   const isEdit = !!(initialFormData as PartyGroupOnEdit).id;
   const prodPnpg = products.find((p) => p.id === 'prod-pn-pg');
 
+  const otherEnvironmentProdPnpg = prodPnpg && products.length > 1;
+
   useEffect(() => {
     if (window.location.hash === '#users' && isEdit && productSelected && productUsers) {
       const event = new MouseEvent('mousedown', { bubbles: true });
@@ -172,9 +174,7 @@ function GroupForm({
   }, [productInPage]);
 
   useEffect(() => {
-    if (prodPnpg) {
-      setProductSelected(prodPnpg);
-    }
+    setProductSelected(prodPnpg && !otherEnvironmentProdPnpg ? prodPnpg : undefined);
   }, []);
 
   const goBackInner =
@@ -430,7 +430,7 @@ function GroupForm({
             </Typography>
           </Grid>
           {/* Product */}
-          {!prodPnpg && (
+          {!otherEnvironmentProdPnpg && (
             <Grid item xs={12} mb={3}>
               <FormControl sx={{ width: '100%' }}>
                 <InputLabel
