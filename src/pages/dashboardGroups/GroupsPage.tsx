@@ -46,6 +46,8 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
   const currentUser = useAppSelector(userSelectors.selectLoggedUser) as User;
 
   const isPnpg = !!activeProducts.find((p) => p.id.startsWith('prod-pn-pg'));
+  const isPnpgTheOnlyProduct =
+    !!activeProducts.find((p) => p.id.startsWith('prod-pn-pg')) && activeProducts.length === 1;
 
   const mappedProducts = (product: Product) => (
     <Grid key={product.id} item xs={12}>
@@ -61,7 +63,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
           }));
         }}
         incrementalLoad={!selectedProductSection}
-        isPnpg={isPnpg}
+        isPnpgTheOnlyProduct={isPnpgTheOnlyProduct}
       />
     </Grid>
   );
