@@ -15,6 +15,14 @@ export default function NoGroups({ party, isPnpg }: Props) {
   const history = useHistory();
   const onExit = useUnloadEventOnExit();
 
+  const addGroupRedirect = () => {
+    history.push(
+      resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_ADD.path, {
+        partyId: party.partyId,
+      })
+    );
+  };
+
   return (
     <Grid
       container
@@ -37,18 +45,13 @@ export default function NoGroups({ party, isPnpg }: Props) {
                 cursor: 'pointer',
                 fontWeight: 'fontWeightBold',
               }}
-              onClick={() =>
-                onExit(() =>
-                  history.push(
-                    resolvePathVariables(
-                      DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_ADD.path,
-                      {
-                        partyId: party.partyId,
-                      }
-                    )
-                  )
-                )
-              }
+              onClick={() => onExit(() => addGroupRedirect())}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  addGroupRedirect();
+                }
+              }}
+              tabIndex={0}
             >
               <b>Crea gruppo</b>
             </Link>
