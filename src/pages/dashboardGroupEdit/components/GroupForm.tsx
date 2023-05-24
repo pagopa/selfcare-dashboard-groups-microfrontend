@@ -144,6 +144,8 @@ function GroupForm({
   useEffect(() => {
     if (initialFormData.productId) {
       setProductSelected(productsMap[initialFormData.productId]);
+    } else if (prodPnpg && !otherEnvironmentProdPnpg) {
+      setProductSelected(prodPnpg);
     }
   }, [initialFormData.productId]);
 
@@ -156,10 +158,6 @@ function GroupForm({
       setProductSelected(isEnabled[0]);
     }
   }, [productInPage]);
-
-  useEffect(() => {
-    setProductSelected(prodPnpg && !otherEnvironmentProdPnpg ? prodPnpg : undefined);
-  }, []);
 
   const goBackInner =
     goBack ??
@@ -551,7 +549,7 @@ function GroupForm({
                         background: 'primary.main',
                       },
                       overflowY: 'auto',
-                      height: '100%',
+                      height: 'auto',
                       maxHeight: '200px',
                     },
                   },
@@ -584,7 +582,7 @@ function GroupForm({
                       value={u.name}
                       sx={{
                         width: '100%',
-                        height: '70px',
+                        height: 'auto',
                         pl: 0,
                         pr: 3,
                       }}
