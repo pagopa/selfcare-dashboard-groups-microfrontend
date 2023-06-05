@@ -40,22 +40,6 @@ import { fetchPartyProductUsers } from '../../../services/usersService';
 import { useAppSelector } from '../../../redux/hooks';
 import AlertRemoveUsersInClone from '../components/AlertRemoveUsersInClone';
 import { ProductsRolesMap, transcodeProductRole2Title } from '../../../model/ProductRole';
-
-const CustomBox = styled(Box)({
-  '&::-webkit-scrollbar': {
-    width: 8,
-  },
-  '&::-webkit-scrollbar-track': {
-    boxShadow: `inset 10px 10px  #E6E9F2`,
-  },
-  '&::-webkit-scrollbar-thumb': {
-    backgroundColor: '#0073E6',
-  },
-  overflowY: 'auto',
-  height: '100%',
-  maxHeight: '200px',
-});
-
 const CustomTextField = styled(TextField)({
   '.MuiInputLabel-asterisk': {
     display: 'none',
@@ -134,11 +118,14 @@ function GroupForm({
   const [automaticRemove, setAutomaticRemove] = useState(false);
   const [isNameDuplicated, setIsNameDuplicated] = useState(false);
   const [productInPage, setProductInPage] = useState<boolean>();
-
   const { registerUnloadEvent, unregisterUnloadEvent } = useUnloadEventInterceptor();
   const onExit = useUnloadEventOnExit();
 
   const isEdit = !!(initialFormData as PartyGroupOnEdit).id;
+  const prodPnpg = products.find((p) => p.id === 'prod-pn-pg');
+
+  const otherEnvironmentProdPnpg =
+    prodPnpg && products.filter((p) => p.productOnBoardingStatus === 'ACTIVE').length === 1;
 
   useEffect(() => {
     if (window.location.hash === '#users' && isEdit && productSelected && productUsers) {
@@ -157,12 +144,14 @@ function GroupForm({
   useEffect(() => {
     if (initialFormData.productId) {
       setProductSelected(productsMap[initialFormData.productId]);
+    } else if (prodPnpg && !otherEnvironmentProdPnpg) {
+      setProductSelected(prodPnpg);
     }
   }, [initialFormData.productId]);
 
   useEffect(() => {
     const isEnabled = products.filter(
-      (p) => p.authorized && p.userRole === 'ADMIN' && p.productOnBoardingStatus === 'ACTIVE'
+      (p) => p.authorized && p.userRole === 'ADMIN' && p.status === 'ACTIVE'
     );
     setProductInPage((isClone || isAddPage) && Object.keys(isEnabled).length === 1);
     if (productInPage) {
@@ -372,6 +361,14 @@ function GroupForm({
   //   void formik.setFieldValue('members', [], true);
   // };
 
+  const groupMemberToRemove = (member: PartyProductUser) => {
+    void formik.setFieldValue(
+      'members',
+      formik.values.members.filter((us) => us !== member),
+      true
+    );
+  };
+
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
@@ -423,66 +420,70 @@ function GroupForm({
             </Typography>
           </Grid>
           {/* Product */}
-          <Grid item xs={12} mb={3}>
-            <FormControl sx={{ width: '100%' }}>
-              <InputLabel
-                id="select-label-products"
-                sx={{
-                  '.MuiInputLabel-root.Mui-focused': {
-                    color: 'text.primary',
-                    fontWeight: 'fontWeightBold',
-                  },
-                }}
-              >
-                {t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
-              </InputLabel>
-              <Select
-                error={isProductError}
-                id="product-select"
-                disabled={isEdit || productInPage}
-                fullWidth
-                value={productSelected?.title ?? ''}
-                displayEmpty
-                variant="outlined"
-                labelId="select-label-products"
-                label={t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
-                input={
-                  <OutlinedInput
-                    label={t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
-                  />
-                }
-                renderValue={(productSelected) => (
-                  <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
-                    {productSelected}
-                  </Typography>
-                )}
-              >
-                {products
-                  .filter((p) => p.userRole === 'ADMIN')
-                  .map((p: Product, index) => (
-                    <MenuItem
-                      key={index}
-                      value={p.title}
-                      sx={{ fontSize: '14px', color: '#000000' }}
-                      onClick={() => setProductSelected(p)}
-                    >
-                      {p.title}
-                    </MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
-            {isProductError ? (
-              <Typography color="#F83E5A" sx={{ fontSize: '14px' }}>
-                {t('dashboardGroupEdit.groupForm.formLabels.noProductSelected')}
-              </Typography>
-            ) : undefined}
-          </Grid>
+          {!otherEnvironmentProdPnpg && (
+            <Grid item xs={12} mb={3}>
+              <FormControl sx={{ width: '100%' }}>
+                <InputLabel
+                  id="select-label-products"
+                  sx={{
+                    '.MuiInputLabel-root.Mui-focused': {
+                      color: 'text.primary',
+                      fontWeight: 'fontWeightBold',
+                    },
+                  }}
+                >
+                  {t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
+                </InputLabel>
+                <Select
+                  error={isProductError}
+                  id="product-select"
+                  disabled={isEdit || productInPage}
+                  fullWidth
+                  value={productSelected?.title ?? ''}
+                  displayEmpty
+                  variant="outlined"
+                  labelId="select-label-products"
+                  label={t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
+                  input={
+                    <OutlinedInput
+                      label={t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
+                    />
+                  }
+                  renderValue={(productSelected) => (
+                    <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
+                      {productSelected}
+                    </Typography>
+                  )}
+                >
+                  {products
+                    .filter((p) => p.userRole === 'ADMIN')
+                    .map((p: Product, index) => (
+                      <MenuItem
+                        key={index}
+                        value={p.title}
+                        sx={{ fontSize: '14px', color: '#000000' }}
+                        onClick={() => setProductSelected(p)}
+                      >
+                        {p.title}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+              {isProductError ? (
+                <Typography color="#F83E5A" sx={{ fontSize: '14px' }}>
+                  {t('dashboardGroupEdit.groupForm.formLabels.noProductSelected')}
+                </Typography>
+              ) : undefined}
+            </Grid>
+          )}
+
           {/* Members */}
           <Grid item xs={12} width="100%">
             <FormControl sx={{ width: '100%' }}>
               <InputLabel id="select-label-members">
                 {t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholder')}
               </InputLabel>
+
               <Select
                 // TODO
                 // endAdornment={
@@ -519,6 +520,40 @@ function GroupForm({
                     {selectedUser.map((su) => su.name + ' ' + su.surname).join(', ')}
                   </Typography>
                 )}
+                MenuProps={{
+                  PaperProps: {
+                    sx: {
+                      '&::-webkit-scrollbar': {
+                        width: 8,
+                      },
+                      '&::-webkit-scrollbar-track': {
+                        boxShadow: `inset 10px 10px  #E6E9F2`,
+                      },
+                      '&::-webkit-scrollbar-thumb': {
+                        backgroundColor: '#0073E6',
+                      },
+                      '::-webkit-scrollbar': {
+                        width: '4px',
+                      },
+                      '::-webkit-scrollbar-track': {
+                        boxShadow: 'inset 0 0 5px #F2F6FA',
+                        borderRadius: '20px',
+                      },
+                      '::-webkit-scrollbar-thumb': {
+                        background: 'primary.main',
+                        backgroundClip: 'padding-box',
+                        borderRadius: '20px',
+                        height: '54px',
+                      },
+                      '::-webkit-scrollbar-thumb:hover': {
+                        background: 'primary.main',
+                      },
+                      overflowY: 'auto',
+                      height: 'auto',
+                      maxHeight: '200px',
+                    },
+                  },
+                }}
                 sx={{
                   '& .MuiSelect-select.MuiSelect-outlined.MuiSelect-multiple.MuiOutlinedInput-input.MuiInputBase-input.css-12l43fo-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input':
                     {
@@ -526,173 +561,151 @@ function GroupForm({
                     },
                 }}
               >
-                <CustomBox
-                  my={1}
-                  sx={{
-                    /* width */
-                    '::-webkit-scrollbar': {
-                      width: '4px',
-                    },
-                    /* Track */
-                    '::-webkit-scrollbar-track': {
-                      boxShadow: 'inset 0 0 5px #F2F6FA',
-                      borderRadius: '20px',
-                    },
-                    /* Handle */
-                    '::-webkit-scrollbar-thumb': {
-                      background: 'primary.main',
-                      backgroundClip: 'padding-box',
-                      borderRadius: '20px',
-                      height: '54px',
-                    },
-
-                    /* Handle on hover */
-                    '::-webkit-scrollbar-thumb:hover': {
-                      background: 'primary.main',
-                    },
-                  }}
-                >
-                  {Object.values(productUsers).map((u: PartyProductUser) => {
-                    const checkedIndex = formik.values.members.findIndex((s) => s.id === u.id);
-                    const isChecked = checkedIndex > -1;
-                    const onItemSelected = () => {
-                      const nextUsersSelected = isChecked
-                        ? formik.values.members.filter((_s, index) => index !== checkedIndex)
-                        : formik.values.members.concat(u);
-                      if (automaticRemove && containsInitialUsers(nextUsersSelected)) {
-                        setAutomaticRemove(false);
-                      }
-                      void formik.setFieldValue('members', nextUsersSelected, true);
-                    };
-                    const isAllMemeberSuspended = !u.product.roles.find(
-                      (r: any) => r.status !== 'SUSPENDED'
-                    );
-                    return (
-                      <MenuItem
-                        key={u.id}
-                        value={u.name}
-                        sx={{
-                          width: '100%',
-                          height: '70px',
-                          pl: 0,
-                          pr: 3,
-                        }}
-                      >
-                        <Checkbox checked={isChecked} onClick={onItemSelected} />
-                        <Grid container>
-                          <Grid
-                            container
-                            item
-                            xs={8}
-                            sx={{
-                              width: '250px',
-                            }}
-                          >
-                            <Grid item xs={12}>
-                              <Typography
-                                variant="body1"
-                                sx={{
-                                  height: 'auto',
-                                  textOverflow: 'ellipsis',
-                                  whiteSpace: 'nowrap',
-                                  overflow: 'hidden',
-                                  fontSize: 'fontSize',
-                                  fontWeight: 'fontWeightMedium',
-                                }}
-                              >
-                                {u.name} {u.surname}
-                              </Typography>
-                            </Grid>
-                            <Grid item xs={12}>
-                              <div
-                                style={{
-                                  overflow: 'hidden',
-                                  textOverflow: 'ellipsis',
-                                  whiteSpace: 'nowrap',
-                                }}
-                              >
-                                <Typography
-                                  variant="caption"
-                                  sx={{
-                                    color: 'text.secondary',
-                                  }}
-                                >
-                                  {u.email}
-                                </Typography>
-                              </div>
-                            </Grid>
+                {Object.values(productUsers).map((u: PartyProductUser) => {
+                  const checkedIndex = formik.values.members.findIndex((s) => s.id === u.id);
+                  const isChecked = checkedIndex > -1;
+                  const onItemSelected = () => {
+                    const nextUsersSelected = isChecked
+                      ? formik.values.members.filter((_s, index) => index !== checkedIndex)
+                      : formik.values.members.concat(u);
+                    if (automaticRemove && containsInitialUsers(nextUsersSelected)) {
+                      setAutomaticRemove(false);
+                    }
+                    void formik.setFieldValue('members', nextUsersSelected, true);
+                  };
+                  const isAllMemberSuspended = !u.product.roles.find(
+                    (r: any) => r.status !== 'SUSPENDED'
+                  );
+                  return (
+                    <MenuItem
+                      key={u.id}
+                      value={u.name}
+                      sx={{
+                        width: '100%',
+                        height: 'auto',
+                        pl: 0,
+                        pr: 3,
+                      }}
+                      onKeyDownCapture={(e) => {
+                        if (e.key === 'Enter') {
+                          onItemSelected();
+                        }
+                      }}
+                    >
+                      <Checkbox checked={isChecked} onClick={onItemSelected} />
+                      <Grid container>
+                        <Grid
+                          container
+                          item
+                          xs={8}
+                          sx={{
+                            width: '250px',
+                          }}
+                        >
+                          <Grid item xs={12}>
+                            <Typography
+                              variant="body1"
+                              sx={{
+                                height: 'auto',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden',
+                                fontSize: 'fontSize',
+                                fontWeight: 'fontWeightMedium',
+                              }}
+                            >
+                              {u.name} {u.surname}
+                            </Typography>
                           </Grid>
-                          <Grid container item xs={4} display="flex" justifyContent="end">
-                            <Box display="flex">
-                              {isAllMemeberSuspended && (
-                                <Box justifyContent="center" display="flex" flexDirection="column">
-                                  <Chip
-                                    label={t('groupDetail.status')}
-                                    aria-label="Suspended"
-                                    variant="outlined"
-                                    sx={{
-                                      mr: 2,
-                                      fontWeight: 'fontWeightMedium',
-                                      fontSize: '14px',
-                                      backgroundColor: 'warning.light',
-                                      border: 'none',
-                                      borderRadius: '16px',
-                                      width: '78px',
-                                      height: '24px',
-                                    }}
-                                  />
-                                </Box>
-                              )}
-                              <Box
-                                justifyContent="center"
-                                display="flex"
-                                flexDirection="column"
-                                alignItems="flex-end"
+                          <Grid item xs={12}>
+                            <div
+                              style={{
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                              }}
+                            >
+                              <Typography
+                                variant="caption"
+                                sx={{
+                                  color: 'text.secondary',
+                                }}
                               >
-                                {u.product.roles.map((r, indexRole) => (
-                                  <Box display="flex" key={indexRole}>
-                                    {r.status === 'SUSPENDED' && !isAllMemeberSuspended && (
-                                      <Box>
-                                        <Chip
-                                          label={t('groupDetail.status')}
-                                          aria-label="Suspended"
-                                          variant="outlined"
-                                          sx={{
-                                            mr: 2,
-                                            fontWeight: 'fontWeightMedium',
-                                            fontSize: '14px',
-                                            backgroundColor: 'warning.light',
-                                            border: 'none',
-                                            borderRadius: '16px',
-                                            width: '78px',
-                                            height: '24px',
-                                          }}
-                                        />
-                                      </Box>
-                                    )}
-
-                                    <Box>
-                                      <Typography
-                                        color={'text.primary'}
-                                        variant="caption"
-                                        sx={{ fontWeight: 'fontWeightMedium' }}
-                                      >
-                                        {transcodeProductRole2Title(
-                                          r.role,
-                                          productsRolesMap[u.product.id]
-                                        )}
-                                      </Typography>
-                                    </Box>
-                                  </Box>
-                                ))}
-                              </Box>
-                            </Box>
+                                {u.email}
+                              </Typography>
+                            </div>
                           </Grid>
                         </Grid>
-                      </MenuItem>
-                    );
-                  })}
-                </CustomBox>
+                        <Grid container item xs={4} display="flex" justifyContent="end">
+                          <Box display="flex">
+                            {isAllMemberSuspended && (
+                              <Box justifyContent="center" display="flex" flexDirection="column">
+                                <Chip
+                                  label={t('groupDetail.status')}
+                                  aria-label="Suspended"
+                                  variant="outlined"
+                                  sx={{
+                                    mr: 2,
+                                    fontWeight: 'fontWeightMedium',
+                                    fontSize: '14px',
+                                    backgroundColor: 'warning.light',
+                                    border: 'none',
+                                    borderRadius: '16px',
+                                    width: '78px',
+                                    height: '24px',
+                                  }}
+                                />
+                              </Box>
+                            )}
+                            <Box
+                              justifyContent="center"
+                              display="flex"
+                              flexDirection="column"
+                              alignItems="flex-end"
+                            >
+                              {u.product.roles.map((r, indexRole) => (
+                                <Box display="flex" key={indexRole}>
+                                  {r.status === 'SUSPENDED' && !isAllMemberSuspended && (
+                                    <Box>
+                                      <Chip
+                                        label={t('groupDetail.status')}
+                                        aria-label="Suspended"
+                                        variant="outlined"
+                                        sx={{
+                                          mr: 2,
+                                          fontWeight: 'fontWeightMedium',
+                                          fontSize: '14px',
+                                          backgroundColor: 'warning.light',
+                                          border: 'none',
+                                          borderRadius: '16px',
+                                          width: '78px',
+                                          height: '24px',
+                                        }}
+                                      />
+                                    </Box>
+                                  )}
+
+                                  <Box>
+                                    <Typography
+                                      color={'text.primary'}
+                                      variant="caption"
+                                      sx={{ fontWeight: 'fontWeightMedium' }}
+                                    >
+                                      {transcodeProductRole2Title(
+                                        r.role,
+                                        productsRolesMap[u.product.id]
+                                      )}
+                                    </Typography>
+                                  </Box>
+                                </Box>
+                              ))}
+                            </Box>
+                          </Box>
+                        </Grid>
+                      </Grid>
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
             {/* Box */}
@@ -709,14 +722,18 @@ function GroupForm({
                   variant="outlined"
                   key={s.id}
                   label={s.name + ' ' + s.surname}
-                  onDelete={() =>
-                    formik.setFieldValue(
-                      'members',
-                      formik.values.members.filter((us) => us !== s),
-                      true
-                    )
+                  onDelete={() => groupMemberToRemove(s)}
+                  deleteIcon={
+                    <ClearCircleIcon
+                      onMouseDown={(e) => e.stopPropagation()}
+                      tabIndex={0}
+                      onKeyDownCapture={(e) => {
+                        if (e.key === 'Enter') {
+                          groupMemberToRemove(s);
+                        }
+                      }}
+                    />
                   }
-                  deleteIcon={<ClearCircleIcon onMouseDown={(e) => e.stopPropagation()} />}
                 />
               ))}
             </Grid>

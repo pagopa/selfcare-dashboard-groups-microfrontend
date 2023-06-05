@@ -13,8 +13,8 @@ import {
   PartyUserProduct,
   PartyUserProductRole,
 } from '../../model/PartyUser';
-import { Product } from '../../model/Product';
 import { ProductRole } from '../../model/ProductRole';
+import { Product } from '../../model/Product';
 
 export const mockedUsers: Array<PartyUserExt> = [
   // use case ACTIVE on 1 product/role
@@ -633,6 +633,79 @@ export const mockedUsers: Array<PartyUserExt> = [
           {
             relationshipId: 'rel22',
             role: 'referente-tecnico',
+            selcRole: 'LIMITED',
+            status: 'ACTIVE',
+          },
+        ],
+      },
+    ],
+    isCurrentUser: false,
+  },
+  // Use cases introduced for selfcare PNPG
+  {
+    id: 'uid60',
+    taxCode: 'TAXCOD04A00A121P',
+    name: 'Marco',
+    surname: 'Marchetti',
+    email: 'marco.m@comune.milano.it',
+    userRole: 'ADMIN',
+    status: 'ACTIVE',
+    products: [
+      {
+        title: 'SEND',
+        id: 'prod-pn-pg',
+        roles: [
+          {
+            relationshipId: 'rel4',
+            role: 'Gestore Notifiche',
+            selcRole: 'LIMITED',
+            status: 'ACTIVE',
+          },
+        ],
+      },
+    ],
+    isCurrentUser: false,
+  },
+  {
+    id: 'uid61',
+    taxCode: 'TAXCOD04A00A421P',
+    name: 'Fabio',
+    surname: 'Lopez',
+    email: 'fabio.l@comune.milano.it',
+    userRole: 'ADMIN',
+    status: 'ACTIVE',
+    products: [
+      {
+        title: 'SEND',
+        id: 'prod-pn-pg',
+        roles: [
+          {
+            relationshipId: 'rel4',
+            role: 'Amministratore',
+            selcRole: 'LIMITED',
+            status: 'ACTIVE',
+          },
+        ],
+      },
+    ],
+    isCurrentUser: false,
+  },
+  {
+    id: 'uid62',
+    taxCode: 'TAXCOD14A00A521P',
+    name: 'Marco',
+    surname: 'Marchisio',
+    email: 'marco.m@comune.milano.it',
+    userRole: 'ADMIN',
+    status: 'ACTIVE',
+    products: [
+      {
+        title: 'SEND',
+        id: 'prod-pn-pg',
+        roles: [
+          {
+            relationshipId: 'rel4',
+            role: 'Amministratore',
             selcRole: 'LIMITED',
             status: 'ACTIVE',
           },
