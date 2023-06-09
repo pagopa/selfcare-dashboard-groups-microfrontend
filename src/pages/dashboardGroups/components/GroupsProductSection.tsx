@@ -51,7 +51,9 @@ export default function GroupsProductSection({
               mt={2}
               pt={2}
             >
-              {t('dashboardGroup.noGroups.noGroupsForProduct')}
+              {isPnpgTheOnlyProduct
+                ? t('dashboardGroup.noGroups.noGroupsLabel')
+                : t('dashboardGroup.noGroups.noGroupsForProduct')}
             </Typography>
           </Grid>
         ))}
