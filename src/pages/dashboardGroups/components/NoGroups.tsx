@@ -37,7 +37,7 @@ export default function NoGroups({ party, isPnpg }: Props) {
     >
       <Grid item xs={12} display="flex" textAlign="center" justifyContent="center">
         <Typography variant="body2">
-          <Trans i18nKey="dashboardGroup.noGroups.noGroupsLabel">
+          <Trans i18nKey="dashboardGroup.noGroups.createGroup">
             Non è ancora stato creato alcun gruppo.
             <Link
               sx={{
