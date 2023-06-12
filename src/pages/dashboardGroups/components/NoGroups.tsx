@@ -8,19 +8,27 @@ import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
 
 type Props = {
   party: Party;
-  isProdPnpg: boolean;
+  isPnpg: boolean;
 };
 
-export default function NoGroups({ party, isProdPnpg }: Props) {
+export default function NoGroups({ party, isPnpg }: Props) {
   const history = useHistory();
   const onExit = useUnloadEventOnExit();
+
+  const addGroupRedirect = () => {
+    history.push(
+      resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_ADD.path, {
+        partyId: party.partyId,
+      })
+    );
+  };
 
   return (
     <Grid
       container
       direction="row"
       sx={{
-        mt: isProdPnpg ? 0 : 3,
+        mt: isPnpg ? 0 : 3,
         padding: 2,
         backgroundColor: 'background.paper',
         border: '0px',
@@ -29,7 +37,7 @@ export default function NoGroups({ party, isProdPnpg }: Props) {
     >
       <Grid item xs={12} display="flex" textAlign="center" justifyContent="center">
         <Typography variant="body2">
-          <Trans i18nKey="dashboardGroup.noGroups.noGroupsLabel">
+          <Trans i18nKey="dashboardGroup.noGroups.createGroup">
             Non è ancora stato creato alcun gruppo.
             <Link
               sx={{
@@ -37,18 +45,13 @@ export default function NoGroups({ party, isProdPnpg }: Props) {
                 cursor: 'pointer',
                 fontWeight: 'fontWeightBold',
               }}
-              onClick={() =>
-                onExit(() =>
-                  history.push(
-                    resolvePathVariables(
-                      DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_ADD.path,
-                      {
-                        partyId: party.partyId,
-                      }
-                    )
-                  )
-                )
-              }
+              onClick={() => onExit(() => addGroupRedirect())}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  addGroupRedirect();
+                }
+              }}
+              tabIndex={0}
             >
               <b>Crea gruppo</b>
             </Link>

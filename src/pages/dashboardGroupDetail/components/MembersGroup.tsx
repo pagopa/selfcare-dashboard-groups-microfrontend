@@ -128,12 +128,12 @@ export default function MembersGroup({
       width: 300,
       renderCell: (member: GridRenderCellParams<any, any, any>) => {
         const userProduct = member.row.product;
-        const isMemeberSuspended =
+        const isMemberSuspended =
           member.row.status === 'SUSPENDED' ||
           !userProduct?.roles.find((r: PartyUserProductRole) => r.status !== 'SUSPENDED');
         return (
           <Tooltip
-            title={member.row.email.length > 48 ? member.row.email : ''}
+            title={member.row.email?.length > 48 ? member.row.email : ''}
             placement="top"
             arrow={true}
           >
@@ -141,10 +141,10 @@ export default function MembersGroup({
               sx={{ fontSize: '14px' }}
               variant="body2"
               className="ShowDots"
-              color={isMemeberSuspended || isSuspended ? 'text.disabled' : undefined}
+              color={isMemberSuspended || isSuspended ? 'text.disabled' : undefined}
               width="100%"
             >
-              {member.row.email}
+              {member.row.email ?? '-'}
             </Typography>
           </Tooltip>
         );
