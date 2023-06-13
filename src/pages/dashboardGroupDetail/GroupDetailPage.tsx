@@ -164,7 +164,12 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
           />
         </Grid>
       </Grid>
-      <Grid container item xs={12} sx={{ backgroundColor: 'background.paper', padding: '24px' }}>
+      <Grid
+        container
+        item
+        xs={12}
+        sx={{ backgroundColor: 'background.paper', padding: '24px', borderRadius: '4px' }}
+      >
         <Grid item width="100%">
           <GroupDetail
             partyGroup={partyGroupState}
