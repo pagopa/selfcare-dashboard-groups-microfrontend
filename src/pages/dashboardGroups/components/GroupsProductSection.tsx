@@ -46,6 +46,7 @@ export default function GroupsProductSection({
                 backgroundColor: 'background.paper',
                 height: '56px',
                 textAlign: 'center',
+                borderRadius: '4px',
               }}
               variant={'body2'}
               mt={2}
