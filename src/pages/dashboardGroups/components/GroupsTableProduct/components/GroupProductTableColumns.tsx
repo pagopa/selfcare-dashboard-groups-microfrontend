@@ -21,7 +21,7 @@ export function buildColumnDefs(
       width: 403,
       editable: false,
       disableColumnMenu: true,
-      renderHeader: showCustmHeader,
+      renderHeader: showCustomHeader,
       renderCell: (params) => showName(params, false, onRowClick),
       sortable: true,
       flex: 4,
@@ -35,7 +35,7 @@ export function buildColumnDefs(
       width: 404,
       editable: false,
       disableColumnMenu: true,
-      renderHeader: showCustmHeader,
+      renderHeader: showCustomHeader,
       renderCell: (params) => renderCell(params, undefined, onRowClick),
       sortable: false,
       flex: 4,
@@ -44,14 +44,15 @@ export function buildColumnDefs(
       field: 'referenti',
       cellClassName: 'justifyContentNormalRight',
       headerName: t('dashboardGroup.groupProductTableColumns.headerFields.referents'),
-      align: 'center',
+      align: 'left',
+      headerAlign: 'left',
       width: 403,
       hideSortIcons: true,
       disableColumnMenu: true,
       editable: false,
       valueGetter: (params) => (params.row as PartyGroup).membersCount,
-      renderCell: (params) => showRefernts(params, onRowClick),
-      renderHeader: showCustmHeader,
+      renderCell: (params) => showReferents(params, onRowClick),
+      renderHeader: showCustomHeader,
       sortable: false,
       flex: 3,
     },
@@ -142,13 +143,16 @@ function isGroupSuspended(partyGroup: PartyGroup): boolean {
   return partyGroup.status === 'SUSPENDED';
 }
 
-function showCustmHeader(params: GridColumnHeaderParams) {
+function showCustomHeader(params: GridColumnHeaderParams) {
   return (
     <React.Fragment>
       <Typography
-        color="colorTextPrimary"
-        variant="caption"
-        sx={{ fontWeight: 'fontWeightBold', outline: 'none', paddingLeft: 1 }}
+        sx={{
+          fontSize: '16px',
+          fontWeight: 'fontWeightMedium',
+          outline: 'none',
+          paddingLeft: '14px',
+        }}
       >
         {params.colDef.headerName}
       </Typography>
@@ -202,7 +206,7 @@ function showName(
   );
 }
 
-function showRefernts(params: GridRenderCellParams, onRowClick: (partyGroup: PartyGroup) => void) {
+function showReferents(params: GridRenderCellParams, onRowClick: (partyGroup: PartyGroup) => void) {
   return (
     <React.Fragment>
       {renderCell(
@@ -222,7 +226,7 @@ function showRefernts(params: GridRenderCellParams, onRowClick: (partyGroup: Par
                 WebkitBoxOrient: 'vertical' as const,
                 width: '100%',
                 color: params.row.status === 'SUSPENDED' ? 'text.disabled' : undefined,
-                fontWeight: 'fontWeightMedium',
+                fontSize: '14px',
                 padding: '4px',
               }}
             >
@@ -266,7 +270,7 @@ function showStatus(params: GridRenderCellParams, onRowClick: (partyGroup: Party
     <>
       {showChip && (
         <Box sx={{ cursor: 'pointer' }}>
-          <TableChip text="Sospeso" />
+          <TableChip text={i18n.t('groupDetail.status')} />
         </Box>
       )}
     </>,
