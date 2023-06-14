@@ -122,9 +122,6 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
           xs={12}
           mt={5}
           sx={{
-            borderBottom: 1,
-            borderBottomWidth: '2px',
-            borderColor: 'divider',
             position: 'sticky',
             top: 0,
             zIndex: 100,
@@ -153,9 +150,9 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
           container
           direction="row"
           alignItems={'center'}
-          sx={{ backgroundColor: 'background.default' }}
-          px={isPnpg ? 0 : 3}
-          pb={isPnpg ? 0 : 3}
+          sx={{ backgroundColor: '#EEEEEE' }}
+          px={isPnpgTheOnlyProduct ? 0 : 3}
+          pb={isPnpgTheOnlyProduct ? 0 : 3}
           mt={productHavingGroups.length > 1 ? 0 : 5}
         >
           {productHavingGroups.length !== 0 ? productsSection : <></>}

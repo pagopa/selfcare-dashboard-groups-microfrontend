@@ -269,6 +269,11 @@ export default function MembersGroup({
           backgroundColor: 'white',
           marginTop: '-2px',
         },
+        '& .MuiDataGrid-row:first-child': { borderRadius: '4px 4px 0 0' },
+        '& .MuiDataGrid-row:last-child': { borderRadius: '0 0 4px 4px' },
+        '& .MuiDataGrid-row:first-child:last-child': {
+          borderRadius: '4px',
+        },
         '& .MuiDataGrid-columnHeader:focus-within': {
           outline: 'none',
         },

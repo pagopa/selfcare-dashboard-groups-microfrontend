@@ -30,9 +30,11 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
       })
     );
 
+  const isPnpg = !!activeProducts.find((p) => p.id === 'prod-pn-pg');
+
   const paths = [
     {
-      icon: SupervisedUserCircle,
+      icon: isPnpg ? undefined : SupervisedUserCircle,
       description: t('dashboardGroupEdit.addGroupPage.groupPathDescription'),
       onClick: goBack,
     },
@@ -40,8 +42,6 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
       description: t('dashboardGroupEdit.addGroupPage.pathDescription'),
     },
   ];
-
-  const isPnpg = !!activeProducts.find((p) => p.id === 'prod-pn-pg');
 
   return (
     <div style={{ width: '100%' }}>

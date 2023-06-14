@@ -32,6 +32,7 @@ export default function NoGroups({ party, isPnpg }: Props) {
         padding: 2,
         backgroundColor: 'background.paper',
         border: '0px',
+        borderRadius: '4px',
       }}
       justifyContent="center"
     >
