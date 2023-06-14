@@ -153,7 +153,7 @@ export default {
         groupName: 'Inserisci il nome del gruppo',
         groupNameDuplicated: 'Questo nome è già in uso',
         description: 'Descrivi il gruppo e indica la sua funzione',
-        prductPlaceholter: 'Seleziona il prodotto',
+        productPlaceholder: 'Seleziona il prodotto',
         descriptionMaxLength: 'Max 200 caratteri',
         noProductSelected: 'Nessun prodotto selezionato',
         referentsPlaceholder: 'Seleziona gli utenti che vuoi associare al gruppo',

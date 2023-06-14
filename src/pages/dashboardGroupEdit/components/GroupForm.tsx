@@ -283,7 +283,7 @@ function GroupForm({
     label: string,
     placeholder: string,
     fontWeight: number = 400,
-    fontSize: number = 16
+    fontSize: number = 18
   ) => {
     const isError = !!formik.errors[field] && formik.errors[field] !== requiredError;
     return {
@@ -372,17 +372,23 @@ function GroupForm({
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <Grid container direction="column" sx={{ backgroundColor: 'background.paper' }} p={3}>
+        <Grid
+          container
+          direction="column"
+          sx={{ backgroundColor: 'background.paper', borderRadius: '4px' }}
+          p={3}
+        >
           {/* Name */}
           <Grid item xs={12} mb={3}>
             <CustomTextField
               inputProps={{ maxLength: 50 }}
+              size="small"
               {...baseTextFieldProps(
                 'name',
                 t('dashboardGroupEdit.groupForm.formLabels.groupName'),
                 '',
                 600,
-                16
+                17
               )}
               onChange={(e) => {
                 formik.handleChange(e);
@@ -401,10 +407,14 @@ function GroupForm({
             xs={12}
             mb={3}
             sx={{
-              '& textarea#description': { fontSize: 'fontSize', fontWeight: 'fontWeightMedium' },
+              '& textarea#description': {
+                fontSize: 'fontSize',
+                fontWeight: 'fontWeightMedium',
+              },
             }}
           >
             <CustomTextField
+              size="small"
               {...baseTextFieldProps(
                 'description',
                 t('dashboardGroupEdit.groupForm.formLabels.description'),
@@ -425,6 +435,7 @@ function GroupForm({
               <FormControl sx={{ width: '100%' }}>
                 <InputLabel
                   id="select-label-products"
+                  size="small"
                   sx={{
                     '.MuiInputLabel-root.Mui-focused': {
                       color: 'text.primary',
@@ -432,21 +443,22 @@ function GroupForm({
                     },
                   }}
                 >
-                  {t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
+                  {t('dashboardGroupEdit.groupForm.formLabels.productPlaceholder')}
                 </InputLabel>
                 <Select
                   error={isProductError}
                   id="product-select"
+                  size="small"
                   disabled={isEdit || productInPage}
                   fullWidth
                   value={productSelected?.title ?? ''}
                   displayEmpty
                   variant="outlined"
                   labelId="select-label-products"
-                  label={t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
+                  label={t('dashboardGroupEdit.groupForm.formLabels.productPlaceholder')}
                   input={
                     <OutlinedInput
-                      label={t('dashboardGroupEdit.groupForm.formLabels.prductPlaceholter')}
+                      label={t('dashboardGroupEdit.groupForm.formLabels.productPlaceholder')}
                     />
                   }
                   renderValue={(productSelected) => (
@@ -480,10 +492,9 @@ function GroupForm({
           {/* Members */}
           <Grid item xs={12} width="100%">
             <FormControl sx={{ width: '100%' }}>
-              <InputLabel id="select-label-members">
+              <InputLabel id="select-label-members" size="small">
                 {t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholder')}
               </InputLabel>
-
               <Select
                 // TODO
                 // endAdornment={
@@ -494,6 +505,7 @@ function GroupForm({
                 //   </InputAdornment>
                 // }
                 id="members-select"
+                size="small"
                 disabled={!productSelected}
                 multiple
                 displayEmpty
