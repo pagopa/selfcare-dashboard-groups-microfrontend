@@ -15,6 +15,7 @@ import withGroupDetail, { withGroupDetailProps } from '../../decorators/withGrou
 import { DASHBOARD_GROUPS_ROUTES } from '../../routes';
 import { PartyGroupDetail, PartyGroupStatus } from '../../model/PartyGroup';
 import { ProductsRolesMap } from '../../model/ProductRole';
+import { useIsMobile } from '../../hooks/useIsMobile';
 import GroupActions from './components/GroupActions';
 import GroupDetail from './components/GroupDetail';
 import MembersGroup from './components/MembersGroup';
@@ -25,6 +26,7 @@ type Props = withGroupDetailProps & {
 
 function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: Props) {
   const history = useHistory();
+  const isMobile = useIsMobile('lg');
 
   const [partyGroupState, setPartyGroupState] = React.useState<PartyGroupDetail>(partyGroup);
   const loggedUser = useSelector(userSelectors.selectLoggedUser) as User;
@@ -115,8 +117,15 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
         </Box>
       </Grid>
       <Grid container item mb={3} display="flex" justifyContent="space-between">
-        <Grid item xs={7}>
-          <Box display="flex">
+        <Grid item xs={isMobile ? 12 : 7}>
+          <Box
+            sx={{
+              display: 'flex',
+              [theme.breakpoints.down('lg')]: {
+                flexDirection: 'column',
+              },
+            }}
+          >
             <Box>
               <Typography
                 variant="h4"
@@ -129,8 +138,20 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
                 {partyGroup.name}
               </Typography>
             </Box>
-            {isSuspended && (
-              <Box display="flex" alignItems="center" ml={2}>
+            {!isSuspended && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  [theme.breakpoints.down('lg')]: {
+                    marginLeft: 0,
+                    marginTop: '12px',
+                  },
+                }}
+                display="flex"
+                alignItems="center"
+                ml={2}
+              >
                 <Chip
                   label={t('groupDetail.status')}
                   aria-label="Suspended"
@@ -149,7 +170,14 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
             )}
           </Box>
         </Grid>
-        <Grid item xs={5} display="flex" alignItems="center" justifyContent="end">
+        <Grid
+          item
+          xs={5}
+          display="flex"
+          alignItems="center"
+          justifyContent={isMobile ? 'start' : 'end'}
+          mt={isMobile ? 2 : 0}
+        >
           <GroupActions
             partyGroup={partyGroupState}
             isSuspended={isSuspended}
