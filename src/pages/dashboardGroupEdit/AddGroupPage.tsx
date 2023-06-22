@@ -10,6 +10,7 @@ import { PartyGroupOnCreation } from '../../model/PartyGroup';
 import { Product, ProductsMap } from '../../model/Product';
 import { DASHBOARD_GROUPS_ROUTES } from '../../routes';
 import { ProductsRolesMap } from '../../model/ProductRole';
+import { useIsMobile } from '../../hooks/useIsMobile';
 import GroupForm from './components/GroupForm';
 
 type Props = {
@@ -21,6 +22,7 @@ type Props = {
 
 function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: Props) {
   const history = useHistory();
+  const isMobile = useIsMobile('lg');
   const { t } = useTranslation();
 
   const goBack = () =>
@@ -52,7 +54,7 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
         mt={4}
         sx={{ width: '100%', backgroundColor: 'transparent !important' }}
       >
-        <Grid container item xs={8}>
+        <Grid container item xs={isMobile ? 12 : 8}>
           <Grid item xs={12} mb={3}>
             <ProductNavigationBar paths={paths} showBackComponent={true} goBack={goBack} />
           </Grid>

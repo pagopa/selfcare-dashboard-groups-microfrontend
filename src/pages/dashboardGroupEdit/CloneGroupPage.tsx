@@ -10,6 +10,7 @@ import { PartyGroupOnEdit } from '../../model/PartyGroup';
 import { Product } from '../../model/Product';
 import { DASHBOARD_GROUPS_ROUTES } from '../../routes';
 import { ProductsRolesMap } from '../../model/ProductRole';
+import { useIsMobile } from '../../hooks/useIsMobile';
 import GroupForm from './components/GroupForm';
 
 type Props = {
@@ -26,6 +27,7 @@ function CloneGroupPage({
 }: Props) {
   const history = useHistory();
   const { t } = useTranslation();
+  const isMobile = useIsMobile('lg');
 
   const goBack = () =>
     history.push(
@@ -64,7 +66,7 @@ function CloneGroupPage({
       mt={4}
       sx={{ width: '100%', backgroundColor: 'transparent !important' }}
     >
-      <Grid container item xs={8}>
+      <Grid container item xs={isMobile ? 12 : 8}>
         <Grid item xs={12} mb={3}>
           <ProductNavigationBar paths={paths} showBackComponent={true} goBack={goBack} />
         </Grid>
