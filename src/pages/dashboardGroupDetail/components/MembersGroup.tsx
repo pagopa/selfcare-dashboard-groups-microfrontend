@@ -304,8 +304,12 @@ export default function MembersGroup({
       components={{
         Row: (props) => {
           const user = props.row;
-          const userSuspended = user.status === 'SUSPENDED';
+          const userProduct = user.product;
+          const userSuspended =
+            user.status === 'SUSPENDED' ||
+            userProduct.roles.find((r: any) => r.status === 'SUSPENDED');
           const userRole = user.userRole as UserRole;
+
           if (isMobile) {
             return (
               <Box

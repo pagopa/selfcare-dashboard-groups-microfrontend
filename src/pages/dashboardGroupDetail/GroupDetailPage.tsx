@@ -138,7 +138,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
                 {partyGroup.name}
               </Typography>
             </Box>
-            {!isSuspended && (
+            {isSuspended && (
               <Box
                 sx={{
                   display: 'flex',

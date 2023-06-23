@@ -707,7 +707,7 @@ export const mockedUsers: Array<PartyUserExt> = [
             relationshipId: 'rel4',
             role: 'Amministratore',
             selcRole: 'LIMITED',
-            status: 'ACTIVE',
+            status: 'SUSPENDED',
           },
         ],
       },
