@@ -98,35 +98,39 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
   const moreThanOneActiveProduct = activeProducts.length > 1;
 
   return (
-    <Grid container px={3} mt={3} sx={{ width: '100%', backgroundColor: 'transparent !important' }}>
-      <Grid container spacing={3} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-        <Grid item xs={9}>
-          <TitleBox
-            title={t('dashboardGroup.groupsPage.title')}
-            variantTitle="h4"
-            variantSubTitle="body1"
-            mbTitle={mbTitle}
-            subTitle={
-              !isPnpg
-                ? t('dashboardGroup.groupsPage.subTitle')
-                : t('dashboardGroup.groupsPage.subTitlePnpg')
-            }
-          />
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          lg={3}
-          sx={{
-            display: 'flex',
-            justifyContent: 'end',
-            [theme.breakpoints.down('lg')]: {
-              justifyContent: 'start',
-            },
-          }}
-        >
-          <AddGroupButton party={party} />
-        </Grid>
+    <Grid
+      container
+      px={3}
+      mt={3}
+      sx={{ width: '100%', backgroundColor: 'transparent !important', alignItems: 'center' }}
+    >
+      <Grid item xs={9}>
+        <TitleBox
+          title={t('dashboardGroup.groupsPage.title')}
+          variantTitle="h4"
+          variantSubTitle="body1"
+          mbTitle={mbTitle}
+          subTitle={
+            !isPnpg
+              ? t('dashboardGroup.groupsPage.subTitle')
+              : t('dashboardGroup.groupsPage.subTitlePnpg')
+          }
+        />
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        lg={3}
+        sx={{
+          display: 'flex',
+          justifyContent: 'end',
+          [theme.breakpoints.down('lg')]: {
+            justifyContent: 'start',
+            marginTop: 3,
+          },
+        }}
+      >
+        <AddGroupButton party={party} />
       </Grid>
       {productHavingGroups.length !== 0 && moreThanOneActiveProduct && (
         <Grid
