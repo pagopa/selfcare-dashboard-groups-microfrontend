@@ -7,6 +7,7 @@ import { User } from '@pagopa/selfcare-common-frontend/model/User';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
+import { theme } from '@pagopa/mui-italia';
 import { Product, ProductsMap } from '../../model/Product';
 import { Party } from '../../model/Party';
 import { useAppSelector } from '../../redux/hooks';
@@ -97,24 +98,39 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
   const moreThanOneActiveProduct = activeProducts.length > 1;
 
   return (
-    <Grid container px={3} mt={3} sx={{ width: '100%', backgroundColor: 'transparent !important' }}>
-      <Grid container item display="flex" justifyContent="space-between">
-        <Grid item xs={9}>
-          <TitleBox
-            title={t('dashboardGroup.groupsPage.title')}
-            variantTitle="h4"
-            variantSubTitle="body1"
-            mbTitle={mbTitle}
-            subTitle={
-              !isPnpg
-                ? t('dashboardGroup.groupsPage.subTitle')
-                : t('dashboardGroup.groupsPage.subTitlePnpg')
-            }
-          />
-        </Grid>
-        <Grid item xs={3} display="flex" alignItems="center" justifyContent="end">
-          <AddGroupButton party={party} />
-        </Grid>
+    <Grid
+      container
+      px={3}
+      mt={3}
+      sx={{ width: '100%', backgroundColor: 'transparent !important', alignItems: 'center' }}
+    >
+      <Grid item xs={9}>
+        <TitleBox
+          title={t('dashboardGroup.groupsPage.title')}
+          variantTitle="h4"
+          variantSubTitle="body1"
+          mbTitle={mbTitle}
+          subTitle={
+            !isPnpg
+              ? t('dashboardGroup.groupsPage.subTitle')
+              : t('dashboardGroup.groupsPage.subTitlePnpg')
+          }
+        />
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        lg={3}
+        sx={{
+          display: 'flex',
+          justifyContent: 'end',
+          [theme.breakpoints.down('lg')]: {
+            justifyContent: 'start',
+            marginTop: 3,
+          },
+        }}
+      >
+        <AddGroupButton party={party} />
       </Grid>
       {productHavingGroups.length !== 0 && moreThanOneActiveProduct && (
         <Grid
