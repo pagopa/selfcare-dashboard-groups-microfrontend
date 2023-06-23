@@ -117,7 +117,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
         </Box>
       </Grid>
       <Grid container item mb={3} display="flex" justifyContent="space-between">
-        <Grid item xs={isMobile ? 12 : 7}>
+        <Grid item xs={12} lg={7}>
           <Box
             sx={{
               display: 'flex',
