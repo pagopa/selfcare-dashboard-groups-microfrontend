@@ -12,7 +12,14 @@ export default {
     },
     title: 'Anagrafe',
     backActionLabel: 'Indietro',
-    usersTitle: 'Utenti',
+    usersGroupSection: {
+      title: 'Utenti',
+      headerFields: {
+        name: 'Nome',
+        email: 'Email',
+        role: 'Ruolo',
+      },
+    },
     addUser: 'Aggiungi utente',
   },
   groupActions: {

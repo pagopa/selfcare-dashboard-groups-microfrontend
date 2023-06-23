@@ -1,9 +1,11 @@
-import { Link, Typography, Box, Tooltip, Chip, Paper } from '@mui/material';
+import { Link, Typography, Box, Tooltip, Chip, Paper, Button, Grid } from '@mui/material';
 import { useHistory } from 'react-router';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { useEffect, useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
-import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
+import { DataGrid, GridRenderCellParams, GridRow } from '@mui/x-data-grid';
+import { theme } from '@pagopa/mui-italia';
+import { roleLabels, UserRole } from '@pagopa/selfcare-common-frontend/utils/constants';
 import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
 import { Product } from '../../../model/Product';
 import { Party, UserStatus } from '../../../model/Party';
@@ -11,6 +13,7 @@ import { ProductRolesLists, transcodeProductRole2Title } from '../../../model/Pr
 import { PartyProductUser, PartyUserProduct, PartyUserProductRole } from '../../../model/PartyUser';
 import { ENV } from '../../../utils/env';
 import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
+import { useIsMobile } from '../../../hooks/useIsMobile';
 import GroupMenu from './GroupMenu';
 
 type Props = {
@@ -36,9 +39,13 @@ export default function MembersGroup({
   isGroupSuspended,
 }: Props) {
   const history = useHistory();
+  const { t } = useTranslation();
+  const isMobile = useIsMobile('lg');
 
   const [members, setMembers] = useState<Array<PartyProductUser>>([]);
-  const { t } = useTranslation();
+
+  const rowHeight = isMobile ? 250 : 64;
+  const headerHeight = isMobile ? 10 : 56;
 
   useEffect(() => {
     setMembers(partyGroup.members);
@@ -71,7 +78,7 @@ export default function MembersGroup({
   const columns = [
     {
       field: 'name',
-      headerName: 'Nome',
+      headerName: t('groupDetailPage.usersGroupSection.headerFields.name'),
       flex: 2,
       width: 300,
       renderCell: (member: GridRenderCellParams<any, any, any>) => (
@@ -123,7 +130,7 @@ export default function MembersGroup({
     },
     {
       field: 'email',
-      headerName: 'Email',
+      headerName: t('groupDetailPage.usersGroupSection.headerFields.email'),
       flex: 2,
       width: 300,
       renderCell: (member: GridRenderCellParams<any, any, any>) => {
@@ -152,7 +159,7 @@ export default function MembersGroup({
     },
     {
       field: 'role',
-      headerName: 'Ruolo',
+      headerName: t('groupDetailPage.usersGroupSection.headerFields.role'),
       flex: 2,
       width: 300,
       sortable: false,
@@ -193,13 +200,13 @@ export default function MembersGroup({
       sortable: false,
       renderCell: (member: GridRenderCellParams<any, any, any>) => {
         const userProduct = member.row.product;
-        const isMemeberSuspended =
+        const isMemberSuspended =
           member.row.status === 'SUSPENDED' ||
           !userProduct?.roles.find((r: any) => r.status !== 'SUSPENDED');
         return (
-          isMemeberSuspended && (
+          isMemberSuspended && (
             <Box display="flex" justifyContent="center" width="100%">
-              {isMemeberSuspended && (
+              {isMemberSuspended && (
                 <Chip
                   label={t('groupDetail.status')}
                   aria-label="Suspended"
@@ -253,7 +260,8 @@ export default function MembersGroup({
 
   return members.length !== 0 ? (
     <DataGrid
-      rowHeight={64}
+      rowHeight={rowHeight}
+      headerHeight={headerHeight}
       disableSelectionOnClick
       disableColumnMenu
       sx={{
@@ -279,13 +287,143 @@ export default function MembersGroup({
         },
         '& .MuiDataGrid-cell:focus': { outline: 'none !important' },
         '& .MuiDataGrid-cell:focus-within': { outline: 'none !important' },
+        '.MuiDataGrid-virtualScroller': {
+          backgroundColor: '#F2F2F2',
+          scrollbarWidth: 'none',
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
+        },
       }}
       rows={members}
-      columns={columns}
+      columns={isMobile ? [] : columns}
       autoHeight
       hideFooter={true}
       showCellRightBorder={false}
       showColumnRightBorder={false}
+      components={{
+        Row: (props) => {
+          const user = props.row;
+          const userProduct = user.product;
+          const userSuspended =
+            user.status === 'SUSPENDED' ||
+            userProduct.roles.find((r: any) => r.status === 'SUSPENDED');
+          const userRole = user.userRole as UserRole;
+
+          if (isMobile) {
+            return (
+              <Box
+                key={user.id}
+                sx={{
+                  marginBottom: 2,
+                  width: 'calc(100vw - 47px)',
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Button
+                  sx={{
+                    textAlign: 'start',
+                    marginTop: 2,
+                    paddingY: 3,
+                    width: '100%',
+                    height: '100%',
+                    justifyItems: '-moz-initial',
+                    flexDirection: 'row',
+                    backgroundColor: 'background.paper',
+                    borderRadius: theme.spacing(2),
+                    boxShadow:
+                      '0px 8px 10px -5px rgba(0, 43, 85, 0.1), 0px 16px 24px 2px rgba(0, 43, 85, 0.05), 0px 6px 30px 5px rgba(0, 43, 85, 0.1)',
+                  }}
+                  onClick={() =>
+                    history.push(
+                      resolvePathVariables(ENV.ROUTES.USERS_DETAIL, {
+                        partyId: partyGroup.partyId,
+                        userId: user.id,
+                      })
+                    )
+                  }
+                >
+                  <Grid container spacing={2}>
+                    <Grid item sx={{ width: '100%' }}>
+                      <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
+                        {t('groupDetailPage.usersGroupSection.headerFields.name')}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: 'fontSize',
+                          fontWeight: 'fontWeightRegular',
+                          wordWrap: 'break-word',
+                          overflowWrap: 'break-word',
+                          whiteSpace: 'pre-wrap',
+                        }}
+                      >
+                        {user.name.concat(' ', user.surname)}
+                      </Typography>
+                    </Grid>
+
+                    <Grid item sx={{ width: '100%' }}>
+                      <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
+                        {t('groupDetailPage.usersGroupSection.headerFields.email')}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: 'fontSize',
+                          fontWeight: 'fontWeightRegular',
+                          color: userSuspended ? 'text.disabled' : 'text.primary',
+                          wordWrap: 'break-word',
+                          overflowWrap: 'break-word',
+                          whiteSpace: 'pre-wrap',
+                        }}
+                      >
+                        {user.email}
+                      </Typography>
+                    </Grid>
+
+                    <Grid item sx={{ width: '100%' }}>
+                      <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
+                        {t('groupDetailPage.usersGroupSection.headerFields.role')}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: 'fontSize',
+                          fontWeight: 'fontWeightRegular',
+                          color: userSuspended ? 'text.disabled' : 'text.primary',
+                          wordWrap: 'break-word',
+                          overflowWrap: 'break-word',
+                          whiteSpace: 'pre-wrap',
+                        }}
+                      >
+                        {t(roleLabels[userRole].longLabelKey)}
+                      </Typography>
+                    </Grid>
+                    {userSuspended && (
+                      <Grid item sx={{ width: '100%' }}>
+                        <Chip
+                          label={t('groupDetail.status')}
+                          aria-label={'Suspended'}
+                          sx={{
+                            fontSize: '14px',
+                            fontWeight: 'fontWeightMedium',
+                            color: 'colorTextPrimary',
+                            backgroundColor: 'warning.light',
+                            paddingBottom: '1px',
+                            height: '24px',
+                            cursor: 'pointer',
+                          }}
+                        />
+                      </Grid>
+                    )}
+                  </Grid>
+                </Button>
+              </Box>
+            );
+          }
+          return <GridRow {...props} />;
+        },
+      }}
     />
   ) : (
     <Paper

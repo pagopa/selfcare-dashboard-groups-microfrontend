@@ -1,19 +1,21 @@
 import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material';
-import { Box, styled } from '@mui/material';
-import { DataGrid, GridColDef, GridSortDirection, GridSortModel } from '@mui/x-data-grid';
+import { Box, Button, styled, Grid, Typography, Chip } from '@mui/material';
+import { DataGrid, GridColDef, GridRow, GridSortDirection, GridSortModel } from '@mui/x-data-grid';
 import React, { useMemo } from 'react';
 import { CustomPagination } from '@pagopa/selfcare-common-frontend';
 import { Page } from '@pagopa/selfcare-common-frontend/model/Page';
 import { useTranslation } from 'react-i18next';
+import { theme } from '@pagopa/mui-italia';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
+import { useHistory } from 'react-router-dom';
 import { Product } from '../../../../../model/Product';
 import { Party } from '../../../../../model/Party';
 import { PartyGroup, PartyGroupStatus } from '../../../../../model/PartyGroup';
+import { useIsMobile } from '../../../../../hooks/useIsMobile';
+import { DASHBOARD_GROUPS_ROUTES } from '../../../../../routes';
 import { buildColumnDefs } from './GroupProductTableColumns';
 import GroupsProductLoading from './GroupsProductLoading';
 import GroupsTableLoadMoreData from './GroupsProductLoadMoreData';
-
-const rowHeight = 80;
-const headerHeight = 56;
 
 interface GroupsTableProps {
   incrementalLoad: boolean;
@@ -52,6 +54,13 @@ const CustomDataGrid = styled(DataGrid)({
   '.MuiDataGrid-columnSeparator': { display: 'none' },
   '.MuiDataGrid-cell ': { padding: '0px', borderBottom: 'none' },
   '.MuiDataGrid-columnHeaders': { borderBottom: 'none' },
+  '.MuiDataGrid-virtualScroller': {
+    backgroundColor: '#F2F2F2',
+    scrollbarWidth: 'none',
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+  },
   '.MuiDataGrid-row': {
     backgroundColor: 'white',
     // borderBottom: '1px solid #CCD4DC',
@@ -100,6 +109,11 @@ export default function GroupsProductTable({
 }: GroupsTableProps) {
   const sortSplitted = sort && sort !== '' ? sort.split(',') : undefined;
   const { t } = useTranslation();
+  const isMobile = useIsMobile('lg');
+  const history = useHistory();
+
+  const rowHeight = isMobile ? 250 : 80;
+  const headerHeight = isMobile ? 10 : 56;
 
   const columns: Array<GridColDef> = useMemo(
     () => buildColumnDefs(onRowClick, t),
@@ -123,11 +137,127 @@ export default function GroupsProductTable({
           rows={groups}
           rowCount={Math.max(page?.totalElements ?? 0, groups.length)}
           getRowId={(r) => r.id}
-          columns={columns}
+          columns={isMobile ? [] : columns}
           rowHeight={groups.length === 0 && loading ? 0 : rowHeight}
           headerHeight={headerHeight}
           hideFooterSelectedRowCount={true}
           components={{
+            Row: (props) => {
+              const group = props.row;
+              const groupSuspended = group.status === 'SUSPENDED';
+              if (isMobile) {
+                return (
+                  <Box
+                    key={group.id}
+                    sx={{
+                      marginBottom: 2,
+                      width: 'calc(100vw - 110px)',
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <Button
+                      sx={{
+                        textAlign: 'start',
+                        marginTop: 2,
+                        paddingY: 3,
+                        width: '100%',
+                        height: '100%',
+                        justifyItems: '-moz-initial',
+                        flexDirection: 'row',
+                        backgroundColor: 'background.paper',
+                        borderRadius: theme.spacing(2),
+                        boxShadow:
+                          '0px 8px 10px -5px rgba(0, 43, 85, 0.1), 0px 16px 24px 2px rgba(0, 43, 85, 0.05), 0px 6px 30px 5px rgba(0, 43, 85, 0.1)',
+                      }}
+                      onClick={() =>
+                        history.push(
+                          resolvePathVariables(
+                            DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_DETAIL.path,
+                            { partyId: party.partyId, groupId: group.id }
+                          )
+                        )
+                      }
+                    >
+                      <Grid container spacing={2}>
+                        <Grid item sx={{ width: '100%' }}>
+                          <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
+                            {t('dashboardGroup.groupProductTableColumns.headerFields.name')}
+                          </Typography>
+                          <Typography
+                            sx={{
+                              fontSize: 'fontSize',
+                              fontWeight: 'fontWeightRegular',
+                              wordWrap: 'break-word',
+                              overflowWrap: 'break-word',
+                              whiteSpace: 'pre-wrap',
+                            }}
+                          >
+                            {group.name}
+                          </Typography>
+                        </Grid>
+
+                        <Grid item sx={{ width: '100%' }}>
+                          <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
+                            {t('dashboardGroup.groupProductTableColumns.headerFields.description')}
+                          </Typography>
+                          <Typography
+                            sx={{
+                              fontSize: 'fontSize',
+                              fontWeight: 'fontWeightRegular',
+                              color: groupSuspended ? 'text.disabled' : 'text.primary',
+                              wordWrap: 'break-word',
+                              overflowWrap: 'break-word',
+                              whiteSpace: 'pre-wrap',
+                            }}
+                          >
+                            {group.description}
+                          </Typography>
+                        </Grid>
+
+                        <Grid item sx={{ width: '100%' }}>
+                          <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
+                            {t('dashboardGroup.groupProductTableColumns.headerFields.referents')}
+                          </Typography>
+                          <Typography
+                            sx={{
+                              fontSize: 'fontSize',
+                              fontWeight: 'fontWeightRegular',
+                              color: groupSuspended ? 'text.disabled' : 'text.primary',
+                              wordWrap: 'break-word',
+                              overflowWrap: 'break-word',
+                              whiteSpace: 'pre-wrap',
+                            }}
+                          >
+                            {group.membersCount}
+                          </Typography>
+                        </Grid>
+                        {groupSuspended && (
+                          <Grid item sx={{ width: '100%' }}>
+                            <Chip
+                              label={t('groupDetail.status')}
+                              aria-label={'Suspended'}
+                              sx={{
+                                fontSize: '14px',
+                                fontWeight: 'fontWeightMedium',
+                                color: 'colorTextPrimary',
+                                backgroundColor: 'warning.light',
+                                paddingBottom: '1px',
+                                height: '24px',
+                                cursor: 'pointer',
+                              }}
+                            />
+                          </Grid>
+                        )}
+                      </Grid>
+                    </Button>
+                  </Box>
+                );
+              }
+              return <GridRow {...props} />;
+            },
             Footer:
               loading || incrementalLoad
                 ? () =>

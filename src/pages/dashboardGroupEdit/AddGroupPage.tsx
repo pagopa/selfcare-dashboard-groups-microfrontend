@@ -52,7 +52,7 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
         mt={4}
         sx={{ width: '100%', backgroundColor: 'transparent !important' }}
       >
-        <Grid container item xs={8}>
+        <Grid container item xs={12} lg={8}>
           <Grid item xs={12} mb={3}>
             <ProductNavigationBar paths={paths} showBackComponent={true} goBack={goBack} />
           </Grid>
