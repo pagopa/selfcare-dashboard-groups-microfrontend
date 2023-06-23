@@ -210,7 +210,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
         <Grid item container display="flex" alignItems="center">
           <Grid item xs={8} mt={5}>
             <Typography sx={{ fontSize: '24px', fontWeight: 'fontWeightMedium' }}>
-              {t('groupDetailPage.usersTitle')}
+              {t('groupDetailPage.usersGroupSection.title')}
             </Typography>
           </Grid>
           {!isSuspended && canEdit && (

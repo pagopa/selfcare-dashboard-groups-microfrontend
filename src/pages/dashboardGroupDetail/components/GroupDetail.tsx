@@ -21,13 +21,13 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
 
   return (
     <Grid container spacing={2}>
-      <Grid container item alignContent="center">
-        <Grid item xs={3}>
+      <Grid container item>
+        <Grid item xs={12} lg={3}>
           <Typography variant="body2" sx={{ color: disabledText }}>
             {t('groupDetail.description')}
           </Typography>
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={12} lg={9}>
           <Tooltip
             title={partyGroup.description.length >= 215 ? partyGroup.description : ''}
             placement="top"
@@ -53,12 +53,12 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
       </Grid>
       {!isPnpg && (
         <Grid container item alignContent="center">
-          <Grid item xs={3}>
+          <Grid item xs={12} lg={3}>
             <Typography variant="body2" sx={{ color: disabledText }}>
               {t('groupDetail.product')}
             </Typography>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={12} lg={9}>
             <Typography
               variant="body2"
               sx={{
@@ -72,12 +72,12 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
         </Grid>
       )}
       <Grid container item alignContent="center">
-        <Grid item xs={3}>
+        <Grid item xs={12} lg={3}>
           <Typography variant="body2" sx={{ color: disabledText }}>
             {t('groupDetail.creationDate')}
           </Typography>
         </Grid>
-        <Grid item xs={9} display="flex">
+        <Grid item xs={12} lg={9} display="flex" sx={{ flexDirection: 'column' }}>
           {partyGroup.createdBy ? (
             <Box>
               <Typography
@@ -85,6 +85,12 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
                 sx={{
                   fontWeight: 'fontWeightMedium',
                   color: disabledText,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical' as const,
+                  maxWidth: '100%',
                 }}
               >
                 {`${partyGroup.createdBy.name} ${partyGroup.createdBy?.surname}`} &nbsp;- &nbsp;
@@ -111,12 +117,12 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
         </Grid>
       </Grid>
       <Grid container item alignContent="center">
-        <Grid item xs={3}>
+        <Grid item xs={12} lg={3}>
           <Typography variant="body2" sx={{ color: disabledText }}>
             {t('groupDetail.modifiedAt')}
           </Typography>
         </Grid>
-        <Grid item xs={9} display="flex">
+        <Grid item xs={12} lg={9} display="flex" sx={{ flexDirection: 'column' }}>
           {partyGroup.modifiedBy ? (
             <Box>
               <Typography
@@ -124,6 +130,12 @@ function GroupDetail({ partyGroup, productsMap, isSuspended }: Props) {
                 sx={{
                   fontWeight: 'fontWeightMedium',
                   color: disabledText,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical' as const,
+                  maxWidth: '100%',
                 }}
               >
                 {`${partyGroup.modifiedBy?.name} ${partyGroup.modifiedBy?.surname}`} &nbsp;- &nbsp;
