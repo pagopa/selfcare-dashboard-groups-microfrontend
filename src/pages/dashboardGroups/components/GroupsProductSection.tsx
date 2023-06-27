@@ -46,12 +46,15 @@ export default function GroupsProductSection({
                 backgroundColor: 'background.paper',
                 height: '56px',
                 textAlign: 'center',
+                borderRadius: '4px',
               }}
               variant={'body2'}
               mt={2}
               pt={2}
             >
-              {t('dashboardGroup.noGroups.noGroupsForProduct')}
+              {isPnpgTheOnlyProduct
+                ? t('dashboardGroup.noGroups.noGroupsLabel')
+                : t('dashboardGroup.noGroups.noGroupsForProduct')}
             </Typography>
           </Grid>
         ))}

@@ -12,7 +12,14 @@ export default {
     },
     title: 'Anagrafe',
     backActionLabel: 'Indietro',
-    usersTitle: 'Utenti',
+    usersGroupSection: {
+      title: 'Utenti',
+      headerFields: {
+        name: 'Nome',
+        email: 'Email',
+        role: 'Ruolo',
+      },
+    },
     addUser: 'Aggiungi utente',
   },
   groupActions: {
@@ -153,7 +160,7 @@ export default {
         groupName: 'Inserisci il nome del gruppo',
         groupNameDuplicated: 'Questo nome è già in uso',
         description: 'Descrivi il gruppo e indica la sua funzione',
-        prductPlaceholter: 'Seleziona il prodotto',
+        productPlaceholder: 'Seleziona il prodotto',
         descriptionMaxLength: 'Max 200 caratteri',
         noProductSelected: 'Nessun prodotto selezionato',
         referentsPlaceholder: 'Seleziona gli utenti che vuoi associare al gruppo',
@@ -216,7 +223,8 @@ export default {
       createActionLabel: 'Crea gruppo',
     },
     noGroups: {
-      noGroupsLabel: 'Non è ancora stato creato alcun gruppo. <1><0>Crea un gruppo</0></1>',
+      createGroup: 'Non è ancora stato creato alcun gruppo. <1><0>Crea un gruppo</0></1>',
+      noGroupsLabel: 'Non è ancora stato creato alcun gruppo per questo prodotto.',
       noGroupsForProduct: 'Non è ancora stato creato alcun gruppo per questo prodotto.',
     },
     groupProductTableColumns: {

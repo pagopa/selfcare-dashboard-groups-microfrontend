@@ -32,12 +32,13 @@ export default function NoGroups({ party, isPnpg }: Props) {
         padding: 2,
         backgroundColor: 'background.paper',
         border: '0px',
+        borderRadius: '4px',
       }}
       justifyContent="center"
     >
       <Grid item xs={12} display="flex" textAlign="center" justifyContent="center">
         <Typography variant="body2">
-          <Trans i18nKey="dashboardGroup.noGroups.noGroupsLabel">
+          <Trans i18nKey="dashboardGroup.noGroups.createGroup">
             Non è ancora stato creato alcun gruppo.
             <Link
               sx={{

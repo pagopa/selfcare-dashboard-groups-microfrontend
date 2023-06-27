@@ -30,9 +30,11 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
       })
     );
 
+  const isPnpg = !!activeProducts.find((p) => p.id === 'prod-pn-pg');
+
   const paths = [
     {
-      icon: SupervisedUserCircle,
+      icon: isPnpg ? undefined : SupervisedUserCircle,
       description: t('dashboardGroupEdit.addGroupPage.groupPathDescription'),
       onClick: goBack,
     },
@@ -40,8 +42,6 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
       description: t('dashboardGroupEdit.addGroupPage.pathDescription'),
     },
   ];
-
-  const isPnpg = !!activeProducts.find((p) => p.id === 'prod-pn-pg');
 
   return (
     <div style={{ width: '100%' }}>
@@ -52,7 +52,7 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
         mt={4}
         sx={{ width: '100%', backgroundColor: 'transparent !important' }}
       >
-        <Grid container item xs={8}>
+        <Grid container item xs={12} lg={8}>
           <Grid item xs={12} mb={3}>
             <ProductNavigationBar paths={paths} showBackComponent={true} goBack={goBack} />
           </Grid>
