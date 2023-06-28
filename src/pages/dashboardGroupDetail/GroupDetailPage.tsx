@@ -177,6 +177,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
           alignItems="center"
           justifyContent={isMobile ? 'start' : 'end'}
           mt={isMobile ? 2 : 0}
+          minWidth={'250px'}
         >
           <GroupActions
             partyGroup={partyGroupState}
