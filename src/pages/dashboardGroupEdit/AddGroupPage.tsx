@@ -44,54 +44,54 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
   ];
 
   return (
-    <div style={{ width: '100%' }}>
-      <Grid
-        container
-        alignItems={'center'}
-        px={3}
-        mt={4}
-        sx={{ width: '100%', backgroundColor: 'transparent !important' }}
-      >
-        <Grid container item xs={12} lg={8}>
-          <Grid item xs={12} mb={3}>
-            <ProductNavigationBar paths={paths} showBackComponent={true} goBack={goBack} />
-          </Grid>
-          <Grid item xs={12} mb={5}>
-            <TitleBox
-              mbTitle={1}
-              variantTitle="h4"
-              variantSubTitle="body1"
-              title={t('dashboardGroupEdit.addGroupPage.title')}
-              subTitle={
-                isPnpg
-                  ? t('dashboardGroupEdit.addGroupPage.pnpgSubTitle')
-                  : t('dashboardGroupEdit.addGroupPage.subTitle')
-              }
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <GroupForm
-              productsRolesMap={productsRolesMap}
-              party={party}
-              products={activeProducts}
-              productsMap={productsMap}
-              initialFormData={
-                {
-                  name: '',
-                  description: '',
-                  members: [],
-                  partyId: party.partyId,
-                  productId: '',
-                } as PartyGroupOnCreation
-              }
-              isClone={false}
-              goBack={goBack}
-              isAddPage={true}
-            />
-          </Grid>
+    <Grid
+      xs={12}
+      lg={8}
+      container
+      alignItems={'center'}
+      px={3}
+      mt={4}
+      sx={{ width: '100%', backgroundColor: 'transparent !important' }}
+    >
+      <Grid container item>
+        <Grid item xs={12} mb={3}>
+          <ProductNavigationBar paths={paths} showBackComponent={true} goBack={goBack} />
+        </Grid>
+        <Grid item xs={12} mb={5}>
+          <TitleBox
+            mbTitle={1}
+            variantTitle="h4"
+            variantSubTitle="body1"
+            title={t('dashboardGroupEdit.addGroupPage.title')}
+            subTitle={
+              isPnpg
+                ? t('dashboardGroupEdit.addGroupPage.pnpgSubTitle')
+                : t('dashboardGroupEdit.addGroupPage.subTitle')
+            }
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <GroupForm
+            productsRolesMap={productsRolesMap}
+            party={party}
+            products={activeProducts}
+            productsMap={productsMap}
+            initialFormData={
+              {
+                name: '',
+                description: '',
+                members: [],
+                partyId: party.partyId,
+                productId: '',
+              } as PartyGroupOnCreation
+            }
+            isClone={false}
+            goBack={goBack}
+            isAddPage={true}
+          />
         </Grid>
       </Grid>
-    </div>
+    </Grid>
   );
 }
 
