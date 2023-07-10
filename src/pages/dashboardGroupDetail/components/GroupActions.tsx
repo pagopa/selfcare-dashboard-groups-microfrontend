@@ -10,13 +10,14 @@ import EditIcon from '@mui/icons-material/Edit';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import { ButtonNaked } from '@pagopa/mui-italia';
+import { ButtonNaked, theme } from '@pagopa/mui-italia';
 import { deletePartyGroup, updatePartyGroupStatus } from '../../../services/groupsService';
 import { LOADING_TASK_UPDATE_PARTY_USER_STATUS } from '../../../utils/constants';
 import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
 import { Party } from '../../../model/Party';
 import { Product, ProductsMap } from '../../../model/Product';
 import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
+import { useIsMobile } from '../../../hooks/useIsMobile';
 
 type Props = {
   partyGroup: PartyGroupDetail;
@@ -48,6 +49,7 @@ export default function GroupActions({
   const addNotify = useUserNotify();
   const history = useHistory();
   const { t } = useTranslation();
+  const isMobile = useIsMobile('md');
 
   const selectedGroupStatus =
     nextGroupStatus === 'SUSPENDED'
@@ -233,13 +235,26 @@ export default function GroupActions({
     );
 
   return (
-    <Stack direction="row" spacing={4}>
+    <Stack
+      direction="row"
+      spacing={isMobile ? 0 : 4}
+      sx={{
+        [theme.breakpoints.down('sm')]: {
+          flexWrap: 'wrap',
+        },
+      }}
+    >
       {canEdit && (
         <ButtonNaked
           component="button"
           onClick={handleOpenDelete}
           startIcon={<DeleteOutlinedIcon />}
-          sx={{ color: 'primary.main' }}
+          sx={{
+            color: 'primary.main',
+            [theme.breakpoints.down('md')]: {
+              marginRight: 4,
+            },
+          }}
           weight="default"
         >
           {t('groupActions.groupDeleteAction')}
@@ -251,7 +266,12 @@ export default function GroupActions({
           component="button"
           onClick={goEdit}
           startIcon={<EditIcon />}
-          sx={{ color: 'primary.main' }}
+          sx={{
+            color: 'primary.main',
+            [theme.breakpoints.down('md')]: {
+              marginRight: 4,
+            },
+          }}
           weight="default"
         >
           {t('groupActions.editActionLabel')}
@@ -262,7 +282,15 @@ export default function GroupActions({
           component="button"
           onClick={handleOpen}
           startIcon={isSuspended ? <RestartAltIcon /> : <HourglassEmptyIcon />}
-          sx={{ color: 'primary.main' }}
+          sx={{
+            color: 'primary.main',
+            [theme.breakpoints.down('md')]: {
+              marginRight: 4,
+            },
+            [theme.breakpoints.down('sm')]: {
+              marginRight: '22px',
+            },
+          }}
           weight="default"
         >
           {partyGroup.status === 'SUSPENDED'
@@ -277,7 +305,9 @@ export default function GroupActions({
           component="button"
           onClick={handleOpenDuplicate}
           startIcon={<CopyAllIcon />}
-          sx={{ color: 'primary.main' }}
+          sx={{
+            color: 'primary.main',
+          }}
           weight="default"
         >
           {t('groupActions.groupDuplicateAction')}
