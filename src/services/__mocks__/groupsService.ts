@@ -414,6 +414,6 @@ export const deleteGroupRelation = (
 ): Promise<any> => {
   const selectedGroup = mockedGroups.find((g) => g.id === group.id);
   // eslint-disable-next-line functional/immutable-data
-  selectedGroup?.membersIds.splice(selectedGroup?.membersIds.indexOf(userId), 1);
+  selectedGroup?.membersIds.splice(selectedGroup.membersIds.indexOf(userId), 1);
   return new Promise<void>((resolve) => resolve());
 };

@@ -59,7 +59,7 @@ export const fetchPartyGroup = (
     return fetchPartyGroupMocked(partyId, groupId, currentUser, productsMap);
   } else {
     return DashboardApi.fetchPartyGroup(groupId, partyId).then((resource) =>
-      resource
+      resource && resource.productId
         ? usersGroupResource2PartyGroupDetail(
             resource,
             currentUser,

@@ -92,10 +92,11 @@ function CloneGroupPage({
                 description: partyGroup.description,
                 members: partyGroup.members,
                 partyId: partyGroup.partyId,
-                productId:
-                  productsMap[partyGroup.productId]?.userRole === 'ADMIN'
-                    ? partyGroup.productId
-                    : undefined,
+                productId: party.products.find(
+                  (pp) => pp.productId === partyGroup.productId && pp.userRole === 'ADMIN'
+                )
+                  ? partyGroup.productId
+                  : undefined,
               } as PartyGroupOnEdit
             }
             isClone={true}
