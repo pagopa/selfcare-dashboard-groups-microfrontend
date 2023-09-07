@@ -26,25 +26,12 @@ type Props = withGroupDetailProps & {
 
 function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: Props) {
   const history = useHistory();
+  const theme = useTheme();
+  const { t } = useTranslation();
   const isMobile = useIsMobile('lg');
-
-  const [partyGroupState, setPartyGroupState] = React.useState<PartyGroupDetail>(partyGroup);
   const loggedUser = useSelector(userSelectors.selectLoggedUser) as User;
 
-  const { t } = useTranslation();
-
-  const nextGroupStatus: PartyGroupStatus | undefined =
-    partyGroupState.status === 'ACTIVE'
-      ? 'SUSPENDED'
-      : partyGroupState.status === 'SUSPENDED'
-      ? 'ACTIVE'
-      : undefined;
-
-  const product = productsMap[partyGroupState.productId];
-  const canEdit = product.userRole === 'ADMIN' && product.status === 'ACTIVE';
-  const theme = useTheme();
-
-  const isSuspended = partyGroupState.status === 'SUSPENDED';
+  const [partyGroupState, setPartyGroupState] = React.useState<PartyGroupDetail>(partyGroup);
 
   useEffect(() => {
     if (partyGroup) {
@@ -65,6 +52,20 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
         groupId: partyGroup.id,
       })
     );
+
+  const nextGroupStatus: PartyGroupStatus | undefined =
+    partyGroupState.status === 'ACTIVE'
+      ? 'SUSPENDED'
+      : partyGroupState.status === 'SUSPENDED'
+      ? 'ACTIVE'
+      : undefined;
+
+  const product = productsMap[partyGroupState.productId];
+  const canEdit = !!party.products.find(
+    (pp) => pp.productId === product.id && pp.userRole === 'ADMIN' && product.status === 'ACTIVE'
+  );
+
+  const isSuspended = partyGroupState.status === 'SUSPENDED';
 
   const paths = [
     {

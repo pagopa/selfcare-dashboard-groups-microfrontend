@@ -48,13 +48,13 @@ export type PartyGroupOnEdit = {
 export const usersGroupPlainResource2PartyGroup = (
   resource: UserGroupPlainResource
 ): PartyGroup => ({
-  id: resource.id,
-  partyId: resource.institutionId,
-  productId: resource.productId,
-  name: resource.name,
-  description: resource.description,
-  status: resource.status,
-  membersCount: resource.membersCount,
+  id: resource.id ?? '',
+  partyId: resource.institutionId ?? '',
+  productId: resource.productId ?? '',
+  name: resource.name ?? '',
+  description: resource.description ?? '',
+  status: resource.status as PartyGroupStatus,
+  membersCount: resource.membersCount as number,
   createdAt: resource.createdAt,
   modifiedAt: resource.modifiedAt,
 });
@@ -64,16 +64,16 @@ export const usersGroupResource2PartyGroupDetail = (
   currentUser: User,
   product: Product
 ): PartyGroupDetail => ({
-  id: resource.id,
-  partyId: resource.institutionId,
-  productId: resource.productId,
-  name: resource.name,
-  description: resource.description,
-  status: resource.status,
-  membersCount: resource.members.length,
-  members: resource.members.map((u) =>
+  id: resource.id ?? '',
+  partyId: resource.institutionId ?? '',
+  productId: resource.productId ?? '',
+  name: resource.name ?? '',
+  description: resource.description ?? '',
+  status: resource.status as PartyGroupStatus,
+  membersCount: resource.members?.length as number,
+  members: resource.members?.map((u) =>
     productUserResource2PartyProductUser(u, product, currentUser)
-  ),
+  ) as Array<PartyProductUser>,
   createdAt: resource.createdAt,
   createdBy: resource.createdBy,
   modifiedAt: resource.modifiedAt,
