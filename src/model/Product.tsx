@@ -1,22 +1,24 @@
-import { ProductOnBoardingStatusEnum } from '../api/generated/b4f-dashboard/SubProductResource';
-import { StatusEnum } from '../api/generated/b4f-dashboard/UserGroupPlainResource';
-import { UserRole } from './Party';
+import { StatusEnum, SubProductResource } from '../api/generated/b4f-dashboard/SubProductResource';
 
 export type Product = {
   activationDateTime?: Date;
   description: string;
   id: string;
-  logo?: string;
+  logo: string;
   title: string;
   urlBO: string;
+  backOfficeEnvironmentConfigurations?: Array<{
+    environment?: string;
+    url?: string;
+  }>;
   urlPublic?: string;
   tag?: string;
-  userRole?: UserRole;
-  authorized?: boolean;
-  // onboarding status of product. Products that have, or have not, completed the onboarding process.
-  productOnBoardingStatus: ProductOnBoardingStatusEnum;
   // product status.The intrinsic state of the product. Product status is unrelated to product onboarding status.
   status: StatusEnum;
+  imageUrl: string;
+  subProducts?: Array<SubProductResource>;
+  logoBgColor?: string;
+  delegable: boolean;
 };
 
 export type ProductsMap = { [id: string]: Product };

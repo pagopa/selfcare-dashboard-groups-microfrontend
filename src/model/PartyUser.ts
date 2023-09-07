@@ -28,9 +28,9 @@ export type PartyUserExt = PartyUser & {
 };
 
 export type PartyUserSimple = {
-  id: string;
-  name: string;
-  surname: string;
+  id?: string;
+  name?: string;
+  surname?: string;
 };
 
 export type PartyUserProduct = {
@@ -51,26 +51,26 @@ export const productUserResource2PartyProductUser = (
   product: Product,
   currentUser: User
 ): PartyProductUser => ({
-  id: resource.id,
-  name: resource.name,
-  surname: resource.surname,
+  id: resource.id ?? '',
+  name: resource.name ?? '',
+  surname: resource.surname ?? '',
   email: resource?.email as EmailString,
-  userRole: resource.role,
-  product: productInfoResource2PartyUserProduct(resource.product, product),
+  userRole: resource.role as UserRole,
+  product: productInfoResource2PartyUserProduct(product, resource?.product),
   status: resource.status as UserStatus,
   isCurrentUser: currentUser.uid === resource.id,
 });
 
 export const productInfoResource2PartyUserProduct = (
-  productInfo: ProductInfoResource,
-  product: Product
+  product: Product,
+  productInfo?: ProductInfoResource
 ): PartyUserProduct => ({
-  id: productInfo.id,
-  title: productInfo.title ?? product.title,
-  roles: productInfo.roleInfos.map((r) => ({
+  id: productInfo?.id ?? product.id,
+  title: productInfo?.title ?? product.title,
+  roles: productInfo?.roleInfos?.map((r) => ({
     relationshipId: r.relationshipId,
     role: r.role,
     selcRole: r.selcRole as UserRole,
     status: r.status as UserStatus,
-  })),
+  })) as Array<PartyUserProductRole>,
 });

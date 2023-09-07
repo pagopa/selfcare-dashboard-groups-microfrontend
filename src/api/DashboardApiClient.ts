@@ -1,4 +1,3 @@
-import { storageTokenOps } from '@pagopa/selfcare-common-frontend/utils/storage';
 import { appStateActions } from '@pagopa/selfcare-common-frontend/redux/slices/appStateSlice';
 import { buildFetchApi, extractResponse } from '@pagopa/selfcare-common-frontend/utils/api-utils';
 import { PageRequest } from '@pagopa/selfcare-common-frontend/model/PageRequest';
@@ -14,7 +13,9 @@ import { PageOfUserGroupPlainResource } from './generated/b4f-dashboard/PageOfUs
 
 const withBearerAndInstitutionId: WithDefaultsT<'bearerAuth'> =
   (wrappedOperation) => (params: any) => {
-    const token = storageTokenOps.read();
+    const token =
+      'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Imp3dF82ZDplNTphNDo4NToyYjplMDpjYjplYToyZDo5Yzo1MjoxMjpmZTphNTpmMjo2MCJ9.eyJlbWFpbCI6ImZ1cmlvdml0YWxlQG1hcnRpbm8uaXQiLCJmYW1pbHlfbmFtZSI6IlNhcnRvcmkiLCJmaXNjYWxfbnVtYmVyIjoiU1JUTkxNMDlUMDZHNjM1UyIsIm5hbWUiOiJBbnNlbG1vIiwiZnJvbV9hYSI6ZmFsc2UsInVpZCI6IjUwOTZlNGM2LTI1YTEtNDVkNS05YmRmLTJmYjk3NGE3YzFjOCIsImxldmVsIjoiTDIiLCJpYXQiOjE2OTQwODkxMTMsImV4cCI6MTY5NDEyMTUxMywiYXVkIjoiYXBpLmRldi5zZWxmY2FyZS5wYWdvcGEuaXQiLCJpc3MiOiJTUElEIiwianRpIjoiXzhiODczYWUyM2RjN2E1N2MyNmRkIn0.I8a1NAWpnw6LyYWw27hqmg5iH2uSya1TXfe3pcESfSKgcpFs3-aQXPXxWLvspcSqtz4vprSsBg7RMep_VIDqBA-C46Vqz7ieM5f8ee1bYeusvAMxVf5XCnVN3MWTkoBB5-hVTLvcdmXrxRIwvcVISlEoUYUyce38kRIo-AX-zBGo6QubaNOteSvhLz-MgRxABZoIvWgOPAXSTpLT7x-RpYbVRVMBjm_uYmMfw8akMqqiFE3vHaqYcpaUhKQzfeRhu9geLDuGvVjcavESLvsLh7PRSMyb_hyFwdm9fOKPCfPfPv5yl8zbBi17yjhzAxZcC83tao4RXL5MQHFe_JNymA';
+    // const token = storageTokenOps.read();
     return wrappedOperation({
       ...params,
       bearerAuth: `Bearer ${token}`,
