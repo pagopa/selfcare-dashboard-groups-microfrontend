@@ -155,10 +155,7 @@ function GroupForm({
 
   useEffect(() => {
     const enabledProducts = products.filter((p) =>
-      party.products.some(
-        (pp) =>
-          p.id === pp.productId && pp.authorized && pp.userRole === 'ADMIN' && p.status === 'ACTIVE'
-      )
+      party.products.some((pp) => p.id === pp.productId && pp.authorized && pp.userRole === 'ADMIN')
     );
     setProductInPage((isClone || isAddPage) && Object.keys(enabledProducts).length === 1);
     if (productInPage) {
