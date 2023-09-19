@@ -114,13 +114,14 @@ function GroupForm({
 
   const history = useHistory();
 
+  const { registerUnloadEvent, unregisterUnloadEvent } = useUnloadEventInterceptor();
+  const onExit = useUnloadEventOnExit();
+
   const [productSelected, setProductSelected] = useState<Product>();
   const [productUsers, setProductUsers] = useState<Array<PartyProductUser>>([]);
   const [automaticRemove, setAutomaticRemove] = useState(false);
   const [isNameDuplicated, setIsNameDuplicated] = useState(false);
   const [productInPage, setProductInPage] = useState<boolean>();
-  const { registerUnloadEvent, unregisterUnloadEvent } = useUnloadEventInterceptor();
-  const onExit = useUnloadEventOnExit();
 
   const isEdit = !!(initialFormData as PartyGroupOnEdit).id;
   const prodPnpg = products.find((p) => p.id === 'prod-pn-pg');
@@ -155,10 +156,7 @@ function GroupForm({
 
   useEffect(() => {
     const enabledProducts = products.filter((p) =>
-      party.products.some(
-        (pp) =>
-          p.id === pp.productId && pp.authorized && pp.userRole === 'ADMIN' && p.status === 'ACTIVE'
-      )
+      party.products.some((pp) => p.id === pp.productId && pp.authorized && pp.userRole === 'ADMIN')
     );
     setProductInPage((isClone || isAddPage) && Object.keys(enabledProducts).length === 1);
     if (productInPage) {
