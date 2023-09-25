@@ -114,19 +114,23 @@ function GroupForm({
 
   const history = useHistory();
 
+  const { registerUnloadEvent, unregisterUnloadEvent } = useUnloadEventInterceptor();
+  const onExit = useUnloadEventOnExit();
+
   const [productSelected, setProductSelected] = useState<Product>();
   const [productUsers, setProductUsers] = useState<Array<PartyProductUser>>([]);
   const [automaticRemove, setAutomaticRemove] = useState(false);
   const [isNameDuplicated, setIsNameDuplicated] = useState(false);
   const [productInPage, setProductInPage] = useState<boolean>();
-  const { registerUnloadEvent, unregisterUnloadEvent } = useUnloadEventInterceptor();
-  const onExit = useUnloadEventOnExit();
 
   const isEdit = !!(initialFormData as PartyGroupOnEdit).id;
   const prodPnpg = products.find((p) => p.id === 'prod-pn-pg');
 
   const otherEnvironmentProdPnpg =
-    prodPnpg && products.filter((p) => p.productOnBoardingStatus === 'ACTIVE').length === 1;
+    prodPnpg &&
+    products.filter((p) =>
+      party.products.some((pp) => pp.productId === p.id && pp.productOnBoardingStatus === 'ACTIVE')
+    ).length === 1;
 
   useEffect(() => {
     if (window.location.hash === '#users' && isEdit && productSelected && productUsers) {
@@ -151,12 +155,12 @@ function GroupForm({
   }, [initialFormData.productId]);
 
   useEffect(() => {
-    const isEnabled = products.filter(
-      (p) => p.authorized && p.userRole === 'ADMIN' && p.status === 'ACTIVE'
+    const enabledProducts = products.filter((p) =>
+      party.products.some((pp) => p.id === pp.productId && pp.authorized && pp.userRole === 'ADMIN')
     );
-    setProductInPage((isClone || isAddPage) && Object.keys(isEnabled).length === 1);
+    setProductInPage((isClone || isAddPage) && Object.keys(enabledProducts).length === 1);
     if (productInPage) {
-      setProductSelected(isEnabled[0]);
+      setProductSelected(enabledProducts[0]);
     }
   }, [productInPage]);
 
@@ -469,7 +473,9 @@ function GroupForm({
                   )}
                 >
                   {products
-                    .filter((p) => p.userRole === 'ADMIN')
+                    .filter((p) =>
+                      party.products.some((pp) => pp.productId === p.id && pp.userRole === 'ADMIN')
+                    )
                     .map((p: Product, index) => (
                       <MenuItem
                         key={index}
