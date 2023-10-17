@@ -12,14 +12,21 @@ export default {
     },
     title: 'Registry office',
     backActionLabel: 'Back',
-    usersTitle: 'Users',
+    usersGroupSection: {
+      title: 'Users',
+      headerFields: {
+        name: 'Name',
+        email: 'Email',
+        role: 'Role',
+      },
+    },
     addUser: 'Add user',
   },
   groupActions: {
     title: 'Group successfully deleted',
-    actionOnUser: 'Actions on the user',
+    actionOnUser: 'User actions',
     selectedGroupStatusSuspended: 'suspended',
-    selectedGroupStatusActive: 're-activated',
+    selectedGroupStatusActive: 'reactivated',
     selectedGroupStatusErrorSuspended: 'suspension',
     selectedGroupStatusErrorActive: 'reactivation',
     editActionLabel: 'Edit',
@@ -30,7 +37,7 @@ export default {
     handleOpenDelete: {
       addNotify: {
         title: 'Delete group',
-        message: 'Do you want to delete the group <1>{{groupName}}</1> of <3>{{productName}}</3>?',
+        message: 'Do you want to delete group <1>{{groupName}}</1> of <3>{{productName}}</3>?',
         confirmLabel: 'Delete',
         closeLabel: 'Cancel',
       },
@@ -48,12 +55,12 @@ export default {
       addNotify: {
         titleActive: 'Suspend group',
         titleSuspended: 'Reactivate group',
-        messageActive: 'Do you want to suspend group',
-        messageSuspended: 'Do you want to reactivate group',
+        messageActive: 'Do you want to suspend the group',
+        messageSuspended: 'Do you want to reactivate the group',
         messageGroupActive:
-          '<0>{{groupName}}</0> of <2>{{productTitle}}</2>? <4/>You can reactivate it at any time.',
+          ' <0>{{groupName}}</0> of <2>{{productTitle}}</2>? <4/>You can reactivate it at any time.',
         messageGroupSuspended:
-          '<0>{{groupName}}</0> of <2>{{productTitle}}</2>? <4/>You can suspend it again at any time.',
+          ' <0>{{groupName}}</0> of <2>{{productTitle}}</2>? <4/>You can suspend it again at any time.',
         confirmLabelSuspend: 'Suspend',
         confirmLabelActive: 'Reactivate',
         closeLabel: 'Cancel',
@@ -62,15 +69,14 @@ export default {
     handleDuplicate: {
       addNotify: {
         title: 'Duplicate group',
-        message:
-          'Do you want to duplicate the group <1>{{groupName}}</1> of <3>{{productName}}</3>?',
+        message: 'Do you want to duplicate group <1>{{groupName}}</1> of <3>{{productName}}</3>?',
         confirmLabel: 'Duplicate',
         closeLabel: 'Cancel',
       },
     },
     confirmChangeStatus: {
       updatePartyGroupStatusThen: {
-        title: 'Group successfully {{selectedGroupStatus}}',
+        title: 'Group {{selectedGroupStatus}} successfully',
         message: '',
       },
       updatePartyGroupStatusCatch: {
@@ -84,7 +90,7 @@ export default {
     product: 'Product',
     creationDate: 'Created by – on',
     createdByLabel: 'BY',
-    modifiedAt: 'Modified by – on',
+    modifiedAt: 'Edited by – on',
     modifiedBy: 'BY',
     status: 'Suspended',
     userLabel: 'user',
@@ -103,13 +109,13 @@ export default {
       suspend: {
         title: 'Suspend role',
         message:
-          'Do you want to suspend <1>{{memberName}}</1> from the role of <3>{{transcodeProductRole2Title}}</3>? <5 /> If you suspend them, they will no longer be able to work on <8>{{productTitle}}</8>. <10 />You can re-enable them at any time.',
+          'Do you want to suspend <1>{{memberName}}</1> from the role of <3>{{transcodeProductRole2Title}}</3>? <5 /> If you suspend them, they will no longer be able to operate on <8>{{productTitle}}</8>. <10 />You can re-enable them at any time.',
         confirmLabel: 'Suspend',
       },
       reactivate: {
         title: 'Re-enable role',
         message:
-          'Do you want to re-enable <1>{{memberName}}</1> in the role of <3>{{transcodeProductRole2Title}}</3>? <5 /> If you re-enable them, they will be able to work on <8>{{productTitle}}</8> again. <10 />You can suspend them again at any time.',
+          'Do you want to re-enable <1>{{memberName}}</1> in the role of <3>{{transcodeProductRole2Title}}</3>? <5 /> If you re-enable them, they will be able to operate on <8>{{productTitle}}</8> again. <10 /> You can suspend them again at any time.',
         confirmLabel: 'Re-enable',
       },
       closeLabel: 'Cancel',
@@ -120,7 +126,7 @@ export default {
       selectedUserStatusErrorSuspended: 'suspension',
       selectedUserStatusErrorActive: 're-enabling',
       updatePartyUserStatusThen: {
-        title: 'Role successfully {{selectedUserStatus}}.',
+        title: 'Role {{selectedUserStatus}} successfully. ',
         message: '',
       },
       updatePartyUserStatusCatch: {
@@ -131,7 +137,7 @@ export default {
     confirmDisociateAction: {
       title: 'Remove',
       message:
-        'Do you want to remove <1>{{member}}</1> from the group <3>{{groupName}}</3> of <5>{{productTitle}}</5>? You can add them again at any time.',
+        'Do you want to remove <1>{{member}}</1> from the <3>{{groupName}}</3> group of <5>{{productTitle}}</5>? You can add them again at any time.',
       confirmLabel: 'Remove',
       closeLabel: 'Cancel',
     },
@@ -140,7 +146,7 @@ export default {
         title: 'User successfully removed.',
       },
       deleteGroupRelationCatch: {
-        displayableTitle: 'The user could not be removed. Please try again.',
+        displayableTitle: 'Could not remove user. Please try again.',
         displayableDescription: '',
       },
     },
@@ -158,42 +164,42 @@ export default {
         groupName: 'Enter the name of the group',
         groupNameDuplicated: 'This name already exists',
         description: 'Describe the group and indicate its function',
-        productPlaceholter: 'Please select product',
+        productPlaceholder: 'Select product',
         descriptionMaxLength: 'Max 200 characters',
-        noProductSelected: 'No product selected',
-        referentsPlaceholder: 'Select the users you want to associate with the group',
+        noProductSelected: 'No products selected',
+        referentsPlaceholder: 'Select the users you want to associate to the group',
         cancelActionLabel: 'Back',
         confirmActionLabel: 'Confirm',
       },
       notifySuccessfulSave: {
-        isEdit: 'You have edited the group correctly ',
-        isClone: 'You have duplicated the group correctly ',
-        isCreate: 'You have created the group correctly ',
+        isEdit: 'You have successfully edited the group ',
+        isClone: 'You have successfully duplicated the group ',
+        isCreate: 'You have successfully created the group ',
         message: '<0>{{valuesName}}</0> for product <2>{{productSelectedtitle}}</>',
       },
       notifyErrorOnSave: {
-        isEdit: 'The group could not be modified. Please try again. ',
-        isClone: 'The group could not be duplicated. Please try again.',
-        isCreate: 'The group could not be created. Please try again.',
-        displayableDescriptionEdit: 'An error occurred while editing group {{valuesName}}',
-        displayableDescriptionClone: 'An error occurred while cloning group {{valuesName}}',
-        displayableDescriptionCreate: 'An error occurred while creating group {{valuesName}}',
+        isEdit: 'The group could not be edited. Please try again. ',
+        isClone: 'Group could not be duplicated. Please try again.',
+        isCreate: 'Group could not be created. Please try again.',
+        displayableDescriptionEdit: 'An error occurred during the editing of group {{valuesName}} ',
+        displayableDescriptionClone:
+          'An error occurred during the cloning of group {{valuesName}} ',
+        displayableDescriptionCreate: 'An error occurred while creating group {{valuesName}} ',
       },
       save: {
-        groupNameAlreadyExists: 'The chosen name already exists. Choose a new name.',
-        isEdit: 'An error occurred while changing the group. Please try again.',
-        isClone: 'An error occurred while duplicating the group. Please try again.',
-        isCreate: 'An error occurred while creating the group. Please try again.',
+        groupNameAlreadyExists: 'The chosen name is already in use. Please choose a new name.',
+        isEdit: 'There was an error while editing the group. Please try again.',
+        isClone: 'There was an error while duplicating the group. Please try again.',
+        isCreate: 'There was an error while creating the group. Please try again.',
       },
     },
     addGroupPage: {
       groupPathDescription: 'Groups',
       pathDescription: 'Create a new group',
       title: 'Create a new group',
-      subTitle:
-        'Enter the data of the group, associate its users and select the product to be managed.',
+      subTitle: 'Enter the group data, associate its users and select the product to manage.',
       pnpgSubTitle:
-        'Enter the name, the description of the group and the users you want to associate it with.',
+        'Enter the name, the description of the group and the users you want to associate with it.',
     },
     cloneGroupPage: {
       groupPathDescription: 'Groups',
@@ -212,17 +218,18 @@ export default {
     groupsPage: {
       title: 'Groups',
       subTitle:
-        'Groups are a set of users, for example, belonging to the same office or department, who are entrusted with the management of products. Here you can consult the groups of the organisation and create new ones.',
+        "Groups are a set of users, for example, belonging to the same office or department, who are entrusted with product management. Here, you can consult the entity's groups and create new ones.",
       subTitlePnpg:
-        'Groups are a set of users, for example, belonging to the same office or department, who are entrusted with the management of notifications. Here you can manage the groups of the company and create new ones.',
+        'Groups are a set of users, for example, belonging to the same office or department, who are entrusted with notification management. Here, you can manage company groups and create new ones.',
       tabAll: 'All',
     },
     addGroupButton: {
       createActionLabel: 'Create group',
     },
     noGroups: {
-      noGroupsLabel: 'No groups have been created. <1><0>Create a group</0></1>',
-      noGroupsForProduct: 'No groups have been created for this product.',
+      createGroup: 'No groups have been created yet. <1><0>Create a group</0></1>',
+      noGroupsLabel: 'No groups have been created for this product yet.',
+      noGroupsForProduct: 'No groups have been created for this product yet.',
     },
     groupProductTableColumns: {
       duplicateActionLink: 'Duplicate',
