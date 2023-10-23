@@ -192,6 +192,11 @@ export default {
         isClone: 'There was an error while duplicating the group. Please try again.',
         isCreate: 'There was an error while creating the group. Please try again.',
       },
+      outcome: {
+        created: 'Group created successfully',
+        modified: 'Group edited successfully',
+        duplicate: 'Group duplicated successfully',
+      },
     },
     addGroupPage: {
       groupPathDescription: 'Groups',

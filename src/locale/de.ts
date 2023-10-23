@@ -15,7 +15,7 @@ export default {
     usersGroupSection: {
       title: 'Benutzer',
       headerFields: {
-        name: 'Vorname',
+        name: 'Name',
         email: 'E-Mail-Adresse',
         role: 'Rolle',
       },
@@ -196,6 +196,11 @@ export default {
         isEdit: 'Beim Bearbeiten der Gruppe ist ein Fehler aufgetreten. Nochmals versuchen.',
         isClone: 'Beim Duplizieren der Gruppe ist ein Fehler aufgetreten. Nochmals versuchen.',
         isCreate: 'Beim Anlegen der Gruppe ist ein Fehler aufgetreten. Nochmals versuchen.',
+      },
+      outcome: {
+        created: 'Gruppe erfolgreich erstellt',
+        modified: 'Gruppe erfolgreich geändert',
+        duplicate: 'Gruppe erfolgreich dupliziert',
       },
     },
     addGroupPage: {

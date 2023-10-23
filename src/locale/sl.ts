@@ -191,6 +191,11 @@ export default {
         isClone: 'Pri podvajanju skupine je prišlo do napake. Poskusite znova.',
         isCreate: 'Pri ustvarjanju skupine je prišlo do napake. Poskusite znova.',
       },
+      outcome: {
+        created: 'Skupina je bila uspešno ustvarjena',
+        modified: 'Skupina je bila uspešno urejena',
+        duplicate: 'Skupina je bila uspešno podvojena',
+      },
     },
     addGroupPage: {
       groupPathDescription: 'Skupine',
