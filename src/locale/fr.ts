@@ -83,7 +83,7 @@ export default {
         message: '',
       },
       updatePartyGroupStatusCatch: {
-        displayableTitle: 'Il n’a pas été possible de suspendre le groupe. Réessayer.',
+        displayableTitle: "Il n'a pas été possible de suspendre le groupe. Réessayer.",
         displayableDescription: '',
       },
     },
@@ -98,7 +98,7 @@ export default {
     status: 'Suspendu',
     userLabel: 'utilisateur',
     usersLabel: 'utilisateurs',
-    emptyGroup: 'Aucun utilisateur n’a encore été ajouté. Ajouter un utilisateur',
+    emptyGroup: "Aucun utilisateur n'a encore été ajouté. Ajouter un utilisateur",
   },
   groupMenu: {
     dissociateMenuItem: {
@@ -140,7 +140,7 @@ export default {
     confirmDisociateAction: {
       title: 'Supprimer',
       message:
-        'Voulez-vous supprimer <1>{{member}} </1> du groupe <3>{{groupName}} </3> de <5>{{productTitle}} </5> ? Vous pouvez l’ajouter à nouveau à tout moment.',
+        "Voulez-vous supprimer <1>{{member}} </1> du groupe <3>{{groupName}} </3> de <5>{{productTitle}} </5> ? Vous pouvez l'ajouter à nouveau à tout moment.",
       confirmLabel: 'Supprimer',
       closeLabel: 'Annuler',
     },
@@ -149,7 +149,7 @@ export default {
         title: 'Utilisateur supprimé correctement',
       },
       deleteGroupRelationCatch: {
-        displayableTitle: 'Impossible de supprimer l’utilisateur. Réessayer.',
+        displayableTitle: "Impossible de supprimer l'utilisateur. Réessayer.",
         displayableDescription: '',
       },
     },
@@ -160,7 +160,7 @@ export default {
   dashboardGroupEdit: {
     alertRemoveUsersInClone: {
       label:
-        'Certains utilisateurs ont été supprimés du groupe dupliqué parce qu’ils n’étaient pas présents dans le produit <1 /> sélectionné. Vous pouvez toujours affecter d’autres utilisateurs au groupe dupliqué.',
+        "Certains utilisateurs ont été supprimés du groupe dupliqué parce qu'ils n'étaient pas présents dans le produit <1 /> sélectionné. Vous pouvez toujours affecter d'autres utilisateurs au groupe dupliqué.",
     },
     groupForm: {
       formLabels: {
@@ -183,19 +183,24 @@ export default {
       notifyErrorOnSave: {
         isEdit: 'Impossible de modifier le groupe. Réessayer. ',
         isClone: 'Impossible de dupliquer le groupe. Réessayer.',
-        isCreate: 'Le groupe n’a pas pu être créé. Réessayer.',
+        isCreate: "Le groupe n'a pas pu être créé. Réessayer.",
         displayableDescriptionEdit:
-          'Une erreur s’est produite lors de la modification du groupe {{valuesName}}',
+          "Une erreur s'est produite lors de la modification du groupe {{valuesName}}",
         displayableDescriptionClone:
-          'Une erreur s’est produite lors du clonage du groupe {{valuesName}} ',
+          "Une erreur s'est produite lors du clonage du groupe {{valuesName}} ",
         displayableDescriptionCreate:
-          'Une erreur s’est produite lors de la création du groupe {{valuesName}} ',
+          "Une erreur s'est produite lors de la création du groupe {{valuesName}} ",
       },
       save: {
         groupNameAlreadyExists: 'Le nom choisi est déjà utilisé. Chosissez un nouveau nom',
         isEdit: 'Il y a eu une erreur lors de la modification du groupe. Réessayer.',
         isClone: 'Il y a eu une erreur lors de la duplication du groupe. Réessayer.',
         isCreate: 'Il y a eu une erreur lors de la création du groupe. Réessayer.',
+      },
+      outcome: {
+        created: 'Groupe créé avec succès',
+        modified: 'Groupe modifié avec succès',
+        duplicate: 'Groupe dupliqué avec succès',
       },
     },
     addGroupPage: {
@@ -224,18 +229,18 @@ export default {
     groupsPage: {
       title: 'Groupes',
       subTitle:
-        'Les groupes sont un ensemble d’utilisateurs, par exemple appartenant au même bureau ou département, auxquels est confiée la gestion des produits. Ici, vous pouvez consulter les groupes de l’entité et en créer de nouveaux.',
+        "Les groupes sont un ensemble d'utilisateurs, par exemple appartenant au même bureau ou département, auxquels est confiée la gestion des produits. Ici, vous pouvez consulter les groupes de l'entité et en créer de nouveaux.",
       subTitlePnpg:
-        'Les groupes sont un ensemble d’utilisateurs, par exemple appartenant au même bureau ou département, auxquels est confiée la gestion des notifications. Ici, vous pouvez gérer les groupes de l’entreprise et en créer de nouveaux.',
+        "Les groupes sont un ensemble d'utilisateurs, par exemple appartenant au même bureau ou département, auxquels est confiée la gestion des notifications. Ici, vous pouvez gérer les groupes de l'entreprise et en créer de nouveaux.",
       tabAll: 'Tous',
     },
     addGroupButton: {
       createActionLabel: 'Créer un groupe',
     },
     noGroups: {
-      createGroup: 'Aucun groupe n’a encore été créé. <1><0>Créer un groupe</0></1>',
-      noGroupsLabel: 'Aucun groupe n’a encore été créé pour ce produit.',
-      noGroupsForProduct: 'Aucun groupe n’a encore été créé pour ce produit.',
+      createGroup: "Aucun groupe n'a encore été créé. <1><0>Créer un groupe</0></1>",
+      noGroupsLabel: "Aucun groupe n'a encore été créé pour ce produit.",
+      noGroupsForProduct: "Aucun groupe n'a encore été créé pour ce produit.",
     },
     groupProductTableColumns: {
       duplicateActionLink: 'Dupliquer',
@@ -246,10 +251,10 @@ export default {
       },
     },
     groupsProductFetchError: {
-      message: 'Désolé, quelque chose s’est mal passé. <1><2>Veuillez réessayer</2></1>.',
+      message: "Désolés, une erreur s'est produite. <1><2>Réessayer</2></1>.",
     },
     groupsTableLoadMoreData: {
-      loadMoreMessage: 'Charger d’autres',
+      loadMoreMessage: 'Charger plus',
     },
   },
 };

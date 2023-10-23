@@ -203,10 +203,10 @@ function GroupForm({
       component: 'Toast',
       id: isEdit ? 'EDIT_GROUP' : isClone ? 'GROUP_CLONE' : 'GROUP_CREATE',
       title: isEdit
-        ? 'Gruppo modificato correttamente'
+        ? t('dashboardGroupEdit.groupForm.outcome.modified')
         : isClone
-        ? 'Gruppo duplicato correttamente'
-        : 'Gruppo creato correttamente',
+        ? t('dashboardGroupEdit.groupForm.outcome.duplicate')
+        : t('dashboardGroupEdit.groupForm.outcome.created'),
       message: '',
     });
 
