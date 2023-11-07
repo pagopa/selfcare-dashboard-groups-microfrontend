@@ -2,7 +2,7 @@ export default {
   session: {
     expired: {
       title: 'Sitzung abgelaufen',
-      message: 'Du wirst zur Log-in-Seite weitergeleitet ...',
+      message: 'Du wirst zur Login-Seite weitergeleitet...',
     },
   },
   groupDetailPage: {
@@ -15,29 +15,29 @@ export default {
     usersGroupSection: {
       title: 'Benutzer',
       headerFields: {
-        name: 'Nome',
-        email: 'Email',
-        role: 'Ruolo',
+        name: 'Name',
+        email: 'E-Mail-Adresse',
+        role: 'Rolle',
       },
     },
     addUser: 'Benutzer hinzufügen',
   },
   groupActions: {
     title: 'Gruppe erfolgreich gelöscht',
-    actionOnUser: 'Aktionen zum Benutzer',
+    actionOnUser: 'Benutzeraktionen',
     selectedGroupStatusSuspended: 'ausgesetzt',
-    selectedGroupStatusActive: 'erneut zugewiesen',
+    selectedGroupStatusActive: 'reaktiviert',
     selectedGroupStatusErrorSuspended: 'Aussetzung',
-    selectedGroupStatusErrorActive: 'Erneute Zuweisung',
+    selectedGroupStatusErrorActive: 'Reaktivierung',
     editActionLabel: 'Bearbeiten',
-    groupActionActive: 'Erneut zuweisen',
+    groupActionActive: 'Erneut aktivieren',
     groupActionSuspend: 'Aussetzen',
     groupDuplicateAction: 'Duplizieren',
     groupDeleteAction: 'Löschen',
     handleOpenDelete: {
       addNotify: {
         title: 'Gruppe löschen',
-        message: 'Willst du die Gruppe <1>{{groupName}}</1> von <3>{{productName}}</3> löschen?',
+        message: 'Möchtest du <1>{{groupName}}</1> Gruppe <3>{{productName}}</3> löschen?',
         confirmLabel: 'Löschen',
         closeLabel: 'Abbrechen',
       },
@@ -55,15 +55,15 @@ export default {
     handleOpen: {
       addNotify: {
         titleActive: 'Gruppe aussetzen',
-        titleSuspended: 'Gruppe erneut zuweisen',
+        titleSuspended: 'Gruppe reaktivieren',
         messageActive: 'Möchtest du die Gruppe aussetzen',
-        messageSuspended: 'Möchtest du die Gruppe erneut zuweisen',
+        messageSuspended: 'Möchtest du die Gruppe reaktivieren',
         messageGroupActive:
-          '<0>{{groupName}}</0> von <2>{{productTitle}}</2>? <4/>Die Gruppe kann jederzeit erneut zugewiesen werden.',
+          ' <0>{{groupName}}</0> von <2>{{productTitle}}</2>? <4/>Du kannst sie jederzeit wieder aktivieren.',
         messageGroupSuspended:
-          '<0>{{groupName}}</0> von <2>{{productTitle}}</2>? <4/>Die Gruppe kann jederzeit ausgesetzt werden.',
+          ' <0>{{groupName}}</0> von <2>{{productTitle}}</2>? <4/>Du kannst sie jederzeit wieder aussetzen.',
         confirmLabelSuspend: 'Aussetzen',
-        confirmLabelActive: 'Erneut zuweisen',
+        confirmLabelActive: 'Erneut aktivieren',
         closeLabel: 'Abbrechen',
       },
     },
@@ -71,18 +71,18 @@ export default {
       addNotify: {
         title: 'Gruppe duplizieren',
         message:
-          'Willst du die Gruppe <1>{{groupName}}</1> von <3>{{productName}}</3> duplizieren?',
+          'Möchtest du die Gruppe <1>{{groupName}}</1> von <3>{{productName}}</3> duplizieren?',
         confirmLabel: 'Duplizieren',
         closeLabel: 'Abbrechen',
       },
     },
     confirmChangeStatus: {
       updatePartyGroupStatusThen: {
-        title: 'Gruppe {{selectedGroupStatus}} erfolgreich',
+        title: 'Gruppe {{selectedGroupStatus}} richtig',
         message: '',
       },
       updatePartyGroupStatusCatch: {
-        displayableTitle: 'Die Gruppe konnte nicht ausgesetzt werden. Erneut versuchen.',
+        displayableTitle: 'Die Gruppe konnte nicht ausgesetzt werden. Nochmals versuchen.',
         displayableDescription: '',
       },
     },
@@ -90,7 +90,7 @@ export default {
   groupDetail: {
     description: 'Beschreibung',
     product: 'Produkt',
-    creationDate: 'Erstellt von - am',
+    creationDate: 'Von ... am erfasst',
     createdByLabel: 'VON',
     modifiedAt: 'Geändert von - am',
     modifiedBy: 'VON',
@@ -111,13 +111,13 @@ export default {
       suspend: {
         title: 'Rolle aussetzen',
         message:
-          'Willst du <1>{{memberName}}</1> aus der Rolle <3>{{transcodeProductRole2Title}}</3> entfernen? <5 />Nachdem Aussetzen ist ein Zugriff auf <8>{{productTitle}}</8> nicht mehr möglich. <10 />Der Benutzer kann jederzeit reaktiviert werden.',
+          'Möchtest du <1>{{memberName}}</1> von der Rolle des <3>{{transcodeProductRole2Title}}</3> aussetzen? <5 /> Wenn du ihn aussetzt, kann er nicht mehr auf <8>{{productTitle}}</8> zugreifen. <10 />Du kannst ihn jederzeit wieder aktivieren.',
         confirmLabel: 'Aussetzen',
       },
       reactivate: {
         title: 'Rolle reaktivieren',
         message:
-          'Willst du für <1>{{memberName}}</1> die Rolle <3>{{transcodeProductRole2Title}}</3> reaktivieren? <5 /> Durch die Reaktivierung ist ein Zugriff auf <8>{{productTitle}}</8> erneut möglich. <10 />Der Benutzer kann jederzeit ausgesetzt werden.',
+          'Möchtest du <1>{{memberName}}</1> in der Rolle als <3>{{transcodeProductRole2Title}}</3> reaktivieren? <5 /> Wenn du ihn reaktivierst, kann er wieder auf <8>{{productTitle}}</8> zugreifen. <10 />Du kannst ihn jederzeit wieder aussetzen',
         confirmLabel: 'Reaktivieren',
       },
       closeLabel: 'Abbrechen',
@@ -128,18 +128,18 @@ export default {
       selectedUserStatusErrorSuspended: 'Aussetzung',
       selectedUserStatusErrorActive: 'Reaktivierung',
       updatePartyUserStatusThen: {
-        title: 'Rolle {{selectedUserStatus}} erfolgreich.',
+        title: 'Rolle {{selectedUserStatus}} korrekt. ',
         message: '',
       },
       updatePartyUserStatusCatch: {
-        displayableTitle: 'Die Rolle konnte nicht ausgesetzt werden. Erneut versuchen.',
+        displayableTitle: 'Die Rolle konnte nicht ausgesetzt werden. Nochmals versuchen.',
         displayableDescription: '',
       },
     },
     confirmDisociateAction: {
       title: 'Entfernen',
       message:
-        'Willst du <1>{{member}}</1> aus der Gruppe <3>{{groupName}}</3> von <5>{{productTitle}}</5> entfernen? Der Benutzer kann jederzeit erneut hinzugefügt werden.',
+        'Möchtest du <1>{{member}}</1> aus der Gruppe <3>{{groupName}}</3> von <5>{{productTitle}}</5> entfernen? Du kannst ihn jederzeit wieder hinzufügen.',
       confirmLabel: 'Entfernen',
       closeLabel: 'Abbrechen',
     },
@@ -148,60 +148,69 @@ export default {
         title: 'Benutzer erfolgreich entfernt.',
       },
       deleteGroupRelationCatch: {
-        displayableTitle: 'Der Benutzer konnte nicht entfernt werden. Erneut versuchen.',
+        displayableTitle: 'Der Benutzer konnte nicht entfernt werden. Nochmals versuchen.',
         displayableDescription: '',
       },
     },
   },
   membersGroup: {
-    currentUser: ' (du)',
+    currentUser: '(du)',
   },
   dashboardGroupEdit: {
     alertRemoveUsersInClone: {
       label:
-        'Einige Benutzer wurden aus der duplizierten Gruppe entfernt, da sie nicht im ausgewählten <1 /> Produkt enthalten sind. Du kannst der duplizierten Gruppe weiterhin andere Benutzer zuweisen.',
+        'Einige Benutzer wurden aus der duplizierten Gruppe entfernt, weil sie im ausgewählten Produkt <1 /> nicht vorhanden sind. Du kannst der duplizierten Gruppe jedoch weitere Benutzer zuweisen.',
     },
     groupForm: {
       formLabels: {
         groupName: 'Namen der Gruppe eingeben',
-        groupNameDuplicated: 'Der Name wird bereits benutzt',
-        description: 'Gruppe beschreiben und Funktion eingeben',
-        productPlaceholter: 'Produkt wählen',
+        groupNameDuplicated: 'Der Name wird bereits genutzt',
+        description: 'Beschreibe die Gruppe und gib ihre Funktion an',
+        productPlaceholder: 'Produkt wählen',
         descriptionMaxLength: 'Max. 200 Zeichen',
         noProductSelected: 'Kein Produkt ausgewählt',
-        referentsPlaceholder: 'Benutzer wählen, die der Gruppe zugeordnet werden sollen',
+        referentsPlaceholder: 'Wähle die Benutzer aus, die du der Gruppe zuordnen möchtest',
         cancelActionLabel: 'Zurück',
         confirmActionLabel: 'Bestätigen',
       },
       notifySuccessfulSave: {
-        isEdit: 'Die Gruppe wurde erfolgreich geändert ',
-        isClone: 'Die Gruppe wurde erfolgreich dupliziert ',
-        isCreate: 'Die Gruppe wurde erfolgreich erstellt ',
+        isEdit: 'Du hast die Gruppe korrekt geändert ',
+        isClone: 'Du hast die Gruppe korrekt dupliziert ',
+        isCreate: 'Du hast die Gruppe korrekt erstellt ',
         message: '<0>{{valuesName}}</0> für das Produkt <2>{{productSelectedtitle}}</>',
       },
       notifyErrorOnSave: {
-        isEdit: 'Die Gruppe konnte nicht geändert werden. Erneut versuchen. ',
-        isClone: 'Die Gruppe konnte nicht dupliziert werden. Erneut versuchen.',
-        isCreate: 'Die Gruppe konnte nicht erstellt werden. Erneut versuchen.',
-        displayableDescriptionEdit: 'Fehler bei der Bearbeitung der Gruppe {{valuesName}}',
-        displayableDescriptionClone: 'Fehler beim Duplizieren der Gruppe {{valuesName}}',
-        displayableDescriptionCreate: 'Fehler beim Erstellen der Gruppe {{valuesName}}',
+        isEdit: 'Die Gruppe konnte nicht geändert werden. Nochmals versuchen. ',
+        isClone: 'Die Gruppe konnte nicht dupliziert werden. Nochmals versuchen.',
+        isCreate: 'Die Gruppe konnte nicht angelegt werden. Nochmals versuchen.',
+        displayableDescriptionEdit:
+          'Es ist ein Fehler bei der Bearbeitung der Gruppe {{valuesName}} aufgetreten ',
+        displayableDescriptionClone:
+          'Es ist ein Fehler beim Duplizieren der {{valuesName}} aufgetreten',
+        displayableDescriptionCreate:
+          'Es ist ein Fehler beim Anlegen der Gruppe {{valuesName}} aufgetreten',
       },
       save: {
-        groupNameAlreadyExists: 'Der gewählte Name wird bereits benutzt. Neuen Namen wählen.',
-        isEdit: 'Beim Bearbeiten der Gruppe ist ein Fehler aufgetreten. Erneut versuchen.',
-        isClone: 'Beim Duplizieren der Gruppe ist ein Fehler aufgetreten. Erneut versuchen.',
-        isCreate: 'Beim Erstellen der Gruppe ist ein Fehler aufgetreten. Erneut versuchen.',
+        groupNameAlreadyExists:
+          'Der gewählte Name wird bereits verwendet. Wähle einen neuen Namen.',
+        isEdit: 'Beim Bearbeiten der Gruppe ist ein Fehler aufgetreten. Nochmals versuchen.',
+        isClone: 'Beim Duplizieren der Gruppe ist ein Fehler aufgetreten. Nochmals versuchen.',
+        isCreate: 'Beim Anlegen der Gruppe ist ein Fehler aufgetreten. Nochmals versuchen.',
+      },
+      outcome: {
+        created: 'Gruppe erfolgreich erstellt',
+        modified: 'Gruppe erfolgreich geändert',
+        duplicate: 'Gruppe erfolgreich dupliziert',
       },
     },
     addGroupPage: {
       groupPathDescription: 'Gruppen',
-      pathDescription: 'Neue Gruppe erstellen',
-      title: 'Neue Gruppe erstellen',
+      pathDescription: 'Neue Gruppe anlegen',
+      title: 'Neue Gruppe anlegen',
       subTitle:
-        'Daten der Gruppe eingeben, jeweilige Benutzer zuordnen und das zu verwaltende Produkt auswählen.',
+        'Gib die Daten der Gruppe ein, verknüpfe die entsprechenden Benutzer und wähle das zu verwaltende Produkt aus.',
       pnpgSubTitle:
-        'Namen und Beschreibung der Gruppe und der Benutzer eingeben, die ihr zugeordnet werden sollen.',
+        'Gib den Namen, die Beschreibung der Gruppe und die Benutzer ein, die du zuordnen möchtest.',
     },
     cloneGroupPage: {
       groupPathDescription: 'Gruppen',
@@ -220,17 +229,18 @@ export default {
     groupsPage: {
       title: 'Gruppen',
       subTitle:
-        'Gruppen bestehen aus mehreren Benutzern, die beispielsweise einem Büro oder einer Abteilung angehören und mit der Verwaltung von Produkten betraut sind. Hier kannst du die Gruppen der Körperschaft einsehen und neue erstellen.',
+        'Gruppen sind eine Gruppe von Benutzern, die zum Beispiel demselben Büro oder derselben Abteilung angehören und mit der Verwaltung der Produkte betraut sind. Hier kannst du die Gruppen der Körperschaft sehen und neue erstellen.',
       subTitlePnpg:
-        'Gruppen bestehen aus mehreren Benutzern, die beispielsweise einem Büro oder einer Abteilung angehören und mit der Verwaltung von Bescheiden betraut sind. Hier kannst du Firmengruppen verwalten und neue erstellen.',
+        'Gruppen sind eine Gruppe von Benutzern, die beispielsweise demselben Büro oder derselben Abteilung angehören und mit der Verwaltung von Bescheiden betraut sind. Hier kannst du Unternehmensgruppen verwalten und neue erstellen.',
       tabAll: 'Alle',
     },
     addGroupButton: {
       createActionLabel: 'Gruppe erstellen',
     },
     noGroups: {
-      noGroupsLabel: 'Es wurde noch keine Gruppe erstellt. <1><0>Gruppe erstellen</0></1>',
-      noGroupsForProduct: 'Für dieses Produkt wurde noch keine Gruppe erstellt.',
+      createGroup: 'Es wurden noch keine Gruppen angelegt. <1><0> Gruppe erstellen </0></1>',
+      noGroupsLabel: 'Es wurde noch keine Gruppe für dieses Produkt erstellt.',
+      noGroupsForProduct: 'Es wurde noch keine Gruppe für dieses Produkt erstellt.',
     },
     groupProductTableColumns: {
       duplicateActionLink: 'Duplizieren',
@@ -241,7 +251,7 @@ export default {
       },
     },
     groupsProductFetchError: {
-      message: 'Es ist leider ein Fehler aufgetreten. <1><0>Erneut versuchen</0></1>.',
+      message: 'Es ist leider ein Fehler aufgetreten. <1><0>Nochmals versuchen</0></1>.',
     },
     groupsTableLoadMoreData: {
       loadMoreMessage: 'Weitere laden',

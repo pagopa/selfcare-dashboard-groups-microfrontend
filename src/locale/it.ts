@@ -187,6 +187,11 @@ export default {
         isClone: "C'è stato un errore durante la duplicazione del gruppo. Riprova.",
         isCreate: "C'è stato un errore durante la creazione del gruppo. Riprova.",
       },
+      outcome: {
+        created: 'Gruppo creato correttamente',
+        modified: 'Gruppo modificato correttamente',
+        duplicate: 'Gruppo duplicato correttamente',
+      },
     },
     addGroupPage: {
       groupPathDescription: 'Gruppi',

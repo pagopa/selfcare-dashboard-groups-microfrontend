@@ -2,7 +2,7 @@ export default {
   session: {
     expired: {
       title: 'Seja je potekla',
-      message: 'Preusmerjeni boste na stran za prijavo...',
+      message: 'Preusmerjeni boste na stran za prijavo ...',
     },
   },
   groupDetailPage: {
@@ -12,19 +12,26 @@ export default {
     },
     title: 'Register',
     backActionLabel: 'Nazaj',
-    usersTitle: 'Uporabniki',
+    usersGroupSection: {
+      title: 'Uporabniki',
+      headerFields: {
+        name: 'Ime',
+        email: 'E-poštni naslov',
+        role: 'Vloga',
+      },
+    },
     addUser: 'Dodaj uporabnika',
   },
   groupActions: {
     title: 'Skupina je bila uspešno izbrisana',
-    actionOnUser: 'Dejanja na uporabniku',
-    selectedGroupStatusSuspended: 'začasno odstavljen',
-    selectedGroupStatusActive: 'ponovno aktiviran',
-    selectedGroupStatusErrorSuspended: 'začasna odstavitev',
+    actionOnUser: 'Dejanja na uporabnika',
+    selectedGroupStatusSuspended: 'prekinjena',
+    selectedGroupStatusActive: 'ponovno aktivirana',
+    selectedGroupStatusErrorSuspended: 'prekinitev',
     selectedGroupStatusErrorActive: 'ponovna aktivacija',
-    editActionLabel: 'Uredi',
+    editActionLabel: 'Spremeni',
     groupActionActive: 'Ponovno aktiviraj',
-    groupActionSuspend: 'Začasno odstavi',
+    groupActionSuspend: 'Prekini',
     groupDuplicateAction: 'Podvoji',
     groupDeleteAction: 'Izbriši',
     handleOpenDelete: {
@@ -46,15 +53,15 @@ export default {
     },
     handleOpen: {
       addNotify: {
-        titleActive: 'Začasno odstavi skupino',
+        titleActive: 'Prekini skupino',
         titleSuspended: 'Ponovno aktiviraj skupino',
-        messageActive: 'Ali želite začasno odstaviti skupino',
+        messageActive: 'Ali želite prekiniti skupino',
         messageSuspended: 'Ali želite ponovno aktivirati skupino',
         messageGroupActive:
-          '<0>{{groupName}}</0> za <2>{{productTitle}}</2>? <4/>Lahko jo kadar koli znova aktivirate.',
+          ' <0>{{groupName}}</0> za <2>{{productTitle}}</2>? <4/>Kadarkoli jo lahko ponovno aktivirate.',
         messageGroupSuspended:
-          '<0>{{groupName}}</0> za <2>{{productTitle}}</2>? <4/>Lahko jo kadar koli znova začasno odstavite.',
-        confirmLabelSuspend: 'Začasno odstavi',
+          ' <0>{{groupName}}</0> za <2>{{productTitle}}</2>? <4/>Kadarkoli jo lahko ponovno prekinete.',
+        confirmLabelSuspend: 'Prekini',
         confirmLabelActive: 'Ponovno aktiviraj',
         closeLabel: 'Prekliči',
       },
@@ -69,11 +76,11 @@ export default {
     },
     confirmChangeStatus: {
       updatePartyGroupStatusThen: {
-        title: 'Skupina {{selectedGroupStatus}} je bila uspešno odstranjena',
+        title: 'Skupina je {{selectedGroupStatus}} uspešno',
         message: '',
       },
       updatePartyGroupStatusCatch: {
-        displayableTitle: 'Skupine ni bilo mogoče začasno odstaviti. Poskusite znova.',
+        displayableTitle: 'Skupine ni bilo mogoče prekiniti. Poskusite znova.',
         displayableDescription: '',
       },
     },
@@ -81,56 +88,56 @@ export default {
   groupDetail: {
     description: 'Opis',
     product: 'Izdelek',
-    creationDate: 'Ustvaril - dne',
+    creationDate: 'Ustvaril/-a - dne',
     createdByLabel: 'OD',
-    modifiedAt: 'Spremenil - dne',
+    modifiedAt: 'Spremenil/-a - dne',
     modifiedBy: 'OD',
-    status: 'Začasno odstavljen',
+    status: 'Prekinjena',
     userLabel: 'uporabnik',
     usersLabel: 'uporabniki',
-    emptyGroup: 'Noben uporabnik še ni bil dodan. <1>Dodaj uporabnika</1>',
+    emptyGroup: 'Noben uporabnik še ni bil dodan. <1>Dodajte uporabnika</1>',
   },
   groupMenu: {
     dissociateMenuItem: {
       label: 'Odstrani iz skupine',
     },
     suspendMenuItem: {
-      suspendLabel: 'Začasno odstavi vlogo',
-      activeLabel: 'Vnovič omogoči vlogo',
+      suspendLabel: 'Prekini vlogo',
+      activeLabel: 'Ponovno omogoči vlogo',
     },
     confirmAction: {
       suspend: {
-        title: 'Začasno odstavi vlogo',
+        title: 'Prekini vlogo',
         message:
-          'Ali želite začasno odstaviti <1>{{memberName}}</1> iz vloge <3>{{transcodeProductRole2Title}}</3>? <5 /> Če ga začasno odstavite, ne bo več mogel delovati na <8>{{productTitle}}</8>. <10 />Lahko ga kadar koli vnovič omogočite.',
-        confirmLabel: 'Začasno odstavi',
+          'Ali želite prekiniti <1>{{memberName}}</1> iz vloge <3>{{transcodeProductRole2Title}}</3>? <5 /> Če ga prekinete, ne bo več mogel delovati na <8>{{productTitle}}</8>. <10 />Kadarkoli ga lahko ponovno omogočite.',
+        confirmLabel: 'Prekini',
       },
       reactivate: {
-        title: 'Vnovič omogoči vlogo',
+        title: 'Ponovno omogoči vlogo',
         message:
-          'Ali želite vnovič omogočiti <1>{{memberName}}</1> v vlogi <3>{{transcodeProductRole2Title}}</3>? <5 /> Če ga omogočite, lahko ponovno deluje na <8>{{productTitle}}</8>. <10 />Lahko ga kadar koli znova začasno odstavite.',
-        confirmLabel: 'Vnovič omogoči',
+          'Ali želite ponovno omogočiti <1>{{memberName}}</1> v vlogi <3>{{transcodeProductRole2Title}}</3>? <5 /> Če ga ponovno omogočite, bo lahko ponovno deloval na <8>{{productTitle}}</8>. <10 />Kadarkoli ga lahko ponovno prekinete.',
+        confirmLabel: 'Ponovno omogoči',
       },
       closeLabel: 'Prekliči',
     },
     confirmChangeStatus: {
-      selectedUserStatusSuspended: 'začasno odstavljen',
-      selectedUserStatusActive: 'vnovič omogočen',
-      selectedUserStatusErrorSuspended: 'začasna odstavitev',
-      selectedUserStatusErrorActive: 'vnovično omogočanje',
+      selectedUserStatusSuspended: 'prekinjena',
+      selectedUserStatusActive: 'ponovno omogočena',
+      selectedUserStatusErrorSuspended: 'prekinitev',
+      selectedUserStatusErrorActive: 'ponovno omogočanje',
       updatePartyUserStatusThen: {
-        title: 'Vloga {{selectedUserStatus}} pravilno omogočena.',
+        title: 'Vloga je {{selectedUserStatus}} uspešno. ',
         message: '',
       },
       updatePartyUserStatusCatch: {
-        displayableTitle: 'Vloge ni bilo mogoče začasno odstaviti. Poskusite znova.',
+        displayableTitle: 'Vloge ni bilo mogoče prekiniti. Poskusite znova.',
         displayableDescription: '',
       },
     },
     confirmDisociateAction: {
       title: 'Odstrani',
       message:
-        'Ali želite odstraniti <1>{{member}}</1> iz skupine <3>{{groupName}}</3> za <5>{{productTitle}}</5>? Lahko ga kadar koli znova dodate.',
+        'Ali želite odstraniti <1>{{member}}</1> iz skupine <3>{{groupName}}</3> za <5>{{productTitle}}</5>? Kadarkoli ga lahko znova dodate.',
       confirmLabel: 'Odstrani',
       closeLabel: 'Prekliči',
     },
@@ -145,19 +152,19 @@ export default {
     },
   },
   membersGroup: {
-    currentUser: ' (ti)',
+    currentUser: '(ti)',
   },
   dashboardGroupEdit: {
     alertRemoveUsersInClone: {
       label:
-        'Nekateri uporabniki so bili odstranjeni iz podvojene skupine, ker niso prisotni v izbranem <1 /> izdelku. V podvojeno skupino lahko še vedno dodelite druge uporabnike.',
+        'Nekateri uporabniki so bili odstranjeni iz podvojene skupine, ker niso prisotni v izbranem <1 /> izdelku. Podvojeni skupini lahko še vedno dodelite druge uporabnike.',
     },
     groupForm: {
       formLabels: {
         groupName: 'Vnesite ime skupine',
-        groupNameDuplicated: 'To ime je že v uporabi',
+        groupNameDuplicated: 'To ime je že uporabljeno',
         description: 'Opišite skupino in navedite njeno funkcijo',
-        productPlaceholter: 'Izberite izdelek',
+        productPlaceholder: 'Izberite izdelek',
         descriptionMaxLength: 'Največ 200 znakov',
         noProductSelected: 'Ni izbranih izdelkov',
         referentsPlaceholder: 'Izberite uporabnike, ki jih želite povezati s skupino',
@@ -165,24 +172,29 @@ export default {
         confirmActionLabel: 'Potrdi',
       },
       notifySuccessfulSave: {
-        isEdit: 'Uspešno ste spremenili skupino ',
+        isEdit: 'Uspešno ste uredili skupino ',
         isClone: 'Uspešno ste podvojili skupino ',
         isCreate: 'Uspešno ste ustvarili skupino ',
         message: '<0>{{valuesName}}</0> za izdelek <2>{{productSelectedtitle}}</>',
       },
       notifyErrorOnSave: {
-        isEdit: 'Skupine ni bilo mogoče spremeniti. Poskusi znova. ',
-        isClone: 'Skupine ni bilo mogoče podvojiti. Poskusite znova.',
+        isEdit: 'Skupine ni bilo mogoče urediti. Poskusite znova. ',
+        isClone: 'Podvajanje skupine ni uspelo. Poskusite znova.',
         isCreate: 'Skupine ni bilo mogoče ustvariti. Poskusite znova.',
-        displayableDescriptionEdit: 'Pri urejanju skupine je prišlo do napake {{valuesName}}',
-        displayableDescriptionClone: 'Pri kloniranju skupine je prišlo do napake {{valuesName}}',
-        displayableDescriptionCreate: 'Pri ustvarjanju skupine je prišlo do napake {{valuesName}}',
+        displayableDescriptionEdit: 'Pri urejanju skupine {{valuesName}} je prišlo do napake',
+        displayableDescriptionClone: 'Med kloniranjem skupine {{valuesName}} je prišlo do napake ',
+        displayableDescriptionCreate: 'Pri ustvarjanju skupine {{valuesName}} je prišlo do napake',
       },
       save: {
         groupNameAlreadyExists: 'Izbrano ime je že v uporabi. Izberite novo ime.',
-        isEdit: 'Pri spreminjanju skupine je prišlo do napake. Poskusite znova.',
+        isEdit: 'Pri urejanju skupine je prišlo do napake. Poskusite znova.',
         isClone: 'Pri podvajanju skupine je prišlo do napake. Poskusite znova.',
         isCreate: 'Pri ustvarjanju skupine je prišlo do napake. Poskusite znova.',
+      },
+      outcome: {
+        created: 'Skupina je bila uspešno ustvarjena',
+        modified: 'Skupina je bila uspešno urejena',
+        duplicate: 'Skupina je bila uspešno podvojena',
       },
     },
     addGroupPage: {
@@ -191,7 +203,7 @@ export default {
       title: 'Ustvari novo skupino',
       subTitle:
         'Vnesite podatke skupine, povežite njene uporabnike in izberite izdelek, ki ga želite upravljati.',
-      pnpgSubTitle: 'Vnesite ime, opis skupine in uporabnike, ki jih želite pridružiti skupini.',
+      pnpgSubTitle: 'Vnesite ime, opis skupine in uporabnike, s katerimi se želite povezati.',
     },
     cloneGroupPage: {
       groupPathDescription: 'Skupine',
@@ -202,25 +214,26 @@ export default {
     },
     editGroupPage: {
       groupPathDescription: 'Skupine',
-      pathDescription: 'Spremeni skupino',
-      title: 'Spremeni skupino',
+      pathDescription: 'Uredi skupino',
+      title: 'Uredi skupino',
     },
   },
   dashboardGroup: {
     groupsPage: {
       title: 'Skupine',
       subTitle:
-        'Skupine so skupek uporabnikov, na primer pripadniki iste pisarne ali oddelka, katerim je zaupano upravljanje izdelkov. Tukaj si lahko ogledate skupine subjekta in ustvarite nove.',
+        'Skupine so skupek uporabnikov, ki na primer pripadajo isti pisarni ali oddelku in jim je zaupano upravljanje izdelkov. Tukaj se lahko posvetujete s skupinami organizacije in ustvarite nove.',
       subTitlePnpg:
-        'Skupine so skupek uporabnikov, na primer pripadniki iste pisarne ali oddelka, katerim je zaupano upravljanje obvestil. Tukaj lahko upravljate skupine podjetja in ustvarite nove.',
+        'Skupine so skupek uporabnikov, ki na primer pripadajo isti pisarni ali oddelku in jim je zaupano upravljanje obvestil. Tukaj lahko upravljate skupine podjetja in ustvarjate nove.',
       tabAll: 'Vsi',
     },
     addGroupButton: {
       createActionLabel: 'Ustvari skupino',
     },
     noGroups: {
-      noGroupsLabel: 'Nobena skupina še ni bila ustvarjena. <1><0>Ustvarite skupino</0></1>',
-      noGroupsForProduct: 'Nobena skupina še ni bila ustvarjena za ta izdelek.',
+      createGroup: 'Nobena skupina še ni bila ustvarjena. <1><0>Ustvari skupino</0></1>',
+      noGroupsLabel: 'Za ta izdelek še ni bila ustvarjena nobena skupina.',
+      noGroupsForProduct: 'Za ta izdelek še ni bila ustvarjena nobena skupina.',
     },
     groupProductTableColumns: {
       duplicateActionLink: 'Podvoji',
@@ -234,7 +247,7 @@ export default {
       message: 'Žal, nekaj je šlo narobe. <1><0>Poskusite znova</0></1>.',
     },
     groupsTableLoadMoreData: {
-      loadMoreMessage: 'Naloži več',
+      loadMoreMessage: 'Naložite druge',
     },
   },
 };
