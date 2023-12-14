@@ -62,7 +62,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
 
   const product = productsMap[partyGroupState.productId];
   const canEdit = !!party.products.find(
-    (pp) => pp.productId === product.id && pp.userRole === 'ADMIN' && product.status === 'ACTIVE'
+    (pp) => pp.productId === product.id && pp.userRole === 'ADMIN' && pp.productOnBoardingStatus === 'ACTIVE'
   );
 
   const isSuspended = partyGroupState.status === 'SUSPENDED';
