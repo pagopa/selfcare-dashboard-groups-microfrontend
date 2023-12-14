@@ -75,6 +75,28 @@ test('test routing clone group from group detail', async () => {
   await toVerifyPath('/dashboard/onboarded/groups/groupId1/clone', 'Duplica gruppo', history);
 });
 
+test('suspend group button should be visible and open suspend modal', async () => {
+  const { history } = renderComponent();
+  await toVerifyPath('/dashboard/onboarded/groups/groupId1', 'Dettaglio Gruppo', history);
+  const suspendButton = screen.getByText('Sospendi');
+  await waitFor(() => fireEvent.click(suspendButton));
+  const suspendModalTitle = await screen.findByText('Sospendi gruppo');
+  expect(suspendModalTitle).toBeInTheDocument();
+  const closeModalButton = await screen.findByText('Annulla');
+  await waitFor(() => fireEvent.click(closeModalButton));
+});
+
+test('delete group button should be visible and open delete modal', async () => {
+  const { history } = renderComponent();
+  await toVerifyPath('/dashboard/onboarded/groups/groupId1', 'Dettaglio Gruppo', history);
+  const deleteButton = screen.getByText('Elimina');
+  await waitFor(() => fireEvent.click(deleteButton));
+  const deleteModalTitle = await screen.findByText('Elimina gruppo');
+  expect(deleteModalTitle).toBeInTheDocument();
+  const closeModalButton = await screen.findByText('Annulla');
+  await waitFor(() => fireEvent.click(closeModalButton));
+});
+
 test('test routing add new group', async () => {
   const { history } = renderComponent();
   await toVerifyPath('/dashboard/onboarded/groups/add', 'Crea un nuovo gruppo', history);
