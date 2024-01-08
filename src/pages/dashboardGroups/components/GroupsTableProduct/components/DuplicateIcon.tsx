@@ -2,7 +2,7 @@ import { IconButton, Box, Tooltip } from '@mui/material';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
 import { GridRenderCellParams } from '@mui/x-data-grid';
 import { useHistory } from 'react-router-dom';
-import { TFunction } from 'react-i18next';
+import { TFunction } from 'i18next';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { DASHBOARD_GROUPS_ROUTES } from '../../../../../routes';
 import { PartyGroup } from '../../../../../model/PartyGroup';

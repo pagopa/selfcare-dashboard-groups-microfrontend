@@ -72,45 +72,61 @@ export default function GroupMenu({
       message: (
         <>
           {role?.status === 'ACTIVE' ? (
-            <Trans i18nKey="groupMenu.confirmAction.suspend.message">
+            <Trans
+              i18nKey="groupMenu.confirmAction.suspend.message"
+              value={{
+                memberName: `${party && member.name.toLocaleLowerCase()} ${member.surname}`,
+                transcodeProductRole2Title: transcodeProductRole2Title(
+                  role?.role as string,
+                  productRolesLists
+                ).toLocaleLowerCase(),
+                productTitle: product.title,
+              }}
+            >
               {'Vuoi sospendere '}
               <strong style={{ textTransform: 'capitalize' }}>
-                {{ memberName: `${party && member.name.toLocaleLowerCase()} ${member.surname}` }}
+                {`${party && member.name.toLocaleLowerCase()} ${member.surname}`}
               </strong>
               {' dal ruolo di '}
               <strong style={{ textTransform: 'capitalize' }}>
-                {{
-                  transcodeProductRole2Title: transcodeProductRole2Title(
-                    role?.role as string,
-                    productRolesLists
-                  ).toLocaleLowerCase(),
-                }}
+                {transcodeProductRole2Title(
+                  role?.role as string,
+                  productRolesLists
+                ).toLocaleLowerCase()}
               </strong>
               {'?'}
               <br /> {'Se lo sospendi, non potrà più operare su '}
-              <strong>{{ productTitle: product.title }}</strong>
+              <strong>{product.title}</strong>
               {'.'}
               <br />
               {'Puoi riabilitarlo in qualsiasi momento.'}
             </Trans>
           ) : (
-            <Trans i18nKey="groupMenu.confirmAction.reactivate.message">
+            <Trans
+              i18nKey="groupMenu.confirmAction.reactivate.message"
+              value={{
+                memberName: `${party && member.name.toLocaleLowerCase()} ${member.surname}`,
+                transcodeProductRole2Title: transcodeProductRole2Title(
+                  role?.role as string,
+                  productRolesLists
+                ).toLocaleLowerCase(),
+                productTitle: product.title,
+              }}
+            >
               {'Vuoi riabilitare '}
               <strong style={{ textTransform: 'capitalize' }}>
-                {{ memberName: `${party && member.name.toLocaleLowerCase()} ${member.surname}` }}
+                {`${party && member.name.toLocaleLowerCase()} ${member.surname}`}
               </strong>
               {' nel ruolo di '}
               <strong style={{ textTransform: 'capitalize' }}>
-                {{
-                  transcodeProductRole2Title: transcodeProductRole2Title(
-                    role?.role as string,
-                    productRolesLists
-                  ).toLocaleLowerCase(),
-                }}
+                {transcodeProductRole2Title(
+                  role?.role as string,
+                  productRolesLists
+                ).toLocaleLowerCase()}
               </strong>
               {'?'}
               <br /> {'Se lo riabiliti, potrà operare di nuovo su '}
-              <strong>{{ productTitle: product.title }}</strong>
+              <strong>{product.title}</strong>
               {'.'}
               <br />
               {'Puoi sospenderlo di nuovo in qualsiasi momento.'}
@@ -198,18 +214,20 @@ export default function GroupMenu({
       title: t('groupMenu.confirmDisociateAction.title'),
       message: (
         <>
-          <Trans i18nKey="groupMenu.confirmDisociateAction.message">
+          <Trans
+            i18nKey="groupMenu.confirmDisociateAction.message"
+            value={{
+              member: `${member.name} ${member.surname}`,
+              groupName: partyGroup.name,
+              productTitle: product.title,
+            }}
+          >
             Vuoi rimuovere
-            <strong>
-              {{
-                member: `${member.name} ${member.surname}`,
-              }}
-            </strong>
+            <strong>{`${member.name} ${member.surname}`}</strong>
             dal gruppo
-            <strong>{{ groupName: partyGroup.name }}</strong>
+            <strong>{partyGroup.name}</strong>
             di
-            <strong>{{ productTitle: product.title }}</strong>? Puoi aggiungerlo nuovamente in
-            qualsiasi momento.
+            <strong>{product.title}</strong>? Puoi aggiungerlo nuovamente in qualsiasi momento.
           </Trans>
         </>
       ),
