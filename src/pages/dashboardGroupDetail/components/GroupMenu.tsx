@@ -74,7 +74,7 @@ export default function GroupMenu({
           {role?.status === 'ACTIVE' ? (
             <Trans
               i18nKey="groupMenu.confirmAction.suspend.message"
-              value={{
+              values={{
                 memberName: `${party && member.name.toLocaleLowerCase()} ${member.surname}`,
                 transcodeProductRole2Title: transcodeProductRole2Title(
                   role?.role as string,
@@ -82,29 +82,14 @@ export default function GroupMenu({
                 ).toLocaleLowerCase(),
                 productTitle: product.title,
               }}
+              components={{ 1: <strong />, 3: <strong />, 8: <strong /> }}
             >
-              {'Vuoi sospendere '}
-              <strong style={{ textTransform: 'capitalize' }}>
-                {`${party && member.name.toLocaleLowerCase()} ${member.surname}`}
-              </strong>
-              {' dal ruolo di '}
-              <strong style={{ textTransform: 'capitalize' }}>
-                {transcodeProductRole2Title(
-                  role?.role as string,
-                  productRolesLists
-                ).toLocaleLowerCase()}
-              </strong>
-              {'?'}
-              <br /> {'Se lo sospendi, non potrà più operare su '}
-              <strong>{product.title}</strong>
-              {'.'}
-              <br />
-              {'Puoi riabilitarlo in qualsiasi momento.'}
+              {`Vuoi sospendere <1>{{memberName}}</1> dal ruolo di <3>{{transcodeProductRole2Title}}</3>? <5 /> Se lo sospendi, non potrà più operare su <8>{{productTitle}}</8>. <10 />Puoi riabilitarlo in qualsiasi momento.`}
             </Trans>
           ) : (
             <Trans
               i18nKey="groupMenu.confirmAction.reactivate.message"
-              value={{
+              values={{
                 memberName: `${party && member.name.toLocaleLowerCase()} ${member.surname}`,
                 transcodeProductRole2Title: transcodeProductRole2Title(
                   role?.role as string,
@@ -112,24 +97,9 @@ export default function GroupMenu({
                 ).toLocaleLowerCase(),
                 productTitle: product.title,
               }}
+              components={{ 1: <strong />, 3: <strong />, 8: <strong /> }}
             >
-              {'Vuoi riabilitare '}
-              <strong style={{ textTransform: 'capitalize' }}>
-                {`${party && member.name.toLocaleLowerCase()} ${member.surname}`}
-              </strong>
-              {' nel ruolo di '}
-              <strong style={{ textTransform: 'capitalize' }}>
-                {transcodeProductRole2Title(
-                  role?.role as string,
-                  productRolesLists
-                ).toLocaleLowerCase()}
-              </strong>
-              {'?'}
-              <br /> {'Se lo riabiliti, potrà operare di nuovo su '}
-              <strong>{product.title}</strong>
-              {'.'}
-              <br />
-              {'Puoi sospenderlo di nuovo in qualsiasi momento.'}
+              {`Vuoi riabilitare <1>{{memberName}}</1> nel ruolo di <3>{{transcodeProductRole2Title}}</3>? <5 /> Se lo riabiliti, potrà operare di nuovo su <8>{{productTitle}}</8>. <10 />Puoi sospenderlo di nuovo in qualsiasi momento.`}
             </Trans>
           )}
         </>
@@ -206,33 +176,29 @@ export default function GroupMenu({
       .finally(() => setLoading(false));
   };
 
-  const confirmDisociateAction = () => {
+  const confirmDissociateAction = () => {
     handleClose();
     addNotify({
       component: 'SessionModal',
       id: 'DISSOCIATE_ACTION_MODAL',
-      title: t('groupMenu.confirmDisociateAction.title'),
+      title: t('groupMenu.confirmDissociateAction.title'),
       message: (
         <>
           <Trans
-            i18nKey="groupMenu.confirmDisociateAction.message"
-            value={{
+            i18nKey="groupMenu.confirmDissociateAction.message"
+            values={{
               member: `${member.name} ${member.surname}`,
               groupName: partyGroup.name,
               productTitle: product.title,
             }}
+            components={{ 1: <strong />, 3: <strong />, 5: <strong /> }}
           >
-            Vuoi rimuovere
-            <strong>{`${member.name} ${member.surname}`}</strong>
-            dal gruppo
-            <strong>{partyGroup.name}</strong>
-            di
-            <strong>{product.title}</strong>? Puoi aggiungerlo nuovamente in qualsiasi momento.
+            {`Vuoi rimuovere <1>{{member}}</1> dal gruppo <3>{{groupName}}</3> di <5>{{productTitle}}</5>? Puoi aggiungerlo nuovamente in qualsiasi momento.`}
           </Trans>
         </>
       ),
-      confirmLabel: t('groupMenu.confirmDisociateAction.confirmLabel'),
-      closeLabel: t('groupMenu.confirmDisociateAction.closeLabel'),
+      confirmLabel: t('groupMenu.confirmDissociateAction.confirmLabel'),
+      closeLabel: t('groupMenu.confirmDissociateAction.closeLabel'),
       onConfirm: confirmUserDissociation,
     });
   };
@@ -312,7 +278,7 @@ export default function GroupMenu({
         }}
       >
         <Box width="100%" display="flex" justifyContent="start">
-          <MenuItem onClick={confirmDisociateAction} sx={itemBoxHover}>
+          <MenuItem onClick={confirmDissociateAction} sx={itemBoxHover}>
             <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
               {t('groupMenu.dissociateMenuItem.label')}
             </Typography>
