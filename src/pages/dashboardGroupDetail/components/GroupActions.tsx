@@ -67,9 +67,12 @@ export default function GroupActions({
       title: t('groupActions.handleOpenDelete.addNotify.title'),
       message: (
         <>
-          <Trans i18nKey="groupActions.handleOpenDelete.addNotify.message">
-            Vuoi eliminare il gruppo <strong>{{ groupName: partyGroup.name }}</strong> di
-            <strong>{{ productName: product.title }}</strong>?
+          <Trans
+            i18nKey="groupActions.handleOpenDelete.addNotify.message"
+            values={{ groupName: partyGroup.name, productName: product.title }}
+            components={{ 1: <strong />, 3: <strong /> }}
+          >
+            {`Vuoi eliminare il gruppo <1>{{groupName}}</1> di <3>{{productName}}</3>?`}
           </Trans>
         </>
       ),
@@ -102,9 +105,12 @@ export default function GroupActions({
           toNotify: true,
           displayableDescription: (
             <>
-              <Trans i18nKey="groupActions.onDelete.toastComponentCatch.displayableDescription">
-                C&apos;è stato un errore durante l&apos;eliminazione del gruppo
-                <strong>{{ groupName: partyGroup.name }}</strong>.
+              <Trans
+                i18nKey="groupActions.onDelete.toastComponentCatch.displayableDescription"
+                values={{ groupName: partyGroup.name }}
+                component={{ 1: <strong /> }}
+              >
+                {`C'è stato un errore durante l'eliminazione del gruppo <1>{{groupName}}</1>.`}
               </Trans>
             </>
           ),
@@ -131,13 +137,13 @@ export default function GroupActions({
                 ? 'groupActions.handleOpen.addNotify.messageGroupActive'
                 : 'groupActions.handleOpen.addNotify.messageGroupSuspended'
             }
+            values={{
+              groupName: partyGroup.name,
+              productTitle: productsMap[partyGroup.productId].title,
+            }}
+            components={{ 0: <strong />, 2: <strong /> }}
           >
-            <strong>{{ groupName: partyGroup.name }}</strong>
-            di
-            <strong>{{ productTitle: productsMap[partyGroup.productId].title }}</strong>
-            .
-            <br />
-            Puoi riattivarlo in qualsiasi momento.
+            {` <0>{{groupName}}</0> di <2>{{productTitle}}</2>? <4/>Puoi riattivarlo in qualsiasi momento.`}
           </Trans>
         </>
       ),
@@ -194,11 +200,15 @@ export default function GroupActions({
           toNotify: true,
           displayableDescription: (
             <>
-              <Trans i18nKey="groupActions.confirmChangeStatus.updatePartyGroupStatusCatch.displayableDescription">
-                C&apos;è stato un errore durante la
+              <Trans
+                i18nKey="groupActions.confirmChangeStatus.updatePartyGroupStatusCatch.displayableDescription"
+                values={{ selectedGroupStatusError, groupName: partyGroup.name }}
+                components={{ 1: <strong /> }}
+              >
+                {`C'è stato un errore durante la
                 {{ selectedGroupStatusError }}
                 del gruppo
-                <strong>{{ groupName: partyGroup.name }}</strong>.
+                <1>{partyGroup.name}</1>.`}
               </Trans>
             </>
           ),
@@ -214,9 +224,12 @@ export default function GroupActions({
       title: t('groupActions.handleDuplicate.addNotify.title'),
       message: (
         <>
-          <Trans i18nKey="groupActions.handleDuplicate.addNotify.message">
-            Vuoi duplicare il gruppo <strong>{{ groupName: partyGroup.name }}</strong> di
-            <strong>{{ productName: product.title }}</strong>?
+          <Trans
+            i18nKey="groupActions.handleDuplicate.addNotify.message"
+            values={{ groupName: partyGroup.name, productName: product.title }}
+            components={{ 1: <strong />, 3: <strong /> }}
+          >
+            {`Vuoi duplicare il gruppo <1>{{groupName}}</1> di <3>{{productName}}</3>?`}
           </Trans>
         </>
       ),

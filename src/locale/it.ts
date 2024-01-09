@@ -79,7 +79,10 @@ export default {
       },
       updatePartyGroupStatusCatch: {
         displayableTitle: 'Non è stato possibile sospendere il gruppo. Riprova.',
-        displayableDescription: ``,
+        displayableDescription: `C'è stato un errore durante la
+        {{ selectedGroupStatusError }}
+        del gruppo
+        <1>{partyGroup.name}</1>.`,
       },
     },
   },
@@ -132,7 +135,7 @@ export default {
         displayableDescription: ``,
       },
     },
-    confirmDisociateAction: {
+    confirmDissociateAction: {
       title: 'Rimuovi',
       message: `Vuoi rimuovere <1>{{member}}</1> dal gruppo <3>{{groupName}}</3> di <5>{{productTitle}}</5>? Puoi aggiungerlo nuovamente in qualsiasi momento.`,
       confirmLabel: 'Rimuovi',
