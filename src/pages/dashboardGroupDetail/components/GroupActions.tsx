@@ -84,7 +84,11 @@ export default function GroupActions({
     setLoading(true);
     deletePartyGroup(party, product, partyGroup)
       .then((_) => {
-        history.push(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.path);
+        history.push(
+          resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.path, {
+            partyId: partyGroup.partyId,
+          })
+        );
         addNotify({
           component: 'Toast',
           id: 'DELETE_PARTY_USER',
