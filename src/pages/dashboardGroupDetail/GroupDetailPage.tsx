@@ -183,7 +183,6 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
           <GroupActions
             partyGroup={partyGroupState}
             isSuspended={isSuspended}
-            goBack={goBack}
             party={party}
             product={product}
             productsMap={productsMap}
