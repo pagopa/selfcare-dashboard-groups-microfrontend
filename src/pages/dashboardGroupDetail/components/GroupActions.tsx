@@ -1,28 +1,27 @@
-import { Stack } from '@mui/material';
-import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
-import useUserNotify from '@pagopa/selfcare-common-frontend/hooks/useUserNotify';
-import useLoading from '@pagopa/selfcare-common-frontend/hooks/useLoading';
-import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
-import { useHistory } from 'react-router-dom';
-import { useTranslation, Trans } from 'react-i18next';
+import CopyAllIcon from '@mui/icons-material/CopyAll';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
-import CopyAllIcon from '@mui/icons-material/CopyAll';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import { Stack } from '@mui/material';
 import { ButtonNaked, theme } from '@pagopa/mui-italia';
-import { deletePartyGroup, updatePartyGroupStatus } from '../../../services/groupsService';
-import { LOADING_TASK_UPDATE_PARTY_USER_STATUS } from '../../../utils/constants';
-import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
+import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
+import useLoading from '@pagopa/selfcare-common-frontend/hooks/useLoading';
+import useUserNotify from '@pagopa/selfcare-common-frontend/hooks/useUserNotify';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
+import { Trans, useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
+import { useIsMobile } from '../../../hooks/useIsMobile';
 import { Party } from '../../../model/Party';
+import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
 import { Product, ProductsMap } from '../../../model/Product';
 import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
-import { useIsMobile } from '../../../hooks/useIsMobile';
+import { deletePartyGroup, updatePartyGroupStatus } from '../../../services/groupsService';
+import { LOADING_TASK_UPDATE_PARTY_USER_STATUS } from '../../../utils/constants';
 
 type Props = {
   partyGroup: PartyGroupDetail;
   isSuspended: boolean;
-  goBack: () => void;
   party: Party;
   product: Product;
   productsMap: ProductsMap;
@@ -34,7 +33,6 @@ type Props = {
 export default function GroupActions({
   partyGroup,
   isSuspended,
-  goBack,
   party,
   product,
   productsMap,
@@ -86,7 +84,11 @@ export default function GroupActions({
     setLoading(true);
     deletePartyGroup(party, product, partyGroup)
       .then((_) => {
-        goBack();
+        history.push(
+          resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.path, {
+            partyId: partyGroup.partyId,
+          })
+        );
         addNotify({
           component: 'Toast',
           id: 'DELETE_PARTY_USER',
