@@ -1,28 +1,27 @@
-import { Stack } from '@mui/material';
-import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
-import useUserNotify from '@pagopa/selfcare-common-frontend/hooks/useUserNotify';
-import useLoading from '@pagopa/selfcare-common-frontend/hooks/useLoading';
-import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
-import { useHistory } from 'react-router-dom';
-import { useTranslation, Trans } from 'react-i18next';
+import CopyAllIcon from '@mui/icons-material/CopyAll';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
-import CopyAllIcon from '@mui/icons-material/CopyAll';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import { Stack } from '@mui/material';
 import { ButtonNaked, theme } from '@pagopa/mui-italia';
-import { deletePartyGroup, updatePartyGroupStatus } from '../../../services/groupsService';
-import { LOADING_TASK_UPDATE_PARTY_USER_STATUS } from '../../../utils/constants';
-import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
+import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
+import useLoading from '@pagopa/selfcare-common-frontend/hooks/useLoading';
+import useUserNotify from '@pagopa/selfcare-common-frontend/hooks/useUserNotify';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
+import { Trans, useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
+import { useIsMobile } from '../../../hooks/useIsMobile';
 import { Party } from '../../../model/Party';
+import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
 import { Product, ProductsMap } from '../../../model/Product';
 import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
-import { useIsMobile } from '../../../hooks/useIsMobile';
+import { deletePartyGroup, updatePartyGroupStatus } from '../../../services/groupsService';
+import { LOADING_TASK_UPDATE_PARTY_USER_STATUS } from '../../../utils/constants';
 
 type Props = {
   partyGroup: PartyGroupDetail;
   isSuspended: boolean;
-  goBack: () => void;
   party: Party;
   product: Product;
   productsMap: ProductsMap;
@@ -34,7 +33,6 @@ type Props = {
 export default function GroupActions({
   partyGroup,
   isSuspended,
-  goBack,
   party,
   product,
   productsMap,
@@ -67,9 +65,12 @@ export default function GroupActions({
       title: t('groupActions.handleOpenDelete.addNotify.title'),
       message: (
         <>
-          <Trans i18nKey="groupActions.handleOpenDelete.addNotify.message">
-            Vuoi eliminare il gruppo <strong>{{ groupName: partyGroup.name }}</strong> di
-            <strong>{{ productName: product.title }}</strong>?
+          <Trans
+            i18nKey="groupActions.handleOpenDelete.addNotify.message"
+            values={{ groupName: partyGroup.name, productName: product.title }}
+            components={{ 1: <strong />, 3: <strong /> }}
+          >
+            {`Vuoi eliminare il gruppo <1>{{groupName}}</1> di <3>{{productName}}</3>?`}
           </Trans>
         </>
       ),
@@ -83,7 +84,11 @@ export default function GroupActions({
     setLoading(true);
     deletePartyGroup(party, product, partyGroup)
       .then((_) => {
-        goBack();
+        history.push(
+          resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.path, {
+            partyId: partyGroup.partyId,
+          })
+        );
         addNotify({
           component: 'Toast',
           id: 'DELETE_PARTY_USER',
@@ -102,9 +107,12 @@ export default function GroupActions({
           toNotify: true,
           displayableDescription: (
             <>
-              <Trans i18nKey="groupActions.onDelete.toastComponentCatch.displayableDescription">
-                C&apos;è stato un errore durante l&apos;eliminazione del gruppo
-                <strong>{{ groupName: partyGroup.name }}</strong>.
+              <Trans
+                i18nKey="groupActions.onDelete.toastComponentCatch.displayableDescription"
+                values={{ groupName: partyGroup.name }}
+                component={{ 1: <strong /> }}
+              >
+                {`C'è stato un errore durante l'eliminazione del gruppo <1>{{groupName}}</1>.`}
               </Trans>
             </>
           ),
@@ -131,13 +139,13 @@ export default function GroupActions({
                 ? 'groupActions.handleOpen.addNotify.messageGroupActive'
                 : 'groupActions.handleOpen.addNotify.messageGroupSuspended'
             }
+            values={{
+              groupName: partyGroup.name,
+              productTitle: productsMap[partyGroup.productId].title,
+            }}
+            components={{ 0: <strong />, 2: <strong /> }}
           >
-            <strong>{{ groupName: partyGroup.name }}</strong>
-            di
-            <strong>{{ productTitle: productsMap[partyGroup.productId].title }}</strong>
-            .
-            <br />
-            Puoi riattivarlo in qualsiasi momento.
+            {` <0>{{groupName}}</0> di <2>{{productTitle}}</2>? <4/>Puoi riattivarlo in qualsiasi momento.`}
           </Trans>
         </>
       ),
@@ -194,11 +202,15 @@ export default function GroupActions({
           toNotify: true,
           displayableDescription: (
             <>
-              <Trans i18nKey="groupActions.confirmChangeStatus.updatePartyGroupStatusCatch.displayableDescription">
-                C&apos;è stato un errore durante la
+              <Trans
+                i18nKey="groupActions.confirmChangeStatus.updatePartyGroupStatusCatch.displayableDescription"
+                values={{ selectedGroupStatusError, groupName: partyGroup.name }}
+                components={{ 1: <strong /> }}
+              >
+                {`C'è stato un errore durante la
                 {{ selectedGroupStatusError }}
                 del gruppo
-                <strong>{{ groupName: partyGroup.name }}</strong>.
+                <1>{partyGroup.name}</1>.`}
               </Trans>
             </>
           ),
@@ -214,9 +226,12 @@ export default function GroupActions({
       title: t('groupActions.handleDuplicate.addNotify.title'),
       message: (
         <>
-          <Trans i18nKey="groupActions.handleDuplicate.addNotify.message">
-            Vuoi duplicare il gruppo <strong>{{ groupName: partyGroup.name }}</strong> di
-            <strong>{{ productName: product.title }}</strong>?
+          <Trans
+            i18nKey="groupActions.handleDuplicate.addNotify.message"
+            values={{ groupName: partyGroup.name, productName: product.title }}
+            components={{ 1: <strong />, 3: <strong /> }}
+          >
+            {`Vuoi duplicare il gruppo <1>{{groupName}}</1> di <3>{{productName}}</3>?`}
           </Trans>
         </>
       ),
