@@ -41,7 +41,8 @@ import { fetchPartyProductUsers } from '../../../services/usersService';
 import { useAppSelector } from '../../../redux/hooks';
 import AlertRemoveUsersInClone from '../components/AlertRemoveUsersInClone';
 import { ProductsRolesMap, transcodeProductRole2Title } from '../../../model/ProductRole';
-const CustomTextField = styled(TextField)({
+
+const CustomTextField: any = styled(TextField)({
   '.MuiInputLabel-asterisk': {
     display: 'none',
   },
@@ -395,7 +396,7 @@ function GroupForm({
                 600,
                 17
               )}
-              onChange={(e) => {
+              onChange={(e: any) => {
                 formik.handleChange(e);
                 setIsNameDuplicated(false);
               }}
