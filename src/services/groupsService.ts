@@ -151,6 +151,9 @@ export const deletePartyGroup = (
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
     return deletePartyGroupMocked(party, product, group);
   } else {
+    if (ENV.USER.ENABLE_USER_V2) {
+      return DashboardApi.deletePartyGroupV2(group.id);
+    }
     return DashboardApi.deletePartyGroup(group.id);
   }
 };
