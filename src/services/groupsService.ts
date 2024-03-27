@@ -14,6 +14,7 @@ import {
   usersGroupResource2PartyGroupDetail,
 } from '../model/PartyGroup';
 import { Product, ProductsMap } from '../model/Product';
+import { ENV } from '../utils/env';
 import {
   fetchPartyGroups as fetchPartyGroupsMocked,
   savePartyGroup as savePartyGroupMocked,
@@ -34,17 +35,18 @@ export const fetchPartyGroups = (
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
     return fetchPartyGroupsMocked(party, product, currentUser, pageRequest);
   } else {
-    return DashboardApi.fetchPartyGroups(product.id, party.partyId, pageRequest).then(
-      (resources) => ({
-        content: resources?.content?.map(usersGroupPlainResource2PartyGroup) ?? [],
-        page: {
-          number: resources.number,
-          size: resources.size,
-          totalElements: resources.totalElements,
-          totalPages: resources.totalPages,
-        },
-      })
-    );
+    const fetchPartyGroupsApi = ENV.USER.ENABLE_USER_V2
+      ? DashboardApi.fetchPartyGroupsV2
+      : DashboardApi.fetchPartyGroups;
+    return fetchPartyGroupsApi(product.id, party.partyId, pageRequest).then((resources) => ({
+      content: resources?.content?.map(usersGroupPlainResource2PartyGroup) ?? [],
+      page: {
+        number: resources.number,
+        size: resources.size,
+        totalElements: resources.totalElements,
+        totalPages: resources.totalPages,
+      },
+    }));
   }
 };
 
@@ -58,7 +60,10 @@ export const fetchPartyGroup = (
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
     return fetchPartyGroupMocked(partyId, groupId, currentUser, productsMap);
   } else {
-    return DashboardApi.fetchPartyGroup(groupId, partyId).then((resource) =>
+    const fetchPartyGroupApi = ENV.USER.ENABLE_USER_V2
+      ? DashboardApi.fetchPartyGroupV2
+      : DashboardApi.fetchPartyGroup;
+    return fetchPartyGroupApi(groupId, partyId).then((resource) =>
       resource && resource.productId
         ? usersGroupResource2PartyGroupDetail(
             resource,
@@ -79,6 +84,9 @@ export const savePartyGroup = (
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
     return savePartyGroupMocked(party, product, group);
   } else {
+    if (ENV.USER.ENABLE_USER_V2) {
+      return DashboardApi.savePartyGroupV2(group).then((idResource) => idResource.id);
+    }
     return DashboardApi.savePartyGroup(group).then((idResource) => idResource.id);
   }
 };
@@ -92,6 +100,9 @@ export const updatePartyGroup = (
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
     return updatePartyGroupMocked(party, product, group);
   } else {
+    if (ENV.USER.ENABLE_USER_V2) {
+      return DashboardApi.updatePartyGroupV2(group.id, group).then((_) => group.id);
+    }
     return DashboardApi.updatePartyGroup(group.id, group).then((_) => group.id);
   }
 };
@@ -111,13 +122,17 @@ export const updatePartyGroupStatus = (
       party_id: party.partyId,
       product_id: product.id,
     });
-    return DashboardApi.updatePartyGroupStatusActivate(group.id);
+    return ENV.USER.ENABLE_USER_V2
+      ? DashboardApi.updatePartyGroupStatusActivateV2(group.id)
+      : DashboardApi.updatePartyGroupStatusActivate(group.id);
   } else if (status === 'SUSPENDED') {
     trackEvent('GROUP_SUSPEND', {
       party_id: party.partyId,
       product_id: product.id,
     });
-    return DashboardApi.updatePartyGroupStatusSuspend(group.id);
+    return ENV.USER.ENABLE_USER_V2
+      ? DashboardApi.updatePartyGroupStatusSuspendV2(group.id)
+      : DashboardApi.updatePartyGroupStatusSuspend(group.id);
   } else {
     throw new Error(`Not allowed next status: ${status}`);
   }
@@ -154,6 +169,9 @@ export const deleteGroupRelation = (
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
     return deleteGroupRelationMocked(party, product, group, userId);
   } else {
+    if (ENV.USER.ENABLE_USER_V2) {
+      return DashboardApi.deleteGroupRelationV2(group.id, userId);
+    }
     return DashboardApi.deleteGroupRelation(group.id, userId);
   }
 };
