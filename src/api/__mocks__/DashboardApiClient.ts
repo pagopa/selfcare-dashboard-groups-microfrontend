@@ -1,10 +1,10 @@
-import { EmailString } from '@pagopa/ts-commons/lib/strings';
 import { PageRequest } from '@pagopa/selfcare-common-frontend/model/PageRequest';
+import { EmailString } from '@pagopa/ts-commons/lib/strings';
 import { PartyGroupOnEdit } from '../../model/PartyGroup';
 import {
-  InstitutionUserResource,
+  InstitutionUserDetailsResource,
   RoleEnum,
-} from '../generated/b4f-dashboard/InstitutionUserResource';
+} from '../generated/b4f-dashboard/InstitutionUserDetailsResource';
 import { SelcRoleEnum } from '../generated/b4f-dashboard/ProductRoleInfoResource';
 import { ProductUserResource } from '../generated/b4f-dashboard/ProductUserResource';
 import { UserGroupIdResource } from '../generated/b4f-dashboard/UserGroupIdResource';
@@ -14,7 +14,7 @@ import {
 } from '../generated/b4f-dashboard/UserGroupPlainResource';
 import { UserGroupResource } from './../generated/b4f-dashboard/UserGroupResource';
 
-export const mockedInstitutionUserResource: Array<InstitutionUserResource> = [
+export const mockedInstitutionUserResource: Array<InstitutionUserDetailsResource> = [
   {
     id: '1',
     name: 'Name',

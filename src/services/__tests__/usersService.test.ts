@@ -1,16 +1,10 @@
-import { mockedProductUserResource } from '../../api/__mocks__/DashboardApiClient';
+import { mockedUser } from '../../__mocks__/@pagopa/selfcare-common-frontend/decorators/withLogin';
 import { DashboardApi } from '../../api/DashboardApiClient';
-import { fetchPartyProductUsers, updatePartyUserStatus } from '../usersService';
+import { mockedProductUserResource } from '../../api/__mocks__/DashboardApiClient';
 import { mockedParties } from '../../microcomponents/mock_dashboard/data/party';
 import { mockedPartyProducts } from '../../microcomponents/mock_dashboard/data/product';
-import { mockedUser } from '../../__mocks__/@pagopa/selfcare-common-frontend/decorators/withLogin';
-import {
-  PartyProductUser,
-  PartyUser,
-  productUserResource2PartyProductUser,
-} from '../../model/PartyUser';
-import { mockedProductRoles } from '../../microcomponents/mock_dashboard/data/product';
-import { buildProductsMap } from '../../model/Product';
+import { PartyProductUser, productUserResource2PartyProductUser } from '../../model/PartyUser';
+import { fetchPartyProductUsers, updatePartyUserStatus } from '../usersService';
 
 jest.mock('../../api/DashboardApiClient');
 
@@ -46,9 +40,7 @@ describe('Test fetchPartyProductUsers', () => {
     expect(DashboardApi.getPartyProductUsers).toBeCalledTimes(1);
     expect(DashboardApi.getPartyProductUsers).toBeCalledWith(
       mockedParties[0].partyId,
-      mockedPartyProducts[0].id,
-      'LIMITED',
-      undefined
+      mockedPartyProducts[0].id
     );
   });
 });
@@ -85,7 +77,11 @@ describe('Test updatePartyUserStatus', () => {
       'SUSPENDED'
     );
 
-    expect(DashboardApi.suspendPartyRelation).toBeCalledWith('relationshipId');
+    expect(DashboardApi.suspendPartyRelation).toBeCalledWith(
+      partyUser.id,
+      mockedParties[0].partyId,
+      partyUser.product.id
+    );
     expect(DashboardApi.activatePartyRelation).toBeCalledTimes(0);
 
     await updatePartyUserStatus(
@@ -97,6 +93,10 @@ describe('Test updatePartyUserStatus', () => {
     );
 
     expect(DashboardApi.suspendPartyRelation).toBeCalledTimes(1);
-    expect(DashboardApi.activatePartyRelation).toBeCalledWith('relationshipId');
+    expect(DashboardApi.activatePartyRelation).toBeCalledWith(
+      partyUser.id,
+      mockedParties[0].partyId,
+      partyUser.product.id
+    );
   });
 });
