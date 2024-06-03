@@ -1,27 +1,25 @@
+import { User } from '@pagopa/selfcare-common-frontend/model/User';
+import { mockedUser } from '../../__mocks__/@pagopa/selfcare-common-frontend/decorators/withLogin';
 import { DashboardApi } from '../../api/DashboardApiClient';
 import { mockedParties } from '../../microcomponents/mock_dashboard/data/party';
-import { mockedGroups } from './../__mocks__/groupsService';
-import {
-  deletePartyGroup,
-  deleteGroupRelation,
-  updatePartyGroupStatus,
-  updatePartyGroup,
-  savePartyGroup,
-  fetchPartyGroup,
-  fetchPartyGroups,
-} from './../groupsService';
-import { buildProductsMap, Product } from '../../model/Product';
 import { mockedPartyProducts } from '../../microcomponents/mock_dashboard/data/product';
 import {
   PartyGroupDetail,
   PartyGroupOnCreation,
-  PartyGroupOnEdit,
-  usersGroupPlainResource2PartyGroup,
+  PartyGroupOnEdit
 } from '../../model/PartyGroup';
-import { mockedUser } from '../../__mocks__/@pagopa/selfcare-common-frontend/decorators/withLogin';
 import { PartyProductUser, PartyUserSimple } from '../../model/PartyUser';
-import { User } from '@pagopa/selfcare-common-frontend/model/User';
-import { UserGroupPlainResource } from '../../api/generated/b4f-dashboard/UserGroupPlainResource';
+import { buildProductsMap } from '../../model/Product';
+import { mockedGroups } from './../__mocks__/groupsService';
+import {
+  deleteGroupRelation,
+  deletePartyGroup,
+  fetchPartyGroup,
+  fetchPartyGroups,
+  savePartyGroup,
+  updatePartyGroup,
+  updatePartyGroupStatus,
+} from './../groupsService';
 
 jest.mock('../../api/DashboardApiClient');
 

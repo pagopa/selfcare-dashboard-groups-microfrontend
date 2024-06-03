@@ -16,13 +16,13 @@ import {
 import { Product, ProductsMap } from '../model/Product';
 import { ENV } from '../utils/env';
 import {
+  deleteGroupRelation as deleteGroupRelationMocked,
+  deletePartyGroup as deletePartyGroupMocked,
+  fetchPartyGroup as fetchPartyGroupMocked,
   fetchPartyGroups as fetchPartyGroupsMocked,
   savePartyGroup as savePartyGroupMocked,
   updatePartyGroup as updatePartyGroupMocked,
   updatePartyGroupStatus as updatePartyGroupStatusMocked,
-  deletePartyGroup as deletePartyGroupMocked,
-  fetchPartyGroup as fetchPartyGroupMocked,
-  deleteGroupRelation as deleteGroupRelationMocked,
 } from './__mocks__/groupsService';
 
 export const fetchPartyGroups = (

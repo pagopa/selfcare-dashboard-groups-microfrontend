@@ -40,22 +40,23 @@ export default function GroupsProductSection({
       )}
       {fetchStatus.loading ||
         (fetchStatus.noData && (
-          <Grid item xs={12}>
-            <Typography
-              sx={{
-                backgroundColor: 'background.paper',
-                height: '56px',
-                textAlign: 'center',
-                borderRadius: '4px',
-              }}
-              variant={'body2'}
-              mt={2}
-              pt={2}
-            >
-              {isPnpgTheOnlyProduct
-                ? t('dashboardGroup.noGroups.noGroupsLabel')
-                : t('dashboardGroup.noGroups.noGroupsForProduct')}
-            </Typography>
+          <Grid
+            container
+            direction="row"
+            sx={{
+              mt: 3,
+              padding: 2,
+              backgroundColor: 'background.paper',
+              border: '0px',
+              borderRadius: '4px',
+            }}
+            justifyContent="center"
+          >
+            <Grid item xs={12} display="flex" textAlign="center" justifyContent="center">
+              <Typography variant={'body2'}>
+                {t('dashboardGroup.noGroups.noGroupsForProduct')}
+              </Typography>
+            </Grid>
           </Grid>
         ))}
 

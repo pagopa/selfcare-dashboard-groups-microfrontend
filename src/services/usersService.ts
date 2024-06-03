@@ -12,7 +12,6 @@ import {
 } from '../model/PartyUser';
 import { Product } from '../model/Product';
 import { ProductRole } from '../model/ProductRole';
-import { ENV } from '../utils/env';
 import {
   fetchPartyProductUsers as fetchPartyProductUsersMocked,
   updatePartyUserStatus as updatePartyUserStatusMocked,
@@ -47,21 +46,7 @@ export const fetchPartyProductUsers = (
       productRoles
     );
   } else {
-    if (ENV.USER.ENABLE_USER_V2) {
-      return DashboardApi.getPartyProductUsersV2(party.partyId, product.id).then((r) =>
-        // TODO fixme when API will support pagination
-        toFakePagination(
-          r.map((u) => productUserResource2PartyProductUser(u, product, currentUser))
-        )
-      );
-    }
-
-    return DashboardApi.getPartyProductUsers(
-      party.partyId,
-      product.id,
-      selcRole,
-      productRoles
-    ).then((r) =>
+    return DashboardApi.getPartyProductUsers(party.partyId, product.id).then((r) =>
       // TODO fixme when API will support pagination
       toFakePagination(r.map((u) => productUserResource2PartyProductUser(u, product, currentUser)))
     );
@@ -85,22 +70,16 @@ export const updatePartyUserStatus = (
       product_id: product.id,
       product_role: user.userRole,
     });
-    if (ENV.USER.ENABLE_USER_V2) {
-      return DashboardApi.activatePartyRelationV2(user.id, party.partyId, product.id);
-    } else {
-      return DashboardApi.activatePartyRelation(role.relationshipId);
-    }
+
+    return DashboardApi.activatePartyRelation(user.id, party.partyId, product.id);
   } else if (status === 'SUSPENDED') {
     trackEvent('USER_SUSPEND', {
       party_id: party.partyId,
       product_id: product.id,
       product_role: user.userRole,
     });
-    if (ENV.USER.ENABLE_USER_V2) {
-      return DashboardApi.suspendPartyRelationV2(user.id, party.partyId, product.id);
-    } else {
-      return DashboardApi.suspendPartyRelation(role.relationshipId);
-    }
+
+    return DashboardApi.suspendPartyRelation(user.id, party.partyId, product.id);
   } else {
     throw new Error(`Not allowed next status: ${status}`);
   }
