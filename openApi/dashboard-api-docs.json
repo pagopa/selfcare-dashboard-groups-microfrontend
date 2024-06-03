@@ -819,14 +819,6 @@
               }
             }
           },
-          {
-            "name": "productId",
-            "in": "path",
-            "description": "Product's unique identifier",
-            "required": true,
-            "style": "simple",
-            "schema": {
-              "type": "string"
           "400" : {
             "description" : "Bad Request",
             "content" : {
@@ -2522,11 +2514,6 @@
           "style" : "simple",
           "schema" : {
             "type" : "string"
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/problem+json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Problem"
           }
         }, {
           "name" : "userId",
@@ -2564,6 +2551,11 @@
             }
           },
           "500" : {
+            "description" : "Internal Server Error",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
                 }
               }
             }
@@ -2611,16 +2603,16 @@
           "style" : "form",
           "schema" : {
             "type" : "object"
+          }
+        }, {
+          "name" : "institutionId",
           "in" : "path",
+          "description" : "Institution's unique internal identifier",
           "required" : true,
           "style" : "simple",
           "schema" : {
             "type" : "string"
           }
-          }
-        }, {
-          "name" : "institutionId",
-          "description" : "Institution's unique internal identifier",
         }, {
           "name" : "principal",
           "in" : "query",
@@ -4231,13 +4223,6 @@
             "description" : "Product's status",
             "enum" : [ "ACTIVE", "INACTIVE", "PHASE_OUT", "TESTING" ]
           },
-          "title": {
-            "type": "string",
-            "description": "Product's title"
-          },
-          "urlBO": {
-            "type": "string",
-            "description": "URL that redirects to the back-office section, where is possible to manage the product"
           "title" : {
             "type" : "string",
             "description" : "Product's title"
@@ -4464,32 +4449,6 @@
           }
         }
       },
-      "UserGroupPlainResource": {
-        "title": "UserGroupPlainResource",
-        "type": "object",
-        "properties": {
-          "createdAt": {
-            "type": "string",
-            "description": "Date on which the group was created",
-            "format": "date-time"
-          },
-          "createdBy": {
-            "type": "string",
-            "description": "User by which the group was created",
-            "format": "uuid"
-          },
-          "description": {
-            "type": "string",
-            "description": "Users group's description"
-          },
-          "id": {
-            "type": "string",
-            "description": "Users group's unique identifier"
-          },
-          "institutionId": {
-            "type": "string",
-            "description": "Users group's institutionId"
-          },
       "UserGroupPlainResource" : {
         "title" : "UserGroupPlainResource",
         "type" : "object",
