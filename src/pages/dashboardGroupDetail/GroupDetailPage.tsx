@@ -62,7 +62,10 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
 
   const product = productsMap[partyGroupState.productId];
   const canEdit = !!party.products.find(
-    (pp) => pp.productId === product.id && pp.userRole === 'ADMIN' && pp.productOnBoardingStatus === 'ACTIVE'
+    (pp) =>
+      pp.productId === product.id &&
+      pp.userRole === 'ADMIN' &&
+      pp.productOnBoardingStatus === 'ACTIVE'
   );
 
   const isSuspended = partyGroupState.status === 'SUSPENDED';
@@ -156,12 +159,10 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
                 <Chip
                   label={t('groupDetail.status')}
                   aria-label="Suspended"
-                  variant="outlined"
+                  color='warning'
                   sx={{
                     fontWeight: 'fontWeightMedium',
                     fontSize: '14px',
-                    background: theme.palette.warning.light,
-                    border: 'none',
                     borderRadius: '16px',
                     width: '78px',
                     height: '24px',

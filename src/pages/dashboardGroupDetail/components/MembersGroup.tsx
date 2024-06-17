@@ -210,12 +210,10 @@ export default function MembersGroup({
                 <Chip
                   label={t('groupDetail.status')}
                   aria-label="Suspended"
-                  variant="outlined"
+                  color='warning'
                   sx={{
                     fontWeight: 'fontWeightMedium',
                     fontSize: '14px',
-                    backgroundColor: 'warning.light',
-                    border: 'none',
                     borderRadius: '16px',
                     width: '78px',
                     height: '24px',
@@ -404,11 +402,10 @@ export default function MembersGroup({
                         <Chip
                           label={t('groupDetail.status')}
                           aria-label={'Suspended'}
+                          color='warning'
                           sx={{
                             fontSize: '14px',
                             fontWeight: 'fontWeightMedium',
-                            color: 'colorTextPrimary',
-                            backgroundColor: 'warning.light',
                             paddingBottom: '1px',
                             height: '24px',
                             cursor: 'pointer',
