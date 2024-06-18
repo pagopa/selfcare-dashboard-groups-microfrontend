@@ -663,13 +663,11 @@ function GroupForm({
                                 <Chip
                                   label={t('groupDetail.status')}
                                   aria-label="Suspended"
-                                  variant="outlined"
+                                  color='warning'
                                   sx={{
                                     mr: 2,
                                     fontWeight: 'fontWeightMedium',
                                     fontSize: '14px',
-                                    backgroundColor: 'warning.light',
-                                    border: 'none',
                                     borderRadius: '16px',
                                     width: '78px',
                                     height: '24px',
@@ -690,13 +688,11 @@ function GroupForm({
                                       <Chip
                                         label={t('groupDetail.status')}
                                         aria-label="Suspended"
-                                        variant="outlined"
+                                        color='warning'
                                         sx={{
                                           mr: 2,
                                           fontWeight: 'fontWeightMedium',
                                           fontSize: '14px',
-                                          backgroundColor: 'warning.light',
-                                          border: 'none',
                                           borderRadius: '16px',
                                           width: '78px',
                                           height: '24px',
