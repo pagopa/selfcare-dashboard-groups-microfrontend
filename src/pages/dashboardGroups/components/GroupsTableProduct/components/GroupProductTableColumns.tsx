@@ -249,12 +249,11 @@ function TableChip({ text }: { text: string }) {
     <Chip
       label={text}
       aria-label="Suspended"
+      color='warning'
       sx={{
         cursor: 'pointer',
         fontSize: '14px',
         fontWeight: 'fontWeightMedium',
-        color: '#17324D',
-        backgroundColor: 'warning.light',
         paddingBottom: '1px',
         height: '24px',
         width: '78px',
