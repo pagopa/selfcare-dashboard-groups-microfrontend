@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import { useHistory } from 'react-router-dom';
-import { useUnloadEventOnExit } from '@pagopa/selfcare-common-frontend/hooks/useUnloadEventInterceptor';
-import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
+import { useUnloadEventOnExit } from '@pagopa/selfcare-common-frontend/lib/hooks/useUnloadEventInterceptor';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import { useTranslation } from 'react-i18next';
 import { Party } from '../../../model/Party';
 import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';

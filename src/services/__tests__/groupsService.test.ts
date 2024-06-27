@@ -1,4 +1,4 @@
-import { User } from '@pagopa/selfcare-common-frontend/model/User';
+import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { mockedUser } from '../../__mocks__/@pagopa/selfcare-common-frontend/decorators/withLogin';
 import { DashboardApi } from '../../api/DashboardApiClient';
 import { mockedParties } from '../../microcomponents/mock_dashboard/data/party';
