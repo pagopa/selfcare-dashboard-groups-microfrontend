@@ -1,14 +1,14 @@
 import { Grid, Typography, Chip, Box, useTheme } from '@mui/material';
 import { ButtonNaked } from '@pagopa/mui-italia';
 import AddIcon from '@mui/icons-material/Add';
-import { trackEvent } from '@pagopa/selfcare-common-frontend/services/analyticsService';
-import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
+import { trackEvent } from '@pagopa/selfcare-common-frontend/lib/services/analyticsService';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { userSelectors } from '@pagopa/selfcare-common-frontend/redux/slices/userSlice';
-import { User } from '@pagopa/selfcare-common-frontend/model/User';
+import { userSelectors } from '@pagopa/selfcare-common-frontend/lib/redux/slices/userSlice';
+import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { SupervisedUserCircle } from '@mui/icons-material';
 import ProductNavigationBar from '../../components/ProductNavigationBar';
 import withGroupDetail, { withGroupDetailProps } from '../../decorators/withGroupDetail';

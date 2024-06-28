@@ -1,11 +1,11 @@
 import { Link, Typography, Box, Tooltip, Chip, Paper, Button, Grid } from '@mui/material';
 import { useHistory } from 'react-router';
-import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import { useEffect, useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { DataGrid, GridRenderCellParams, GridRow } from '@mui/x-data-grid';
 import { theme } from '@pagopa/mui-italia';
-import { roleLabels, UserRole } from '@pagopa/selfcare-common-frontend/utils/constants';
+import { roleLabels, UserRole } from '@pagopa/selfcare-common-frontend/lib/utils/constants';
 import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
 import { Product } from '../../../model/Product';
 import { Party, UserStatus } from '../../../model/Party';

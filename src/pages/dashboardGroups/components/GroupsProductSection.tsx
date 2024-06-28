@@ -1,5 +1,5 @@
 import { Grid, Typography } from '@mui/material';
-import { User } from '@pagopa/selfcare-common-frontend/model/User';
+import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Party } from '../../../model/Party';

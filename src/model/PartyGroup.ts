@@ -1,4 +1,4 @@
-import { User } from '@pagopa/selfcare-common-frontend/model/User';
+import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { UserGroupPlainResource } from '../api/generated/b4f-dashboard/UserGroupPlainResource';
 import { UserGroupResource } from '../api/generated/b4f-dashboard/UserGroupResource';
 import {
