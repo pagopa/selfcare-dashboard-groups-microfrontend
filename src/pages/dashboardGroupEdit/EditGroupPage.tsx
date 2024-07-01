@@ -1,15 +1,14 @@
 import { Grid } from '@mui/material';
 import { TitleBox } from '@pagopa/selfcare-common-frontend/lib';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
-import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { SupervisedUserCircle } from '@mui/icons-material';
+import { matchPath, useHistory } from 'react-router-dom';
 import ProductNavigationBar from '../../components/ProductNavigationBar';
 import withGroupDetail, { withGroupDetailProps } from '../../decorators/withGroupDetail';
 import { PartyGroupOnEdit } from '../../model/PartyGroup';
 import { Product } from '../../model/Product';
-import { DASHBOARD_GROUPS_ROUTES } from '../../routes';
 import { ProductsRolesMap } from '../../model/ProductRole';
+import { DASHBOARD_GROUPS_ROUTES } from '../../routes';
 import GroupForm from './components/GroupForm';
 
 type Props = {
@@ -37,7 +36,6 @@ function EditGroupPage({
 
   const paths = [
     {
-      icon: SupervisedUserCircle,
       description: t('dashboardGroupEdit.editGroupPage.groupPathDescription'),
       onClick: () =>
         history.push(
@@ -56,6 +54,11 @@ function EditGroupPage({
     },
   ];
 
+  const isGroupEditPath = matchPath(location.pathname, {
+    path: DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.MAIN.path,
+    exact: true,
+  });
+
   return (
     <Grid
       container
@@ -66,7 +69,12 @@ function EditGroupPage({
     >
       <Grid container item xs={12} lg={8}>
         <Grid item xs={12} mb={3}>
-          <ProductNavigationBar paths={paths} showBackComponent={true} goBack={goBack} />
+          <ProductNavigationBar
+            paths={paths}
+            showBackComponent={true}
+            goBack={goBack}
+            backLabel={isGroupEditPath ? paths[0].description : paths[1].description}
+          />
         </Grid>
         <Grid item xs={12} mb={5}>
           <TitleBox
