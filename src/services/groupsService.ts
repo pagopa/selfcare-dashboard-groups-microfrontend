@@ -1,7 +1,7 @@
-import { PageRequest } from '@pagopa/selfcare-common-frontend/model/PageRequest';
-import { PageResource } from '@pagopa/selfcare-common-frontend/model/PageResource';
-import { User } from '@pagopa/selfcare-common-frontend/model/User';
-import { trackEvent } from '@pagopa/selfcare-common-frontend/services/analyticsService';
+import { PageRequest } from '@pagopa/selfcare-common-frontend/lib/model/PageRequest';
+import { PageResource } from '@pagopa/selfcare-common-frontend/lib/model/PageResource';
+import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
+import { trackEvent } from '@pagopa/selfcare-common-frontend/lib/services/analyticsService';
 import { DashboardApi } from '../api/DashboardApiClient';
 import { Party } from '../model/Party';
 import {

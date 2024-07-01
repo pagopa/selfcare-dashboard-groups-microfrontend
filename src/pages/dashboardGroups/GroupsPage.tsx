@@ -1,12 +1,12 @@
 import { Grid, Tab, Tabs } from '@mui/material';
-import TitleBox from '@pagopa/selfcare-common-frontend/components/TitleBox';
+import TitleBox from '@pagopa/selfcare-common-frontend/lib/components/TitleBox';
 import { useEffect, useMemo, useState } from 'react';
-import { trackEvent } from '@pagopa/selfcare-common-frontend/services/analyticsService';
-import { userSelectors } from '@pagopa/selfcare-common-frontend/redux/slices/userSlice';
-import { User } from '@pagopa/selfcare-common-frontend/model/User';
+import { trackEvent } from '@pagopa/selfcare-common-frontend/lib/services/analyticsService';
+import { userSelectors } from '@pagopa/selfcare-common-frontend/lib/redux/slices/userSlice';
+import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import { theme } from '@pagopa/mui-italia';
 import { Product, ProductsMap } from '../../model/Product';
 import { Party } from '../../model/Party';

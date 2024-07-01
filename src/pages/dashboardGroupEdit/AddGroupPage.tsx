@@ -1,15 +1,14 @@
 import { Grid } from '@mui/material';
-import { TitleBox } from '@pagopa/selfcare-common-frontend';
-import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
-import { useHistory } from 'react-router-dom';
+import { TitleBox } from '@pagopa/selfcare-common-frontend/lib';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import { useTranslation } from 'react-i18next';
-import { SupervisedUserCircle } from '@mui/icons-material';
+import { useHistory } from 'react-router-dom';
 import ProductNavigationBar from '../../components/ProductNavigationBar';
 import { Party } from '../../model/Party';
 import { PartyGroupOnCreation } from '../../model/PartyGroup';
 import { Product, ProductsMap } from '../../model/Product';
-import { DASHBOARD_GROUPS_ROUTES } from '../../routes';
 import { ProductsRolesMap } from '../../model/ProductRole';
+import { DASHBOARD_GROUPS_ROUTES } from '../../routes';
 import GroupForm from './components/GroupForm';
 
 type Props = {
@@ -34,7 +33,6 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
 
   const paths = [
     {
-      icon: isPnpg ? undefined : SupervisedUserCircle,
       description: t('dashboardGroupEdit.addGroupPage.groupPathDescription'),
       onClick: goBack,
     },
@@ -55,7 +53,12 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
     >
       <Grid container item>
         <Grid item xs={12} mb={3}>
-          <ProductNavigationBar paths={paths} showBackComponent={true} goBack={goBack} />
+          <ProductNavigationBar
+            paths={paths}
+            showBackComponent={true}
+            goBack={goBack}
+            backLabel={paths[0].description}
+          />
         </Grid>
         <Grid item xs={12} mb={5}>
           <TitleBox

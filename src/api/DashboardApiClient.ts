@@ -1,7 +1,7 @@
-import { PageRequest } from '@pagopa/selfcare-common-frontend/model/PageRequest';
-import { appStateActions } from '@pagopa/selfcare-common-frontend/redux/slices/appStateSlice';
-import { buildFetchApi, extractResponse } from '@pagopa/selfcare-common-frontend/utils/api-utils';
-import { storageTokenOps } from '@pagopa/selfcare-common-frontend/utils/storage';
+import { PageRequest } from '@pagopa/selfcare-common-frontend/lib/model/PageRequest';
+import { appStateActions } from '@pagopa/selfcare-common-frontend/lib/redux/slices/appStateSlice';
+import { buildFetchApi, extractResponse } from '@pagopa/selfcare-common-frontend/lib/utils/api-utils';
+import { storageTokenOps } from '@pagopa/selfcare-common-frontend/lib/utils/storage';
 import { PartyGroupOnCreation, PartyGroupOnEdit } from '../model/PartyGroup';
 import { ENV } from '../utils/env';
 import { PageOfUserGroupPlainResource } from './generated/b4f-dashboard/PageOfUserGroupPlainResource';

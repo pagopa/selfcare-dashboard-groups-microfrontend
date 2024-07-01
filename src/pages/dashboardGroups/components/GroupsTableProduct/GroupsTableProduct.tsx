@@ -1,10 +1,10 @@
 import { useHistory } from 'react-router-dom';
-import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
-import { User } from '@pagopa/selfcare-common-frontend/model/User';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
+import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { useEffect, useRef, useState } from 'react';
-import { PageRequest } from '@pagopa/selfcare-common-frontend/model/PageRequest';
-import { PageResource } from '@pagopa/selfcare-common-frontend/model/PageResource';
-import { handleErrors } from '@pagopa/selfcare-common-frontend/services/errorService';
+import { PageRequest } from '@pagopa/selfcare-common-frontend/lib/model/PageRequest';
+import { PageResource } from '@pagopa/selfcare-common-frontend/lib/model/PageResource';
+import { handleErrors } from '@pagopa/selfcare-common-frontend/lib/services/errorService';
 import { fetchPartyGroups } from '../../../../services/groupsService';
 import { PartyGroup, PartyGroupStatus } from '../../../../model/PartyGroup';
 import { Product } from '../../../../model/Product';
