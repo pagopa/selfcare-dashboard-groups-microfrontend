@@ -1,21 +1,20 @@
-import { Grid, Typography, Chip, Box, useTheme } from '@mui/material';
-import { ButtonNaked } from '@pagopa/mui-italia';
 import AddIcon from '@mui/icons-material/Add';
-import { trackEvent } from '@pagopa/selfcare-common-frontend/services/analyticsService';
-import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
+import { Box, Chip, Grid, Typography, useTheme } from '@mui/material';
+import { ButtonNaked } from '@pagopa/mui-italia';
+import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
+import { userSelectors } from '@pagopa/selfcare-common-frontend/lib/redux/slices/userSlice';
+import { trackEvent } from '@pagopa/selfcare-common-frontend/lib/services/analyticsService';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { userSelectors } from '@pagopa/selfcare-common-frontend/redux/slices/userSlice';
-import { User } from '@pagopa/selfcare-common-frontend/model/User';
-import { SupervisedUserCircle } from '@mui/icons-material';
+import { useHistory } from 'react-router-dom';
 import ProductNavigationBar from '../../components/ProductNavigationBar';
 import withGroupDetail, { withGroupDetailProps } from '../../decorators/withGroupDetail';
-import { DASHBOARD_GROUPS_ROUTES } from '../../routes';
+import { useIsMobile } from '../../hooks/useIsMobile';
 import { PartyGroupDetail, PartyGroupStatus } from '../../model/PartyGroup';
 import { ProductsRolesMap } from '../../model/ProductRole';
-import { useIsMobile } from '../../hooks/useIsMobile';
+import { DASHBOARD_GROUPS_ROUTES } from '../../routes';
 import GroupActions from './components/GroupActions';
 import GroupDetail from './components/GroupDetail';
 import MembersGroup from './components/MembersGroup';
@@ -72,7 +71,6 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
 
   const paths = [
     {
-      icon: SupervisedUserCircle,
       description: t('groupDetailPage.path.groupDescription'),
       onClick: () =>
         history.push(
@@ -117,7 +115,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
     >
       <Grid item xs={12} mb={3} display="flex">
         <Box>
-          <ProductNavigationBar paths={paths} showBackComponent={true} goBack={goBack} />
+          <ProductNavigationBar paths={paths} showBackComponent={true} goBack={goBack} backLabel={paths[0].description} />
         </Box>
       </Grid>
       <Grid container item mb={3} display="flex" justifyContent="space-between">

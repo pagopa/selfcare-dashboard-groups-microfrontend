@@ -1,8 +1,8 @@
 import { Grid, Typography, Link } from '@mui/material';
 import { Trans } from 'react-i18next';
-import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import { useHistory } from 'react-router-dom';
-import { useUnloadEventOnExit } from '@pagopa/selfcare-common-frontend/hooks/useUnloadEventInterceptor';
+import { useUnloadEventOnExit } from '@pagopa/selfcare-common-frontend/lib/hooks/useUnloadEventInterceptor';
 import { Party } from '../../../model/Party';
 import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
 

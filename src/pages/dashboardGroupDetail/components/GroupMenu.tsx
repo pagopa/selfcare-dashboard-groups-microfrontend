@@ -1,8 +1,8 @@
 import { Box, Grid, IconButton, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
-import useLoading from '@pagopa/selfcare-common-frontend/hooks/useLoading';
-import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
+import useLoading from '@pagopa/selfcare-common-frontend/lib/hooks/useLoading';
+import useErrorDispatcher from '@pagopa/selfcare-common-frontend/lib/hooks/useErrorDispatcher';
 import { useState } from 'react';
-import useUserNotify from '@pagopa/selfcare-common-frontend/hooks/useUserNotify';
+import useUserNotify from '@pagopa/selfcare-common-frontend/lib/hooks/useUserNotify';
 import { useTranslation, Trans } from 'react-i18next';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { PartyProductUser, PartyUserProduct, PartyUserProductRole } from '../../../model/PartyUser';

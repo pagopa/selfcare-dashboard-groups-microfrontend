@@ -14,20 +14,20 @@ import {
   InputLabel,
   Stack,
 } from '@mui/material';
-import useErrorDispatcher from '@pagopa/selfcare-common-frontend/hooks/useErrorDispatcher';
-import useLoading from '@pagopa/selfcare-common-frontend/hooks/useLoading';
+import useErrorDispatcher from '@pagopa/selfcare-common-frontend/lib/hooks/useErrorDispatcher';
+import useLoading from '@pagopa/selfcare-common-frontend/lib/hooks/useLoading';
 import {
   useUnloadEventInterceptor,
   useUnloadEventOnExit,
-} from '@pagopa/selfcare-common-frontend/hooks/useUnloadEventInterceptor';
-import useUserNotify from '@pagopa/selfcare-common-frontend/hooks/useUserNotify';
-import { trackEvent } from '@pagopa/selfcare-common-frontend/services/analyticsService';
-import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/utils/routes-utils';
+} from '@pagopa/selfcare-common-frontend/lib/hooks/useUnloadEventInterceptor';
+import useUserNotify from '@pagopa/selfcare-common-frontend/lib/hooks/useUserNotify';
+import { trackEvent } from '@pagopa/selfcare-common-frontend/lib/services/analyticsService';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { User } from '@pagopa/selfcare-common-frontend/model/User';
-import { userSelectors } from '@pagopa/selfcare-common-frontend/redux/slices/userSlice';
+import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
+import { userSelectors } from '@pagopa/selfcare-common-frontend/lib/redux/slices/userSlice';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as ClearCircleIcon } from '../../../assets/clear.svg';
 import { Party } from '../../../model/Party';
