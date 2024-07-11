@@ -1,20 +1,20 @@
 import { Grid, Tab, Tabs } from '@mui/material';
+import { theme } from '@pagopa/mui-italia';
 import TitleBox from '@pagopa/selfcare-common-frontend/lib/components/TitleBox';
-import { useEffect, useMemo, useState } from 'react';
-import { trackEvent } from '@pagopa/selfcare-common-frontend/lib/services/analyticsService';
-import { userSelectors } from '@pagopa/selfcare-common-frontend/lib/redux/slices/userSlice';
 import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
+import { userSelectors } from '@pagopa/selfcare-common-frontend/lib/redux/slices/userSlice';
+import { trackEvent } from '@pagopa/selfcare-common-frontend/lib/services/analyticsService';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
-import { theme } from '@pagopa/mui-italia';
-import { Product, ProductsMap } from '../../model/Product';
 import { Party } from '../../model/Party';
+import { Product, ProductsMap } from '../../model/Product';
 import { useAppSelector } from '../../redux/hooks';
 import { ENV } from '../../utils/env';
 import AddGroupButton from './components/AddGroupButton';
-import NoGroups from './components/NoGroups';
 import GroupsProductSection from './components/GroupsProductSection';
+import NoGroups from './components/NoGroups';
 
 interface Props {
   party: Party;
@@ -144,7 +144,18 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
             backgroundColor: '#F5F6F7',
           }}
         >
-          <Tabs variant="fullWidth" scrollButtons="auto" value={selectedProductSection ?? 'all'}>
+          <Tabs
+            variant="scrollable"
+            scrollButtons="auto"
+            value={selectedProductSection ?? 'all'}
+            sx={{
+              '& .MuiTab-root': {
+                minWidth: 0,
+                flex: '1 0 auto',
+                maxWidth: 'none',
+              },
+            }}
+          >
             <Tab
               label={t('dashboardGroup.groupsPage.tabAll')}
               value="all"
