@@ -332,7 +332,11 @@ function GroupForm({
       .then((productUsersPage) => {
         // suspended users have to be listed
         // setProductUsers(productUsersPage.content.filter((user) => user.status === 'ACTIVE')); // the status should be evaluated from user.products[current Product].status
-        setProductUsers(productUsersPage.content);
+        const sortedProductUsers = productUsersPage.content
+          ? [...productUsersPage.content].sort((a, b) => a.name.localeCompare(b.name))
+          : [];
+
+        setProductUsers(sortedProductUsers);
         if (!isEdit && !isClone) {
           void formik.setFieldValue('members', [], true);
         } else if (isEdit) {
@@ -663,7 +667,7 @@ function GroupForm({
                                 <Chip
                                   label={t('groupDetail.status')}
                                   aria-label="Suspended"
-                                  color='warning'
+                                  color="warning"
                                   sx={{
                                     mr: 2,
                                     fontWeight: 'fontWeightMedium',
@@ -688,7 +692,7 @@ function GroupForm({
                                       <Chip
                                         label={t('groupDetail.status')}
                                         aria-label="Suspended"
-                                        color='warning'
+                                        color="warning"
                                         sx={{
                                           mr: 2,
                                           fontWeight: 'fontWeightMedium',
