@@ -27,6 +27,7 @@ export default function withGroupDetail<T extends withGroupDetailProps>(
 ): React.ComponentType<Omit<T, 'partyGroup' | 'fetchPartyGroup'>> {
   const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
+  // eslint-disable-next-line sonarjs/cognitive-complexity
   const ComponentWithGroupDetail = (props: T) => {
     const { partyId, groupId } = useParams<GroupUrlParams>();
 
@@ -55,7 +56,17 @@ export default function withGroupDetail<T extends withGroupDetailProps>(
               displayableDescription: 'Impossibile trovare il gruppo selezionato',
             });
           }
-          setPartyGroup(group);
+          if (group) {
+            const sortedMembers = group.members
+              ? [...group.members].sort((a, b) => a.name.localeCompare(b.name))
+              : [];
+
+            // Update group with sorted members
+            setPartyGroup({
+              ...group,
+              members: sortedMembers,
+            });
+          }
         })
         .catch((reason) => {
           addError({
