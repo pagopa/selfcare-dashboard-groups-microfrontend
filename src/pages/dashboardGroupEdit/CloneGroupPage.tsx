@@ -1,5 +1,6 @@
 import { Grid } from '@mui/material';
-import { TitleBox } from '@pagopa/selfcare-common-frontend/lib';
+import { TitleBox, usePermissions } from '@pagopa/selfcare-common-frontend/lib';
+import { Actions } from '@pagopa/selfcare-common-frontend/lib/utils/constants';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import { useTranslation } from 'react-i18next';
 import { matchPath, useHistory } from 'react-router-dom';
@@ -25,6 +26,7 @@ function CloneGroupPage({
 }: Props) {
   const history = useHistory();
   const { t } = useTranslation();
+  const { hasPermission } = usePermissions();
 
   const goBack = () =>
     history.push(
@@ -96,7 +98,7 @@ function CloneGroupPage({
                 members: partyGroup.members,
                 partyId: partyGroup.partyId,
                 productId: party.products.find(
-                  (pp) => pp.productId === partyGroup.productId && pp.userRole === 'ADMIN'
+                  (pp) => pp.productId === partyGroup.productId && hasPermission(pp.productId, Actions.ManageProductGroups)
                 )
                   ? partyGroup.productId
                   : undefined,

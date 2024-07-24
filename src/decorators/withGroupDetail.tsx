@@ -1,14 +1,16 @@
+import { usePermissions } from '@pagopa/selfcare-common-frontend/lib';
+import useErrorDispatcher from '@pagopa/selfcare-common-frontend/lib/hooks/useErrorDispatcher';
+import { Actions } from '@pagopa/selfcare-common-frontend/lib/utils/constants';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
+import { uniqueId } from 'lodash';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useHistory } from 'react-router-dom';
-import useErrorDispatcher from '@pagopa/selfcare-common-frontend/lib/hooks/useErrorDispatcher';
-import { uniqueId } from 'lodash';
-import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
-import { DASHBOARD_GROUPS_ROUTES } from '../routes';
-import { Party } from '../model/Party';
-import { ProductsMap } from '../model/Product';
 import { useGroupDetail } from '../hooks/useGroupDetail';
+import { Party } from '../model/Party';
 import { PartyGroupDetail } from '../model/PartyGroup';
+import { ProductsMap } from '../model/Product';
+import { DASHBOARD_GROUPS_ROUTES } from '../routes';
 import { ENV } from '../utils/env';
 
 export type withGroupDetailProps = {
@@ -30,13 +32,12 @@ export default function withGroupDetail<T extends withGroupDetailProps>(
   // eslint-disable-next-line sonarjs/cognitive-complexity
   const ComponentWithGroupDetail = (props: T) => {
     const { partyId, groupId } = useParams<GroupUrlParams>();
-
     const fetchGroupDetail = useGroupDetail();
-
     const [partyGroup, setPartyGroup] = useState<PartyGroupDetail | null>();
-
     const addError = useErrorDispatcher();
     const history = useHistory();
+    const { getAllProductsWithPermission } = usePermissions();
+    const canSeeGroups = getAllProductsWithPermission(Actions.ManageProductGroups).length > 0;
 
     const doFetch = () => {
       fetchGroupDetail(partyId, groupId, props.productsMap)
@@ -81,14 +82,14 @@ export default function withGroupDetail<T extends withGroupDetailProps>(
     };
 
     useEffect(() => {
-      if (props.party.userRole !== 'ADMIN') {
+      if (!canSeeGroups) {
         history.push(resolvePathVariables(ENV.ROUTES.OVERVIEW, { partyId }));
       } else if (partyId && groupId) {
         doFetch();
       } else {
         throw new Error('Using withGroupDetail decorator under a path without partyId or groupId');
       }
-    }, [partyId, groupId]);
+    }, [partyId, groupId, canSeeGroups]);
 
     return partyGroup ? (
       <WrappedComponent {...props} partyGroup={partyGroup} fetchPartyGroup={doFetch} />

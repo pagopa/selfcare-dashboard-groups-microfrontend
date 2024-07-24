@@ -1,3 +1,4 @@
+import { Actions } from '@pagopa/selfcare-common-frontend/lib/utils/constants';
 import { ProductOnBoardingStatusEnum } from '../../../api/generated/b4f-dashboard/OnboardedProductResource';
 import { Party } from '../../../model/Party';
 
@@ -31,6 +32,7 @@ export const mockedParties: Array<Party> = [
           recipientCode: 'FLGKROWP',
           publicServices: true,
         },
+        userProductActions: [Actions.ManageProductGroups],
       },
       {
         productId: 'prod-pagopa',
@@ -42,6 +44,7 @@ export const mockedParties: Array<Party> = [
           recipientCode: 'FLGKROWP',
           publicServices: true,
         },
+        userProductActions: [Actions.ManageProductGroups],
       },
       {
         productId: 'prod-pn',
@@ -53,6 +56,7 @@ export const mockedParties: Array<Party> = [
           recipientCode: 'cccc',
           publicServices: true,
         },
+        userProductActions: [Actions.ManageProductGroups],
       },
     ],
     status: undefined,
@@ -86,6 +90,7 @@ export const mockedParties: Array<Party> = [
           recipientCode: 'cccc',
           publicServices: true,
         },
+        userProductActions: [Actions.ManageProductGroups],
       },
       {
         productId: 'prod-pn',
