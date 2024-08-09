@@ -232,7 +232,6 @@ export default {
     },
     noGroups: {
       createGroup: 'Nobena skupina še ni bila ustvarjena. <1><0>Ustvari skupino</0></1>',
-      noGroupsLabel: 'Za ta izdelek še ni bila ustvarjena nobena skupina.',
       noGroupsForProduct: 'Za ta izdelek še ni bila ustvarjena nobena skupina.',
     },
     groupProductTableColumns: {

@@ -239,7 +239,6 @@ export default {
     },
     noGroups: {
       createGroup: 'Es wurden noch keine Gruppen angelegt. <1><0> Gruppe erstellen </0></1>',
-      noGroupsLabel: 'Es wurde noch keine Gruppe für dieses Produkt erstellt.',
       noGroupsForProduct: 'Es wurde noch keine Gruppe für dieses Produkt erstellt.',
     },
     groupProductTableColumns: {

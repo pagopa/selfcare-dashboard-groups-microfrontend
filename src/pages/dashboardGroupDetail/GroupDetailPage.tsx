@@ -1,9 +1,11 @@
 import AddIcon from '@mui/icons-material/Add';
 import { Box, Chip, Grid, Typography, useTheme } from '@mui/material';
 import { ButtonNaked } from '@pagopa/mui-italia';
+import { usePermissions } from '@pagopa/selfcare-common-frontend/lib';
 import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { userSelectors } from '@pagopa/selfcare-common-frontend/lib/redux/slices/userSlice';
 import { trackEvent } from '@pagopa/selfcare-common-frontend/lib/services/analyticsService';
+import { Actions } from '@pagopa/selfcare-common-frontend/lib/utils/constants';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -29,6 +31,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
   const { t } = useTranslation();
   const isMobile = useIsMobile('lg');
   const loggedUser = useSelector(userSelectors.selectLoggedUser) as User;
+  const { hasPermission } = usePermissions();
 
   const [partyGroupState, setPartyGroupState] = React.useState<PartyGroupDetail>(partyGroup);
 
@@ -63,7 +66,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
   const canEdit = !!party.products.find(
     (pp) =>
       pp.productId === product.id &&
-      pp.userRole === 'ADMIN' &&
+      hasPermission(pp.productId, Actions.ManageProductGroups) &&
       pp.productOnBoardingStatus === 'ACTIVE'
   );
 
@@ -115,7 +118,12 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
     >
       <Grid item xs={12} mb={3} display="flex">
         <Box>
-          <ProductNavigationBar paths={paths} showBackComponent={true} goBack={goBack} backLabel={paths[0].description} />
+          <ProductNavigationBar
+            paths={paths}
+            showBackComponent={true}
+            goBack={goBack}
+            backLabel={paths[0].description}
+          />
         </Box>
       </Grid>
       <Grid container item mb={3} display="flex" justifyContent="space-between">
@@ -157,7 +165,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
                 <Chip
                   label={t('groupDetail.status')}
                   aria-label="Suspended"
-                  color='warning'
+                  color="warning"
                   sx={{
                     fontWeight: 'fontWeightMedium',
                     fontSize: '14px',

@@ -3,17 +3,18 @@ import {
   Button,
   Checkbox,
   Chip,
+  FormControl,
   Grid,
+  InputLabel,
   MenuItem,
+  OutlinedInput,
   Select,
+  Stack,
   styled,
   TextField,
   Typography,
-  OutlinedInput,
-  FormControl,
-  InputLabel,
-  Stack,
 } from '@mui/material';
+import { usePermissions } from '@pagopa/selfcare-common-frontend/lib';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/lib/hooks/useErrorDispatcher';
 import useLoading from '@pagopa/selfcare-common-frontend/lib/hooks/useLoading';
 import {
@@ -21,26 +22,27 @@ import {
   useUnloadEventOnExit,
 } from '@pagopa/selfcare-common-frontend/lib/hooks/useUnloadEventInterceptor';
 import useUserNotify from '@pagopa/selfcare-common-frontend/lib/hooks/useUserNotify';
+import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
+import { userSelectors } from '@pagopa/selfcare-common-frontend/lib/redux/slices/userSlice';
 import { trackEvent } from '@pagopa/selfcare-common-frontend/lib/services/analyticsService';
+import { Actions } from '@pagopa/selfcare-common-frontend/lib/utils/constants';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
-import { userSelectors } from '@pagopa/selfcare-common-frontend/lib/redux/slices/userSlice';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import { ReactComponent as ClearCircleIcon } from '../../../assets/clear.svg';
 import { Party } from '../../../model/Party';
 import { PartyGroupOnCreation, PartyGroupOnEdit } from '../../../model/PartyGroup';
 import { PartyProductUser } from '../../../model/PartyUser';
 import { Product, ProductsMap } from '../../../model/Product';
+import { ProductsRolesMap, transcodeProductRole2Title } from '../../../model/ProductRole';
+import { useAppSelector } from '../../../redux/hooks';
 import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
 import { savePartyGroup, updatePartyGroup } from '../../../services/groupsService';
-import { LOADING_TASK_FETCH_USER_PRODUCT, LOADING_TASK_SAVE_GROUP } from '../../../utils/constants';
 import { fetchPartyProductUsers } from '../../../services/usersService';
-import { useAppSelector } from '../../../redux/hooks';
+import { LOADING_TASK_FETCH_USER_PRODUCT, LOADING_TASK_SAVE_GROUP } from '../../../utils/constants';
 import AlertRemoveUsersInClone from '../components/AlertRemoveUsersInClone';
-import { ProductsRolesMap, transcodeProductRole2Title } from '../../../model/ProductRole';
 
 const CustomTextField: any = styled(TextField)({
   '.MuiInputLabel-asterisk': {
@@ -123,6 +125,7 @@ function GroupForm({
   const [automaticRemove, setAutomaticRemove] = useState(false);
   const [isNameDuplicated, setIsNameDuplicated] = useState(false);
   const [productInPage, setProductInPage] = useState<boolean>();
+  const { hasPermission } = usePermissions();
 
   const isEdit = !!(initialFormData as PartyGroupOnEdit).id;
   const prodPnpg = products.find((p) => p.id === 'prod-pn-pg');
@@ -157,7 +160,9 @@ function GroupForm({
 
   useEffect(() => {
     const enabledProducts = products.filter((p) =>
-      party.products.some((pp) => p.id === pp.productId && pp.authorized && pp.userRole === 'ADMIN')
+      party.products.some(
+        (pp) => p.id === pp.productId && hasPermission(pp.productId, Actions.ManageProductGroups)
+      )
     );
     setProductInPage((isClone || isAddPage) && Object.keys(enabledProducts).length === 1);
     if (productInPage) {
@@ -479,7 +484,11 @@ function GroupForm({
                 >
                   {products
                     .filter((p) =>
-                      party.products.some((pp) => pp.productId === p.id && pp.userRole === 'ADMIN')
+                      party.products.some(
+                        (pp) =>
+                          pp.productId === p.id &&
+                          hasPermission(pp.productId, Actions.ManageProductGroups)
+                      )
                     )
                     .map((p: Product, index) => (
                       <MenuItem

@@ -1,9 +1,11 @@
 import { Grid, Tab, Tabs } from '@mui/material';
 import { theme } from '@pagopa/mui-italia';
+import { usePermissions } from '@pagopa/selfcare-common-frontend/lib';
 import TitleBox from '@pagopa/selfcare-common-frontend/lib/components/TitleBox';
 import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { userSelectors } from '@pagopa/selfcare-common-frontend/lib/redux/slices/userSlice';
 import { trackEvent } from '@pagopa/selfcare-common-frontend/lib/services/analyticsService';
+import { Actions } from '@pagopa/selfcare-common-frontend/lib/utils/constants';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -24,6 +26,8 @@ interface Props {
 
 function GroupsPage({ party, activeProducts, productsMap }: Props) {
   const history = useHistory();
+  const { getAllProductsWithPermission } = usePermissions();
+  const canSeeGroups = getAllProductsWithPermission(Actions.ManageProductGroups).length > 0;
 
   const selectedProductSection =
     window.location.hash !== '' ? window.location.hash.substring(1) : undefined;
@@ -32,10 +36,10 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
   );
 
   useEffect(() => {
-    if (party.userRole !== 'ADMIN') {
+    if (!canSeeGroups) {
       history.push(resolvePathVariables(ENV.ROUTES.OVERVIEW, { partyId: party.partyId }));
     }
-  }, [party.partyId]);
+  }, [party.partyId, canSeeGroups]);
 
   useEffect(() => trackEvent('GROUP_LIST', { party_id: party.partyId }), [party]);
   const { t } = useTranslation();

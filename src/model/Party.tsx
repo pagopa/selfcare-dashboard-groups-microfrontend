@@ -1,13 +1,26 @@
 import { GeographicTaxonomyResource } from '../api/generated/b4f-dashboard/GeographicTaxonomyResource';
-import { OnboardedProductResource } from '../api/generated/b4f-dashboard/OnboardedProductResource';
+import { ProductOnBoardingStatusEnum } from '../api/generated/b4f-dashboard/OnboardedProductResource';
 
 export type UserRole = 'ADMIN' | 'LIMITED';
 export type PartyRole = 'DELEGATE' | 'MANAGER' | 'OPERATOR' | 'SUB_DELEGATE';
 export type UserStatus = 'PENDING' | 'ACTIVE' | 'SUSPENDED';
 
+type OnboardedProduct = {
+  authorized?: boolean;
+  billing?: {
+      publicServices?: boolean;
+      recipientCode?: string;
+      vatNumber?: string;
+  };
+  productId?: string;
+  productOnBoardingStatus?: ProductOnBoardingStatusEnum;
+  userProductActions?: Array<string>;
+  userRole?: string;
+};
+
 export type Party = {
   partyId: string;
-  products: Array<OnboardedProductResource>;
+  products: Array<OnboardedProduct>;
   externalId?: string;
   originId?: string;
   origin?: string;
