@@ -143,9 +143,9 @@ export default function GroupActions({
               groupName: partyGroup.name,
               productTitle: productsMap[partyGroup.productId].title,
             }}
-            components={{ 0: <strong />, 2: <strong /> }}
+            components={{ 1: <strong />, 3: <strong />, 5: <br /> }}
           >
-            {` <0>{{groupName}}</0> di <2>{{productTitle}}</2>? <4/>Puoi riattivarlo in qualsiasi momento.`}
+            {` <1>{{groupName}}</1> di <2>{{productTitle}}</2>? <4/>Puoi riattivarlo in qualsiasi momento.`}
           </Trans>
         </>
       ),
