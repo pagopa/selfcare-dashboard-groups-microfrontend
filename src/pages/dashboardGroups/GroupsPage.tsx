@@ -54,9 +54,9 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
   const isPnpgTheOnlyProduct =
     !!activeProducts.find((p) => p.id.startsWith('prod-pn-pg')) && activeProducts.length === 1;
 
-    const activeProductsWithPermission = activeProducts.filter((p: Product) =>
-      hasPermission(p.id, Actions.ManageProductGroups)
-    );
+  const activeProductsWithPermission = activeProducts.filter((p: Product) =>
+    hasPermission(p.id, Actions.ManageProductGroups)
+  );
 
   const mappedProducts = (product: Product) => (
     <Grid key={product.id} item xs={12}>
@@ -85,7 +85,9 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
   const [productsFetchStatus, setProductsFetchStatus] = useState<
     Record<string, { loading: boolean; noData: boolean }>
   >(() =>
-    Object.fromEntries(activeProducts.map((p) => [[p.id], { loading: true, noData: false }]))
+    Object.fromEntries(
+      activeProductsWithPermission.map((p) => [[p.id], { loading: true, noData: false }])
+    )
   );
 
   const productHavingGroups = useMemo(
