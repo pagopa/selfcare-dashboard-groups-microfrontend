@@ -28,10 +28,13 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
   const history = useHistory();
   const { getAllProductsWithPermission, hasPermission } = usePermissions();
   const canSeeGroups = getAllProductsWithPermission(Actions.ManageProductGroups).length > 0;
+  const activeProductsWithPermission = activeProducts.filter((p: Product) =>
+    hasPermission(p.id, Actions.ManageProductGroups)
+  );
 
   const selectedProductSection =
     window.location.hash !== '' ? window.location.hash.substring(1) : undefined;
-  const selectedProducts = activeProducts.filter(
+  const selectedProducts = activeProductsWithPermission.filter(
     (p: Product) => !selectedProductSection || p.id === selectedProductSection
   );
 
@@ -50,13 +53,11 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
 
   const currentUser = useAppSelector(userSelectors.selectLoggedUser) as User;
 
-  const isPnpg = !!activeProducts.find((p) => p.id.startsWith('prod-pn-pg'));
+  const isPnpg = !!activeProductsWithPermission.find((p) => p.id.startsWith('prod-pn-pg'));
   const isPnpgTheOnlyProduct =
-    !!activeProducts.find((p) => p.id.startsWith('prod-pn-pg')) && activeProducts.length === 1;
+    !!activeProductsWithPermission.find((p) => p.id.startsWith('prod-pn-pg')) && activeProductsWithPermission.length === 1;
 
-  const activeProductsWithPermission = activeProducts.filter((p: Product) =>
-    hasPermission(p.id, Actions.ManageProductGroups)
-  );
+
 
   const mappedProducts = (product: Product) => (
     <Grid key={product.id} item xs={12}>
@@ -105,7 +106,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
 
   const mbTitle = 2;
 
-  const moreThanOneActiveProduct = activeProducts.length > 1;
+  const moreThanOneActiveProduct = activeProductsWithPermission.length > 1;
 
   return (
     <Grid
