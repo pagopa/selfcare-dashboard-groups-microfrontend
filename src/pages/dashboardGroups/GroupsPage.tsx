@@ -26,7 +26,7 @@ interface Props {
 
 function GroupsPage({ party, activeProducts, productsMap }: Props) {
   const history = useHistory();
-  const { getAllProductsWithPermission } = usePermissions();
+  const { getAllProductsWithPermission, hasPermission } = usePermissions();
   const canSeeGroups = getAllProductsWithPermission(Actions.ManageProductGroups).length > 0;
 
   const selectedProductSection =
@@ -53,6 +53,10 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
   const isPnpg = !!activeProducts.find((p) => p.id.startsWith('prod-pn-pg'));
   const isPnpgTheOnlyProduct =
     !!activeProducts.find((p) => p.id.startsWith('prod-pn-pg')) && activeProducts.length === 1;
+
+    const activeProductsWithPermission = activeProducts.filter((p: Product) =>
+      hasPermission(p.id, Actions.ManageProductGroups)
+    );
 
   const mappedProducts = (product: Product) => (
     <Grid key={product.id} item xs={12}>
@@ -165,7 +169,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
               value="all"
               onClick={() => setSelectedProductSection(undefined)}
             />
-            {activeProducts.map((p) => (
+            {activeProductsWithPermission.map((p) => (
               <Tab
                 key={p.id}
                 label={p.title}

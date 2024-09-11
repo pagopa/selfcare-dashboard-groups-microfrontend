@@ -1,5 +1,5 @@
 import { StatusEnum } from '../../../api/generated/b4f-dashboard/SubProductResource';
-import { Product } from '../../../model/Product';
+import { buildProductsMap, Product, ProductsMap } from '../../../model/Product';
 import { ProductRole } from '../../../model/ProductRole';
 
 export const mockedPartyProducts: Array<Product> = [
@@ -132,6 +132,8 @@ export const mockedPartyProducts: Array<Product> = [
     delegable: false,
   },
 ];
+
+export const mockedProductsMap: ProductsMap = buildProductsMap(mockedPartyProducts);
 
 export const mockedProductRoles: Array<ProductRole> = [
   {
