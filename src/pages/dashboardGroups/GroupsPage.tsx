@@ -1,6 +1,6 @@
 import { Grid, Tab, Tabs } from '@mui/material';
 import { theme } from '@pagopa/mui-italia';
-import { usePermissions } from '@pagopa/selfcare-common-frontend/lib';
+import { CustomAlert, usePermissions } from '@pagopa/selfcare-common-frontend/lib';
 import TitleBox from '@pagopa/selfcare-common-frontend/lib/components/TitleBox';
 import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { userSelectors } from '@pagopa/selfcare-common-frontend/lib/redux/slices/userSlice';
@@ -55,9 +55,8 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
 
   const isPnpg = !!activeProductsWithPermission.find((p) => p.id.startsWith('prod-pn-pg'));
   const isPnpgTheOnlyProduct =
-    !!activeProductsWithPermission.find((p) => p.id.startsWith('prod-pn-pg')) && activeProductsWithPermission.length === 1;
-
-
+    !!activeProductsWithPermission.find((p) => p.id.startsWith('prod-pn-pg')) &&
+    activeProductsWithPermission.length === 1;
 
   const mappedProducts = (product: Product) => (
     <Grid key={product.id} item xs={12}>
@@ -142,6 +141,9 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
         }}
       >
         <AddGroupButton party={party} />
+      </Grid>
+      <Grid item xs={12}>
+        <CustomAlert sx={{ mt: 5 }} />
       </Grid>
       {productHavingGroups.length !== 0 && moreThanOneActiveProduct && (
         <Grid
