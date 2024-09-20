@@ -1,6 +1,6 @@
 import { Grid, Tab, Tabs } from '@mui/material';
 import { theme } from '@pagopa/mui-italia';
-import { usePermissions } from '@pagopa/selfcare-common-frontend/lib';
+import { CustomAlert, usePermissions } from '@pagopa/selfcare-common-frontend/lib';
 import TitleBox from '@pagopa/selfcare-common-frontend/lib/components/TitleBox';
 import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { userSelectors } from '@pagopa/selfcare-common-frontend/lib/redux/slices/userSlice';
@@ -26,12 +26,15 @@ interface Props {
 
 function GroupsPage({ party, activeProducts, productsMap }: Props) {
   const history = useHistory();
-  const { getAllProductsWithPermission } = usePermissions();
+  const { getAllProductsWithPermission, hasPermission } = usePermissions();
   const canSeeGroups = getAllProductsWithPermission(Actions.ManageProductGroups).length > 0;
+  const activeProductsWithPermission = activeProducts.filter((p: Product) =>
+    hasPermission(p.id, Actions.ManageProductGroups)
+  );
 
   const selectedProductSection =
     window.location.hash !== '' ? window.location.hash.substring(1) : undefined;
-  const selectedProducts = activeProducts.filter(
+  const selectedProducts = activeProductsWithPermission.filter(
     (p: Product) => !selectedProductSection || p.id === selectedProductSection
   );
 
@@ -50,9 +53,10 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
 
   const currentUser = useAppSelector(userSelectors.selectLoggedUser) as User;
 
-  const isPnpg = !!activeProducts.find((p) => p.id.startsWith('prod-pn-pg'));
+  const isPnpg = !!activeProductsWithPermission.find((p) => p.id.startsWith('prod-pn-pg'));
   const isPnpgTheOnlyProduct =
-    !!activeProducts.find((p) => p.id.startsWith('prod-pn-pg')) && activeProducts.length === 1;
+    !!activeProductsWithPermission.find((p) => p.id.startsWith('prod-pn-pg')) &&
+    activeProductsWithPermission.length === 1;
 
   const mappedProducts = (product: Product) => (
     <Grid key={product.id} item xs={12}>
@@ -81,7 +85,9 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
   const [productsFetchStatus, setProductsFetchStatus] = useState<
     Record<string, { loading: boolean; noData: boolean }>
   >(() =>
-    Object.fromEntries(activeProducts.map((p) => [[p.id], { loading: true, noData: false }]))
+    Object.fromEntries(
+      activeProductsWithPermission.map((p) => [[p.id], { loading: true, noData: false }])
+    )
   );
 
   const productHavingGroups = useMemo(
@@ -99,7 +105,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
 
   const mbTitle = 2;
 
-  const moreThanOneActiveProduct = activeProducts.length > 1;
+  const moreThanOneActiveProduct = activeProductsWithPermission.length > 1;
 
   return (
     <Grid
@@ -136,6 +142,9 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
       >
         <AddGroupButton party={party} />
       </Grid>
+      <Grid item xs={12}>
+        <CustomAlert sx={{ mt: 5 }} />
+      </Grid>
       {productHavingGroups.length !== 0 && moreThanOneActiveProduct && (
         <Grid
           item
@@ -165,7 +174,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
               value="all"
               onClick={() => setSelectedProductSection(undefined)}
             />
-            {activeProducts.map((p) => (
+            {activeProductsWithPermission.map((p) => (
               <Tab
                 key={p.id}
                 label={p.title}
