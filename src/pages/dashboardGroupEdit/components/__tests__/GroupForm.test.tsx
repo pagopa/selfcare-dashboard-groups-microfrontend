@@ -71,6 +71,4 @@ test('renderGroupForm empty state', async () => {
 
   fireEvent.click(buttonBack);
   expect(buttonConfirm).toBeInTheDocument();
-
-  screen.debug();
 });

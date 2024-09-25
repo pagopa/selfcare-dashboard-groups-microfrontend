@@ -33,7 +33,7 @@ beforeEach(() => {
   jest.spyOn(DashboardApi, 'savePartyGroup');
   jest.spyOn(DashboardApi, 'fetchPartyGroups');
 });
-console.log('deletePartyGroup', mockedParties[0], mockedPartyProducts[0], mockedGroups[0].id);
+
 const members: Array<PartyProductUser> = [
   {
     id: 'uid',
