@@ -325,7 +325,81 @@
         } ]
       }
     },
-    "/v1/institutions/{institutionId}/geographic-taxonomy" : {
+    "/v1/institutions/{institutionId}/geographicTaxonomy" : {
+      "get" : {
+        "tags" : [ "institutions" ],
+        "summary" : "getInstitutionGeographicTaxonomy",
+        "description" : "The service retrieve the institution's geographic taxonomy",
+        "operationId" : "getInstitutionGeographicTaxonomyUsingGET",
+        "parameters" : [ {
+          "name" : "institutionId",
+          "in" : "path",
+          "description" : "Institution's unique internal identifier",
+          "required" : true,
+          "style" : "simple",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/GeographicTaxonomyResource"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not Found",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "bearerAuth" : [ "global" ]
+        } ]
+      },
       "put" : {
         "tags" : [ "institutions" ],
         "summary" : "updateInstitutionGeographicTaxonomy",
@@ -385,72 +459,6 @@
             }
           }
         },
-        "security" : [ {
-          "bearerAuth" : [ "global" ]
-        } ]
-      }
-    },
-    "/v1/institutions/{institutionId}/geographicTaxonomy" : {
-      "put" : {
-        "tags" : [ "institutions" ],
-        "summary" : "updateInstitutionGeographicTaxonomyDeprecated",
-        "description" : "Service to update the geographic taxonomy of an onboarded institution",
-        "operationId" : "updateInstitutionGeographicTaxonomyDeprecatedUsingPUT",
-        "parameters" : [ {
-          "name" : "institutionId",
-          "in" : "path",
-          "description" : "Institution's unique internal identifier",
-          "required" : true,
-          "style" : "simple",
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/GeographicTaxonomyListDto"
-              }
-            }
-          }
-        },
-        "responses" : {
-          "200" : {
-            "description" : "OK"
-          },
-          "400" : {
-            "description" : "Bad Request",
-            "content" : {
-              "application/problem+json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "401" : {
-            "description" : "Unauthorized",
-            "content" : {
-              "application/problem+json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/problem+json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Problem"
-                }
-              }
-            }
-          }
-        },
-        "deprecated" : true,
         "security" : [ {
           "bearerAuth" : [ "global" ]
         } ]
@@ -756,6 +764,47 @@
         "summary" : "getInstitutions",
         "description" : "Service to get all the institutions related to logged user",
         "operationId" : "v2RetrieveUserInstitutions",
+        "parameters" : [ {
+          "name" : "authenticated",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "authorities[0].authority",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "credentials",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "object"
+          }
+        }, {
+          "name" : "details",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "object"
+          }
+        }, {
+          "name" : "principal",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "object"
+          }
+        } ],
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -769,90 +818,6 @@
                 }
               }
             }
-          },
-          "400" : {
-            "description" : "Bad Request",
-            "content" : {
-              "application/problem+json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "401" : {
-            "description" : "Unauthorized",
-            "content" : {
-              "application/problem+json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Not Found",
-            "content" : {
-              "application/problem+json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/problem+json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Problem"
-                }
-              }
-            }
-          }
-        },
-        "security" : [ {
-          "bearerAuth" : [ "global" ]
-        } ]
-      }
-    },
-    "/v2/institutions/onboardings/{productId}/pending" : {
-      "get" : {
-        "tags" : [ "institutions" ],
-        "summary" : "getInstitutionOnboardingPending",
-        "description" : "Returns an institution's onboarding record by its ID only if its status is PENDING or TOBEVALIDATED",
-        "operationId" : "getInstitutionOnboardingPending",
-        "parameters" : [ {
-          "name" : "taxCode",
-          "in" : "query",
-          "description" : "Institution's unique internal identifier",
-          "required" : true,
-          "style" : "form",
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "subunitCode",
-          "in" : "query",
-          "description" : "subunitCode",
-          "required" : false,
-          "style" : "form",
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "productId",
-          "in" : "path",
-          "description" : "Product's unique identifier",
-          "required" : true,
-          "style" : "simple",
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK"
           },
           "400" : {
             "description" : "Bad Request",
@@ -1269,6 +1234,38 @@
         "description" : "Service to get the users with the given user id related to a specific institution",
         "operationId" : "v2RetrieveInstitutionUser",
         "parameters" : [ {
+          "name" : "authenticated",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "authorities[0].authority",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "credentials",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "object"
+          }
+        }, {
+          "name" : "details",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "object"
+          }
+        }, {
           "name" : "institutionId",
           "in" : "path",
           "description" : "Institution's unique internal identifier",
@@ -1276,6 +1273,14 @@
           "style" : "simple",
           "schema" : {
             "type" : "string"
+          }
+        }, {
+          "name" : "principal",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "object"
           }
         }, {
           "name" : "userId",
@@ -1366,7 +1371,8 @@
           "required" : true,
           "style" : "simple",
           "schema" : {
-            "type" : "string"
+            "type" : "string",
+            "enum" : [ "AS", "CON", "GSP", "PA", "PG", "PSP", "PT", "REC", "SA", "SCP" ]
           }
         } ],
         "responses" : {
@@ -1441,15 +1447,6 @@
           "description" : "Product's unique identifier",
           "required" : true,
           "style" : "simple",
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "institutionType",
-          "in" : "query",
-          "description" : "Institution's type",
-          "required" : false,
-          "style" : "form",
           "schema" : {
             "type" : "string"
           }
@@ -1621,6 +1618,47 @@
         "summary" : "sendSupportRequest",
         "description" : "Service to retrieve Support contact's form",
         "operationId" : "sendSupportRequestUsingPOST",
+        "parameters" : [ {
+          "name" : "authenticated",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "authorities[0].authority",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "credentials",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "object"
+          }
+        }, {
+          "name" : "details",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "object"
+          }
+        }, {
+          "name" : "principal",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "object"
+          }
+        } ],
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -1775,6 +1813,38 @@
         "description" : "Service to create a 'Billing Token' based on a Self Care session token",
         "operationId" : "billingTokenUsingGET",
         "parameters" : [ {
+          "name" : "authenticated",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "authorities[0].authority",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "credentials",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "details",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "object"
+          }
+        }, {
           "name" : "institutionId",
           "in" : "query",
           "description" : "Institution's unique internal identifier",
@@ -1782,6 +1852,22 @@
           "style" : "form",
           "schema" : {
             "type" : "string"
+          }
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "principal",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "object"
           }
         }, {
           "name" : "environment",
@@ -2505,6 +2591,38 @@
         "description" : "Service to get all the users related to a specific institution",
         "operationId" : "v2GetUsersUsingGET",
         "parameters" : [ {
+          "name" : "authenticated",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "authorities[0].authority",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "credentials",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "object"
+          }
+        }, {
+          "name" : "details",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "object"
+          }
+        }, {
           "name" : "institutionId",
           "in" : "path",
           "description" : "Institution's unique internal identifier",
@@ -2512,6 +2630,14 @@
           "style" : "simple",
           "schema" : {
             "type" : "string"
+          }
+        }, {
+          "name" : "principal",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "schema" : {
+            "type" : "object"
           }
         }, {
           "name" : "productId",
@@ -3287,7 +3413,7 @@
           "type" : {
             "type" : "string",
             "description" : "Delegation type",
-            "enum" : [ "AOO", "EA", "PT", "UO" ]
+            "enum" : [ "AOO", "PT", "UO" ]
           }
         }
       },
@@ -3318,7 +3444,7 @@
           },
           "type" : {
             "type" : "string",
-            "enum" : [ "AOO", "EA", "PT", "UO" ]
+            "enum" : [ "AOO", "PT", "UO" ]
           }
         }
       },
@@ -3355,7 +3481,8 @@
             "type" : "string"
           },
           "institutionType" : {
-            "type" : "string"
+            "type" : "string",
+            "enum" : [ "AS", "CON", "GSP", "PA", "PG", "PSP", "PT", "REC", "SA", "SCP" ]
           },
           "productId" : {
             "type" : "string"
@@ -3368,7 +3495,7 @@
           },
           "type" : {
             "type" : "string",
-            "enum" : [ "AOO", "EA", "PT", "UO" ]
+            "enum" : [ "AOO", "PT", "UO" ]
           },
           "updatedAt" : {
             "type" : "string",
@@ -3513,7 +3640,8 @@
             "type" : "string"
           },
           "institutionType" : {
-            "type" : "string"
+            "type" : "string",
+            "enum" : [ "AS", "CON", "GSP", "PA", "PG", "PSP", "PT", "REC", "SA", "SCP" ]
           },
           "onboarding" : {
             "type" : "array",
@@ -3544,6 +3672,12 @@
           },
           "taxCode" : {
             "type" : "string"
+          },
+          "userActions" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
           },
           "zipCode" : {
             "type" : "string"
@@ -3630,7 +3764,8 @@
           },
           "institutionType" : {
             "type" : "string",
-            "description" : "Institution's type"
+            "description" : "Institution's type",
+            "enum" : [ "AS", "CON", "GSP", "PA", "PG", "PSP", "PT", "REC", "SA", "SCP" ]
           },
           "mailAddress" : {
             "type" : "string",
@@ -4001,13 +4136,6 @@
           "partyRole" : {
             "type" : "string",
             "description" : "Party role, available values: MANAGER, DELEGATE, SUB_DELEGATE, OPERATOR, ADMIN_EA"
-          },
-          "phasesAdditionAllowed" : {
-            "type" : "array",
-            "description" : "List of phases where addition of the role is allowed",
-            "items" : {
-              "type" : "string"
-            }
           },
           "productRoles" : {
             "type" : "array",
