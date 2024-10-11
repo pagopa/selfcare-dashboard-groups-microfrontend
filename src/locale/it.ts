@@ -72,6 +72,7 @@ export default {
         closeLabel: 'Annulla',
       },
     },
+    warningMessageIo: `<1>Attenzione!</1><2/> Questa operazione potrebbe interrompere alcune funzionalità legate a un'API Key su IO. Procedi solo se il gruppo non è più necessario.`,
     confirmChangeStatus: {
       updatePartyGroupStatusThen: {
         title: `Gruppo {{selectedGroupStatus}} correttamente`,
