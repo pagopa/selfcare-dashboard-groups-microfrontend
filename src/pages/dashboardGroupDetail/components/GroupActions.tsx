@@ -3,7 +3,7 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import { Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { ButtonNaked, theme } from '@pagopa/mui-italia';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/lib/hooks/useErrorDispatcher';
 import useLoading from '@pagopa/selfcare-common-frontend/lib/hooks/useLoading';
@@ -64,7 +64,7 @@ export default function GroupActions({
       id: 'Notify_Example',
       title: t('groupActions.handleOpenDelete.addNotify.title'),
       message: (
-        <>
+        <Box>
           <Trans
             i18nKey="groupActions.handleOpenDelete.addNotify.message"
             values={{ groupName: partyGroup.name, productName: product.title }}
@@ -72,7 +72,17 @@ export default function GroupActions({
           >
             {`Vuoi eliminare il gruppo <1>{{groupName}}</1> di <3>{{productName}}</3>?`}
           </Trans>
-        </>
+          {partyGroup.productId === 'prod-io' && (
+            <Box pt={1}>
+              <Trans
+                i18nKey="groupActions.warningMessageIo"
+                components={{ 1: <strong />, 2: <br /> }}
+              >
+                {`<1>Attenzione!</1><2/> Questa operazione potrebbe interrompere alcune funzionalità legate a un'API Key su IO. Procedi solo se il gruppo non è più necessario.`}
+              </Trans>
+            </Box>
+          )}
+        </Box>
       ),
       confirmLabel: t('groupActions.handleOpenDelete.addNotify.confirmLabel'),
       closeLabel: t('groupActions.handleOpenDelete.addNotify.closeLabel'),
@@ -147,6 +157,16 @@ export default function GroupActions({
           >
             {` <1>{{groupName}}</1> di <2>{{productTitle}}</2>? <4/>Puoi riattivarlo in qualsiasi momento.`}
           </Trans>
+          {partyGroup.productId === 'prod-io' && (
+            <Box pt={1}>
+              <Trans
+                i18nKey="groupActions.warningMessageIo"
+                components={{ 1: <strong />, 2: <br /> }}
+              >
+                {`<1>Attenzione!</1><2/> Questa operazione potrebbe interrompere alcune funzionalità legate a un'API Key su IO. Procedi solo se il gruppo non è più necessario.`}
+              </Trans>
+            </Box>
+          )}
         </>
       ),
       confirmLabel:
