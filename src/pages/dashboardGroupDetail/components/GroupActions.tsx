@@ -3,7 +3,7 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import { Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { ButtonNaked, theme } from '@pagopa/mui-italia';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/lib/hooks/useErrorDispatcher';
 import useLoading from '@pagopa/selfcare-common-frontend/lib/hooks/useLoading';
@@ -40,7 +40,7 @@ export default function GroupActions({
   nextGroupStatus,
   canEdit,
   goEdit,
-}: Props) {
+}: Readonly<Props>) {
   const activeGroup = partyGroup.status === 'ACTIVE';
   const setLoading = useLoading(LOADING_TASK_UPDATE_PARTY_USER_STATUS);
   const addError = useErrorDispatcher();
@@ -64,7 +64,7 @@ export default function GroupActions({
       id: 'Notify_Example',
       title: t('groupActions.handleOpenDelete.addNotify.title'),
       message: (
-        <>
+        <Box>
           <Trans
             i18nKey="groupActions.handleOpenDelete.addNotify.message"
             values={{ groupName: partyGroup.name, productName: product.title }}
@@ -72,7 +72,19 @@ export default function GroupActions({
           >
             {`Vuoi eliminare il gruppo <1>{{groupName}}</1> di <3>{{productName}}</3>?`}
           </Trans>
-        </>
+          {/*
+          TODO hide until BO IO work is done
+          partyGroup.productId === 'prod-io' && (
+            <Box pt={1}>
+              <Trans
+                i18nKey="groupActions.warningMessageIo"
+                components={{ 1: <strong />, 2: <br /> }}
+              >
+                {`<1>Attenzione!</1><2/> Questa operazione potrebbe interrompere alcune funzionalità legate a un'API Key su IO. Procedi solo se il gruppo non è più necessario.`}
+              </Trans>
+            </Box>
+          ) */}
+        </Box>
       ),
       confirmLabel: t('groupActions.handleOpenDelete.addNotify.confirmLabel'),
       closeLabel: t('groupActions.handleOpenDelete.addNotify.closeLabel'),
@@ -106,15 +118,13 @@ export default function GroupActions({
           error: reason,
           toNotify: true,
           displayableDescription: (
-            <>
-              <Trans
-                i18nKey="groupActions.onDelete.toastComponentCatch.displayableDescription"
-                values={{ groupName: partyGroup.name }}
-                component={{ 1: <strong /> }}
-              >
-                {`C'è stato un errore durante l'eliminazione del gruppo <1>{{groupName}}</1>.`}
-              </Trans>
-            </>
+            <Trans
+              i18nKey="groupActions.onDelete.toastComponentCatch.displayableDescription"
+              values={{ groupName: partyGroup.name }}
+              component={{ 1: <strong /> }}
+            >
+              {`C'è stato un errore durante l'eliminazione del gruppo <1>{{groupName}}</1>.`}
+            </Trans>
           ),
         })
       )
@@ -147,6 +157,19 @@ export default function GroupActions({
           >
             {` <1>{{groupName}}</1> di <2>{{productTitle}}</2>? <4/>Puoi riattivarlo in qualsiasi momento.`}
           </Trans>
+          {/*
+          TODO hide until BO IO work is done
+          partyGroup.productId === 'prod-io' && (
+            <Box pt={1}>
+              <Trans
+                i18nKey="groupActions.warningMessageIo"
+                components={{ 1: <strong />, 2: <br /> }}
+              >
+                {`<1>Attenzione!</1><2/> Questa operazione potrebbe interrompere alcune funzionalità legate a un'API Key su IO. Procedi solo se il gruppo non è più necessario.`}
+              </Trans>
+            </Box>
+          )
+            */}
         </>
       ),
       confirmLabel:
@@ -179,9 +202,7 @@ export default function GroupActions({
             selectedGroupStatus: `${selectedGroupStatus}`,
           }),
           message: (
-            <>
-              <Trans i18nKey="groupActions.confirmChangeStatus.updatePartyGroupStatusThen.message"></Trans>
-            </>
+            <Trans i18nKey="groupActions.confirmChangeStatus.updatePartyGroupStatusThen.message"></Trans>
           ),
           component: 'Toast',
         });
@@ -201,18 +222,16 @@ export default function GroupActions({
           error: reason,
           toNotify: true,
           displayableDescription: (
-            <>
-              <Trans
-                i18nKey="groupActions.confirmChangeStatus.updatePartyGroupStatusCatch.displayableDescription"
-                values={{ selectedGroupStatusError, groupName: partyGroup.name }}
-                components={{ 1: <strong /> }}
-              >
-                {`C'è stato un errore durante la
+            <Trans
+              i18nKey="groupActions.confirmChangeStatus.updatePartyGroupStatusCatch.displayableDescription"
+              values={{ selectedGroupStatusError, groupName: partyGroup.name }}
+              components={{ 1: <strong /> }}
+            >
+              {`C'è stato un errore durante la
                 {{ selectedGroupStatusError }}
                 del gruppo
                 <1>{partyGroup.name}</1>.`}
-              </Trans>
-            </>
+            </Trans>
           ),
         })
       )
@@ -225,15 +244,13 @@ export default function GroupActions({
       id: 'Notify_Example',
       title: t('groupActions.handleDuplicate.addNotify.title'),
       message: (
-        <>
-          <Trans
-            i18nKey="groupActions.handleDuplicate.addNotify.message"
-            values={{ groupName: partyGroup.name, productName: product.title }}
-            components={{ 1: <strong />, 3: <strong /> }}
-          >
-            {`Vuoi duplicare il gruppo <1>{{groupName}}</1> di <3>{{productName}}</3>?`}
-          </Trans>
-        </>
+        <Trans
+          i18nKey="groupActions.handleDuplicate.addNotify.message"
+          values={{ groupName: partyGroup.name, productName: product.title }}
+          components={{ 1: <strong />, 3: <strong /> }}
+        >
+          {`Vuoi duplicare il gruppo <1>{{groupName}}</1> di <3>{{productName}}</3>?`}
+        </Trans>
       ),
       confirmLabel: t('groupActions.handleDuplicate.addNotify.confirmLabel'),
       closeLabel: t('groupActions.handleDuplicate.addNotify.closeLabel'),
