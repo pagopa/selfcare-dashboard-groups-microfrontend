@@ -98,7 +98,7 @@ export default {
     status: 'Suspendu',
     userLabel: 'utilisateur',
     usersLabel: 'utilisateurs',
-    emptyGroup: "Aucun utilisateur n'a encore été ajouté. Ajouter un utilisateur",
+    emptyGroup: "Aucun utilisateur n'a encore été ajouté. <1>Ajouter un utilisateur</1>",
   },
   groupMenu: {
     dissociateMenuItem: {
