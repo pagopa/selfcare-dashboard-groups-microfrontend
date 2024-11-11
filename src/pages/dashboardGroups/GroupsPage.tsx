@@ -1,6 +1,6 @@
 import { Grid, Tab, Tabs } from '@mui/material';
 import { theme } from '@pagopa/mui-italia';
-import { CustomAlert, usePermissions } from '@pagopa/selfcare-common-frontend/lib';
+import CustomAlert from '@pagopa/selfcare-common-frontend/lib/components/CustomAlert';
 import TitleBox from '@pagopa/selfcare-common-frontend/lib/components/TitleBox';
 import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { userSelectors } from '@pagopa/selfcare-common-frontend/lib/redux/slices/userSlice';
@@ -10,6 +10,7 @@ import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
+import { usePermissions } from '@pagopa/selfcare-common-frontend/lib/hooks/usePermissions';
 import { Party } from '../../model/Party';
 import { Product, ProductsMap } from '../../model/Product';
 import { useAppSelector } from '../../redux/hooks';
