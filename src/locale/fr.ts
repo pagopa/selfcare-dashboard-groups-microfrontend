@@ -8,24 +8,24 @@ export default {
   groupDetailPage: {
     path: {
       groupDescription: 'Groupes',
-      selectedGroupDescription: 'État civil',
+      selectedGroupDescription: 'Registre',
     },
-    title: 'État civil',
+    title: 'Registre',
     backActionLabel: 'Retour',
     usersGroupSection: {
       title: 'Utilisateurs',
       headerFields: {
         name: 'Prénom',
-        email: 'Adresse e-mail',
-        role: 'Fonction',
+        email: 'Email',
+        role: 'Rôle',
       },
     },
     addUser: 'Ajouter utilisateur',
   },
   groupActions: {
-    title: 'Groupe supprimé correctement',
-    actionOnUser: 'Actions utilisateur',
-    selectedGroupStatusSuspended: 'suspendu',
+    title: 'Groupe correctement éliminé',
+    actionOnUser: 'Actions sur l’utilisateur',
+    selectedGroupStatusSuspended: 'en attente',
     selectedGroupStatusActive: 'réactivé',
     selectedGroupStatusErrorSuspended: 'suspension',
     selectedGroupStatusErrorActive: 'réactivation',
@@ -45,10 +45,10 @@ export default {
     },
     onDelete: {
       toastComponentThen: {
-        title: 'Groupe supprimé correctement',
+        title: 'Groupe correctement éliminé',
       },
       toastComponentCatch: {
-        displayableTitle: 'Erreur lors de la suppression.',
+        displayableTitle: 'ERREUR DURANT LA SUPPRESSION',
         displayableDescription:
           'Il y a eu une erreur lors de la suppression du groupe <1>{{groupName}} </1>.',
       },
@@ -70,43 +70,47 @@ export default {
     },
     handleDuplicate: {
       addNotify: {
-        title: 'Dupliquer le groupe',
+        title: 'Dupliquer groupe',
         message:
           'Voulez-vous dupliquer le groupe <1>{{groupName}} </1> de <3>{{productName}} </3> ?',
         confirmLabel: 'Dupliquer',
         closeLabel: 'Annuler',
       },
     },
+    warningMessageIo: `<1>Attenzione!</1><2/> Questa operazione potrebbe interrompere alcune funzionalità legate a un'API Key su IO. Procedi solo se il gruppo non è più necessario.`,
     confirmChangeStatus: {
       updatePartyGroupStatusThen: {
         title: 'Groupe  {{selectedGroupStatus}} correctement',
         message: '',
       },
       updatePartyGroupStatusCatch: {
-        displayableTitle: "Il n'a pas été possible de suspendre le groupe. Réessayer.",
-        displayableDescription: '',
+        displayableTitle: 'Le groupe n’a pas pu être suspendu. Réessayer.',
+        displayableDescription: `C'è stato un errore durante la
+        {{ selectedGroupStatusError }}
+        del gruppo
+        <1>{partyGroup.name}</1>.`,
       },
     },
   },
   groupDetail: {
     description: 'Description',
     product: 'Produit',
-    creationDate: 'Créé en date',
-    createdByLabel: 'DA',
+    creationDate: 'Créé par - le',
+    createdByLabel: 'PAR',
     modifiedAt: 'Modifié par - le',
-    modifiedBy: 'DA',
-    status: 'Suspendu',
+    modifiedBy: 'PAR',
+    status: 'En attente',
     userLabel: 'utilisateur',
     usersLabel: 'utilisateurs',
-    emptyGroup: "Aucun utilisateur n'a encore été ajouté. <1>Ajouter un utilisateur</1>",
+    emptyGroup: 'Aucun utilisateur n’a encore été ajouté. <1>Ajouter un utilisateur</1>',
   },
   groupMenu: {
     dissociateMenuItem: {
       label: 'Supprimer du groupe',
     },
     suspendMenuItem: {
-      suspendLabel: 'Suspendre le rôle',
-      activeLabel: 'Réhabiliter le rôle',
+      suspendLabel: 'Suspendre rôle',
+      activeLabel: 'Réactiver rôle',
     },
     confirmAction: {
       suspend: {
@@ -124,10 +128,10 @@ export default {
       closeLabel: 'Annuler',
     },
     confirmChangeStatus: {
-      selectedUserStatusSuspended: 'suspendu',
-      selectedUserStatusActive: 'réaffecté',
+      selectedUserStatusSuspended: 'en attente',
+      selectedUserStatusActive: 'réactivé',
       selectedUserStatusErrorSuspended: 'suspension',
-      selectedUserStatusErrorActive: 'rééducation',
+      selectedUserStatusErrorActive: 'réactivation',
       updatePartyUserStatusThen: {
         title: 'Rôle  {{selectedUserStatus}} correctement. ',
         message: '',
@@ -146,10 +150,10 @@ export default {
     },
     confirmUserDissociation: {
       deleteGroupRelationThen: {
-        title: 'Utilisateur supprimé correctement',
+        title: 'Utilisateur correctement supprimé.',
       },
       deleteGroupRelationCatch: {
-        displayableTitle: "Impossible de supprimer l'utilisateur. Réessayer.",
+        displayableTitle: 'L’utilisateur n’a pas pu être supprimé. Réessayer.',
         displayableDescription: '',
       },
     },
@@ -164,11 +168,11 @@ export default {
     },
     groupForm: {
       formLabels: {
-        groupName: 'Le nom du groupe',
+        groupName: 'Saisissez le nom du groupe',
         groupNameDuplicated: 'Ce nom est déjà utilisé',
         description: 'Décrivez le groupe et indiquez sa fonction',
-        productPlaceholder: 'Sélection du produit',
-        descriptionMaxLength: '200 caractères maximum',
+        productPlaceholder: 'Sélectionner le produit',
+        descriptionMaxLength: '200 caractères maximu.',
         noProductSelected: 'Aucun produit sélectionné',
         referentsPlaceholder: 'Sélectionnez les utilisateurs que vous souhaitez associer au groupe',
         cancelActionLabel: 'Retour',
@@ -192,15 +196,15 @@ export default {
           "Une erreur s'est produite lors de la création du groupe {{valuesName}} ",
       },
       save: {
-        groupNameAlreadyExists: 'Le nom choisi est déjà utilisé. Chosissez un nouveau nom',
-        isEdit: 'Il y a eu une erreur lors de la modification du groupe. Réessayer.',
-        isClone: 'Il y a eu une erreur lors de la duplication du groupe. Réessayer.',
-        isCreate: 'Il y a eu une erreur lors de la création du groupe. Réessayer.',
+        groupNameAlreadyExists: 'Le nom choisi est déjà utilisé. Choisissez un nouveau nom.',
+        isEdit: 'Une erreur s’est produite lors de la modification du groupe. Réessayer.',
+        isClone: 'Une erreur s’est produite lors de la duplication du groupe. Réessayer.',
+        isCreate: 'Une erreur s’est produite lors de la création du groupe. Réessayer.',
       },
       outcome: {
-        created: 'Groupe créé avec succès',
-        modified: 'Groupe modifié avec succès',
-        duplicate: 'Groupe dupliqué avec succès',
+        created: 'Groupe correctement créé',
+        modified: 'Groupe correctement modifié',
+        duplicate: 'Groupe correctement dupliqué',
       },
     },
     addGroupPage: {
@@ -214,15 +218,15 @@ export default {
     },
     cloneGroupPage: {
       groupPathDescription: 'Groupes',
-      pathDescription: 'Dupliquer le groupe',
-      title: 'Dupliquer le groupe',
-      subTitle: 'Dupliquer le groupe et modifier les données',
-      placeholderDuplicateName: 'Copie de : ',
+      pathDescription: 'Dupliquer groupe',
+      title: 'Dupliquer groupe',
+      subTitle: `Duplica il gruppo e modifica i dati`,
+      placeholderDuplicateName: 'Copie de ',
     },
     editGroupPage: {
       groupPathDescription: 'Groupes',
-      pathDescription: 'Modifier le groupe',
-      title: 'Modifier le groupe',
+      pathDescription: 'Modifier groupe',
+      title: 'Modifier groupe',
     },
   },
   dashboardGroup: {
@@ -235,25 +239,25 @@ export default {
       tabAll: 'Tous',
     },
     addGroupButton: {
-      createActionLabel: 'Créer un groupe',
+      createActionLabel: 'Créer groupe',
     },
     noGroups: {
-      createGroup: "Aucun groupe n'a encore été créé. <1><0>Créer un groupe</0></1>",
-      noGroupsForProduct: "Aucun groupe n'a encore été créé pour ce produit.",
+      createGroup: 'Aucun groupe n’a encore été créé. <1><0>Créer un groupe</0></1>',
+      noGroupsForProduct: 'Aucun groupe n’a encore été créé pour ce produit.',
     },
     groupProductTableColumns: {
       duplicateActionLink: 'Dupliquer',
       headerFields: {
         name: 'Prénom',
         description: 'Description',
-        referents: 'n. utilisateurs',
+        referents: 'nbre utilisateurs',
       },
     },
     groupsProductFetchError: {
       message: "Désolés, une erreur s'est produite. <1><2>Réessayer</2></1>.",
     },
     groupsTableLoadMoreData: {
-      loadMoreMessage: 'Charger plus',
+      loadMoreMessage: 'Télécharger autres',
     },
   },
 };
