@@ -2,38 +2,38 @@ export default {
   session: {
     expired: {
       title: 'Sitzung abgelaufen',
-      message: 'Du wirst zur Login-Seite weitergeleitet...',
+      message: 'Du wirst zur Anmeldeseite weitergeleitet...',
     },
   },
   groupDetailPage: {
     path: {
       groupDescription: 'Gruppen',
-      selectedGroupDescription: 'Personenstand',
+      selectedGroupDescription: 'Register',
     },
-    title: 'Personenstand',
+    title: 'Register',
     backActionLabel: 'Zurück',
     usersGroupSection: {
       title: 'Benutzer',
       headerFields: {
         name: 'Name',
-        email: 'E-Mail-Adresse',
-        role: 'Rolle',
+        email: 'E-Mail',
+        role: 'Funktion',
       },
     },
     addUser: 'Benutzer hinzufügen',
   },
   groupActions: {
     title: 'Gruppe erfolgreich gelöscht',
-    actionOnUser: 'Benutzeraktionen',
-    selectedGroupStatusSuspended: 'ausgesetzt',
+    actionOnUser: 'Aktionen am Benutzer',
+    selectedGroupStatusSuspended: 'gesperrt',
     selectedGroupStatusActive: 'reaktiviert',
-    selectedGroupStatusErrorSuspended: 'Aussetzung',
+    selectedGroupStatusErrorSuspended: 'Sperre',
     selectedGroupStatusErrorActive: 'Reaktivierung',
-    editActionLabel: 'Bearbeiten',
-    groupActionActive: 'Erneut aktivieren',
-    groupActionSuspend: 'Aussetzen',
+    editActionLabel: 'Ändern',
+    groupActionActive: 'Reaktivieren',
+    groupActionSuspend: 'Sperren',
     groupDuplicateAction: 'Duplizieren',
-    groupDeleteAction: 'Löschen',
+    groupDeleteAction: 'Entfernen',
     handleOpenDelete: {
       addNotify: {
         title: 'Gruppe löschen',
@@ -44,7 +44,7 @@ export default {
     },
     onDelete: {
       toastComponentThen: {
-        title: 'Gruppe erfolgreich gelöscht',
+        title: 'Gruppe korrekt gelöscht',
       },
       toastComponentCatch: {
         displayableTitle: 'FEHLER BEIM LÖSCHEN',
@@ -76,36 +76,40 @@ export default {
         closeLabel: 'Abbrechen',
       },
     },
+    warningMessageIo: `<1>Attenzione!</1><2/> Questa operazione potrebbe interrompere alcune funzionalità legate a un'API Key su IO. Procedi solo se il gruppo non è più necessario.`,
     confirmChangeStatus: {
       updatePartyGroupStatusThen: {
         title: 'Gruppe {{selectedGroupStatus}} richtig',
         message: '',
       },
       updatePartyGroupStatusCatch: {
-        displayableTitle: 'Die Gruppe konnte nicht ausgesetzt werden. Nochmals versuchen.',
-        displayableDescription: '',
+        displayableTitle: 'Die Gruppe konnte nicht gesperrt werden Erneut versuchen.',
+        displayableDescription: `C'è stato un errore durante la
+        {{ selectedGroupStatusError }}
+        del gruppo
+        <1>{partyGroup.name}</1>.`,
       },
     },
   },
   groupDetail: {
     description: 'Beschreibung',
     product: 'Produkt',
-    creationDate: 'Von ... am erfasst',
+    creationDate: 'Erstellt von - am',
     createdByLabel: 'VON',
     modifiedAt: 'Geändert von - am',
     modifiedBy: 'VON',
-    status: 'Ausgesetzt',
+    status: 'Gesperrt',
     userLabel: 'Benutzer',
     usersLabel: 'Benutzer',
-    emptyGroup: 'Es wurde noch kein Benutzer hinzugefügt. <1>Benutzer hinzufügen</1>',
+    emptyGroup: 'Es wurde noch kein Benutzer hinzugefügt. <1>Einen Benutzer hinzufügen</1>',
   },
   groupMenu: {
     dissociateMenuItem: {
-      label: 'Aus Gruppe entfernen',
+      label: 'Aus der Gruppe entfernen',
     },
     suspendMenuItem: {
-      suspendLabel: 'Rolle aussetzen',
-      activeLabel: 'Rolle reaktivieren',
+      suspendLabel: 'Funktion sperren',
+      activeLabel: 'Funktion reaktivieren',
     },
     confirmAction: {
       suspend: {
@@ -123,9 +127,9 @@ export default {
       closeLabel: 'Abbrechen',
     },
     confirmChangeStatus: {
-      selectedUserStatusSuspended: 'ausgesetzt',
+      selectedUserStatusSuspended: 'gesperrt',
       selectedUserStatusActive: 'reaktiviert',
-      selectedUserStatusErrorSuspended: 'Aussetzung',
+      selectedUserStatusErrorSuspended: 'Sperre',
       selectedUserStatusErrorActive: 'Reaktivierung',
       updatePartyUserStatusThen: {
         title: 'Rolle {{selectedUserStatus}} korrekt. ',
@@ -148,7 +152,7 @@ export default {
         title: 'Benutzer erfolgreich entfernt.',
       },
       deleteGroupRelationCatch: {
-        displayableTitle: 'Der Benutzer konnte nicht entfernt werden. Nochmals versuchen.',
+        displayableTitle: 'Der Benutzer konnte nicht entfernt werden Erneut versuchen.',
         displayableDescription: '',
       },
     },
@@ -163,26 +167,26 @@ export default {
     },
     groupForm: {
       formLabels: {
-        groupName: 'Namen der Gruppe eingeben',
-        groupNameDuplicated: 'Der Name wird bereits genutzt',
-        description: 'Beschreibe die Gruppe und gib ihre Funktion an',
+        groupName: 'Name der Gruppe eingeben',
+        groupNameDuplicated: 'Dieser Name wird bereits verwendet',
+        description: 'Gruppe beschreiben und ihre Funktion angeben',
         productPlaceholder: 'Produkt wählen',
         descriptionMaxLength: 'Max. 200 Zeichen',
-        noProductSelected: 'Kein Produkt ausgewählt',
-        referentsPlaceholder: 'Wähle die Benutzer aus, die du der Gruppe zuordnen möchtest',
+        noProductSelected: 'Kein Produkt gewählt',
+        referentsPlaceholder: 'Wähle die Benutzer, die du mit der Gruppe verknüpfen möchtest',
         cancelActionLabel: 'Zurück',
         confirmActionLabel: 'Bestätigen',
       },
       notifySuccessfulSave: {
-        isEdit: 'Du hast die Gruppe korrekt geändert ',
-        isClone: 'Du hast die Gruppe korrekt dupliziert ',
-        isCreate: 'Du hast die Gruppe korrekt erstellt ',
+        isEdit: 'Du hast die Gruppe erfolgreich geändert ',
+        isClone: 'Du hast die Gruppe erfolgreich dupliziert ',
+        isCreate: 'Du hast die Gruppe erfolgreich erstellt ',
         message: '<0>{{valuesName}}</0> für das Produkt <2>{{productSelectedtitle}}</>',
       },
       notifyErrorOnSave: {
-        isEdit: 'Die Gruppe konnte nicht geändert werden. Nochmals versuchen. ',
-        isClone: 'Die Gruppe konnte nicht dupliziert werden. Nochmals versuchen.',
-        isCreate: 'Die Gruppe konnte nicht angelegt werden. Nochmals versuchen.',
+        isEdit: 'Die Gruppe konnte nicht geändert werden. Erneut versuchen. ',
+        isClone: 'Die Gruppe konnte nicht dupliziert werden. Erneut versuchen.',
+        isCreate: 'Die Gruppe konnte nicht erstellt werden. Erneut versuchen.',
         displayableDescriptionEdit:
           'Es ist ein Fehler bei der Bearbeitung der Gruppe {{valuesName}} aufgetreten ',
         displayableDescriptionClone:
@@ -192,10 +196,10 @@ export default {
       },
       save: {
         groupNameAlreadyExists:
-          'Der gewählte Name wird bereits verwendet. Wähle einen neuen Namen.',
-        isEdit: 'Beim Bearbeiten der Gruppe ist ein Fehler aufgetreten. Nochmals versuchen.',
-        isClone: 'Beim Duplizieren der Gruppe ist ein Fehler aufgetreten. Nochmals versuchen.',
-        isCreate: 'Beim Anlegen der Gruppe ist ein Fehler aufgetreten. Nochmals versuchen.',
+          'Der gewählte Name wird bereits verwendet. Einen neuen Namen wählen.',
+        isEdit: 'Es ist ein Fehler beim Ändern der Gruppe aufgetreten. Erneut versuchen.',
+        isClone: 'Es ist ein Fehler beim Duplizieren der Gruppe aufgetreten. Erneut versuchen.',
+        isCreate: 'Es ist ein Fehler beim Erstellen der Gruppe aufgetreten. Erneut versuchen.',
       },
       outcome: {
         created: 'Gruppe erfolgreich erstellt',
@@ -205,8 +209,8 @@ export default {
     },
     addGroupPage: {
       groupPathDescription: 'Gruppen',
-      pathDescription: 'Neue Gruppe anlegen',
-      title: 'Neue Gruppe anlegen',
+      pathDescription: 'Eine neue Gruppe erstellen',
+      title: 'Eine neue Gruppe erstellen',
       subTitle:
         'Gib die Daten der Gruppe ein, verknüpfe die entsprechenden Benutzer und wähle das zu verwaltende Produkt aus.',
       pnpgSubTitle:
@@ -221,8 +225,8 @@ export default {
     },
     editGroupPage: {
       groupPathDescription: 'Gruppen',
-      pathDescription: 'Gruppe bearbeiten',
-      title: 'Gruppe bearbeiten',
+      pathDescription: 'Gruppe ändern',
+      title: 'Gruppe ändern',
     },
   },
   dashboardGroup: {
@@ -238,7 +242,7 @@ export default {
       createActionLabel: 'Gruppe erstellen',
     },
     noGroups: {
-      createGroup: 'Es wurden noch keine Gruppen angelegt. <1><0> Gruppe erstellen </0></1>',
+      createGroup: 'Es wurde noch keine Gruppe erstellt. <1><0>Eine Gruppe erstellen</0></1>',
       noGroupsForProduct: 'Es wurde noch keine Gruppe für dieses Produkt erstellt.',
     },
     groupProductTableColumns: {
@@ -253,7 +257,7 @@ export default {
       message: 'Es ist leider ein Fehler aufgetreten. <1><0>Nochmals versuchen</0></1>.',
     },
     groupsTableLoadMoreData: {
-      loadMoreMessage: 'Weitere laden',
+      loadMoreMessage: 'Andere laden',
     },
   },
 };
