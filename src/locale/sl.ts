@@ -16,7 +16,7 @@ export default {
       title: 'Uporabniki',
       headerFields: {
         name: 'Ime',
-        email: 'E-poštni naslov',
+        email: 'E-pošta',
         role: 'Vloga',
       },
     },
@@ -24,11 +24,11 @@ export default {
   },
   groupActions: {
     title: 'Skupina je bila uspešno izbrisana',
-    actionOnUser: 'Dejanja na uporabnika',
-    selectedGroupStatusSuspended: 'prekinjena',
-    selectedGroupStatusActive: 'ponovno aktivirana',
+    actionOnUser: 'Dejanja na uporabniku',
+    selectedGroupStatusSuspended: 'prekinjeno',
+    selectedGroupStatusActive: 'ponovno aktivirano',
     selectedGroupStatusErrorSuspended: 'prekinitev',
-    selectedGroupStatusErrorActive: 'ponovna aktivacija',
+    selectedGroupStatusErrorActive: 'ponovno aktiviranje',
     editActionLabel: 'Spremeni',
     groupActionActive: 'Ponovno aktiviraj',
     groupActionSuspend: 'Prekini',
@@ -74,28 +74,32 @@ export default {
         closeLabel: 'Prekliči',
       },
     },
+    warningMessageIo: `<1>Attenzione!</1><2/> Questa operazione potrebbe interrompere alcune funzionalità legate a un'API Key su IO. Procedi solo se il gruppo non è più necessario.`,
     confirmChangeStatus: {
       updatePartyGroupStatusThen: {
         title: 'Skupina je {{selectedGroupStatus}} uspešno',
         message: '',
       },
       updatePartyGroupStatusCatch: {
-        displayableTitle: 'Skupine ni bilo mogoče prekiniti. Poskusite znova.',
-        displayableDescription: '',
+        displayableTitle: 'Skupine ni bilo mogoče prekiniti. Poskusi ponovno.',
+        displayableDescription: `C'è stato un errore durante la
+        {{ selectedGroupStatusError }}
+        del gruppo
+        <1>{partyGroup.name}</1>.`,
       },
     },
   },
   groupDetail: {
     description: 'Opis',
-    product: 'Izdelek',
-    creationDate: 'Ustvaril/-a - dne',
+    product: 'Produkt',
+    creationDate: 'Ustvaril/-a – dne',
     createdByLabel: 'OD',
-    modifiedAt: 'Spremenil/-a - dne',
+    modifiedAt: 'Spremenil/-a – dne',
     modifiedBy: 'OD',
-    status: 'Prekinjena',
+    status: 'Prekinjeno',
     userLabel: 'uporabnik',
     usersLabel: 'uporabniki',
-    emptyGroup: 'Noben uporabnik še ni bil dodan. <1>Dodajte uporabnika</1>',
+    emptyGroup: 'Ni dodan še noben uporabnik. <1>Dodaj uporabnika</1>',
   },
   groupMenu: {
     dissociateMenuItem: {
@@ -103,7 +107,7 @@ export default {
     },
     suspendMenuItem: {
       suspendLabel: 'Prekini vlogo',
-      activeLabel: 'Ponovno omogoči vlogo',
+      activeLabel: 'Ponovno vzpostavi vlogo',
     },
     confirmAction: {
       suspend: {
@@ -121,10 +125,10 @@ export default {
       closeLabel: 'Prekliči',
     },
     confirmChangeStatus: {
-      selectedUserStatusSuspended: 'prekinjena',
-      selectedUserStatusActive: 'ponovno omogočena',
+      selectedUserStatusSuspended: 'prekinjeno',
+      selectedUserStatusActive: 'ponovno vzpostavljeno',
       selectedUserStatusErrorSuspended: 'prekinitev',
-      selectedUserStatusErrorActive: 'ponovno omogočanje',
+      selectedUserStatusErrorActive: 'ponovna vzpostavitev',
       updatePartyUserStatusThen: {
         title: 'Vloga je {{selectedUserStatus}} uspešno. ',
         message: '',
@@ -143,10 +147,10 @@ export default {
     },
     confirmUserDissociation: {
       deleteGroupRelationThen: {
-        title: 'Uporabnik je bil uspešno odstranjen.',
+        title: 'Uporabnik uspešno odstranjen.',
       },
       deleteGroupRelationCatch: {
-        displayableTitle: 'Uporabnika ni bilo mogoče odstraniti. Poskusite znova.',
+        displayableTitle: 'Uporabnika ni bilo mogoče odstraniti. Poskusi ponovno.',
         displayableDescription: '',
       },
     },
@@ -162,11 +166,11 @@ export default {
     groupForm: {
       formLabels: {
         groupName: 'Vnesite ime skupine',
-        groupNameDuplicated: 'To ime je že uporabljeno',
+        groupNameDuplicated: 'To ime je že v uporabi',
         description: 'Opišite skupino in navedite njeno funkcijo',
-        productPlaceholder: 'Izberite izdelek',
+        productPlaceholder: 'Izberite produkt',
         descriptionMaxLength: 'Največ 200 znakov',
-        noProductSelected: 'Ni izbranih izdelkov',
+        noProductSelected: 'Izbran ni noben produkt',
         referentsPlaceholder: 'Izberite uporabnike, ki jih želite povezati s skupino',
         cancelActionLabel: 'Nazaj',
         confirmActionLabel: 'Potrdi',
@@ -187,20 +191,20 @@ export default {
       },
       save: {
         groupNameAlreadyExists: 'Izbrano ime je že v uporabi. Izberite novo ime.',
-        isEdit: 'Pri urejanju skupine je prišlo do napake. Poskusite znova.',
-        isClone: 'Pri podvajanju skupine je prišlo do napake. Poskusite znova.',
-        isCreate: 'Pri ustvarjanju skupine je prišlo do napake. Poskusite znova.',
+        isEdit: 'Med urejanjem skupine je prišlo do napake. Poskusi ponovno.',
+        isClone: 'Med podvajanjem skupine je prišlo do napake. Poskusi ponovno.',
+        isCreate: 'Pri ustvarjanju skupine je prišlo do napake. Poskusi ponovno.',
       },
       outcome: {
         created: 'Skupina je bila uspešno ustvarjena',
-        modified: 'Skupina je bila uspešno urejena',
+        modified: 'Skupina je bila uspešno spremenjena',
         duplicate: 'Skupina je bila uspešno podvojena',
       },
     },
     addGroupPage: {
       groupPathDescription: 'Skupine',
-      pathDescription: 'Ustvari novo skupino',
-      title: 'Ustvari novo skupino',
+      pathDescription: 'Ustvarite novo skupino',
+      title: 'Ustvarite novo skupino',
       subTitle:
         'Vnesite podatke skupine, povežite njene uporabnike in izberite izdelek, ki ga želite upravljati.',
       pnpgSubTitle: 'Vnesite ime, opis skupine in uporabnike, s katerimi se želite povezati.',
@@ -231,8 +235,8 @@ export default {
       createActionLabel: 'Ustvari skupino',
     },
     noGroups: {
-      createGroup: 'Nobena skupina še ni bila ustvarjena. <1><0>Ustvari skupino</0></1>',
-      noGroupsForProduct: 'Za ta izdelek še ni bila ustvarjena nobena skupina.',
+      createGroup: 'Nobena skupina še ni bila ustvarjena. <1><0>Ustvari eno skupino</0></1>',
+      noGroupsForProduct: 'Za ta produkt še ni bila ustvarjena nobena skupina.',
     },
     groupProductTableColumns: {
       duplicateActionLink: 'Podvoji',
@@ -246,7 +250,7 @@ export default {
       message: 'Žal, nekaj je šlo narobe. <1><0>Poskusite znova</0></1>.',
     },
     groupsTableLoadMoreData: {
-      loadMoreMessage: 'Naložite druge',
+      loadMoreMessage: 'Naloži druge',
     },
   },
 };
