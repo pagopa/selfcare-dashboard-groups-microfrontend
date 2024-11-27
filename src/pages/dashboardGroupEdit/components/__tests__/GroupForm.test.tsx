@@ -2,6 +2,11 @@ import { fireEvent, screen } from '@testing-library/react';
 import React from 'react';
 import { renderWithProviders } from '../../../../utils/test-utils';
 import GroupForm from '../GroupForm';
+import i18n from '@pagopa/selfcare-common-frontend/lib/locale/locale-utils';
+
+beforeAll(() => {
+  i18n.changeLanguage('it');
+});
 
 test('renderGroupForm empty state', async () => {
   renderWithProviders(
