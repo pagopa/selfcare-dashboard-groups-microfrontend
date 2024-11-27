@@ -12,7 +12,6 @@ import {
 import { productRoles2ProductRolesList } from '../../../model/ProductRole';
 import { renderWithProviders } from '../../../utils/test-utils';
 import GroupDetailPage from '../GroupDetailPage';
-import { screen } from '@testing-library/react';
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
