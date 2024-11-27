@@ -4,10 +4,12 @@ import GroupsPage from '../GroupsPage';
 import { mockedParties } from '../../../microcomponents/mock_dashboard/data/party';
 import { mockedPartyProducts } from '../../../microcomponents/mock_dashboard/data/product';
 import { fireEvent, screen } from '@testing-library/react';
+import i18n from '@pagopa/selfcare-common-frontend/lib/locale/locale-utils';
 
-beforeEach(() => {
+beforeAll(() => {
   process.env.REACT_APP_API_MOCK_PARTY_GROUPS = 'true';
   process.env.REACT_APP_API_MOCK_PARTY_USERS = 'true';
+  i18n.changeLanguage('it');
 });
 
 test('render groups page empty', async () => {
