@@ -210,7 +210,7 @@ export default function MembersGroup({
                 <Chip
                   label={t('groupDetail.status')}
                   aria-label="Suspended"
-                  color='warning'
+                  color="warning"
                   sx={{
                     fontWeight: 'fontWeightMedium',
                     fontSize: '14px',
@@ -402,7 +402,7 @@ export default function MembersGroup({
                         <Chip
                           label={t('groupDetail.status')}
                           aria-label={'Suspended'}
-                          color='warning'
+                          color="warning"
                           sx={{
                             fontSize: '14px',
                             fontWeight: 'fontWeightMedium',
@@ -433,30 +433,32 @@ export default function MembersGroup({
         paddingTop: 2,
       }}
     >
-      <Trans i18nkey="groupDetail.emptyGroup">
-        {'Non è stato ancora aggiunto alcun utente. '}
-        <Link
-          sx={{
-            variant: 'body2',
-            fontWeight: 'bold',
-            textDecoration: 'none',
-            cursor: 'pointer',
-          }}
-          onClick={() => {
-            history.push(
-              resolvePathVariables(
-                DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_EDIT.path + '#users',
-                {
-                  partyId: partyGroup.partyId,
-                  groupId: partyGroup.id,
-                }
-              )
-            );
-          }}
-        >
-          {'Aggiungi un utente'}
-        </Link>
-      </Trans>
+      <Trans
+        i18nKey="groupDetail.emptyGroup"
+        components={{
+          1: (
+            <Link
+              sx={{
+                variant: 'body2',
+                fontWeight: 'bold',
+                textDecoration: 'none',
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                history.push(
+                  resolvePathVariables(
+                    DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_EDIT.path + '#users',
+                    {
+                      partyId: partyGroup.partyId,
+                      groupId: partyGroup.id,
+                    }
+                  )
+                );
+              }}
+            />
+          ),
+        }}
+      />
     </Paper>
   );
 }

@@ -1,7 +1,7 @@
 import { Grid, Tab, Tabs } from '@mui/material';
 import { theme } from '@pagopa/mui-italia';
-import { CustomAlert, usePermissions } from '@pagopa/selfcare-common-frontend/lib';
 import TitleBox from '@pagopa/selfcare-common-frontend/lib/components/TitleBox';
+import { usePermissions } from '@pagopa/selfcare-common-frontend/lib/hooks/usePermissions';
 import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { userSelectors } from '@pagopa/selfcare-common-frontend/lib/redux/slices/userSlice';
 import { trackEvent } from '@pagopa/selfcare-common-frontend/lib/services/analyticsService';
@@ -141,9 +141,6 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
         }}
       >
         <AddGroupButton party={party} />
-      </Grid>
-      <Grid item xs={12}>
-        <CustomAlert sx={{ mt: 5 }} />
       </Grid>
       {productHavingGroups.length !== 0 && moreThanOneActiveProduct && (
         <Grid

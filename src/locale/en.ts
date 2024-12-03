@@ -2,7 +2,7 @@ export default {
   session: {
     expired: {
       title: 'Session expired',
-      message: 'You are about to be redirected to the login page...',
+      message: 'You are being redirected to the login page...',
     },
   },
   groupDetailPage: {
@@ -11,7 +11,7 @@ export default {
       selectedGroupDescription: 'Registry office',
     },
     title: 'Registry office',
-    backActionLabel: 'Back',
+    backActionLabel: 'Go back',
     usersGroupSection: {
       title: 'Users',
       headerFields: {
@@ -23,16 +23,16 @@ export default {
     addUser: 'Add user',
   },
   groupActions: {
-    title: 'Group successfully deleted',
+    title: 'Group deleted correctly',
     actionOnUser: 'User actions',
     selectedGroupStatusSuspended: 'suspended',
     selectedGroupStatusActive: 'reactivated',
     selectedGroupStatusErrorSuspended: 'suspension',
     selectedGroupStatusErrorActive: 'reactivation',
-    editActionLabel: 'Edit',
+    editActionLabel: 'Change',
     groupActionActive: 'Reactivate',
     groupActionSuspend: 'Suspend',
-    groupDuplicateAction: 'Duplicate',
+    groupDuplicateAction: 'Copy',
     groupDeleteAction: 'Delete',
     handleOpenDelete: {
       addNotify: {
@@ -44,10 +44,10 @@ export default {
     },
     onDelete: {
       toastComponentThen: {
-        title: 'Group successfully deleted',
+        title: 'Group deleted correctly',
       },
       toastComponentCatch: {
-        displayableTitle: 'ERROR WHILE DELETING',
+        displayableTitle: 'ERROR WHEN DELETING',
         displayableDescription: 'There was an error deleting group <1>{{groupName}}</1>.',
       },
     },
@@ -55,8 +55,8 @@ export default {
       addNotify: {
         titleActive: 'Suspend group',
         titleSuspended: 'Reactivate group',
-        messageActive: 'Do you want to suspend the group',
-        messageSuspended: 'Do you want to reactivate the group',
+        messageActive: 'You want to suspend the group',
+        messageSuspended: 'You want to reactivate the group',
         messageGroupActive:
           ' <0>{{groupName}}</0> of <2>{{productTitle}}</2>? <4/>You can reactivate it at any time.',
         messageGroupSuspended:
@@ -74,32 +74,36 @@ export default {
         closeLabel: 'Cancel',
       },
     },
+    warningMessageIo: `<1>Attenzione!</1><2/> Questa operazione potrebbe interrompere alcune funzionalità legate a un'API Key su IO. Procedi solo se il gruppo non è più necessario.`,
     confirmChangeStatus: {
       updatePartyGroupStatusThen: {
         title: 'Group {{selectedGroupStatus}} successfully',
         message: '',
       },
       updatePartyGroupStatusCatch: {
-        displayableTitle: 'The group could not be suspended. Please try again.',
-        displayableDescription: '',
+        displayableTitle: 'It was not possible to suspend the group. Try again.',
+        displayableDescription: `C'è stato un errore durante la
+        {{ selectedGroupStatusError }}
+        del gruppo
+        <1>{partyGroup.name}</1>.`,
       },
     },
   },
   groupDetail: {
     description: 'Description',
     product: 'Product',
-    creationDate: 'Created by – on',
+    creationDate: 'Created by - on',
     createdByLabel: 'BY',
-    modifiedAt: 'Edited by – on',
+    modifiedAt: 'Changed by - on',
     modifiedBy: 'BY',
     status: 'Suspended',
     userLabel: 'user',
     usersLabel: 'users',
-    emptyGroup: 'No users have been added yet. <1>Add a user</1>',
+    emptyGroup: 'No user has been added yet. <1>Add a user</1>',
   },
   groupMenu: {
     dissociateMenuItem: {
-      label: 'Remove from group',
+      label: 'Remove from the group',
     },
     suspendMenuItem: {
       suspendLabel: 'Suspend role',
@@ -134,7 +138,7 @@ export default {
         displayableDescription: '',
       },
     },
-    confirmDisociateAction: {
+    confirmDissociateAction: {
       title: 'Remove',
       message:
         'Do you want to remove <1>{{member}}</1> from the <3>{{groupName}}</3> group of <5>{{productTitle}}</5>? You can add them again at any time.',
@@ -143,11 +147,11 @@ export default {
     },
     confirmUserDissociation: {
       deleteGroupRelationThen: {
-        title: 'User successfully removed.',
+        title: 'User removed correctly.',
       },
       deleteGroupRelationCatch: {
-        displayableTitle: 'Could not remove user. Please try again.',
-        displayableDescription: '',
+        displayableTitle: 'It was not possible to remove the user. Try again.',
+        displayableDescription: ``,
       },
     },
   },
@@ -162,40 +166,39 @@ export default {
     groupForm: {
       formLabels: {
         groupName: 'Enter the name of the group',
-        groupNameDuplicated: 'This name already exists',
+        groupNameDuplicated: 'This name is already being used',
         description: 'Describe the group and indicate its function',
-        productPlaceholder: 'Select product',
+        productPlaceholder: 'Select the product',
         descriptionMaxLength: 'Max 200 characters',
-        noProductSelected: 'No products selected',
-        referentsPlaceholder: 'Select the users you want to associate to the group',
-        cancelActionLabel: 'Back',
+        noProductSelected: 'No product selected',
+        referentsPlaceholder: 'Select the users you want to associate with the group',
+        cancelActionLabel: 'Go back',
         confirmActionLabel: 'Confirm',
       },
       notifySuccessfulSave: {
-        isEdit: 'You have successfully edited the group ',
-        isClone: 'You have successfully duplicated the group ',
-        isCreate: 'You have successfully created the group ',
-        message: '<0>{{valuesName}}</0> for product <2>{{productSelectedtitle}}</>',
+        isEdit: 'You changed the group correctly ',
+        isClone: 'You copied the group correctly ',
+        isCreate: 'You created the group correctly ',
+        message: `<0>{{valuesName}}</0> per il prodotto <2>{{productSelectedtitle}}</>`,
       },
       notifyErrorOnSave: {
-        isEdit: 'The group could not be edited. Please try again. ',
-        isClone: 'Group could not be duplicated. Please try again.',
-        isCreate: 'Group could not be created. Please try again.',
-        displayableDescriptionEdit: 'An error occurred during the editing of group {{valuesName}} ',
-        displayableDescriptionClone:
-          'An error occurred during the cloning of group {{valuesName}} ',
-        displayableDescriptionCreate: 'An error occurred while creating group {{valuesName}} ',
+        isEdit: 'It was not possible to change the group. Try again. ',
+        isClone: 'It was not possible to copy the group. Try again.',
+        isCreate: 'It was not possible to create the group. Try again.',
+        displayableDescriptionEdit: `An error occurred while edit of group {{valuesName}}`,
+        displayableDescriptionClone: `An error occurred while clone of group {{valuesName}}`,
+        displayableDescriptionCreate: `An error occurred while creation of group {{valuesName}}`,
       },
       save: {
-        groupNameAlreadyExists: 'The chosen name is already in use. Please choose a new name.',
-        isEdit: 'There was an error while editing the group. Please try again.',
-        isClone: 'There was an error while duplicating the group. Please try again.',
-        isCreate: 'There was an error while creating the group. Please try again.',
+        groupNameAlreadyExists: 'The selected name is already being used. Select a new name.',
+        isEdit: 'There was an error when changing the group. Try again.',
+        isClone: 'There was an error when copying the group. Try again.',
+        isCreate: 'There was an error when creating the group. Try again.',
       },
       outcome: {
-        created: 'Group created successfully',
-        modified: 'Group edited successfully',
-        duplicate: 'Group duplicated successfully',
+        created: 'Group created correctly',
+        modified: 'Group changed correctly',
+        duplicate: 'Group copied correctly',
       },
     },
     addGroupPage: {
@@ -232,22 +235,22 @@ export default {
       createActionLabel: 'Create group',
     },
     noGroups: {
-      createGroup: 'No groups have been created yet. <1><0>Create a group</0></1>',
-      noGroupsForProduct: 'No groups have been created for this product yet.',
+      createGroup: 'No group was created yet. <1><0>Create a group</0></1>',
+      noGroupsForProduct: 'No group was created yet for this product.',
     },
     groupProductTableColumns: {
-      duplicateActionLink: 'Duplicate',
+      duplicateActionLink: 'Copy',
       headerFields: {
         name: 'Name',
         description: 'Description',
-        referents: 'no. of users',
+        referents: 'no. users',
       },
     },
     groupsProductFetchError: {
       message: 'Sorry, something went wrong. <1><0>Try again</0></1>.',
     },
     groupsTableLoadMoreData: {
-      loadMoreMessage: 'Load more ',
+      loadMoreMessage: 'Load others',
     },
   },
 };
