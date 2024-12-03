@@ -1,7 +1,7 @@
 import { Grid, Tab, Tabs } from '@mui/material';
 import { theme } from '@pagopa/mui-italia';
-import CustomAlert from '@pagopa/selfcare-common-frontend/lib/components/CustomAlert';
 import TitleBox from '@pagopa/selfcare-common-frontend/lib/components/TitleBox';
+import { usePermissions } from '@pagopa/selfcare-common-frontend/lib/hooks/usePermissions';
 import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { userSelectors } from '@pagopa/selfcare-common-frontend/lib/redux/slices/userSlice';
 import { trackEvent } from '@pagopa/selfcare-common-frontend/lib/services/analyticsService';
@@ -10,7 +10,6 @@ import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { usePermissions } from '@pagopa/selfcare-common-frontend/lib/hooks/usePermissions';
 import { Party } from '../../model/Party';
 import { Product, ProductsMap } from '../../model/Product';
 import { useAppSelector } from '../../redux/hooks';
@@ -142,9 +141,6 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
         }}
       >
         <AddGroupButton party={party} />
-      </Grid>
-      <Grid item xs={12}>
-        <CustomAlert sx={{ mt: 5 }} />
       </Grid>
       {productHavingGroups.length !== 0 && moreThanOneActiveProduct && (
         <Grid
