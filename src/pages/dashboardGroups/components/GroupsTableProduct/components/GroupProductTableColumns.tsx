@@ -1,11 +1,12 @@
-import { Chip, Typography, Grid, Box, IconButton } from '@mui/material';
-import { GridColDef, GridColumnHeaderParams, GridRenderCellParams } from '@mui/x-data-grid';
-import React, { CSSProperties, ReactNode } from 'react';
-import { TFunction } from 'i18next';
-import i18n from '@pagopa/selfcare-common-frontend/lib/locale/locale-utils';
-import GroupIcon from '@mui/icons-material/Group';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import GroupIcon from '@mui/icons-material/Group';
+import { Box, Grid, IconButton, Typography } from '@mui/material';
+import { GridColDef, GridColumnHeaderParams, GridRenderCellParams } from '@mui/x-data-grid';
+import i18n from '@pagopa/selfcare-common-frontend/lib/locale/locale-utils';
+import { TFunction } from 'i18next';
+import React, { CSSProperties, ReactNode } from 'react';
 import { PartyGroup } from '../../../../../model/PartyGroup';
+import { TableChip } from '../../../../../utils/helpers';
 
 export function buildColumnDefs(
   onRowClick: (partyGroup: PartyGroup) => void,
@@ -244,23 +245,7 @@ function showReferents(params: GridRenderCellParams, onRowClick: (partyGroup: Pa
   );
 }
 
-function TableChip({ text }: { text: string }) {
-  return (
-    <Chip
-      label={text}
-      aria-label="Suspended"
-      color='warning'
-      sx={{
-        cursor: 'pointer',
-        fontSize: '14px',
-        fontWeight: 'fontWeightMedium',
-        paddingBottom: '1px',
-        height: '24px',
-        width: '78px',
-      }}
-    />
-  );
-}
+
 
 function showStatus(params: GridRenderCellParams, onRowClick: (partyGroup: PartyGroup) => void) {
   const showChip = isGroupSuspended(params.row as PartyGroup);

@@ -1,18 +1,19 @@
 import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material';
-import { Box, Button, styled, Grid, Typography, Chip } from '@mui/material';
+import { Box, Button, Grid, styled, Typography } from '@mui/material';
 import { DataGrid, GridColDef, GridRow, GridSortDirection, GridSortModel } from '@mui/x-data-grid';
-import React, { useMemo } from 'react';
+import { theme } from '@pagopa/mui-italia';
 import { CustomPagination } from '@pagopa/selfcare-common-frontend/lib';
 import { Page } from '@pagopa/selfcare-common-frontend/lib/model/Page';
-import { useTranslation } from 'react-i18next';
-import { theme } from '@pagopa/mui-italia';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { Product } from '../../../../../model/Product';
+import { useIsMobile } from '../../../../../hooks/useIsMobile';
 import { Party } from '../../../../../model/Party';
 import { PartyGroup, PartyGroupStatus } from '../../../../../model/PartyGroup';
-import { useIsMobile } from '../../../../../hooks/useIsMobile';
+import { Product } from '../../../../../model/Product';
 import { DASHBOARD_GROUPS_ROUTES } from '../../../../../routes';
+import { TableChip } from '../../../../../utils/helpers';
 import { buildColumnDefs } from './GroupProductTableColumns';
 import GroupsProductLoading from './GroupsProductLoading';
 import GroupsTableLoadMoreData from './GroupsProductLoadMoreData';
@@ -106,7 +107,7 @@ export default function GroupsProductTable({
   sort,
   onSortRequest,
   onRowClick,
-}: GroupsTableProps) {
+}: Readonly<GroupsTableProps>) {
   const sortSplitted = sort && sort !== '' ? sort.split(',') : undefined;
   const { t } = useTranslation();
   const isMobile = useIsMobile('lg');
@@ -236,18 +237,7 @@ export default function GroupsProductTable({
                         </Grid>
                         {groupSuspended && (
                           <Grid item sx={{ width: '100%' }}>
-                            <Chip
-                              label={t('groupDetail.status')}
-                              aria-label={'Suspended'}
-                              color='warning'
-                              sx={{
-                                fontSize: '14px',
-                                fontWeight: 'fontWeightMedium',
-                                paddingBottom: '1px',
-                                height: '24px',
-                                cursor: 'pointer',
-                              }}
-                            />
+                            <TableChip text={t('groupDetail.status')} />
                           </Grid>
                         )}
                       </Grid>
