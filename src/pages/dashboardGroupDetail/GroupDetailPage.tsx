@@ -1,5 +1,5 @@
 import AddIcon from '@mui/icons-material/Add';
-import { Box, Chip, Grid, Typography, useTheme } from '@mui/material';
+import { Box, Grid, Typography, useTheme } from '@mui/material';
 import { ButtonNaked } from '@pagopa/mui-italia';
 import { usePermissions } from '@pagopa/selfcare-common-frontend/lib';
 import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
@@ -17,11 +17,11 @@ import { useIsMobile } from '../../hooks/useIsMobile';
 import { PartyGroupDetail, PartyGroupStatus } from '../../model/PartyGroup';
 import { ProductsRolesMap } from '../../model/ProductRole';
 import { DASHBOARD_GROUPS_ROUTES } from '../../routes';
+import { TableChip } from '../../utils/helpers';
 import GroupActions from './components/GroupActions';
 import GroupDetail from './components/GroupDetail';
 import MembersGroup from './components/MembersGroup';
 type Props = withGroupDetailProps & {
-  fetchPartyGroup: () => void;
   productsRolesMap: ProductsRolesMap;
 };
 
@@ -59,8 +59,8 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
     partyGroupState.status === 'ACTIVE'
       ? 'SUSPENDED'
       : partyGroupState.status === 'SUSPENDED'
-      ? 'ACTIVE'
-      : undefined;
+        ? 'ACTIVE'
+        : undefined;
 
   const product = productsMap[partyGroupState.productId];
   const canEdit = !!party.products.find(
@@ -162,18 +162,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
                 alignItems="center"
                 ml={2}
               >
-                <Chip
-                  label={t('groupDetail.status')}
-                  aria-label="Suspended"
-                  color="warning"
-                  sx={{
-                    fontWeight: 'fontWeightMedium',
-                    fontSize: '14px',
-                    borderRadius: '16px',
-                    width: '78px',
-                    height: '24px',
-                  }}
-                />
+                <TableChip text={t('groupDetail.status')} />
               </Box>
             )}
           </Box>
