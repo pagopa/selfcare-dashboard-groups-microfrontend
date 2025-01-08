@@ -1,19 +1,20 @@
-import { Link, Typography, Box, Tooltip, Chip, Paper, Button, Grid } from '@mui/material';
-import { useHistory } from 'react-router';
-import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
-import { useEffect, useState } from 'react';
-import { useTranslation, Trans } from 'react-i18next';
+import { Box, Button, Grid, Link, Paper, Tooltip, Typography } from '@mui/material';
 import { DataGrid, GridRenderCellParams, GridRow } from '@mui/x-data-grid';
 import { theme } from '@pagopa/mui-italia';
 import { roleLabels, UserRole } from '@pagopa/selfcare-common-frontend/lib/utils/constants';
-import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
-import { Product } from '../../../model/Product';
-import { Party, UserStatus } from '../../../model/Party';
-import { ProductRolesLists, transcodeProductRole2Title } from '../../../model/ProductRole';
-import { PartyProductUser, PartyUserProduct, PartyUserProductRole } from '../../../model/PartyUser';
-import { ENV } from '../../../utils/env';
-import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
+import { useEffect, useState } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router';
 import { useIsMobile } from '../../../hooks/useIsMobile';
+import { Party, UserStatus } from '../../../model/Party';
+import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';
+import { PartyProductUser, PartyUserProduct, PartyUserProductRole } from '../../../model/PartyUser';
+import { Product } from '../../../model/Product';
+import { ProductRolesLists, transcodeProductRole2Title } from '../../../model/ProductRole';
+import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
+import { ENV } from '../../../utils/env';
+import { TableChip } from '../../../utils/helpers';
 import GroupMenu from './GroupMenu';
 
 type Props = {
@@ -206,20 +207,7 @@ export default function MembersGroup({
         return (
           isMemberSuspended && (
             <Box display="flex" justifyContent="center" width="100%">
-              {isMemberSuspended && (
-                <Chip
-                  label={t('groupDetail.status')}
-                  aria-label="Suspended"
-                  color="warning"
-                  sx={{
-                    fontWeight: 'fontWeightMedium',
-                    fontSize: '14px',
-                    borderRadius: '16px',
-                    width: '78px',
-                    height: '24px',
-                  }}
-                />
-              )}
+              {isMemberSuspended && <TableChip text={t('groupDetail.status')} />}
             </Box>
           )
         );
@@ -399,18 +387,7 @@ export default function MembersGroup({
                     </Grid>
                     {userSuspended && (
                       <Grid item sx={{ width: '100%' }}>
-                        <Chip
-                          label={t('groupDetail.status')}
-                          aria-label={'Suspended'}
-                          color="warning"
-                          sx={{
-                            fontSize: '14px',
-                            fontWeight: 'fontWeightMedium',
-                            paddingBottom: '1px',
-                            height: '24px',
-                            cursor: 'pointer',
-                          }}
-                        />
+                        <TableChip text={t('groupDetail.status')} />
                       </Grid>
                     )}
                   </Grid>
