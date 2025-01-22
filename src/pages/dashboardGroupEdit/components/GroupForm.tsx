@@ -202,6 +202,7 @@ function GroupForm({
       isEdit ? 'GROUP_UPDATE' : isClone ? 'GROUP_CLONE' : 'GROUP_CREATE',
       Object.assign({
         party_id: party.partyId,
+        product_id: productSelected?.id,
       })
     );
 
@@ -217,6 +218,11 @@ function GroupForm({
       message: '',
     });
 
+  const isCloneOrCreate = isClone ? 'isClone' : 'isCreate';
+  const errorMessage = isEdit
+    ? t('dashboardGroupEdit.groupForm.notifyErrorOnSave.isEdit')
+    : t(`dashboardGroupEdit.groupForm.notifyErrorOnSave.${isCloneOrCreate}`);
+
   const notifyErrorOnSave = (
     _values: PartyGroupOnCreation | PartyGroupOnEdit,
     reason: any,
@@ -229,11 +235,7 @@ function GroupForm({
       displayableTitle: '',
       displayableDescription: alreadyExistentGroupNameError
         ? t('dashboardGroupEdit.groupForm.save.groupNameAlreadyExists')
-        : isEdit
-          ? t('dashboardGroupEdit.groupForm.notifyErrorOnSave.isEdit')
-          : isClone
-            ? t('dashboardGroupEdit.groupForm.notifyErrorOnSave.isClone')
-            : t('dashboardGroupEdit.groupForm.notifyErrorOnSave.isCreate'),
+        : errorMessage,
       techDescription: '',
       error: reason,
       toNotify: true,
@@ -375,10 +377,6 @@ function GroupForm({
       .finally(() => setLoadingFetchUserProduct(false));
   };
   const isProductError = isClone && productSelected === undefined;
-
-  // const onItemSelectedTest = () => {
-  //   void formik.setFieldValue('members', [], true);
-  // };
 
   const groupMemberToRemove = (member: PartyProductUser) => {
     void formik.setFieldValue(
