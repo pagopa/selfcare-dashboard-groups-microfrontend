@@ -1,5 +1,5 @@
-import { Grid, Tab, Tabs } from '@mui/material';
-import { theme } from '@pagopa/mui-italia';
+import { Alert, Grid, Tab, Tabs } from '@mui/material';
+import { ButtonNaked, theme } from '@pagopa/mui-italia';
 import TitleBox from '@pagopa/selfcare-common-frontend/lib/components/TitleBox';
 import { usePermissions } from '@pagopa/selfcare-common-frontend/lib/hooks/usePermissions';
 import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
@@ -8,7 +8,7 @@ import { trackEvent } from '@pagopa/selfcare-common-frontend/lib/services/analyt
 import { Actions } from '@pagopa/selfcare-common-frontend/lib/utils/constants';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import { useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { Party } from '../../model/Party';
 import { Product, ProductsMap } from '../../model/Product';
@@ -141,6 +141,32 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
         }}
       >
         <AddGroupButton party={party} />
+      </Grid>
+      <Grid item xs={12}>
+        <Alert severity="info" sx={{ mt: 5 }}>
+          <Trans
+            i18nKey="dashboardGroup.customAlert.message"
+            components={{
+              1: <strong />,
+              2: <strong />,
+              3: (
+                <ButtonNaked
+                  component="button"
+                  color="primary"
+                  onClick={() => window.open('#', 'blank', 'noopener,noreferrer')}
+                  sx={{ textDecoration: 'underline' }}
+                />
+              ),
+            }}
+          >
+            <strong>Novità!</strong>
+            <br />
+            Disponibile dal gg/mm/aaaa la funzionalità dei <strong>Gruppi</strong> per IO. Permette
+            di gestire i servizi limitando l’accesso a gruppi specifici di utenti.
+            <br />
+            <ButtonNaked>{t('dashboardGroup.customAlert.button')}</ButtonNaked>
+          </Trans>
+        </Alert>
       </Grid>
       {productHavingGroups.length !== 0 && moreThanOneActiveProduct && (
         <Grid
