@@ -468,7 +468,6 @@ function GroupForm({
                 disabled={isEdit || productInPage}
                 fullWidth
                 value={productSelected?.title ?? ''}
-                displayEmpty
                 variant="outlined"
                 labelId="select-label-products"
                 label={t('dashboardGroupEdit.groupForm.formLabels.productPlaceholder')}
@@ -530,7 +529,6 @@ function GroupForm({
               size="small"
               disabled={!productSelected}
               multiple
-              displayEmpty
               fullWidth
               label={t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholder')}
               labelId="select-label-members"
