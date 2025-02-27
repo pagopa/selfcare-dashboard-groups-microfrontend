@@ -24,7 +24,7 @@ interface Props {
   productsMap: ProductsMap;
 }
 
-function GroupsPage({ party, activeProducts, productsMap }: Props) {
+function GroupsPage({ party, activeProducts, productsMap }: Readonly<Props>) {
   const history = useHistory();
   const { getAllProductsWithPermission, hasPermission } = usePermissions();
   const canSeeGroups = getAllProductsWithPermission(Actions.ManageProductGroups).length > 0;
@@ -112,7 +112,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
       container
       px={3}
       mt={3}
-      sx={{ width: '100%', backgroundColor: 'transparent !important', alignItems: 'center' }}
+      sx={{ width: '100%', backgroundColor: '#F5F5F5', alignItems: 'center' }}
     >
       <Grid item xs={9}>
         <TitleBox
@@ -151,7 +151,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
             position: 'sticky',
             top: 0,
             zIndex: 100,
-            backgroundColor: '#F5F6F7',
+            backgroundColor: '#F5F5F5',
           }}
         >
           <Tabs
