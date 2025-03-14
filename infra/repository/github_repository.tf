@@ -41,4 +41,6 @@ module "repository" {
   github = {
     repository = "selfcare-dashboard-groups-microfrontend"
   }
+
+  identity_component = "fe"
 }
