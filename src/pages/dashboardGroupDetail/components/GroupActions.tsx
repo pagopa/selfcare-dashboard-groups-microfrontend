@@ -73,7 +73,6 @@ export default function GroupActions({
             {`Vuoi eliminare il gruppo <1>{{groupName}}</1> di <3>{{productName}}</3>?`}
           </Trans>
           {/*
-          TODO hide until BO IO work is done
           partyGroup.productId === 'prod-io' && (
             <Box pt={1}>
               <Trans
@@ -83,7 +82,8 @@ export default function GroupActions({
                 {`<1>Attenzione!</1><2/> Questa operazione potrebbe interrompere alcune funzionalità legate a un'API Key su IO. Procedi solo se il gruppo non è più necessario.`}
               </Trans>
             </Box>
-          ) */}
+          )
+          */}
         </Box>
       ),
       confirmLabel: t('groupActions.handleOpenDelete.addNotify.confirmLabel'),
@@ -158,7 +158,6 @@ export default function GroupActions({
             {` <1>{{groupName}}</1> di <2>{{productTitle}}</2>? <4/>Puoi riattivarlo in qualsiasi momento.`}
           </Trans>
           {/*
-          TODO hide until BO IO work is done
           partyGroup.productId === 'prod-io' && (
             <Box pt={1}>
               <Trans
@@ -169,7 +168,7 @@ export default function GroupActions({
               </Trans>
             </Box>
           )
-            */}
+          */}
         </>
       ),
       confirmLabel:
@@ -328,8 +327,8 @@ export default function GroupActions({
           {partyGroup.status === 'SUSPENDED'
             ? t('groupActions.groupActionActive')
             : partyGroup.status === 'ACTIVE'
-            ? t('groupActions.groupActionSuspend')
-            : ''}
+              ? t('groupActions.groupActionSuspend')
+              : ''}
         </ButtonNaked>
       )}
       {!isSuspended && (

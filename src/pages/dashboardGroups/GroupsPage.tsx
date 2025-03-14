@@ -1,5 +1,5 @@
-import { Grid, Tab, Tabs } from '@mui/material';
-import { theme } from '@pagopa/mui-italia';
+import { Alert, Grid, Tab, Tabs } from '@mui/material';
+import { ButtonNaked, theme } from '@pagopa/mui-italia';
 import TitleBox from '@pagopa/selfcare-common-frontend/lib/components/TitleBox';
 import { usePermissions } from '@pagopa/selfcare-common-frontend/lib/hooks/usePermissions';
 import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
@@ -8,7 +8,7 @@ import { trackEvent } from '@pagopa/selfcare-common-frontend/lib/services/analyt
 import { Actions } from '@pagopa/selfcare-common-frontend/lib/utils/constants';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import { useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { Party } from '../../model/Party';
 import { Product, ProductsMap } from '../../model/Product';
@@ -141,6 +141,39 @@ function GroupsPage({ party, activeProducts, productsMap }: Readonly<Props>) {
         }}
       >
         <AddGroupButton party={party} />
+      </Grid>
+      <Grid item xs={12}>
+        <Alert severity="info" sx={{ mt: 5 }}>
+          <Trans
+            i18nKey="customAlert.message"
+            components={{
+              1: <span style={{ fontWeight: 600 }} />,
+              2: <strong />,
+              3: (
+                <ButtonNaked
+                  component="button"
+                  color="primary"
+                  onClick={() =>
+                    window.open(
+                      'https://docs.pagopa.it/io-guida-tecnica/v5.2-preview',
+                      'blank',
+                      'noopener,noreferrer'
+                    )
+                  }
+                  sx={{
+                    textDecoration: 'underline',
+                    color: 'primary.main',
+                    verticalAlign: 'baseline',
+                  }}
+                />
+              ),
+            }}
+          >
+            {
+              "<1>Novità!</1><br />Disponibile dal 31/03/2025 la funzionalità dei <2>Gruppi</2> per IO. Permette di gestire i servizi limitando l'accesso a gruppi specifici di utenti. <3>Come funziona?</3>"
+            }
+          </Trans>
+        </Alert>
       </Grid>
       {productHavingGroups.length !== 0 && moreThanOneActiveProduct && (
         <Grid
