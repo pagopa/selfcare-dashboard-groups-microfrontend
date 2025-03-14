@@ -107,6 +107,8 @@ function GroupsPage({ party, activeProducts, productsMap }: Readonly<Props>) {
 
   const moreThanOneActiveProduct = activeProductsWithPermission.length > 1;
 
+  const canSeeBannerIo = activeProducts.filter((p) => p.id?.startsWith('prod-io')).length > 0;
+
   return (
     <Grid
       container
@@ -143,37 +145,39 @@ function GroupsPage({ party, activeProducts, productsMap }: Readonly<Props>) {
         <AddGroupButton party={party} />
       </Grid>
       <Grid item xs={12}>
-        <Alert severity="info" sx={{ mt: 5 }}>
-          <Trans
-            i18nKey="customAlert.message"
-            components={{
-              1: <span style={{ fontWeight: 600 }} />,
-              2: <strong />,
-              3: (
-                <ButtonNaked
-                  component="button"
-                  color="primary"
-                  onClick={() =>
-                    window.open(
-                      'https://docs.pagopa.it/io-guida-tecnica/v5.2-preview',
-                      'blank',
-                      'noopener,noreferrer'
-                    )
-                  }
-                  sx={{
-                    textDecoration: 'underline',
-                    color: 'primary.main',
-                    verticalAlign: 'baseline',
-                  }}
-                />
-              ),
-            }}
-          >
-            {
-              "<1>Novità!</1><br />Disponibile dal 31/03/2025 la funzionalità dei <2>Gruppi</2> per IO. Permette di gestire i servizi limitando l'accesso a gruppi specifici di utenti. <3>Come funziona?</3>"
-            }
-          </Trans>
-        </Alert>
+        {canSeeBannerIo && (
+          <Alert severity="info" sx={{ mt: 5 }}>
+            <Trans
+              i18nKey="customAlert.message"
+              components={{
+                1: <span style={{ fontWeight: 600 }} />,
+                2: <strong />,
+                3: (
+                  <ButtonNaked
+                    component="button"
+                    color="primary"
+                    onClick={() =>
+                      window.open(
+                        'https://docs.pagopa.it/io-guida-tecnica/v5.2-preview/funzionalita/pubblicare-un-servizio/gestire-laccesso-ai-servizi-tramite-i-gruppi',
+                        'blank',
+                        'noopener,noreferrer'
+                      )
+                    }
+                    sx={{
+                      textDecoration: 'underline',
+                      color: 'primary.main',
+                      verticalAlign: 'baseline',
+                    }}
+                  />
+                ),
+              }}
+            >
+              {
+                "<1>Novità!</1><br />Disponibile dal 31/03/2025 la funzionalità dei <2>Gruppi</2> per IO. Permette di gestire i servizi limitando l'accesso a gruppi specifici di utenti. <3>Come funziona?</3>"
+              }
+            </Trans>
+          </Alert>
+        )}
       </Grid>
       {productHavingGroups.length !== 0 && moreThanOneActiveProduct && (
         <Grid
