@@ -72,7 +72,8 @@ export default function GroupActions({
           >
             {`Vuoi eliminare il gruppo <1>{{groupName}}</1> di <3>{{productName}}</3>?`}
           </Trans>
-          {partyGroup.productId === 'prod-io' && (
+          {/*
+          partyGroup.productId === 'prod-io' && (
             <Box pt={1}>
               <Trans
                 i18nKey="groupActions.warningMessageIo"
@@ -81,7 +82,8 @@ export default function GroupActions({
                 {`<1>Attenzione!</1><2/> Questa operazione potrebbe interrompere alcune funzionalità legate a un'API Key su IO. Procedi solo se il gruppo non è più necessario.`}
               </Trans>
             </Box>
-          )}
+          )
+          */}
         </Box>
       ),
       confirmLabel: t('groupActions.handleOpenDelete.addNotify.confirmLabel'),
@@ -155,7 +157,8 @@ export default function GroupActions({
           >
             {` <1>{{groupName}}</1> di <2>{{productTitle}}</2>? <4/>Puoi riattivarlo in qualsiasi momento.`}
           </Trans>
-          {partyGroup.productId === 'prod-io' && (
+          {/*
+          partyGroup.productId === 'prod-io' && (
             <Box pt={1}>
               <Trans
                 i18nKey="groupActions.warningMessageIo"
@@ -164,7 +167,8 @@ export default function GroupActions({
                 {`<1>Attenzione!</1><2/> Questa operazione potrebbe interrompere alcune funzionalità legate a un'API Key su IO. Procedi solo se il gruppo non è più necessario.`}
               </Trans>
             </Box>
-          )}
+          )
+          */}
         </>
       ),
       confirmLabel:

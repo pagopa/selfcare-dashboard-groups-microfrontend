@@ -145,7 +145,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
       <Grid item xs={12}>
         <Alert severity="info" sx={{ mt: 5 }}>
           <Trans
-            i18nKey="dashboardGroup.customAlert.message"
+            i18nKey="customAlert.message"
             components={{
               1: <strong />,
               2: <strong />,
@@ -153,18 +153,25 @@ function GroupsPage({ party, activeProducts, productsMap }: Props) {
                 <ButtonNaked
                   component="button"
                   color="primary"
-                  onClick={() => window.open('#', 'blank', 'noopener,noreferrer')}
-                  sx={{ textDecoration: 'underline' }}
+                  onClick={() =>
+                    window.open(
+                      'https://docs.pagopa.it/io-guida-tecnica/v5.2-preview',
+                      'blank',
+                      'noopener,noreferrer'
+                    )
+                  }
+                  sx={{
+                    textDecoration: 'underline',
+                    color: 'primary.main',
+                    verticalAlign: 'baseline',
+                  }}
                 />
               ),
             }}
           >
-            <strong>Novità!</strong>
-            <br />
-            Disponibile dal gg/mm/aaaa la funzionalità dei <strong>Gruppi</strong> per IO. Permette
-            di gestire i servizi limitando l’accesso a gruppi specifici di utenti.
-            <br />
-            <ButtonNaked>{t('dashboardGroup.customAlert.button')}</ButtonNaked>
+            {
+              "<1>Novità!</1><br />Disponibile dal 31/03/2025 la funzionalità dei <2>Gruppi</2> per IO. Permette di gestire i servizi limitando l'accesso a gruppi specifici di utenti. <3>Come funziona?</3>"
+            }
           </Trans>
         </Alert>
       </Grid>
