@@ -1,10 +1,11 @@
+import '@testing-library/jest-dom';
+import { mockedUser } from '../../__mocks__/@pagopa/selfcare-common-frontend/decorators/withLogin';
+import { userGroupPlainResource, usersGroupResource } from '../../api/__mocks__/DashboardApiClient';
 import {
   usersGroupPlainResource2PartyGroup,
   usersGroupResource2PartyGroupDetail,
 } from '../PartyGroup';
-import { mockedUser } from '../../__mocks__/@pagopa/selfcare-common-frontend/decorators/withLogin';
 import { mockedPartyProducts } from './../../microcomponents/mock_dashboard/data/product';
-import { userGroupPlainResource, usersGroupResource } from '../../api/__mocks__/DashboardApiClient';
 
 test('Test usersGroupPlainResource2PartyGroup', () => {
   const partyGroup = usersGroupPlainResource2PartyGroup(userGroupPlainResource);

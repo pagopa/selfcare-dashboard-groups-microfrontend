@@ -38,7 +38,7 @@ describe('Test fetchPartyProductUsers', () => {
     });
 
     expect(DashboardApi.getPartyProductUsers).toBeCalledTimes(1);
-    expect(DashboardApi.getPartyProductUsers).toBeCalledWith(
+    expect(DashboardApi.getPartyProductUsers).toHaveBeenCalledWith(
       mockedParties[0].partyId,
       mockedPartyProducts[0].id
     );
@@ -77,7 +77,7 @@ describe('Test updatePartyUserStatus', () => {
       'SUSPENDED'
     );
 
-    expect(DashboardApi.suspendPartyRelation).toBeCalledWith(
+    expect(DashboardApi.suspendPartyRelation).toHaveBeenCalledWith(
       partyUser.id,
       mockedParties[0].partyId,
       partyUser.product.id
@@ -93,7 +93,7 @@ describe('Test updatePartyUserStatus', () => {
     );
 
     expect(DashboardApi.suspendPartyRelation).toBeCalledTimes(1);
-    expect(DashboardApi.activatePartyRelation).toBeCalledWith(
+    expect(DashboardApi.activatePartyRelation).toHaveBeenCalledWith(
       partyUser.id,
       mockedParties[0].partyId,
       partyUser.product.id

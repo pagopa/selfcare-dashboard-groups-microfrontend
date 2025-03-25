@@ -1,8 +1,9 @@
-import { RoleEnum } from '../../api/generated/b4f-dashboard/InstitutionUserResource';
+import '@testing-library/jest-dom';
+import { mockedUser } from '../../__mocks__/@pagopa/selfcare-common-frontend/decorators/withLogin';
+import { RoleEnum } from '../../api/generated/b4f-dashboard/InstitutionUserDetailsResource';
 import { SelcRoleEnum } from '../../api/generated/b4f-dashboard/ProductRoleInfoResource';
 import { ProductUserResource } from '../../api/generated/b4f-dashboard/ProductUserResource';
 import { mockedPartyProducts } from '../../microcomponents/mock_dashboard/data/product';
-import { mockedUser } from '../../__mocks__/@pagopa/selfcare-common-frontend/decorators/withLogin';
 import { productUserResource2PartyProductUser } from '../PartyUser';
 
 test('Test productUserResource2PartyUser', () => {

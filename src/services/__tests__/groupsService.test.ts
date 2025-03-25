@@ -106,7 +106,7 @@ test('Test fetchPartyGroups', async () => {
     page: 0,
     size: 20,
   });
-  expect(DashboardApi.fetchPartyGroups).toBeCalledWith(
+  expect(DashboardApi.fetchPartyGroups).toHaveBeenCalledWith(
     mockedPartyProducts[0].id,
     mockedParties[0].partyId,
     {
@@ -124,7 +124,7 @@ test('Test fetchPartyGroup', async () => {
     buildProductsMap(mockedPartyProducts)
   );
 
-  expect(DashboardApi.fetchPartyGroup).toBeCalledWith(mockedGroups[0].id, mockedParties[0].partyId);
+  expect(DashboardApi.fetchPartyGroup).toHaveBeenCalledWith(mockedGroups[0].id, mockedParties[0].partyId);
 });
 
 test('Test savePartyGroup', async () => {
@@ -133,14 +133,14 @@ test('Test savePartyGroup', async () => {
     mockedPartyProducts[0],
     groupOnCreation
   );
-  expect(DashboardApi.savePartyGroup).toBeCalledWith(groupOnCreation);
+  expect(DashboardApi.savePartyGroup).toHaveBeenCalledWith(groupOnCreation);
   expect(newGroupId).toBe('newGroupId');
 });
 
 test('Test updatePartyGroup', async () => {
   const groupId = await updatePartyGroup(mockedParties[0], mockedPartyProducts[0], groupOnEdit);
   // expect(DashboardApi.updatePartyGroup).toBeCalledTimes(1);
-  expect(DashboardApi.updatePartyGroup).toBeCalledWith(groupOnEdit.id, groupOnEdit);
+  expect(DashboardApi.updatePartyGroup).toHaveBeenCalledWith(groupOnEdit.id, groupOnEdit);
   expect(groupId).toBe(groupOnEdit.id);
 });
 
@@ -153,7 +153,7 @@ describe('Test updatePartyGroupStatus', () => {
       'ACTIVE'
     );
     expect(DashboardApi.updatePartyGroupStatusActivate).toBeCalledTimes(1);
-    expect(DashboardApi.updatePartyGroupStatusActivate).toBeCalledWith(groupId);
+    expect(DashboardApi.updatePartyGroupStatusActivate).toHaveBeenCalledWith(groupId);
     expect(DashboardApi.updatePartyGroupStatusSuspend).toBeCalledTimes(0);
 
     await updatePartyGroupStatus(
@@ -163,18 +163,18 @@ describe('Test updatePartyGroupStatus', () => {
       'SUSPENDED'
     );
     expect(DashboardApi.updatePartyGroupStatusSuspend).toBeCalledTimes(1);
-    expect(DashboardApi.updatePartyGroupStatusSuspend).toBeCalledWith(groupId);
+    expect(DashboardApi.updatePartyGroupStatusSuspend).toHaveBeenCalledWith(groupId);
   });
 });
 
 test('Test deletePartyGroup', async () => {
   await deletePartyGroup(mockedParties[0], mockedPartyProducts[0], mockedGroups[0]);
   expect(DashboardApi.deletePartyGroup).toBeCalledTimes(1);
-  expect(DashboardApi.deletePartyGroup).toBeCalledWith(groupId);
+  expect(DashboardApi.deletePartyGroup).toHaveBeenCalledWith(groupId);
 });
 
 test('Test deleteGroupRelation', async () => {
   await deleteGroupRelation(mockedParties[0], mockedPartyProducts[0], groupOnDetail, 'uid');
   expect(DashboardApi.deleteGroupRelation).toBeCalledTimes(1);
-  expect(DashboardApi.deleteGroupRelation).toBeCalledWith(groupId, 'uid');
+  expect(DashboardApi.deleteGroupRelation).toHaveBeenCalledWith(groupId, 'uid');
 });
