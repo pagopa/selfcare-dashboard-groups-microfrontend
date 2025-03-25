@@ -1,15 +1,14 @@
+import { fireEvent, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import React from 'react';
-import { renderWithProviders } from '../../../utils/test-utils';
-import GroupsPage from '../GroupsPage';
 import { mockedParties } from '../../../microcomponents/mock_dashboard/data/party';
 import { mockedPartyProducts } from '../../../microcomponents/mock_dashboard/data/product';
-import { fireEvent, screen } from '@testing-library/react';
-import i18n from '@pagopa/selfcare-common-frontend/lib/locale/locale-utils';
+import { renderWithProviders } from '../../../utils/test-utils';
+import GroupsPage from '../GroupsPage';
 
 beforeAll(() => {
   process.env.REACT_APP_API_MOCK_PARTY_GROUPS = 'true';
   process.env.REACT_APP_API_MOCK_PARTY_USERS = 'true';
-  i18n.changeLanguage('it');
 });
 
 test('render groups page empty', async () => {
@@ -48,7 +47,6 @@ test('render groups page empty', async () => {
   );
 
   const noGroups = await screen.findByText('Non è ancora stato creato alcun gruppo.');
-  7;
 
   expect(noGroups).toBeInTheDocument();
 
