@@ -14,7 +14,6 @@
     "@types/react-dom": "^18.2.7",
     "@types/react-router-dom": "^5.3.3",
     "@types/react-router-hash-link": "^2.4.5",
-    "axios": "^1.7.7",
     "formik": "^2.4.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
