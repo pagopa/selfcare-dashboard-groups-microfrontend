@@ -39,7 +39,7 @@ export default function DuplicateIcon({ party, p, t }: Props) {
             )
           }
         >
-          <ArrowForwardIosIcon color="primary" fontSize="small" sx={{ padding: '3px' }} />
+          <ArrowForwardIosIcon fontSize="small" sx={{ padding: '3px' }} />
         </IconButton>
       </Tooltip>
     </Box>

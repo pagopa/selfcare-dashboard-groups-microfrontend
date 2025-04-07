@@ -248,13 +248,10 @@ export default function GroupMenu({
             arrow={true}
           >
             <IconButton
-              sx={{
-                p: '0px',
-                '&:hover': { backgroundColor: 'transparent' },
-              }}
               disableRipple
               onClick={handleClick}
               disabled={isSuspended}
+              sx={{ backgroundColor: 'transparent' }}
             >
               <MoreVertIcon
                 fontSize="medium"
@@ -292,8 +289,8 @@ export default function GroupMenu({
                   {role?.status === 'ACTIVE'
                     ? t('groupMenu.suspendMenuItem.suspendLabel')
                     : role?.status === 'SUSPENDED'
-                    ? t('groupMenu.suspendMenuItem.activeLabel')
-                    : ''}
+                      ? t('groupMenu.suspendMenuItem.activeLabel')
+                      : ''}
                 </Typography>
               </MenuItem>
             </Box>

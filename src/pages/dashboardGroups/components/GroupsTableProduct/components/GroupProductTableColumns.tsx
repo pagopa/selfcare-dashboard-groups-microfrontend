@@ -89,9 +89,9 @@ export function buildColumnDefs(
         >
           <IconButton
             onClick={onRowClick ? () => onRowClick(p.row) : undefined}
-            sx={{ width: '100%', '&:hover': { backgroundColor: 'transparent !important' } }}
+            sx={{ backgroundColor: 'transparent' }}
           >
-            <ArrowForwardIosIcon fontSize="small" sx={{ color: 'primary.main', p: '4px' }} />
+            <ArrowForwardIosIcon fontSize='small' />
           </IconButton>
         </Box>
       ),
