@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "devDependencies": {
-    "@playwright/test": "^1.49.1",
-    "@types/node": "^22.10.1"
+  "scripts": {
+    "cucumber": "cucumber-js --config config/cucumber.js"
   },
-  "scripts": {}
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.2.0",
+    "@cucumber/pretty-formatter": "^1.0.1",
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.14.1",
+    "ts-node": "^10.9.2"
+  }
 }
