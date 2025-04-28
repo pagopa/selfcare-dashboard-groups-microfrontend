@@ -22,7 +22,7 @@ Feature: Update group status
   Scenario: Enable a suspended group
     When I click on the text "suspend group cucumber"
     Given I should see "Riattiva"
-    When I click on the "Riattiva"
+    When I click on the button "Riattiva"
     Then I should see "Riattiva gruppo"
-    When I click on the "Riattiva"
+    When I click on the button "Riattiva"
     Then I should see "Gruppo riattivato correttamente"

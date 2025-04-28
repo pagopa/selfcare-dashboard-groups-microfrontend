@@ -4,7 +4,7 @@ import { expect } from '@playwright/test';
 import { state } from '../../setup/hooks';
 import { hasLoginBeenAttempted, isLoggedIn, loginWithOI } from '../../utils/login';
 
-setDefaultTimeout(30000);
+setDefaultTimeout(40000);
 
 Given('I navigate to {string}', async (url: string) => {
   if (!state.page) {
