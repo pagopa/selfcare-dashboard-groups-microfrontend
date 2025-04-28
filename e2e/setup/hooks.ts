@@ -28,9 +28,9 @@ export const state: {
 };
 
 const options = {
-  headless: false,
+  headless: true,
   slowMo: 1000,
-  args: ['--disable-dev-shm-usage', '--start-maximized', '--window-size=1920,1080'],
+  args: ['--disable-dev-shm-usage', '--start-maximized'],
   channel: 'chrome',
 };
 
@@ -72,11 +72,15 @@ Before(async ({ pickle }) => {
     globalState.browser = await chromium.launch(options);
   }
 
+  console.info('Running scenario:', pickle.name);
+
   const requiresFreshLogin = pickle.tags.some((tag) => tag.name === '@fresh-login');
 
   if (requiresFreshLogin) {
     console.log('Scenario with fresh login tag - create new context');
-    state.context = await globalState.browser.newContext();
+    state.context = await globalState.browser.newContext({
+      viewport: null,
+    });
     globalState.isLoggedIn = false;
     globalState.loginAttempted = false;
   }
@@ -85,19 +89,34 @@ Before(async ({ pickle }) => {
     console.log('Using existing storage state for authentication');
     state.context = await globalState.browser.newContext({
       storageState: storageStatePath,
+      viewport: null,
     });
     globalState.isLoggedIn = true;
   } else {
     console.log('Creating new browser context without auth');
-    state.context = await globalState.browser.newContext();
+    state.context = await globalState.browser.newContext({
+      viewport: null,
+    });
   }
 
   state.page = await state.context.newPage();
 });
 
 // After each scenario
-After(async ({ pickle }) => {
+After(async ({ pickle, result }) => {
   const freshLoginFlow = pickle.tags.some((tag) => tag.name === '@fresh-login');
+
+  const scenarioInfo = {
+    name: pickle.name,
+    duration: result?.duration,
+    status: result?.status,
+  };
+
+  if (result?.status === 'FAILED') {
+    console.warn('Scenario failed', scenarioInfo);
+  } else if (result?.status === 'PASSED') {
+    console.log('Scenario passed', scenarioInfo);
+  }
 
   if (state.context && globalState.isLoggedIn && !freshLoginFlow) {
     // Always save the state after each scenario when logged in
