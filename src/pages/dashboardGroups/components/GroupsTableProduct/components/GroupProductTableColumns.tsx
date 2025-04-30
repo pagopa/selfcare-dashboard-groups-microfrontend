@@ -91,7 +91,7 @@ export function buildColumnDefs(
             onClick={onRowClick ? () => onRowClick(p.row) : undefined}
             sx={{ backgroundColor: 'transparent' }}
           >
-            <ArrowForwardIosIcon fontSize='small' />
+            <ArrowForwardIosIcon sx={{ fontSize: 'small' }} />
           </IconButton>
         </Box>
       ),
@@ -244,8 +244,6 @@ function showReferents(params: GridRenderCellParams, onRowClick: (partyGroup: Pa
     </React.Fragment>
   );
 }
-
-
 
 function showStatus(params: GridRenderCellParams, onRowClick: (partyGroup: PartyGroup) => void) {
   const showChip = isGroupSuspended(params.row as PartyGroup);

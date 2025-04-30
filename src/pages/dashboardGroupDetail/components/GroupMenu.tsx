@@ -243,7 +243,7 @@ export default function GroupMenu({
         <Grid item xs={1} display="flex" justifyContent="flex-start">
           <Tooltip
             aria-label="ActionsOnTheUser"
-            title={t('groupActions.actionOnUser') as string}
+            title={t('groupActions.actionOnUser')}
             placement="top"
             arrow={true}
           >
