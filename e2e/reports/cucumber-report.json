@@ -1,0 +1,136 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "manage-user-groups-as-an-administrator;as-an-admin-i-can-edit-a-user-group",
+        "keyword": "Scenario",
+        "line": 46,
+        "name": "As an admin i can edit a user group",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 653517200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "I am logged in with username \"p.rossi\" and password \"test\"",
+            "match": {
+              "location": "tests\\step-definitions\\common-steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 20779493699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 5,
+            "name": "I navigate to \"https://dev.selfcare.pagopa.it/dashboard\"",
+            "match": {
+              "location": "tests\\step-definitions\\common-steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1387420799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 6,
+            "name": "I click on \"Agenzia delle Dogane e dei Monopoli\"",
+            "match": {
+              "location": "tests\\step-definitions\\common-steps.ts:38"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1115642800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 7,
+            "name": "I click on \"Accedi\"",
+            "match": {
+              "location": "tests\\step-definitions\\common-steps.ts:38"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1115097600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 8,
+            "name": "I click on \"Gruppi\"",
+            "match": {
+              "location": "tests\\step-definitions\\common-steps.ts:38"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1257685200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 47,
+            "name": "I modify the group description with \"prima modifica\"",
+            "match": {
+              "location": "tests\\step-definitions\\group-form.ts:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 10251084699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 48,
+            "name": "I should see \"Gruppo modificato correttamente\"",
+            "match": {
+              "location": "tests\\step-definitions\\common-steps.ts:58"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 27857100
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 439852000
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@edit-group",
+            "line": 45
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "manage-user-groups-as-an-administrator",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Manage user groups as an administrator",
+    "tags": [],
+    "uri": "tests\\features\\manage-groups.feature"
+  }
+]
