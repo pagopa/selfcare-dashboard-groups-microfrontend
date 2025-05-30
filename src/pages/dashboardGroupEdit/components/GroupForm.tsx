@@ -608,34 +608,54 @@ function GroupForm({
                 const isAllMemberSuspended = !u.product.roles.find(
                   (r: any) => r.status !== 'SUSPENDED'
                 );
+                const checkboxId = `user-checkbox-${u.id}`;
+                const nameId = `${u.name}-${u.id}`;
+                const emailId = `${u.email}-${u.id}`;
                 return (
                   <MenuItem
                     key={u.id}
                     value={u.name}
-                    sx={{
-                      width: '100%',
-                      height: 'auto',
-                      pl: 0,
-                      pr: 3,
-                    }}
+                    aria-selected={isChecked}
+                    aria-labelledby={`${checkboxId} ${nameId} ${emailId}`}
+                    sx={{ width: '100%', height: 'auto', pl: 0, pr: 3 }}
                     onKeyDownCapture={(e) => {
                       if (e.key === 'Enter') {
                         onItemSelected();
                       }
                     }}
                   >
-                    <Checkbox checked={isChecked} onClick={onItemSelected} />
+                    <Checkbox
+                      checked={isChecked}
+                      onChange={onItemSelected}
+                      inputProps={{
+                        'aria-labelledby': `${checkboxId} ${nameId} ${emailId}`,
+                        'aria-describedby': isAllMemberSuspended ? `status-${u.id}` : undefined,
+                      }}
+                      id={checkboxId}
+                      tabIndex={-1}
+                    />
                     <Grid container>
-                      <Grid
-                        container
-                        item
-                        xs={8}
-                        sx={{
-                          width: '250px',
-                        }}
-                      >
+                      <Grid container item xs={8} sx={{ width: '250px' }}>
+                        {/* Visually hidden live region for screen readers */}
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            width: '1px',
+                            height: '1px',
+                            margin: '-1px',
+                            border: 0,
+                            padding: 0,
+                            overflow: 'hidden',
+                            clip: 'rect(0 0 0 0)',
+                          }}
+                          aria-live="polite"
+                        >
+                          {isChecked ? `${u.name} selezionato` : `${u.name} non selezionato`}
+                        </Box>
+
                         <Grid item xs={12}>
                           <Typography
+                            id={nameId}
                             variant="body1"
                             sx={{
                               height: 'auto',
@@ -650,28 +670,30 @@ function GroupForm({
                           </Typography>
                         </Grid>
                         <Grid item xs={12}>
-                          <div
-                            style={{
+                          <Typography
+                            id={emailId}
+                            variant="caption"
+                            sx={{
+                              color: 'text.secondary',
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',
                               whiteSpace: 'nowrap',
                             }}
                           >
-                            <Typography
-                              variant="caption"
-                              sx={{
-                                color: 'text.secondary',
-                              }}
-                            >
-                              {u.email}
-                            </Typography>
-                          </div>
+                            {u.email}
+                          </Typography>
                         </Grid>
                       </Grid>
+
                       <Grid container item xs={4} display="flex" justifyContent="end">
                         <Box display="flex">
                           {isAllMemberSuspended && (
-                            <Box justifyContent="center" display="flex" flexDirection="column">
+                            <Box
+                              id={`status-${u.id}`}
+                              justifyContent="center"
+                              display="flex"
+                              flexDirection="column"
+                            >
                               <TableChip text={t('groupDetail.status')} />
                             </Box>
                           )}
@@ -688,7 +710,6 @@ function GroupForm({
                                     <TableChip text={t('groupDetail.status')} />
                                   </Box>
                                 )}
-
                                 <Box>
                                   <Typography
                                     color={'text.primary'}
