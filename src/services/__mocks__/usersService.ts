@@ -21,11 +21,9 @@ export const mockedUsers: Array<PartyUserExt> = [
   {
     id: 'uid',
     taxCode: 'AAAAAA11A11A123K',
-    name: 'ElenaElenaElenaElenaElenaElenaElenaElenaElenaElenaElenaElenaElenaElenaElenaElenaElenaElenaElenaElenaElenaElenaElenaElenaElenaElenaElena',
-    surname:
-      'VerdiVerdiVerdiVerdiVerdiVerdiVerdiVerdiVerdiVerdiVerdiVerdiVerdiVerdiVerdiVerdiVerdiVerdiVerdiVerdiVerdiVerdiVerdiVerdi',
-    email:
-      'simone.v@comune.milano.itsimone.v@comune.milano.itsimone.v@comune.milano.itsimone.v@comune.milano.itsimone.v@comune.milano.itsimone.v@comune.milano.itsimone.v@comune.milano.itsimone.v@comune.milano.itsimone.v@comune.milano.itsimone.v@comune.milano.itsimone.v@comune.milano.itsimone.v@comune.milano.itsimone.v@comune.milano.itsimone.v@comune.milano.itsimone.v@comune.milano.itsimone.v@comune.milano.itsimone.v@comune.milano.it',
+    name: 'ElenaElenaElenaElena',
+    surname: 'VerdiVerdiVerdiVerdiVerdiVerdi',
+    email: 'simone.v@comune.milano.itsimone.v@comune.milano.it',
     userRole: 'ADMIN',
     status: 'ACTIVE',
     products: [

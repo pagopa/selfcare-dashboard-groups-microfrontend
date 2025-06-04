@@ -532,13 +532,13 @@ function GroupForm({
               fullWidth
               label={t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholder')}
               labelId="select-label-members"
-              value={formik.values.members}
+              value={formik.values.members.map((u) => u.id)}
               input={
                 <OutlinedInput
                   label={t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholder')}
                 />
               }
-              renderValue={(selectedUser: Array<PartyProductUser>) => (
+              renderValue={() => (
                 <Typography
                   sx={{
                     height: 'auto',
@@ -549,7 +549,7 @@ function GroupForm({
                     fontWeight: 'fontWeightMedium',
                   }}
                 >
-                  {selectedUser.map((su) => su.name + ' ' + su.surname).join(', ')}
+                  {formik.values.members.map((su) => su.name + ' ' + su.surname).join(', ')}
                 </Typography>
               )}
               MenuProps={{
@@ -600,6 +600,7 @@ function GroupForm({
                   const nextUsersSelected = isChecked
                     ? formik.values.members.filter((_s, index) => index !== checkedIndex)
                     : formik.values.members.concat(u);
+
                   if (automaticRemove && containsInitialUsers(nextUsersSelected)) {
                     setAutomaticRemove(false);
                   }
@@ -615,11 +616,12 @@ function GroupForm({
                   <MenuItem
                     key={u.id}
                     value={u.name}
+                    selected={isChecked}
                     aria-selected={isChecked}
                     aria-labelledby={`${checkboxId} ${nameId} ${emailId}`}
                     sx={{ width: '100%', height: 'auto', pl: 0, pr: 3 }}
                     onKeyDownCapture={(e) => {
-                      if (e.key === 'Enter') {
+                      if (e.key === 'Enter' || e.key === ' ') {
                         onItemSelected();
                       }
                     }}
@@ -636,23 +638,6 @@ function GroupForm({
                     />
                     <Grid container>
                       <Grid container item xs={8} sx={{ width: '250px' }}>
-                        {/* Visually hidden live region for screen readers */}
-                        <Box
-                          sx={{
-                            position: 'absolute',
-                            width: '1px',
-                            height: '1px',
-                            margin: '-1px',
-                            border: 0,
-                            padding: 0,
-                            overflow: 'hidden',
-                            clip: 'rect(0 0 0 0)',
-                          }}
-                          aria-live="polite"
-                        >
-                          {isChecked ? `${u.name} selezionato` : `${u.name} non selezionato`}
-                        </Box>
-
                         <Grid item xs={12}>
                           <Typography
                             id={nameId}
