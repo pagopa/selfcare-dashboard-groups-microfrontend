@@ -12,7 +12,7 @@ import {
   Stack,
   styled,
   TextField,
-  Typography,
+  Typography
 } from '@mui/material';
 import { usePermissions } from '@pagopa/selfcare-common-frontend/lib';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/lib/hooks/useErrorDispatcher';
@@ -126,6 +126,7 @@ function GroupForm({
   const [automaticRemove, setAutomaticRemove] = useState(false);
   const [isNameDuplicated, setIsNameDuplicated] = useState(false);
   const [productInPage, setProductInPage] = useState<boolean>();
+  const [announcement, setAnnouncement] = useState<string>();
   const { hasPermission } = usePermissions();
 
   const isEdit = !!(initialFormData as PartyGroupOnEdit).id;
@@ -379,6 +380,12 @@ function GroupForm({
   const isProductError = isClone && productSelected === undefined;
 
   const groupMemberToRemove = (member: PartyProductUser) => {
+    setAnnouncement(
+      t('accesability.announcement.groupMemberRemoved', {
+        name: member.name,
+        surname: member.surname,
+      })
+    );
     void formik.setFieldValue(
       'members',
       formik.values.members.filter((us) => us !== member),
@@ -718,6 +725,21 @@ function GroupForm({
               })}
             </Select>
           </FormControl>
+
+          <Box
+            sx={{
+              position: 'absolute',
+              width: 1,
+              height: 1,
+              overflow: 'hidden',
+              clip: 'rect(0 0 0 0)',
+            }}
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            {announcement}
+          </Box>
+
           {/* Box */}
           <Grid>
             {formik.values.members.map((s) => (
@@ -736,9 +758,10 @@ function GroupForm({
                 deleteIcon={
                   <ClearCircleIcon
                     onMouseDown={(e) => e.stopPropagation()}
+                    aria-label={`Rimuovi ${s.name} ${s.surname}`}
                     tabIndex={0}
                     onKeyDownCapture={(e) => {
-                      if (e.key === 'Enter') {
+                      if (e.key === 'Enter' || e.key === ' ') {
                         groupMemberToRemove(s);
                       }
                     }}
