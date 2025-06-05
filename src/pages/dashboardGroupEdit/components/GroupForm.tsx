@@ -381,7 +381,7 @@ function GroupForm({
 
   const groupMemberToRemove = (member: PartyProductUser) => {
     setAnnouncement(
-      t('accesability.announcement.groupMemberRemoved', {
+      t('accessibility.announcement.groupMemberRemoved', {
         name: member.name,
         surname: member.surname,
       })
