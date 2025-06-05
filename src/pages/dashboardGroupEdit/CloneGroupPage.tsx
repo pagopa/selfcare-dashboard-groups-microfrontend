@@ -93,6 +93,7 @@ function CloneGroupPage({
               {
                 id: '',
                 name:
+                  // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                   t('dashboardGroupEdit.cloneGroupPage.placeholderDuplicateName') + partyGroup.name,
                 description: partyGroup.description,
                 members: partyGroup.members,
