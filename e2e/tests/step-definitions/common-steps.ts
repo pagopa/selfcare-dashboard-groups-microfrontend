@@ -14,8 +14,8 @@ Given('I navigate to {string}', async (url: string) => {
 });
 
 Given(
-  'I am logged in with username {string} and password {string}',
-  async function (username, password) {
+  'I am logged in with username {string}, password {string} and institution {string}',
+  async function (username, password, institution) {
     if (!state.page) {
       throw new Error('Page is not initialized');
     }
@@ -28,9 +28,13 @@ Given(
         'loginAttempted=',
         hasLoginBeenAttempted()
       );
-      await loginWithOI(state.page, username, password);
+      await loginWithOI(state.page, username, password, institution);
     } else {
-      console.log('Already logged in, skipping login step');
+      await state.page.goto('https://dev.selfcare.pagopa.it/dashboard');
+      await state.page.locator(`text=${institution}`).waitFor({ state: 'visible' });
+      await state.page.locator(`text=${institution}`).click();
+      await state.page.getByRole('button', { name: 'Accedi' }).click();
+      await state.page.getByRole('button', { name: 'Gruppi' }).click();
     }
   }
 );

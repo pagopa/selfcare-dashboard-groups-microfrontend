@@ -1,19 +1,18 @@
 {
-    "compilerOptions": {
-      "target": "es2020",
-      "module": "commonjs",
-      "outDir": "./dist",
-      "strict": true,
-      "esModuleInterop": true,
-      "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true,
-      "resolveJsonModule": true,
-      "moduleResolution": "node",
-      "typeRoots": [
-        "./node_modules/@types",
-        "src/helper/types"
-    ],
-    },
-    "include": ["tests/**/*"],
-    "exclude": ["node_modules"]
-  }
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "typeRoots": ["./node_modules/@types", "src/helper/types"],
+    "types": ["node"],
+    "sourceMap": true
+  },
+  "include": ["tests/**/*", "hooks/**/*", "setup/**/*", "config/**/*"],
+  "exclude": ["node_modules"]
+}

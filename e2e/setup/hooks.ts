@@ -29,13 +29,12 @@ export const state: {
 
 const options = {
   headless: true,
-  slowMo: 1000,
+  slowMo: 2000,
   args: ['--disable-dev-shm-usage', '--start-maximized'],
   channel: 'chrome',
 };
 
 // Setup and teardown
-// Only launch the browser once at the beginning of the test run
 BeforeAll(async () => {
   // Check if browser is already running
   if (!globalState.browser) {
@@ -43,24 +42,21 @@ BeforeAll(async () => {
     globalState.browser = await chromium.launch(options);
   }
 
-  // Clear any previously existing storage state at the beginning of the test run
   if (fs.existsSync(storageStatePath)) {
     console.log('Found existing storage state file, removing it for fresh test run');
     fs.unlinkSync(storageStatePath);
   }
 });
 
-// Close the browser at the end of the test run
+// Teardown
 AfterAll(async () => {
   if (globalState.browser) {
-    console.log('Closing browser...');
     await globalState.browser.close();
     globalState.browser = null;
   }
 
   // Clean up storage state file after all tests
   if (fs.existsSync(storageStatePath)) {
-    console.log('Cleaning up storage state file after tests');
     fs.unlinkSync(storageStatePath);
   }
 });
@@ -102,7 +98,6 @@ Before(async ({ pickle }) => {
   state.page = await state.context.newPage();
 });
 
-// After each scenario
 After(async ({ pickle, result }) => {
   const freshLoginFlow = pickle.tags.some((tag) => tag.name === '@fresh-login');
 
