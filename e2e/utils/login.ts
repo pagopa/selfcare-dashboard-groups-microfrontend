@@ -2,8 +2,14 @@
 import { Page } from '@playwright/test';
 import { globalState, state, storageStatePath } from '../setup/hooks';
 
-export async function loginWithOI(page: Page, username: string, password: string) {
+export async function loginWithOI(
+  page: Page,
+  username: string,
+  password: string,
+  institution: string
+) {
   console.log(`Logging in with username: ${username}`);
+  const acceptAllButton = page.getByRole('button', { name: 'Accetta tutti' });
 
   await page.goto('https://dev.selfcare.pagopa.it/auth/login');
   await page.getByRole('button', { name: 'Entra con SPID' }).click();
@@ -14,9 +20,19 @@ export async function loginWithOI(page: Page, username: string, password: string
   await page.getByRole('textbox', { name: 'Password' }).fill(password);
   await page.getByRole('button', { name: 'Entra con SPID' }).click();
   await page.getByRole('button', { name: 'Conferma' }).click();
-  await page.getByRole('button', { name: 'Accetta tutti' }).click();
 
-  console.log('Login successful');
+  if (await acceptAllButton.isVisible().catch(() => false)) {
+    console.log('Clicking "Accetta tutti"');
+    await acceptAllButton.click();
+  } else {
+    console.log('Accetta tutti" button not visible, skipping');
+  }
+
+  await page.locator(`text=${institution}`).waitFor({ state: 'visible' });
+  await page.locator(`text=${institution}`).click();
+  await page.getByRole('button', { name: 'Accedi' }).click();
+  await page.getByRole('button', { name: 'Gruppi' }).click();
+
   globalState.isLoggedIn = true;
   globalState.loginAttempted = true;
 
