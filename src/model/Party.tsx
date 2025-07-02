@@ -8,14 +8,17 @@ export type UserStatus = 'PENDING' | 'ACTIVE' | 'SUSPENDED';
 type OnboardedProduct = {
   authorized?: boolean;
   billing?: {
-      publicServices?: boolean;
-      recipientCode?: string;
-      vatNumber?: string;
+    publicServices?: boolean;
+    recipientCode?: string;
+    vatNumber?: string;
   };
   productId?: string;
   productOnBoardingStatus?: ProductOnBoardingStatusEnum;
   userProductActions?: Array<string>;
   userRole?: string;
+  institutionType?: string;
+  origin?: string;
+  originId?: string;
 };
 
 export type Party = {
