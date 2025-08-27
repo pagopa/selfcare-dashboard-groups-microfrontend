@@ -18,7 +18,7 @@ type Props = {
   productsRolesMap: ProductsRolesMap;
 };
 
-function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: Props) {
+function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: Readonly<Props>) {
   const history = useHistory();
   const { t } = useTranslation();
 
@@ -42,16 +42,8 @@ function AddGroupPage({ party, activeProducts, productsMap, productsRolesMap }: 
   ];
 
   return (
-    <Grid
-      xs={12}
-      lg={8}
-      container
-      alignItems={'center'}
-      px={3}
-      mt={4}
-      sx={{ width: '100%', backgroundColor: 'transparent !important' }}
-    >
-      <Grid container item>
+    <Grid px={3} mt={4} sx={{ bgcolor: 'transparent !important' }} container>
+      <Grid item xs={12} lg={8}>
         <Grid item xs={12} mb={3}>
           <ProductNavigationBar
             paths={paths}

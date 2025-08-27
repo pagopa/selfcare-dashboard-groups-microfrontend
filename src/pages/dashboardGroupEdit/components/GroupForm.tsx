@@ -15,7 +15,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { usePermissions } from '@pagopa/selfcare-common-frontend/lib';
+import { useLiveAnnouncerWithRegion, usePermissions } from '@pagopa/selfcare-common-frontend/lib';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/lib/hooks/useErrorDispatcher';
 import useLoading from '@pagopa/selfcare-common-frontend/lib/hooks/useLoading';
 import {
@@ -127,9 +127,9 @@ function GroupForm({
   const [automaticRemove, setAutomaticRemove] = useState(false);
   const [isNameDuplicated, setIsNameDuplicated] = useState(false);
   const [productInPage, setProductInPage] = useState<boolean>();
-  const [announcement, setAnnouncement] = useState<string>();
 
   const { hasPermission } = usePermissions();
+  const { announce, LiveRegion } = useLiveAnnouncerWithRegion();
 
   const isEdit = !!(initialFormData as PartyGroupOnEdit).id;
   const prodPnpg = products.find((p) => p.id === 'prod-pn-pg');
@@ -382,7 +382,7 @@ function GroupForm({
   const isProductError = isClone && productSelected === undefined;
 
   const groupMemberToRemove = (member: PartyProductUser) => {
-    setAnnouncement(
+    announce(
       t('accessibility.announcement.groupMemberRemoved', {
         name: member.name,
         surname: member.surname,
@@ -533,7 +533,7 @@ function GroupForm({
         )}
 
         {/* Members */}
-        <Grid item xs={12} width="100%">
+        <Grid item xs={12} width="100%" sx={{ position: 'relative' }}>
           <FormControl sx={{ width: '100%' }}>
             <InputLabel id="select-label-members" size="small">
               {t('dashboardGroupEdit.groupForm.formLabels.referentsPlaceholder')}
@@ -630,19 +630,7 @@ function GroupForm({
             </Select>
           </FormControl>
 
-          <Box
-            sx={{
-              position: 'absolute',
-              width: 1,
-              height: 1,
-              overflow: 'hidden',
-              clip: 'rect(0 0 0 0)',
-            }}
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            {announcement}
-          </Box>
+          {LiveRegion}
 
           {/* Box */}
           <Grid>

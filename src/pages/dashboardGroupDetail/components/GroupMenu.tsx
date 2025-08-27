@@ -1,18 +1,18 @@
-import { Box, Grid, IconButton, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
-import useLoading from '@pagopa/selfcare-common-frontend/lib/hooks/useLoading';
-import useErrorDispatcher from '@pagopa/selfcare-common-frontend/lib/hooks/useErrorDispatcher';
-import { useState } from 'react';
-import useUserNotify from '@pagopa/selfcare-common-frontend/lib/hooks/useUserNotify';
-import { useTranslation, Trans } from 'react-i18next';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { PartyProductUser, PartyUserProduct, PartyUserProductRole } from '../../../model/PartyUser';
-import { deleteGroupRelation } from '../../../services/groupsService';
-import { LOADING_TASK_UPDATE_PARTY_USER_STATUS } from '../../../utils/constants';
+import { Grid, IconButton, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
+import useErrorDispatcher from '@pagopa/selfcare-common-frontend/lib/hooks/useErrorDispatcher';
+import useLoading from '@pagopa/selfcare-common-frontend/lib/hooks/useLoading';
+import useUserNotify from '@pagopa/selfcare-common-frontend/lib/hooks/useUserNotify';
+import { useState } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
 import { Party, UserStatus } from '../../../model/Party';
-import { Product } from '../../../model/Product';
 import { PartyGroupDetail } from '../../../model/PartyGroup';
-import { updatePartyUserStatus } from '../../../services/usersService';
+import { PartyProductUser, PartyUserProduct, PartyUserProductRole } from '../../../model/PartyUser';
+import { Product } from '../../../model/Product';
 import { ProductRolesLists, transcodeProductRole2Title } from '../../../model/ProductRole';
+import { deleteGroupRelation } from '../../../services/groupsService';
+import { updatePartyUserStatus } from '../../../services/usersService';
+import { LOADING_TASK_UPDATE_PARTY_USER_STATUS } from '../../../utils/constants';
 
 type Props = {
   member: PartyProductUser;
@@ -77,7 +77,7 @@ export default function GroupMenu({
               values={{
                 memberName: `${party && member.name.toLocaleLowerCase()} ${member.surname}`,
                 transcodeProductRole2Title: transcodeProductRole2Title(
-                  role?.role as string,
+                  role?.role,
                   productRolesLists
                 ).toLocaleLowerCase(),
                 productTitle: product.title,
@@ -242,7 +242,8 @@ export default function GroupMenu({
       {!member.isCurrentUser && canEdit && (
         <Grid item xs={1} display="flex" justifyContent="flex-start">
           <Tooltip
-            aria-label="ActionsOnTheUser"
+            data-testid="ActionsOnTheUser"
+            aria-label={t('groupActions.actionOnUser')}
             title={t('groupActions.actionOnUser')}
             placement="top"
             arrow={true}
@@ -265,36 +266,33 @@ export default function GroupMenu({
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        PaperProps={{
-          style: {
-            maxHeight: ITEM_HEIGHT * 4.5,
-            width: '16.5ch',
-            paddingTop: '0px',
-            paddingBottom: '0px',
+        slotProps={{
+          paper: {
+            sx: {
+              maxHeight: ITEM_HEIGHT * 4.5,
+              width: '16.5ch',
+              paddingTop: 0,
+              paddingBottom: 0,
+            },
           },
         }}
       >
-        <Box width="100%" display="flex" justifyContent="start">
-          <MenuItem onClick={confirmDissociateAction} sx={itemBoxHover}>
+        <MenuItem onClick={confirmDissociateAction} sx={itemBoxHover}>
+          <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
+            {t('groupMenu.dissociateMenuItem.label')}
+          </Typography>
+        </MenuItem>
+
+        {userProduct?.roles.length === 1 && !member.isCurrentUser && (
+          <MenuItem onClick={confirmAction} sx={itemBoxHover}>
             <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
-              {t('groupMenu.dissociateMenuItem.label')}
+              {role?.status === 'ACTIVE'
+                ? t('groupMenu.suspendMenuItem.suspendLabel')
+                : role?.status === 'SUSPENDED'
+                  ? t('groupMenu.suspendMenuItem.activeLabel')
+                  : ''}
             </Typography>
           </MenuItem>
-        </Box>
-        {userProduct?.roles.length === 1 && !member.isCurrentUser && (
-          <Box key={userProduct.id}>
-            <Box width="100%" display="flex" justifyContent="start">
-              <MenuItem onClick={confirmAction} sx={itemBoxHover}>
-                <Typography sx={{ fontSize: 'fontSize', fontWeight: 'fontWeightMedium' }}>
-                  {role?.status === 'ACTIVE'
-                    ? t('groupMenu.suspendMenuItem.suspendLabel')
-                    : role?.status === 'SUSPENDED'
-                      ? t('groupMenu.suspendMenuItem.activeLabel')
-                      : ''}
-                </Typography>
-              </MenuItem>
-            </Box>
-          </Box>
         )}
       </Menu>
     </>
