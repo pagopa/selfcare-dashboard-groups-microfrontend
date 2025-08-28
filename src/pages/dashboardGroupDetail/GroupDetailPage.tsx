@@ -2,12 +2,13 @@ import AddIcon from '@mui/icons-material/Add';
 import { Box, Grid, Typography, useTheme } from '@mui/material';
 import { ButtonNaked } from '@pagopa/mui-italia';
 import { usePermissions } from '@pagopa/selfcare-common-frontend/lib';
+import { useFocus } from '@pagopa/selfcare-common-frontend/lib/hooks/useFocus';
 import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { userSelectors } from '@pagopa/selfcare-common-frontend/lib/redux/slices/userSlice';
 import { trackEvent } from '@pagopa/selfcare-common-frontend/lib/services/analyticsService';
 import { Actions } from '@pagopa/selfcare-common-frontend/lib/utils/constants';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -21,6 +22,7 @@ import { TableChip } from '../../utils/helpers';
 import GroupActions from './components/GroupActions';
 import GroupDetail from './components/GroupDetail';
 import MembersGroup from './components/MembersGroup';
+
 type Props = withGroupDetailProps & {
   productsRolesMap: ProductsRolesMap;
 };
@@ -32,6 +34,8 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
   const isMobile = useIsMobile('lg');
   const loggedUser = useSelector(userSelectors.selectLoggedUser) as User;
   const { hasPermission } = usePermissions();
+  const titleRef = useRef<HTMLDivElement>(null);
+  useFocus(titleRef, party);
 
   const [partyGroupState, setPartyGroupState] = React.useState<PartyGroupDetail>(partyGroup);
 
@@ -136,7 +140,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
               },
             }}
           >
-            <Box>
+            <Box ref={titleRef} tabIndex={-1}>
               <Typography
                 variant="h4"
                 sx={{
