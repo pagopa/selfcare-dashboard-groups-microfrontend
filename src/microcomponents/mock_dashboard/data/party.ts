@@ -32,7 +32,7 @@ export const mockedParties: Array<Party> = [
           recipientCode: 'FLGKROWP',
           publicServices: true,
         },
-        userProductActions: [Actions.ManageProductGroups],
+        userProductActions: [Actions.ListProductGroups, Actions.ManageProductGroups],
       },
       {
         productId: 'prod-pagopa',
@@ -44,7 +44,7 @@ export const mockedParties: Array<Party> = [
           recipientCode: 'FLGKROWP',
           publicServices: true,
         },
-        userProductActions: [Actions.ManageProductGroups],
+        userProductActions: [Actions.ListProductGroups, Actions.ManageProductGroups],
       },
       {
         productId: 'prod-pn',
@@ -56,7 +56,7 @@ export const mockedParties: Array<Party> = [
           recipientCode: 'cccc',
           publicServices: true,
         },
-        userProductActions: [Actions.ManageProductGroups],
+        userProductActions: [Actions.ListProductGroups, Actions.ManageProductGroups],
       },
     ],
     status: undefined,
@@ -90,7 +90,7 @@ export const mockedParties: Array<Party> = [
           recipientCode: 'cccc',
           publicServices: true,
         },
-        userProductActions: [Actions.ManageProductGroups],
+        userProductActions: [Actions.ListProductGroups, Actions.ManageProductGroups],
       },
       {
         productId: 'prod-pn',
@@ -139,7 +139,7 @@ export const mockedParties: Array<Party> = [
           recipientCode: 'CH435V',
           publicServices: true,
         },
-        userProductActions: [Actions.ManageProductGroups]
+        userProductActions: [Actions.ListProductGroups, Actions.ManageProductGroups],
       },
       {
         productId: 'prod-io-premium',
@@ -151,7 +151,7 @@ export const mockedParties: Array<Party> = [
           recipientCode: 'CH435V',
           publicServices: true,
         },
-        userProductActions: [Actions.ManageProductGroups]
+        userProductActions: [Actions.ListProductGroups, Actions.ManageProductGroups],
       },
       // Use case with prod-interop and prod-interop-coll
       {
@@ -164,7 +164,7 @@ export const mockedParties: Array<Party> = [
           recipientCode: 'NBG455B',
           publicServices: true,
         },
-        userProductActions: [Actions.ManageProductGroups]
+        userProductActions: [Actions.ManageProductGroups],
       },
       {
         productId: 'prod-interop-coll',
@@ -176,7 +176,7 @@ export const mockedParties: Array<Party> = [
           recipientCode: 'NBG455B',
           publicServices: true,
         },
-        userProductActions: [Actions.ManageProductGroups]
+        userProductActions: [Actions.ManageProductGroups],
       },
     ],
     status: undefined,
@@ -235,7 +235,7 @@ export const mockedParties: Array<Party> = [
           recipientCode: 'cccc',
           publicServices: true,
         },
-        userProductActions: [Actions.ManageProductGroups]
+        userProductActions: [Actions.ManageProductGroups],
       },
       {
         productId: 'prod-pn',
@@ -247,7 +247,7 @@ export const mockedParties: Array<Party> = [
           recipientCode: 'dddd',
           publicServices: true,
         },
-        userProductActions: [Actions.ManageProductGroups]
+        userProductActions: [Actions.ManageProductGroups],
       },
     ],
     status: undefined,
@@ -282,7 +282,7 @@ export const mockedParties: Array<Party> = [
           recipientCode: 'cccc',
           publicServices: true,
         },
-        userProductActions: [Actions.ManageProductGroups]
+        userProductActions: [Actions.ManageProductGroups],
       },
       {
         productId: 'prod-pn',

@@ -27,7 +27,7 @@ interface Props {
 function GroupsPage({ party, activeProducts, productsMap }: Readonly<Props>) {
   const history = useHistory();
   const { getAllProductsWithPermission, hasPermission } = usePermissions();
-  const canSeeGroups = getAllProductsWithPermission(Actions.ManageProductGroups).length > 0;
+  const canSeeGroups = getAllProductsWithPermission(Actions.ListProductGroups).length > 0;
   const activeProductsWithPermission = activeProducts.filter((p: Product) =>
     hasPermission(p.id, Actions.ManageProductGroups)
   );

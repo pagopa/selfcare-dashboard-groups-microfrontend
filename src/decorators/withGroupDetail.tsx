@@ -37,7 +37,7 @@ export default function withGroupDetail<T extends withGroupDetailProps>(
     const addError = useErrorDispatcher();
     const history = useHistory();
     const { getAllProductsWithPermission } = usePermissions();
-    const canSeeGroups = getAllProductsWithPermission(Actions.ManageProductGroups).length > 0;
+    const canSeeGroups = getAllProductsWithPermission(Actions.ListProductGroups).length > 0;
 
     const doFetch = () => {
       fetchGroupDetail(partyId, groupId, props.productsMap)
