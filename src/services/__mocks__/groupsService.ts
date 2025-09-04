@@ -1,19 +1,12 @@
-import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
-import { PageResource } from '@pagopa/selfcare-common-frontend/lib/model/PageResource';
-import { PageRequest } from '@pagopa/selfcare-common-frontend/lib/model/PageRequest';
 import {
   applySort,
   extractPageRequest,
 } from '@pagopa/selfcare-common-frontend/lib/hooks/useFakePagination';
+import { PageRequest } from '@pagopa/selfcare-common-frontend/lib/model/PageRequest';
+import { PageResource } from '@pagopa/selfcare-common-frontend/lib/model/PageResource';
+import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { cloneDeep } from 'lodash';
 import { Party } from '../../model/Party';
-import {
-  PartyUserExt,
-  PartyProductUser,
-  PartyUserProduct,
-  PartyUserSimple,
-} from '../../model/PartyUser';
-import { Product, ProductsMap } from '../../model/Product';
 import {
   PartyGroup,
   PartyGroupDetail,
@@ -21,6 +14,13 @@ import {
   PartyGroupOnEdit,
   PartyGroupStatus,
 } from '../../model/PartyGroup';
+import {
+  PartyProductUser,
+  PartyUserExt,
+  PartyUserProduct,
+  PartyUserSimple,
+} from '../../model/PartyUser';
+import { Product, ProductsMap } from '../../model/Product';
 import { mockedUsers } from './usersService';
 
 type PartyGroupMock = PartyGroup & {
@@ -337,12 +337,11 @@ export const updatePartyGroup = (
 };
 
 export const fetchPartyGroup = (
-  partyId: string,
   groupId: string,
   _currentUser: User,
   _productsMap: ProductsMap
 ): Promise<PartyGroupDetail | null> => {
-  const mockedGroup = mockedGroups.find((u) => u.id === groupId && u.partyId === partyId) ?? null;
+  const mockedGroup = mockedGroups.find((u) => u.id === groupId) ?? null;
 
   if (mockedGroup !== null) {
     const clone: PartyGroupMock = cloneDeep(mockedGroup);

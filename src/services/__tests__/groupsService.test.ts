@@ -3,11 +3,7 @@ import { mockedUser } from '../../__mocks__/@pagopa/selfcare-common-frontend/dec
 import { DashboardApi } from '../../api/DashboardApiClient';
 import { mockedParties } from '../../microcomponents/mock_dashboard/data/party';
 import { mockedPartyProducts } from '../../microcomponents/mock_dashboard/data/product';
-import {
-  PartyGroupDetail,
-  PartyGroupOnCreation,
-  PartyGroupOnEdit
-} from '../../model/PartyGroup';
+import { PartyGroupDetail, PartyGroupOnCreation, PartyGroupOnEdit } from '../../model/PartyGroup';
 import { PartyProductUser, PartyUserSimple } from '../../model/PartyUser';
 import { buildProductsMap } from '../../model/Product';
 import { mockedGroups } from './../__mocks__/groupsService';
@@ -117,14 +113,9 @@ test('Test fetchPartyGroups', async () => {
 });
 
 test('Test fetchPartyGroup', async () => {
-  await fetchPartyGroup(
-    mockedParties[0].partyId,
-    mockedGroups[0].id,
-    mockedUser,
-    buildProductsMap(mockedPartyProducts)
-  );
+  await fetchPartyGroup(mockedGroups[0].id, mockedUser, buildProductsMap(mockedPartyProducts));
 
-  expect(DashboardApi.fetchPartyGroup).toHaveBeenCalledWith(mockedGroups[0].id, mockedParties[0].partyId);
+  expect(DashboardApi.fetchPartyGroup).toHaveBeenCalledWith(mockedGroups[0].id);
 });
 
 test('Test savePartyGroup', async () => {

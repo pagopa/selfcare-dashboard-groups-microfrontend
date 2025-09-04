@@ -40,7 +40,7 @@ export default function withGroupDetail<T extends withGroupDetailProps>(
     const canSeeGroups = getAllProductsWithPermission(Actions.ListProductGroups).length > 0;
 
     const doFetch = () => {
-      fetchGroupDetail(partyId, groupId, props.productsMap)
+      fetchGroupDetail(groupId, props.productsMap)
         .then((group) => {
           if (group === null) {
             const goBackUrl = resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.path, {
