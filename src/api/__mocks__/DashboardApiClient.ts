@@ -181,27 +181,28 @@ export const DashboardApi = {
   deletePartyGroup: async (_id: string): Promise<void> => new Promise((resolve) => resolve()),
 
   deleteGroupRelation: async (_userGroupId: string, _userId: string): Promise<void> =>
-    new Promise((resolve) => resolve()),
+    Promise.resolve(),
 
   fetchPartyGroup: async (_id: string, _institutionId: string): Promise<UserGroupResource | null> =>
-    new Promise((resolve) => resolve(usersGroupResource)),
+    Promise.resolve(usersGroupResource),
 
   fetchPartyGroups: async (
     _productId: string,
     _institutionId: string,
     _pageRequest: PageRequest
-  ): Promise<Array<UserGroupPlainResource>> =>
-    new Promise((resolve) => resolve(userGroupPlainResourceArray)),
+  ): Promise<Array<UserGroupPlainResource>> => Promise.resolve(userGroupPlainResourceArray),
+
+  getMyUserGroupById: async (_id: string): Promise<UserGroupResource | null> =>
+    Promise.resolve(usersGroupResource),
 
   updatePartyGroup: async (_id: string, _group: PartyGroupOnEdit): Promise<void> =>
-    new Promise((resolve) => resolve()),
+    Promise.resolve(),
 
-  updatePartyGroupStatusActivate: async (_id: string): Promise<void> =>
-    new Promise((resolve) => resolve()),
+  updatePartyGroupStatusActivate: async (_id: string): Promise<void> => Promise.resolve(),
 
   updatePartyGroupStatusSuspend: async (_id: string): Promise<void> =>
     new Promise((resolve) => resolve()),
 
   savePartyGroup: async (_id: string): Promise<UserGroupIdResource> =>
-    new Promise((resolve) => resolve({ id: 'newGroupId' })),
+    Promise.resolve({ id: 'newGroupId' }),
 };

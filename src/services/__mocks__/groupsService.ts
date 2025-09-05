@@ -6,6 +6,7 @@ import { PageRequest } from '@pagopa/selfcare-common-frontend/lib/model/PageRequ
 import { PageResource } from '@pagopa/selfcare-common-frontend/lib/model/PageResource';
 import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { cloneDeep } from 'lodash';
+import { UserGroupResource } from '../../api/generated/b4f-dashboard/UserGroupResource';
 import { Party } from '../../model/Party';
 import {
   PartyGroup,
@@ -367,6 +368,16 @@ export const fetchPartyGroup = (
     return new Promise((resolve) => resolve(clone as unknown as PartyGroupDetail));
   } else {
     return new Promise((resolve) => resolve(null));
+  }
+};
+
+export const mockGetMyUserGroupByIdService = (id: string): Promise<UserGroupResource | null> => {
+  const mockedGroup = mockedGroups.find((u) => u.id === id) ?? null;
+  if (mockedGroup !== null) {
+    const clone: PartyGroupMock = cloneDeep(mockedGroup);
+    return Promise.resolve(clone as unknown as UserGroupResource);
+  } else {
+    return Promise.resolve(null);
   }
 };
 
