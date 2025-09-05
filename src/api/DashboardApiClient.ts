@@ -1,14 +1,18 @@
 import { PageRequest } from '@pagopa/selfcare-common-frontend/lib/model/PageRequest';
 import { appStateActions } from '@pagopa/selfcare-common-frontend/lib/redux/slices/appStateSlice';
-import { buildFetchApi, extractResponse } from '@pagopa/selfcare-common-frontend/lib/utils/api-utils';
+import {
+  buildFetchApi,
+  extractResponse,
+} from '@pagopa/selfcare-common-frontend/lib/utils/api-utils';
 import { storageTokenOps } from '@pagopa/selfcare-common-frontend/lib/utils/storage';
 import { PartyGroupOnCreation, PartyGroupOnEdit } from '../model/PartyGroup';
 import { ENV } from '../utils/env';
+import { WithDefaultsT, createClient } from './generated/b4f-dashboard/client';
 import { PageOfUserGroupPlainResource } from './generated/b4f-dashboard/PageOfUserGroupPlainResource';
 import { ProductUserResource } from './generated/b4f-dashboard/ProductUserResource';
 import { UserGroupIdResource } from './generated/b4f-dashboard/UserGroupIdResource';
 import { UserGroupPlainResource } from './generated/b4f-dashboard/UserGroupPlainResource';
-import { WithDefaultsT, createClient } from './generated/b4f-dashboard/client';
+import { UserGroupResource } from './generated/b4f-dashboard/UserGroupResource';
 
 const withBearerAndInstitutionId: WithDefaultsT<'bearerAuth'> =
   (wrappedOperation) => (params: any) => {
@@ -109,10 +113,15 @@ export const DashboardApi = {
     return extractResponse(result, 200, onRedirectToLogin);
   },
 
-  fetchPartyGroup: async (
-    id: string,
-  ): Promise<UserGroupPlainResource | null> => {
+  fetchPartyGroup: async (id: string): Promise<UserGroupPlainResource | null> => {
     const result = await apiClient.getUserGroupByIdUsingGET({
+      id,
+    });
+    return extractResponse(result, 200, onRedirectToLogin);
+  },
+
+  getMyUserGroupById: async (id: string): Promise<UserGroupResource | null> => {
+    const result = await apiClient.getMyUserGroupByIdUsingGET({
       id,
     });
     return extractResponse(result, 200, onRedirectToLogin);
