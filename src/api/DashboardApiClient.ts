@@ -111,11 +111,9 @@ export const DashboardApi = {
 
   fetchPartyGroup: async (
     id: string,
-    institutionId: string
   ): Promise<UserGroupPlainResource | null> => {
     const result = await apiClient.getUserGroupByIdUsingGET({
       id,
-      institutionId,
     });
     return extractResponse(result, 200, onRedirectToLogin);
   },
