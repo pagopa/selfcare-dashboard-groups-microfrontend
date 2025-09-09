@@ -119,10 +119,26 @@ export const DashboardApi = {
     });
     return extractResponse(result, 200, onRedirectToLogin);
   },
-
+  // /me/ api
   getMyUserGroupById: async (id: string): Promise<UserGroupResource | null> => {
     const result = await apiClient.getMyUserGroupByIdUsingGET({
       id,
+    });
+    return extractResponse(result, 200, onRedirectToLogin);
+  },
+
+  // /me/ api
+  getMyUserGroups: async (
+    productId: string,
+    institutionId: string,
+    pageRequest: PageRequest
+  ): Promise<PageOfUserGroupPlainResource> => {
+    const result = await apiClient.getMyUserGroupsUsingGET({
+      institutionId,
+      page: pageRequest.page,
+      size: pageRequest.size,
+      sort: pageRequest.sort ? [pageRequest.sort] : undefined,
+      productId,
     });
     return extractResponse(result, 200, onRedirectToLogin);
   },
