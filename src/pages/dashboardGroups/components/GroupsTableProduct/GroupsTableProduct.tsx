@@ -3,6 +3,7 @@ import { PageRequest } from '@pagopa/selfcare-common-frontend/lib/model/PageRequ
 import { PageResource } from '@pagopa/selfcare-common-frontend/lib/model/PageResource';
 import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { handleErrors } from '@pagopa/selfcare-common-frontend/lib/services/errorService';
+import { Actions } from '@pagopa/selfcare-common-frontend/lib/utils/constants';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -77,8 +78,8 @@ const GroupsTableProduct = ({
   const fetchGroups = () => {
     setLoading(true);
 
-    const hasManage = getAllProductsWithPermission('manageProductGroups').length > 0;
-    const hasList = getAllProductsWithPermission('listProductGroups').length > 0;
+    const hasManage = getAllProductsWithPermission(Actions.ManageProductGroups).length > 0;
+    const hasList = getAllProductsWithPermission(Actions.ListProductGroups).length > 0;
 
     const apiToCall =
       hasManage && hasList
