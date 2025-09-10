@@ -195,6 +195,9 @@ export const DashboardApi = {
   getMyUserGroupById: async (_id: string): Promise<UserGroupResource | null> =>
     Promise.resolve(usersGroupResource),
 
+  getMyUserGroups: async (_pageRequest: PageRequest): Promise<Array<UserGroupPlainResource>> =>
+    Promise.resolve(userGroupPlainResourceArray),
+
   updatePartyGroup: async (_id: string, _group: PartyGroupOnEdit): Promise<void> =>
     Promise.resolve(),
 
