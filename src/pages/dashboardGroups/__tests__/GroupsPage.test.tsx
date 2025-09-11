@@ -1,8 +1,10 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { setProductPermissions } from '@pagopa/selfcare-common-frontend/lib/redux/slices/permissionsSlice';
+import { Actions } from '@pagopa/selfcare-common-frontend/lib/utils/constants';
 import '@testing-library/jest-dom';
-import React from 'react';
+import { fireEvent, screen } from '@testing-library/react';
 import { mockedParties } from '../../../microcomponents/mock_dashboard/data/party';
 import { mockedPartyProducts } from '../../../microcomponents/mock_dashboard/data/product';
+import { Party } from '../../../model/Party';
 import { renderWithProviders } from '../../../utils/test-utils';
 import GroupsPage from '../GroupsPage';
 
@@ -50,14 +52,25 @@ test('render groups page empty', async () => {
 
   expect(noGroups).toBeInTheDocument();
 
-  const creatOneGroup = await screen.findByText('Crea un gruppo');
-  expect(creatOneGroup).toBeInTheDocument();
-  fireEvent.click(creatOneGroup);
+  const creatOneGroup = screen.queryByText('Crea un gruppo');
+  expect(creatOneGroup).not.toBeInTheDocument();
 });
 
 test('render groups page', async () => {
-  renderWithProviders(
-    <GroupsPage party={mockedParties[0]} activeProducts={mockedPartyProducts} productsMap={{}} />
+  const { store } = renderWithProviders(
+    <GroupsPage
+      party={mockedParties.find((p) => p.partyId === 'onboarded') as Party}
+      activeProducts={mockedPartyProducts}
+      productsMap={{}}
+    />
+  );
+  store.dispatch(
+    setProductPermissions([
+      {
+        productId: 'prod-io',
+        actions: [Actions.ListProductGroups, Actions.ManageProductGroups],
+      },
+    ])
   );
 
   const createGroup = await screen.findByText('Crea gruppo');

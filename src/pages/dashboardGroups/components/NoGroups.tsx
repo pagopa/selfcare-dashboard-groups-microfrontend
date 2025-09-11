@@ -1,17 +1,18 @@
-import { Grid, Typography, Link } from '@mui/material';
-import { Trans } from 'react-i18next';
-import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
-import { useHistory } from 'react-router-dom';
+import { Grid, Link, Typography } from '@mui/material';
 import { useUnloadEventOnExit } from '@pagopa/selfcare-common-frontend/lib/hooks/useUnloadEventInterceptor';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
+import { Trans } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import { Party } from '../../../model/Party';
 import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
 
 type Props = {
   party: Party;
   isPnpg: boolean;
+  hasManagePermissions: boolean;
 };
 
-export default function NoGroups({ party, isPnpg }: Props) {
+export default function NoGroups({ party, isPnpg, hasManagePermissions }: Readonly<Props>) {
   const history = useHistory();
   const onExit = useUnloadEventOnExit();
 
@@ -40,22 +41,24 @@ export default function NoGroups({ party, isPnpg }: Props) {
         <Typography variant="body2">
           <Trans i18nKey="dashboardGroup.noGroups.createGroup">
             Non è ancora stato creato alcun gruppo.
-            <Link
-              sx={{
-                textDecoration: 'none!important',
-                cursor: 'pointer',
-                fontWeight: 'fontWeightBold',
-              }}
-              onClick={() => onExit(() => addGroupRedirect())}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  addGroupRedirect();
-                }
-              }}
-              tabIndex={0}
-            >
-              <b>Crea gruppo</b>
-            </Link>
+            {hasManagePermissions && (
+              <Link
+                sx={{
+                  textDecoration: 'none!important',
+                  cursor: 'pointer',
+                  fontWeight: 'fontWeightBold',
+                }}
+                onClick={() => onExit(() => addGroupRedirect())}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    addGroupRedirect();
+                  }
+                }}
+                tabIndex={0}
+              >
+                <b>Crea gruppo</b>
+              </Link>
+            )}
           </Trans>
         </Typography>
       </Grid>
