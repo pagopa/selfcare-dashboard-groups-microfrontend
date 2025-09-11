@@ -5,9 +5,11 @@ import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { Box, Stack } from '@mui/material';
 import { ButtonNaked, theme } from '@pagopa/mui-italia';
+import { usePermissions } from '@pagopa/selfcare-common-frontend/lib';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/lib/hooks/useErrorDispatcher';
 import useLoading from '@pagopa/selfcare-common-frontend/lib/hooks/useLoading';
 import useUserNotify from '@pagopa/selfcare-common-frontend/lib/hooks/useUserNotify';
+import { Actions } from '@pagopa/selfcare-common-frontend/lib/utils/constants';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import { Trans, useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
@@ -48,6 +50,9 @@ export default function GroupActions({
   const history = useHistory();
   const { t } = useTranslation();
   const isMobile = useIsMobile('md');
+  const { hasPermission } = usePermissions();
+
+  const canManageGroup = hasPermission(product.id, Actions.ManageProductGroups);
 
   const selectedGroupStatus =
     nextGroupStatus === 'SUSPENDED'
@@ -327,7 +332,7 @@ export default function GroupActions({
               : ''}
         </ButtonNaked>
       )}
-      {!isSuspended && (
+      {!isSuspended && canManageGroup && (
         <ButtonNaked
           component="button"
           onClick={handleOpenDuplicate}

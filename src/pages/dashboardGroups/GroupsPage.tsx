@@ -28,13 +28,17 @@ function GroupsPage({ party, activeProducts, productsMap }: Readonly<Props>) {
   const history = useHistory();
   const { getAllProductsWithPermission, hasPermission } = usePermissions();
   const canSeeGroups = getAllProductsWithPermission(Actions.ListProductGroups).length > 0;
-  const activeProductsWithPermission = activeProducts.filter((p: Product) =>
+  const activeProductsWithReadPermission = activeProducts.filter((p: Product) =>
     hasPermission(p.id, Actions.ListProductGroups)
+  );
+
+  const activeProductsWithWritePermission = activeProducts.filter((p: Product) =>
+    hasPermission(p.id, Actions.ManageProductGroups)
   );
 
   const selectedProductSection =
     window.location.hash !== '' ? window.location.hash.substring(1) : undefined;
-  const selectedProducts = activeProductsWithPermission.filter(
+  const selectedProducts = activeProductsWithReadPermission.filter(
     (p: Product) => !selectedProductSection || p.id === selectedProductSection
   );
 
@@ -53,10 +57,10 @@ function GroupsPage({ party, activeProducts, productsMap }: Readonly<Props>) {
 
   const currentUser = useAppSelector(userSelectors.selectLoggedUser) as User;
 
-  const isPnpg = !!activeProductsWithPermission.find((p) => p.id.startsWith('prod-pn-pg'));
+  const isPnpg = !!activeProductsWithReadPermission.find((p) => p.id.startsWith('prod-pn-pg'));
   const isPnpgTheOnlyProduct =
-    !!activeProductsWithPermission.find((p) => p.id.startsWith('prod-pn-pg')) &&
-    activeProductsWithPermission.length === 1;
+    !!activeProductsWithReadPermission.find((p) => p.id.startsWith('prod-pn-pg')) &&
+    activeProductsWithReadPermission.length === 1;
 
   const mappedProducts = (product: Product) => (
     <Grid key={product.id} item xs={12}>
@@ -86,7 +90,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Readonly<Props>) {
     Record<string, { loading: boolean; noData: boolean }>
   >(() =>
     Object.fromEntries(
-      activeProductsWithPermission.map((p) => [[p.id], { loading: true, noData: false }])
+      activeProductsWithReadPermission.map((p) => [[p.id], { loading: true, noData: false }])
     )
   );
 
@@ -105,7 +109,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Readonly<Props>) {
 
   const mbTitle = 2;
 
-  const moreThanOneActiveProduct = activeProductsWithPermission.length > 1;
+  const moreThanOneActiveProduct = activeProductsWithReadPermission.length > 1;
 
   return (
     <Grid
@@ -140,7 +144,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Readonly<Props>) {
           },
         }}
       >
-        <AddGroupButton party={party} />
+        {activeProductsWithWritePermission.length > 0 && <AddGroupButton party={party} />}
       </Grid>
       {productHavingGroups.length !== 0 && moreThanOneActiveProduct && (
         <Grid
@@ -171,7 +175,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Readonly<Props>) {
               value="all"
               onClick={() => setSelectedProductSection(undefined)}
             />
-            {activeProductsWithPermission.map((p) => (
+            {activeProductsWithReadPermission.map((p) => (
               <Tab
                 key={p.id}
                 label={p.title}
@@ -194,7 +198,11 @@ function GroupsPage({ party, activeProducts, productsMap }: Readonly<Props>) {
         >
           {productHavingGroups.length !== 0 ? productsSection : <></>}
           {!isLoading && productHavingGroups.length === 0 && (
-            <NoGroups party={party} isPnpg={isPnpg} />
+            <NoGroups
+              party={party}
+              isPnpg={isPnpg}
+              hasManagePermissions={activeProductsWithWritePermission.length > 0}
+            />
           )}
         </Grid>
       </Grid>
