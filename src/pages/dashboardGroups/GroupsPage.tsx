@@ -29,7 +29,7 @@ function GroupsPage({ party, activeProducts, productsMap }: Readonly<Props>) {
   const { getAllProductsWithPermission, hasPermission } = usePermissions();
   const canSeeGroups = getAllProductsWithPermission(Actions.ListProductGroups).length > 0;
   const activeProductsWithPermission = activeProducts.filter((p: Product) =>
-    hasPermission(p.id, Actions.ManageProductGroups)
+    hasPermission(p.id, Actions.ListProductGroups)
   );
 
   const selectedProductSection =
