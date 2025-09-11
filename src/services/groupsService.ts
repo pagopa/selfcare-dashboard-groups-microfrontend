@@ -4,7 +4,6 @@ import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { trackEvent } from '@pagopa/selfcare-common-frontend/lib/services/analyticsService';
 import { DashboardApi } from '../api/DashboardApiClient';
 import { PageOfUserGroupPlainResource } from '../api/generated/b4f-dashboard/PageOfUserGroupPlainResource';
-import { UserGroupResource } from '../api/generated/b4f-dashboard/UserGroupResource';
 import { Party } from '../model/Party';
 import {
   PartyGroup,
@@ -21,7 +20,6 @@ import {
   deletePartyGroup as deletePartyGroupMocked,
   fetchPartyGroup as fetchPartyGroupMocked,
   fetchPartyGroups as fetchPartyGroupsMocked,
-  mockGetMyUserGroupByIdService,
   savePartyGroup as savePartyGroupMocked,
   updatePartyGroup as updatePartyGroupMocked,
   updatePartyGroupStatus as updatePartyGroupStatusMocked,
@@ -38,6 +36,15 @@ const mapResourcesToPageResource = (
     totalPages: resources.totalPages,
   },
 });
+
+const handleResourceResponse = (
+  resource: any,
+  currentUser: User,
+  productsMap: ProductsMap
+): PartyGroupDetail | null =>
+  resource && resource.productId
+    ? usersGroupResource2PartyGroupDetail(resource, currentUser, productsMap[resource.productId])
+    : null;
 
 export const fetchPartyGroups = (
   party: Party,
@@ -65,23 +72,23 @@ export const fetchPartyGroup = (
     return fetchPartyGroupMocked(groupId, currentUser, productsMap);
   } else {
     return DashboardApi.fetchPartyGroup(groupId).then((resource) =>
-      resource && resource.productId
-        ? usersGroupResource2PartyGroupDetail(
-            resource,
-            currentUser,
-            productsMap[resource.productId]
-          )
-        : null
+      handleResourceResponse(resource, currentUser, productsMap)
     );
   }
 };
 
-export const getMyUserGroupByIdService = (id: string): Promise<UserGroupResource | null> => {
+export const getMyUserGroupByIdService = (
+  groupId: string,
+  currentUser: User,
+  productsMap: ProductsMap
+): Promise<PartyGroupDetail | null> => {
   /* istanbul ignore if */
   if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
-    return mockGetMyUserGroupByIdService(id);
+    return fetchPartyGroupMocked(groupId, currentUser, productsMap);
   } else {
-    return DashboardApi.getMyUserGroupById(id);
+    return DashboardApi.getMyUserGroupById(groupId).then((resource) =>
+      handleResourceResponse(resource, currentUser, productsMap)
+    );
   }
 };
 

@@ -1,17 +1,19 @@
-import { useHistory } from 'react-router-dom';
-import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
-import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
-import { useEffect, useRef, useState } from 'react';
+import { usePermissions } from '@pagopa/selfcare-common-frontend/lib';
 import { PageRequest } from '@pagopa/selfcare-common-frontend/lib/model/PageRequest';
 import { PageResource } from '@pagopa/selfcare-common-frontend/lib/model/PageResource';
+import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { handleErrors } from '@pagopa/selfcare-common-frontend/lib/services/errorService';
-import { fetchPartyGroups } from '../../../../services/groupsService';
+import { Actions } from '@pagopa/selfcare-common-frontend/lib/utils/constants';
+import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
+import { useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Party } from '../../../../model/Party';
 import { PartyGroup, PartyGroupStatus } from '../../../../model/PartyGroup';
 import { Product } from '../../../../model/Product';
-import { Party } from '../../../../model/Party';
 import { DASHBOARD_GROUPS_ROUTES } from '../../../../routes';
-import GroupsProductTable from './components/GroupsProductTable';
+import { fetchPartyGroups, getMyUserGroupsService } from '../../../../services/groupsService';
 import GroupsProductFetchError from './components/GroupsProductFetchError';
+import GroupsProductTable from './components/GroupsProductTable';
 
 type Props = {
   party: Party;
@@ -45,15 +47,16 @@ const GroupsTableProduct = ({
   const [error, setError] = useState(false);
   const [pageRequest, setPageRequest] = useState<PageRequest>({ page: 0, size: initialPageSize });
   const [contentNumberElements, setContentNumberElements] = useState<number>(0);
+  const { getAllProductsWithPermission } = usePermissions();
 
   const previousInitialPageSize = useRef(initialPageSize);
 
   useEffect(() => {
-    const requestPage = incrementalLoad ? 0 : selected ? 0 : pageRequest?.page ?? 0;
+    const requestPage = incrementalLoad ? 0 : selected ? 0 : (pageRequest?.page ?? 0);
     const requestPageSize =
       previousInitialPageSize.current !== initialPageSize
         ? initialPageSize
-        : pageRequest?.size ?? initialPageSize;
+        : (pageRequest?.size ?? initialPageSize);
     // eslint-disable-next-line functional/immutable-data
     previousInitialPageSize.current = initialPageSize;
     setGroups({
@@ -74,7 +77,18 @@ const GroupsTableProduct = ({
 
   const fetchGroups = () => {
     setLoading(true);
-    fetchPartyGroups(party, product, currentUser, pageRequest)
+
+    const hasManage = getAllProductsWithPermission(Actions.ManageProductGroups).length > 0;
+    const hasList = getAllProductsWithPermission(Actions.ListProductGroups).length > 0;
+
+    const apiToCall =
+      hasManage && hasList
+        ? fetchPartyGroups(party, product, currentUser, pageRequest)
+        : hasList
+          ? getMyUserGroupsService(party, product, currentUser, pageRequest)
+          : Promise.reject('User has no permissions to fetch groups');
+
+    apiToCall
       .then((r) => {
         const newContentNumberElements = contentNumberElements + r.content.length;
         const nextGroups =
@@ -105,7 +119,10 @@ const GroupsTableProduct = ({
           },
         ]);
         setError(true);
-        setGroups({ content: [], page: { number: 0, size: 0, totalElements: 0, totalPages: 0 } });
+        setGroups({
+          content: [],
+          page: { number: 0, size: 0, totalElements: 0, totalPages: 0 },
+        });
         onFetchStatusUpdate(false, 1, true);
       })
       .finally(() => setLoading(false));
@@ -156,8 +173,8 @@ const GroupsTableProduct = ({
         sort={pageRequest.sort}
         fetchPage={(page, size) =>
           setPageRequest({
-            page: incrementalLoad ? pageRequest.page + 1 : page ?? 0,
-            size: incrementalLoad ? pageRequest.size : size ?? pageRequest.size,
+            page: incrementalLoad ? pageRequest.page + 1 : (page ?? 0),
+            size: incrementalLoad ? pageRequest.size : (size ?? pageRequest.size),
             sort: pageRequest.sort,
           })
         }
