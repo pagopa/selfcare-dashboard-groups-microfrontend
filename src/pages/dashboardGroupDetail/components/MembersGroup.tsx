@@ -1,7 +1,12 @@
 import { Box, Button, Grid, Link, Paper, Tooltip, Typography } from '@mui/material';
 import { DataGrid, GridRenderCellParams, GridRow } from '@mui/x-data-grid';
 import { theme } from '@pagopa/mui-italia';
-import { roleLabels, UserRole } from '@pagopa/selfcare-common-frontend/lib/utils/constants';
+import { usePermissions } from '@pagopa/selfcare-common-frontend/lib';
+import {
+  Actions,
+  roleLabels,
+  UserRole,
+} from '@pagopa/selfcare-common-frontend/lib/utils/constants';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import { useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
@@ -44,6 +49,8 @@ export default function MembersGroup({
   const isMobile = useIsMobile('lg');
 
   const [members, setMembers] = useState<Array<PartyProductUser>>([]);
+  const { hasPermission } = usePermissions();
+  const canViewUserDetails = hasPermission(product.id, Actions.ListProductUsers);
 
   const rowHeight = isMobile ? 250 : 64;
   const headerHeight = isMobile ? 10 : 56;
@@ -85,12 +92,12 @@ export default function MembersGroup({
       renderCell: (member: GridRenderCellParams<any, any, any>) => (
         <Link
           component="button"
-          disabled={isSuspended}
+          disabled={isSuspended || !canViewUserDetails}
           sx={{
             width: '100%',
             textDecoration: 'none',
             fontWeight: 'fontWeightMedium',
-            cursor: isSuspended ? 'text' : 'pointer',
+            cursor: isSuspended || !canViewUserDetails ? 'text' : 'pointer',
             display: 'flex',
           }}
           onClick={() =>
@@ -118,7 +125,11 @@ export default function MembersGroup({
                 pl: 1,
                 fontSize: 'fontSize',
                 fontWeight: 'fontWeightMedium',
-                color: isSuspended ? 'text.disabled' : 'primary.main',
+                color: isSuspended
+                  ? 'text.disabled'
+                  : !canViewUserDetails
+                    ? 'undefined'
+                    : 'primary.main',
                 justifyContent: 'flexStart',
               }}
             >
