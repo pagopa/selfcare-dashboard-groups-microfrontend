@@ -1,6 +1,5 @@
 import { setProductPermissions } from '@pagopa/selfcare-common-frontend/lib/redux/slices/permissionsSlice';
 import { Actions } from '@pagopa/selfcare-common-frontend/lib/utils/constants';
-import '@testing-library/jest-dom';
 import { fireEvent, screen } from '@testing-library/react';
 import { mockedParties } from '../../../microcomponents/mock_dashboard/data/party';
 import { mockedPartyProducts } from '../../../microcomponents/mock_dashboard/data/product';

@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import { mockedUser } from '../../__mocks__/@pagopa/selfcare-common-frontend/decorators/withLogin';
 import { userGroupPlainResource, usersGroupResource } from '../../api/__mocks__/DashboardApiClient';
 import {
