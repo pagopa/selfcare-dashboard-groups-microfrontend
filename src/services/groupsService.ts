@@ -3,7 +3,7 @@ import { PageResource } from '@pagopa/selfcare-common-frontend/lib/model/PageRes
 import { User } from '@pagopa/selfcare-common-frontend/lib/model/User';
 import { trackEvent } from '@pagopa/selfcare-common-frontend/lib/services/analyticsService';
 import { DashboardApi } from '../api/DashboardApiClient';
-import { PageOfUserGroupPlainResource } from '../api/generated/b4f-dashboard/PageOfUserGroupPlainResource';
+import { PageUserGroupPlainResource } from '../api/generated/b4f-dashboard/PageOfUserGroupPlainResource';
 import { Party } from '../model/Party';
 import {
   PartyGroup,
