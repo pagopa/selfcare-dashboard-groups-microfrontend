@@ -8,7 +8,7 @@ import { storageTokenOps } from '@pagopa/selfcare-common-frontend/lib/utils/stor
 import { PartyGroupOnCreation, PartyGroupOnEdit } from '../model/PartyGroup';
 import { ENV } from '../utils/env';
 import { WithDefaultsT, createClient } from './generated/b4f-dashboard/client';
-import { PageOfUserGroupPlainResource } from './generated/b4f-dashboard/PageOfUserGroupPlainResource';
+import { PageUserGroupPlainResource } from './generated/b4f-dashboard/PageUserGroupPlainResource';
 import { ProductUserResource } from './generated/b4f-dashboard/ProductUserResource';
 import { UserGroupIdResource } from './generated/b4f-dashboard/UserGroupIdResource';
 import { UserGroupPlainResource } from './generated/b4f-dashboard/UserGroupPlainResource';
@@ -102,12 +102,12 @@ export const DashboardApi = {
     productId: string,
     institutionId: string,
     pageRequest: PageRequest
-  ): Promise<PageOfUserGroupPlainResource> => {
+  ): Promise<PageUserGroupPlainResource> => {
     const result = await apiClient.getUserGroupsUsingGET({
       institutionId,
       page: pageRequest.page,
       size: pageRequest.size,
-      sort: pageRequest.sort ? [pageRequest.sort] : undefined,
+      sort: pageRequest.sort ? pageRequest.sort : undefined,
       productId,
     });
     return extractResponse(result, 200, onRedirectToLogin);
@@ -132,12 +132,12 @@ export const DashboardApi = {
     productId: string,
     institutionId: string,
     pageRequest: PageRequest
-  ): Promise<PageOfUserGroupPlainResource> => {
+  ): Promise<PageUserGroupPlainResource> => {
     const result = await apiClient.getMyUserGroupsUsingGET({
       institutionId,
       page: pageRequest.page,
       size: pageRequest.size,
-      sort: pageRequest.sort ? [pageRequest.sort] : undefined,
+      sort: pageRequest.sort ? pageRequest.sort : undefined,
       productId,
     });
     return extractResponse(result, 200, onRedirectToLogin);
