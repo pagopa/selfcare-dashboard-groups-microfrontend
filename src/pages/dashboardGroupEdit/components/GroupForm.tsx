@@ -32,7 +32,7 @@ import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { ReactComponent as ClearCircleIcon } from '../../../assets/clear.svg';
+import ClearCircleIcon  from '../../../assets/clear.svg?react';
 import { Party } from '../../../model/Party';
 import { PartyGroupOnCreation, PartyGroupOnEdit } from '../../../model/PartyGroup';
 import { PartyProductUser } from '../../../model/PartyUser';

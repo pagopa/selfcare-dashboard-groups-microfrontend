@@ -1,6 +1,5 @@
 import { usePermissions } from '@pagopa/selfcare-common-frontend/lib';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/lib/hooks/useErrorDispatcher';
-import React from 'react';
 import { useHistory, useParams } from 'react-router';
 import { useGroupDetail } from '../../../hooks/useGroupDetail';
 import { mockedParties } from '../../../microcomponents/mock_dashboard/data/party';
@@ -27,7 +26,7 @@ jest.mock('@pagopa/selfcare-common-frontend/lib', () => ({
 
 beforeEach(() => {
   (useParams as jest.Mock).mockReturnValue({ partyId: 'party1', groupId: 'group1' });
-  (useGroupDetail as jest.Mock).mockReturnValue((partyId, groupId, productsMap) =>
+  (useGroupDetail as jest.Mock).mockReturnValue(() =>
     Promise.resolve({
       members: [{ name: 'Member One' }, { name: 'Member Two' }],
     })
