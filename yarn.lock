@@ -2388,6 +2388,11 @@
   resolved "https://registry.yarnpkg.com/@mixpanel/rrweb-plugin-console-record/-/rrweb-plugin-console-record-2.0.0-alpha.18.2.tgz#219fddfe6902276adfea0f60b8b9e3b94f339027"
   integrity sha512-Xkwh2gSdLqHRkWSXv8CPVCPQj5L85KnWc5DZQ0CXNRFgm2hTl5/YP6zfUubVs2JVXZHGcSGU+g7JVO2WcFJyyg==
 
+"@mixpanel/rrweb-plugin-console-record@2.0.0-alpha.18.2":
+  version "2.0.0-alpha.18.2"
+  resolved "https://registry.yarnpkg.com/@mixpanel/rrweb-plugin-console-record/-/rrweb-plugin-console-record-2.0.0-alpha.18.2.tgz#219fddfe6902276adfea0f60b8b9e3b94f339027"
+  integrity sha512-Xkwh2gSdLqHRkWSXv8CPVCPQj5L85KnWc5DZQ0CXNRFgm2hTl5/YP6zfUubVs2JVXZHGcSGU+g7JVO2WcFJyyg==
+
 "@mixpanel/rrweb-snapshot@^2.0.0-alpha.18":
   version "2.0.0-alpha.18.1"
   resolved "https://registry.yarnpkg.com/@mixpanel/rrweb-snapshot/-/rrweb-snapshot-2.0.0-alpha.18.1.tgz#5eee23d35bc666441900740759edfbb73af6af11"
@@ -2405,6 +2410,10 @@
   resolved "https://registry.yarnpkg.com/@mixpanel/rrweb-utils/-/rrweb-utils-2.0.0-alpha.18.1.tgz#5cb371c765b5adf61ff43b3b49d396291a787760"
   integrity sha512-RP9y05dt08HT2kcDZWQebU76LclCLivGvRqv6530w6e13UdfhPM+/Qxg9X49LuzJyuCCk+9FAu5IL4doph7nsQ==
 
+"@mixpanel/rrweb@2.0.0-alpha.18.2":
+  version "2.0.0-alpha.18.2"
+  resolved "https://registry.yarnpkg.com/@mixpanel/rrweb/-/rrweb-2.0.0-alpha.18.2.tgz#b8fb5aca21648a844c0f561f3e027ad047faf8ce"
+  integrity sha512-J3dVTEu6Z4p8di7y9KKvUooNuBjX97DdG6XGWoPEPi07A9512h9M8MEtvlY3mK0PGfuC0Mz5Pv/Ws6gjGYfKQg==
 "@mixpanel/rrweb@2.0.0-alpha.18.2":
   version "2.0.0-alpha.18.2"
   resolved "https://registry.yarnpkg.com/@mixpanel/rrweb/-/rrweb-2.0.0-alpha.18.2.tgz#b8fb5aca21648a844c0f561f3e027ad047faf8ce"
@@ -2826,10 +2835,10 @@
     fp-ts "^2.12.3"
     io-ts "^2.2.18"
 
-"@pagopa/openapi-codegen-ts@^12.1.2":
-  version "12.2.1"
-  resolved "https://registry.yarnpkg.com/@pagopa/openapi-codegen-ts/-/openapi-codegen-ts-12.2.1.tgz#e2cc9cedcbb23077b4f3f80e970ebd9c55e71afe"
-  integrity sha512-NO+z8+FUuR04Kc6I6fZk2mh+PWc1wrrBiTmcmnwuGGAWcObPqt4oF7b0fpAiZF91YuAMf5BOaXsFIIeSQv3i8g==
+"@pagopa/openapi-codegen-ts@^14.2.0":
+  version "14.2.0"
+  resolved "https://registry.yarnpkg.com/@pagopa/openapi-codegen-ts/-/openapi-codegen-ts-14.2.0.tgz#3b8e8df7ec0baeaa83b18e4b8fa90b0c8b66f1c6"
+  integrity sha512-sop1+MxfLP2Od2sxDvHxJ7poVmZKBP0REVMQDPrCpNe9Wv1vvLJN8WqonUjkLfL3fLmKM0B6AS4B67Nigm1uKA==
   dependencies:
     "@pagopa/ts-commons" "^10.15.0"
     fs-extra "^6.0.0"
@@ -2863,6 +2872,7 @@
     i18next-browser-languagedetector "^8.0.0"
     io-ts "^2.2.16"
     lodash "^4.17.21"
+    mixpanel-browser "^2.74.0"
     mixpanel-browser "^2.74.0"
     nth-check "2.0.1"
     react "^18.2.0"
@@ -10182,7 +10192,13 @@ mixpanel-browser@^2.74.0:
   version "2.74.0"
   resolved "https://registry.yarnpkg.com/mixpanel-browser/-/mixpanel-browser-2.74.0.tgz#c66767fb82fa4a928e4c1ba1603db4a23199ddac"
   integrity sha512-FWifdAaI+8zKEROb9T+gy0NRZB0gaCC5iy20rDjZ3C+KCwCsJcITT6lAYErWbwwmk3Ei34JBjLsnrDLPYj+hOw==
+mixpanel-browser@^2.74.0:
+  version "2.74.0"
+  resolved "https://registry.yarnpkg.com/mixpanel-browser/-/mixpanel-browser-2.74.0.tgz#c66767fb82fa4a928e4c1ba1603db4a23199ddac"
+  integrity sha512-FWifdAaI+8zKEROb9T+gy0NRZB0gaCC5iy20rDjZ3C+KCwCsJcITT6lAYErWbwwmk3Ei34JBjLsnrDLPYj+hOw==
   dependencies:
+    "@mixpanel/rrweb" "2.0.0-alpha.18.2"
+    "@mixpanel/rrweb-plugin-console-record" "2.0.0-alpha.18.2"
     "@mixpanel/rrweb" "2.0.0-alpha.18.2"
     "@mixpanel/rrweb-plugin-console-record" "2.0.0-alpha.18.2"
 
