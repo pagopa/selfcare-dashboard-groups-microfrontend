@@ -7,3 +7,4 @@ Dangerfile.ts
 src/reportWebVitals.ts
 **/generated/**
 dist/
+vitest.config.ts

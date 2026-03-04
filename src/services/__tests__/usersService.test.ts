@@ -6,13 +6,13 @@ import { mockedPartyProducts } from '../../microcomponents/mock_dashboard/data/p
 import { PartyProductUser, productUserResource2PartyProductUser } from '../../model/PartyUser';
 import { fetchPartyProductUsers, updatePartyUserStatus } from '../usersService';
 
-jest.mock('../../api/DashboardApiClient');
+vi.mock('../../api/DashboardApiClient');
 
 beforeEach(() => {
-  jest.spyOn(DashboardApi, 'getPartyProductUsers');
-  jest.spyOn(DashboardApi, 'getPartyProductUsers');
-  jest.spyOn(DashboardApi, 'suspendPartyRelation');
-  jest.spyOn(DashboardApi, 'activatePartyRelation');
+  vi.spyOn(DashboardApi, 'getPartyProductUsers');
+  vi.spyOn(DashboardApi, 'getPartyProductUsers');
+  vi.spyOn(DashboardApi, 'suspendPartyRelation');
+  vi.spyOn(DashboardApi, 'activatePartyRelation');
 });
 
 describe('Test fetchPartyProductUsers', () => {

@@ -11,31 +11,31 @@ import {
 import { productRoles2ProductRolesList } from '../../../model/ProductRole';
 import { renderWithProviders } from '../../../utils/test-utils';
 import GroupDetailPage from '../GroupDetailPage';
+import { Mock } from 'vitest';
 
-jest.mock('react-router', () => ({
-  ...jest.requireActual('react-router'),
-  useParams: jest.fn(),
-  useHistory: jest.fn(),
+vi.mock('react-router', () => ({
+  useParams: vi.fn(),
+  useHistory: vi.fn(),
 }));
 
-jest.mock('../../../hooks/useGroupDetail');
-jest.mock('@pagopa/selfcare-common-frontend/lib/hooks/useErrorDispatcher');
-jest.mock('@pagopa/selfcare-common-frontend/lib', () => ({
-  usePermissions: jest.fn(),
+vi.mock('../../../hooks/useGroupDetail');
+vi.mock('@pagopa/selfcare-common-frontend/lib/hooks/useErrorDispatcher');
+vi.mock('@pagopa/selfcare-common-frontend/lib', () => ({
+  usePermissions: vi.fn(),
 }));
 
 beforeEach(() => {
-  (useParams as jest.Mock).mockReturnValue({ partyId: 'party1', groupId: 'group1' });
-  (useGroupDetail as jest.Mock).mockReturnValue(() =>
+  (useParams as Mock).mockReturnValue({ partyId: 'party1', groupId: 'group1' });
+  (useGroupDetail as Mock).mockReturnValue(() =>
     Promise.resolve({
       members: [{ name: 'Member One' }, { name: 'Member Two' }],
     })
   );
-  (useErrorDispatcher as jest.Mock).mockReturnValue(jest.fn());
-  (usePermissions as jest.Mock).mockReturnValue({
-    getAllProductsWithPermission: jest.fn(() => ['manageProductGroups']),
+  (useErrorDispatcher as Mock).mockReturnValue(vi.fn());
+  (usePermissions as Mock).mockReturnValue({
+    getAllProductsWithPermission: vi.fn(() => ['manageProductGroups']),
   });
-  (useHistory as jest.Mock).mockReturnValue({ push: jest.fn() });
+  (useHistory as Mock).mockReturnValue({ push: vi.fn() });
 });
 
 test('render GroupDetailPage', () => {
