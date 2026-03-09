@@ -22,7 +22,7 @@ Run the following command allow to serve the remote components locally and to ru
 - yarn start
 
 ## To execute locally mocking REST invocation, modify the file .env.development.local setting
-- REACT_APP_API_MOCK_PARTY_GROUPS=true
+- VITE_API_MOCK_PARTY_GROUPS=true
 
 ## To build a configured workspace execute the following command
 - yarn build

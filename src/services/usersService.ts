@@ -36,7 +36,7 @@ export const fetchPartyProductUsers = (
   productRoles?: Array<ProductRole>
 ): Promise<PageResource<PartyProductUser>> => {
   /* istanbul ignore if */
-  if (process.env.REACT_APP_API_MOCK_PARTY_USERS === 'true') {
+  if (process.env.VITE_API_MOCK_PARTY_USERS === 'true') {
     return fetchPartyProductUsersMocked(
       pageRequest,
       party,
@@ -61,7 +61,7 @@ export const updatePartyUserStatus = (
   status: UserStatus
 ): Promise<any> => {
   /* istanbul ignore if */
-  if (process.env.REACT_APP_API_MOCK_PARTY_USERS === 'true') {
+  if (process.env.VITE_API_MOCK_PARTY_USERS === 'true') {
     return updatePartyUserStatusMocked(party, user, product, role, status);
   }
   if (status === 'ACTIVE') {

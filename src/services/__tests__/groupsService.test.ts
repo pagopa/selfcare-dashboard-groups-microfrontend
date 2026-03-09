@@ -17,17 +17,17 @@ import {
   updatePartyGroupStatus,
 } from './../groupsService';
 
-jest.mock('../../api/DashboardApiClient');
+vi.mock('../../api/DashboardApiClient');
 
 beforeEach(() => {
-  jest.spyOn(DashboardApi, 'deletePartyGroup');
-  jest.spyOn(DashboardApi, 'deleteGroupRelation');
-  jest.spyOn(DashboardApi, 'fetchPartyGroup');
-  jest.spyOn(DashboardApi, 'updatePartyGroup');
-  jest.spyOn(DashboardApi, 'updatePartyGroupStatusActivate');
-  jest.spyOn(DashboardApi, 'updatePartyGroupStatusSuspend');
-  jest.spyOn(DashboardApi, 'savePartyGroup');
-  jest.spyOn(DashboardApi, 'fetchPartyGroups');
+  vi.spyOn(DashboardApi, 'deletePartyGroup');
+  vi.spyOn(DashboardApi, 'deleteGroupRelation');
+  vi.spyOn(DashboardApi, 'fetchPartyGroup');
+  vi.spyOn(DashboardApi, 'updatePartyGroup');
+  vi.spyOn(DashboardApi, 'updatePartyGroupStatusActivate');
+  vi.spyOn(DashboardApi, 'updatePartyGroupStatusSuspend');
+  vi.spyOn(DashboardApi, 'savePartyGroup');
+  vi.spyOn(DashboardApi, 'fetchPartyGroups');
 });
 
 const members: Array<PartyProductUser> = [

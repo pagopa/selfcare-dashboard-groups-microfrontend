@@ -53,7 +53,7 @@ export const fetchPartyGroups = (
   pageRequest: PageRequest
 ): Promise<PageResource<PartyGroup>> => {
   /* istanbul ignore if */
-  if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
+  if (process.env.VITE_API_MOCK_PARTY_GROUPS === 'true') {
     return fetchPartyGroupsMocked(party, product, currentUser, pageRequest);
   } else {
     return DashboardApi.fetchPartyGroups(product.id, party.partyId, pageRequest).then((resources) =>
@@ -68,7 +68,7 @@ export const fetchPartyGroup = (
   productsMap: ProductsMap
 ): Promise<PartyGroupDetail | null> => {
   /* istanbul ignore if */
-  if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
+  if (process.env.VITE_API_MOCK_PARTY_GROUPS === 'true') {
     return fetchPartyGroupMocked(groupId, currentUser, productsMap);
   } else {
     return DashboardApi.fetchPartyGroup(groupId).then((resource) =>
@@ -83,7 +83,7 @@ export const getMyUserGroupByIdService = (
   productsMap: ProductsMap
 ): Promise<PartyGroupDetail | null> => {
   /* istanbul ignore if */
-  if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
+  if (process.env.VITE_API_MOCK_PARTY_GROUPS === 'true') {
     return fetchPartyGroupMocked(groupId, currentUser, productsMap);
   } else {
     return DashboardApi.getMyUserGroupById(groupId).then((resource) =>
@@ -99,7 +99,7 @@ export const getMyUserGroupsService = (
   pageRequest: PageRequest
 ): Promise<PageResource<PartyGroup>> => {
   /* istanbul ignore if */
-  if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
+  if (process.env.VITE_API_MOCK_PARTY_GROUPS === 'true') {
     return fetchPartyGroupsMocked(party, product, currentUser, pageRequest);
   } else {
     return DashboardApi.getMyUserGroups(product.id, party.partyId, pageRequest).then((resources) =>
@@ -114,7 +114,7 @@ export const savePartyGroup = (
   group: PartyGroupOnCreation
 ): Promise<string> => {
   /* istanbul ignore if */
-  if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
+  if (process.env.VITE_API_MOCK_PARTY_GROUPS === 'true') {
     return savePartyGroupMocked(party, product, group);
   } else {
     return DashboardApi.savePartyGroup(group).then((idResource) => idResource.id);
@@ -127,7 +127,7 @@ export const updatePartyGroup = (
   group: PartyGroupOnEdit
 ): Promise<string> => {
   /* istanbul ignore if */
-  if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
+  if (process.env.VITE_API_MOCK_PARTY_GROUPS === 'true') {
     return updatePartyGroupMocked(party, product, group);
   } else {
     return DashboardApi.updatePartyGroup(group.id, group).then((_) => group.id);
@@ -141,7 +141,7 @@ export const updatePartyGroupStatus = (
   status: PartyGroupStatus
 ): Promise<any> => {
   /* istanbul ignore if */
-  if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
+  if (process.env.VITE_API_MOCK_PARTY_GROUPS === 'true') {
     return updatePartyGroupStatusMocked(party, product, group, status);
   }
   if (status === 'ACTIVE') {
@@ -171,7 +171,7 @@ export const deletePartyGroup = (
     product_id: product.id,
   });
   /* istanbul ignore if */
-  if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
+  if (process.env.VITE_API_MOCK_PARTY_GROUPS === 'true') {
     return deletePartyGroupMocked(party, product, group);
   } else {
     return DashboardApi.deletePartyGroup(group.id);
@@ -189,7 +189,7 @@ export const deleteGroupRelation = (
     product_id: product.id,
   });
   /* istanbul ignore if */
-  if (process.env.REACT_APP_API_MOCK_PARTY_GROUPS === 'true') {
+  if (process.env.VITE_API_MOCK_PARTY_GROUPS === 'true') {
     return deleteGroupRelationMocked(party, product, group, userId);
   } else {
     return DashboardApi.deleteGroupRelation(group.id, userId);

@@ -13,7 +13,6 @@ test('Test productUserResource2PartyUser', () => {
     status: 'PENDING',
     role: 'LIMITED' as RoleEnum,
     email: 'address',
-    certification: true,
     product: {
       id: 'productId',
       title: 'productTitle',

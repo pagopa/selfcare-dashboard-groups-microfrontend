@@ -8,8 +8,8 @@ import { renderWithProviders } from '../../../utils/test-utils';
 import GroupsPage from '../GroupsPage';
 
 beforeAll(() => {
-  process.env.REACT_APP_API_MOCK_PARTY_GROUPS = 'true';
-  process.env.REACT_APP_API_MOCK_PARTY_USERS = 'true';
+  process.env.VITE_API_MOCK_PARTY_GROUPS = 'true';
+  process.env.VITE_API_MOCK_PARTY_USERS = 'true';
 });
 
 test('render groups page empty', async () => {
