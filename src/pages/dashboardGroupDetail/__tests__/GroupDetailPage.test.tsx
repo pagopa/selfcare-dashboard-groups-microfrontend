@@ -13,10 +13,14 @@ import { renderWithProviders } from '../../../utils/test-utils';
 import GroupDetailPage from '../GroupDetailPage';
 import { Mock } from 'vitest';
 
-vi.mock('react-router-dom', () => ({
-  useParams: vi.fn(),
-  useHistory: vi.fn(),
-}));
+vi.mock('react-router-dom', async (importOriginal) => {
+  const actual = (await importOriginal()) as any;
+  return {
+    ...actual,
+    useParams: vi.fn(),
+    useHistory: vi.fn(),
+  };
+});
 
 vi.mock('../../../hooks/useGroupDetail');
 vi.mock('@pagopa/selfcare-common-frontend/lib/hooks/useErrorDispatcher');
