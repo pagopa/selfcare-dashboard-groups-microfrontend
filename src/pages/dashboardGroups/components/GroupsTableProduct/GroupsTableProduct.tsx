@@ -47,16 +47,16 @@ const GroupsTableProduct = ({
   const [error, setError] = useState(false);
   const [pageRequest, setPageRequest] = useState<PageRequest>({ page: 0, size: initialPageSize });
   const [contentNumberElements, setContentNumberElements] = useState<number>(0);
-  const { getAllProductsWithPermission } = usePermissions();
+  const { hasPermission } = usePermissions();
 
   const previousInitialPageSize = useRef(initialPageSize);
 
   useEffect(() => {
-    const requestPage = incrementalLoad ? 0 : selected ? 0 : (pageRequest?.page ?? 0);
+    const requestPage = incrementalLoad ? 0 : selected ? 0 : pageRequest?.page ?? 0;
     const requestPageSize =
       previousInitialPageSize.current !== initialPageSize
         ? initialPageSize
-        : (pageRequest?.size ?? initialPageSize);
+        : pageRequest?.size ?? initialPageSize;
     // eslint-disable-next-line functional/immutable-data
     previousInitialPageSize.current = initialPageSize;
     setGroups({
@@ -78,15 +78,16 @@ const GroupsTableProduct = ({
   const fetchGroups = () => {
     setLoading(true);
 
-    const hasManage = getAllProductsWithPermission(Actions.ManageProductGroups).length > 0;
-    const hasList = getAllProductsWithPermission(Actions.ListProductGroups).length > 0;
+    const hasAllGroups = hasPermission(product.id, Actions.ListAllProductGroups);
+    const hasList = hasPermission(product.id, Actions.ListProductGroups);
 
-    const apiToCall =
-      hasManage && hasList
-        ? fetchPartyGroups(party, product, currentUser, pageRequest)
-        : hasList
-          ? getMyUserGroupsService(party, product, currentUser, pageRequest)
-          : Promise.reject('User has no permissions to fetch groups');
+    const apiToCall = hasAllGroups
+      ? fetchPartyGroups(party, product, currentUser, pageRequest)
+      : hasList
+      ? getMyUserGroupsService(party, product, currentUser, pageRequest)
+      : Promise.reject('User has no permissions to fetch groups');
+
+    console.log('apiToCall', apiToCall);
 
     apiToCall
       .then((r) => {
@@ -173,8 +174,8 @@ const GroupsTableProduct = ({
         sort={pageRequest.sort}
         fetchPage={(page, size) =>
           setPageRequest({
-            page: incrementalLoad ? pageRequest.page + 1 : (page ?? 0),
-            size: incrementalLoad ? pageRequest.size : (size ?? pageRequest.size),
+            page: incrementalLoad ? pageRequest.page + 1 : page ?? 0,
+            size: incrementalLoad ? pageRequest.size : size ?? pageRequest.size,
             sort: pageRequest.sort,
           })
         }

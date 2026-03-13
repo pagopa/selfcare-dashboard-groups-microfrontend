@@ -10,7 +10,7 @@ import {
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import { useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { useIsMobile } from '../../../hooks/useIsMobile';
 import { Party, UserStatus } from '../../../model/Party';
 import { PartyGroupDetail, PartyGroupStatus } from '../../../model/PartyGroup';

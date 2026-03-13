@@ -17,16 +17,15 @@ export const useGroupDetail = (): ((
   const currentUser = useAppSelector(userSelectors.selectLoggedUser) as User;
   const { getAllProductsWithPermission } = usePermissions();
 
-  const hasManage = getAllProductsWithPermission(Actions.ManageProductGroups).length > 0;
+  const hasAllGroups = getAllProductsWithPermission(Actions.ListAllProductGroups).length > 0;
   const hasList = getAllProductsWithPermission(Actions.ListProductGroups).length > 0;
 
   return (groupId: string, productsMap: ProductsMap): Promise<PartyGroupDetail | null> => {
-    const apiToCall =
-      hasManage && hasList
-        ? fetchPartyGroup(groupId, currentUser, productsMap)
-        : hasList
-          ? getMyUserGroupByIdService(groupId, currentUser, productsMap)
-          : Promise.reject('User has no permissions to fetch groups');
+    const apiToCall = hasAllGroups
+      ? fetchPartyGroup(groupId, currentUser, productsMap)
+      : hasList
+      ? getMyUserGroupByIdService(groupId, currentUser, productsMap)
+      : Promise.reject('User has no permissions to fetch groups');
 
     setLoading(true);
     return apiToCall.finally(() => setLoading(false));
