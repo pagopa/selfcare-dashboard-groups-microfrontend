@@ -1,19 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import '@pagopa/selfcare-common-frontend/index.css';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import { Provider } from 'react-redux';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { theme } from '@pagopa/mui-italia';
+import '@pagopa/selfcare-common-frontend/index.css';
 import { CONFIG } from '@pagopa/selfcare-common-frontend/lib/config/env';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import '../../locale';
 import { store } from '../../redux/store';
 import { MOCK_USER } from '../../utils/constants';
 import { ENV } from '../../utils/env';
-import reportWebVitals from '../../reportWebVitals';
 import App from './App';
-import '../../locale';
+import './index.css';
 
 const onSuccessEncoded = encodeURIComponent(location.pathname + location.search);
 
@@ -50,8 +49,3 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

@@ -1,4 +1,4 @@
-import { Redirect, useParams } from 'react-router';
+import { Redirect, useParams } from 'react-router-dom';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import { ENV } from './utils/env';
 import AddGroupPage from './pages/dashboardGroupEdit/AddGroupPage';

@@ -1,6 +1,6 @@
 import { usePermissions } from '@pagopa/selfcare-common-frontend/lib';
 import useErrorDispatcher from '@pagopa/selfcare-common-frontend/lib/hooks/useErrorDispatcher';
-import { useHistory, useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router-dom';
 import { useGroupDetail } from '../../../hooks/useGroupDetail';
 import { mockedParties } from '../../../microcomponents/mock_dashboard/data/party';
 import {
@@ -13,10 +13,14 @@ import { renderWithProviders } from '../../../utils/test-utils';
 import GroupDetailPage from '../GroupDetailPage';
 import { Mock } from 'vitest';
 
-vi.mock('react-router', () => ({
-  useParams: vi.fn(),
-  useHistory: vi.fn(),
-}));
+vi.mock('react-router-dom', async (importOriginal) => {
+  const actual = (await importOriginal()) as any;
+  return {
+    ...actual,
+    useParams: vi.fn(),
+    useHistory: vi.fn(),
+  };
+});
 
 vi.mock('../../../hooks/useGroupDetail');
 vi.mock('@pagopa/selfcare-common-frontend/lib/hooks/useErrorDispatcher');
