@@ -27,10 +27,14 @@ interface Props {
 function GroupsPage({ party, activeProducts, productsMap }: Readonly<Props>) {
   const history = useHistory();
   const { getAllProductsWithPermission, hasPermission } = usePermissions();
-  const canSeeGroups = getAllProductsWithPermission(Actions.ListProductGroups).length > 0;
-  const activeProductsWithReadPermission = activeProducts.filter((p: Product) =>
-    hasPermission(p.id, Actions.ListProductGroups)
+  const canSeeGroups = [Actions.ListProductGroups, Actions.ListAllProductGroups].some(
+    (action) => getAllProductsWithPermission(action).length > 0
   );
+  const activeProductsWithReadPermission = activeProducts.filter((p: Product) => {
+    const requiredPermissions = [Actions.ListProductGroups, Actions.ListAllProductGroups];
+
+    return requiredPermissions.some((permission) => hasPermission(p.id, permission));
+  });
 
   const activeProductsWithWritePermission = activeProducts.filter((p: Product) =>
     hasPermission(p.id, Actions.ManageProductGroups)

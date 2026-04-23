@@ -4,8 +4,7 @@ import { Actions } from '@pagopa/selfcare-common-frontend/lib/utils/constants';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import { uniqueId } from 'lodash';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useGroupDetail } from '../hooks/useGroupDetail';
 import { Party } from '../model/Party';
 import { PartyGroupDetail } from '../model/PartyGroup';
@@ -37,7 +36,9 @@ export default function withGroupDetail<T extends withGroupDetailProps>(
     const addError = useErrorDispatcher();
     const history = useHistory();
     const { getAllProductsWithPermission } = usePermissions();
-    const canSeeGroups = getAllProductsWithPermission(Actions.ListProductGroups).length > 0;
+    const canSeeGroups = [Actions.ListProductGroups, Actions.ListAllProductGroups].some(
+      (action) => getAllProductsWithPermission(action).length > 0
+    );
 
     const doFetch = () => {
       fetchGroupDetail(groupId, props.productsMap)
