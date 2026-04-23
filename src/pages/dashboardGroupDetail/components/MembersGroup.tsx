@@ -50,7 +50,9 @@ export default function MembersGroup({
 
   const [members, setMembers] = useState<Array<PartyProductUser>>([]);
   const { hasPermission } = usePermissions();
-  const canViewUserDetails = hasPermission(product.id, Actions.ListProductUsers);
+  const canViewUserDetails =
+    hasPermission(product.id, Actions.ListProductUsers) ||
+    hasPermission(product.id, Actions.ListAllProductUsers);
 
   const rowHeight = isMobile ? 250 : 64;
   const headerHeight = isMobile ? 10 : 56;
@@ -128,8 +130,8 @@ export default function MembersGroup({
                 color: isSuspended
                   ? 'text.disabled'
                   : !canViewUserDetails
-                    ? 'undefined'
-                    : 'primary.main',
+                  ? 'undefined'
+                  : 'primary.main',
                 justifyContent: 'flexStart',
               }}
             >
