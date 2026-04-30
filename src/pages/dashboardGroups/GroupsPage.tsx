@@ -14,6 +14,7 @@ import { Party } from '../../model/Party';
 import { Product, ProductsMap } from '../../model/Product';
 import { useAppSelector } from '../../redux/hooks';
 import { ENV } from '../../utils/env';
+import { getAppArea } from '../../utils/utils';
 import AddGroupButton from './components/AddGroupButton';
 import GroupsProductSection from './components/GroupsProductSection';
 import NoGroups from './components/NoGroups';
@@ -52,7 +53,10 @@ function GroupsPage({ party, activeProducts, productsMap }: Readonly<Props>) {
     }
   }, [party.partyId, canSeeGroups]);
 
-  useEffect(() => trackEvent('GROUP_LIST', { party_id: party.partyId }), [party]);
+  useEffect(
+    () => trackEvent('GROUP_LIST', { party_id: party.partyId, from: getAppArea() }),
+    [party]
+  );
   const { t } = useTranslation();
 
   const setSelectedProductSection = (productId?: string) =>
