@@ -1,10 +1,12 @@
 import { Grid, Link, Typography } from '@mui/material';
 import { useUnloadEventOnExit } from '@pagopa/selfcare-common-frontend/lib/hooks/useUnloadEventInterceptor';
+import { trackEvent } from '@pagopa/selfcare-common-frontend/lib/services/analyticsService';
 import { resolvePathVariables } from '@pagopa/selfcare-common-frontend/lib/utils/routes-utils';
 import { Trans } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { Party } from '../../../model/Party';
 import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
+import { EVENTS } from '../../../utils/constants';
 
 type Props = {
   party: Party;
@@ -17,10 +19,21 @@ export default function NoGroups({ party, isPnpg, hasManagePermissions }: Readon
   const onExit = useUnloadEventOnExit();
 
   const addGroupRedirect = () => {
-    history.push(
-      resolvePathVariables(DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_ADD.path, {
-        partyId: party.partyId,
-      })
+    trackEvent(
+      EVENTS.GROUP_CREATE_START,
+      {
+        party_id: party.partyId,
+      },
+      () => {
+        history.push(
+          resolvePathVariables(
+            DASHBOARD_GROUPS_ROUTES.PARTY_GROUPS.subRoutes.PARTY_GROUP_ADD.path,
+            {
+              partyId: party.partyId,
+            }
+          )
+        );
+      }
     );
   };
 
