@@ -15,6 +15,7 @@ import {
   usersGroupResource2PartyGroupDetail,
 } from '../model/PartyGroup';
 import { Product, ProductsMap } from '../model/Product';
+import { EVENTS } from '../utils/constants';
 import {
   deleteGroupRelation as deleteGroupRelationMocked,
   deletePartyGroup as deletePartyGroupMocked,
@@ -145,13 +146,13 @@ export const updatePartyGroupStatus = (
     return updatePartyGroupStatusMocked(party, product, group, status);
   }
   if (status === 'ACTIVE') {
-    trackEvent('GROUP_RESUME', {
+    trackEvent(EVENTS.GROUP_RESUME, {
       party_id: party.partyId,
       product_id: product.id,
     });
     return DashboardApi.updatePartyGroupStatusActivate(group.id);
   } else if (status === 'SUSPENDED') {
-    trackEvent('GROUP_SUSPEND', {
+    trackEvent(EVENTS.GROUP_SUSPEND, {
       party_id: party.partyId,
       product_id: product.id,
     });
@@ -166,7 +167,7 @@ export const deletePartyGroup = (
   product: Product,
   group: PartyGroup
 ): Promise<any> => {
-  trackEvent('GROUP_DELETE', {
+  trackEvent(EVENTS.GROUP_DELETE, {
     party_id: party.partyId,
     product_id: product.id,
   });
@@ -184,7 +185,7 @@ export const deleteGroupRelation = (
   group: PartyGroupDetail,
   userId: string
 ): Promise<any> => {
-  trackEvent('RELATION_GROUP_USER_DELETE', {
+  trackEvent(EVENTS.RELATION_GROUP_USER_DELETE, {
     party_id: party.partyId,
     product_id: product.id,
   });

@@ -12,6 +12,7 @@ import {
 } from '../model/PartyUser';
 import { Product } from '../model/Product';
 import { ProductRole } from '../model/ProductRole';
+import { EVENTS } from '../utils/constants';
 import {
   fetchPartyProductUsers as fetchPartyProductUsersMocked,
   updatePartyUserStatus as updatePartyUserStatusMocked,
@@ -65,7 +66,7 @@ export const updatePartyUserStatus = (
     return updatePartyUserStatusMocked(party, user, product, role, status);
   }
   if (status === 'ACTIVE') {
-    trackEvent('USER_RESUME', {
+    trackEvent(EVENTS.USER_RESUME, {
       party_id: party.partyId,
       product_id: product.id,
       product_role: user.userRole,
@@ -73,7 +74,7 @@ export const updatePartyUserStatus = (
 
     return DashboardApi.activatePartyRelation(user.id, party.partyId, product.id);
   } else if (status === 'SUSPENDED') {
-    trackEvent('USER_SUSPEND', {
+    trackEvent(EVENTS.USER_SUSPEND, {
       party_id: party.partyId,
       product_id: product.id,
       product_role: user.userRole,

@@ -32,7 +32,7 @@ import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import ClearCircleIcon  from '../../../assets/clear.svg?react';
+import ClearCircleIcon from '../../../assets/clear.svg?react';
 import { Party } from '../../../model/Party';
 import { PartyGroupOnCreation, PartyGroupOnEdit } from '../../../model/PartyGroup';
 import { PartyProductUser } from '../../../model/PartyUser';
@@ -42,7 +42,11 @@ import { useAppSelector } from '../../../redux/hooks';
 import { DASHBOARD_GROUPS_ROUTES } from '../../../routes';
 import { savePartyGroup, updatePartyGroup } from '../../../services/groupsService';
 import { fetchPartyProductUsers } from '../../../services/usersService';
-import { LOADING_TASK_FETCH_USER_PRODUCT, LOADING_TASK_SAVE_GROUP } from '../../../utils/constants';
+import {
+  EVENTS,
+  LOADING_TASK_FETCH_USER_PRODUCT,
+  LOADING_TASK_SAVE_GROUP,
+} from '../../../utils/constants';
 import { TableChip } from '../../../utils/helpers';
 import AlertRemoveUsersInClone from '../components/AlertRemoveUsersInClone';
 
@@ -202,7 +206,7 @@ function GroupForm({
 
   const trackSaveEvent = () =>
     trackEvent(
-      isEdit ? 'GROUP_UPDATE' : isClone ? 'GROUP_CLONE' : 'GROUP_CREATE',
+      isEdit ? EVENTS.GROUP_UPDATE : isClone ? EVENTS.GROUP_CLONE : EVENTS.GROUP_CREATE,
       Object.assign({
         party_id: party.partyId,
         product_id: productSelected?.id,
@@ -216,8 +220,8 @@ function GroupForm({
       title: isEdit
         ? t('dashboardGroupEdit.groupForm.outcome.modified')
         : isClone
-          ? t('dashboardGroupEdit.groupForm.outcome.duplicate')
-          : t('dashboardGroupEdit.groupForm.outcome.created'),
+        ? t('dashboardGroupEdit.groupForm.outcome.duplicate')
+        : t('dashboardGroupEdit.groupForm.outcome.created'),
       message: '',
     });
 
@@ -353,14 +357,11 @@ function GroupForm({
         } else if (isEdit) {
           void formik.setFieldValue('members', (initialFormData as PartyGroupOnEdit).members, true);
         } else if (isClone) {
-          const selectedIds = formik.values.members.reduce(
-            (acc, u) => {
-              // eslint-disable-next-line functional/immutable-data
-              acc[u.id] = true;
-              return acc;
-            },
-            {} as { [userId: string]: boolean }
-          );
+          const selectedIds = formik.values.members.reduce((acc, u) => {
+            // eslint-disable-next-line functional/immutable-data
+            acc[u.id] = true;
+            return acc;
+          }, {} as { [userId: string]: boolean });
           const nextMembers = productUsersPage.content.filter((u) => selectedIds[u.id]);
           if (!containsInitialUsers(nextMembers)) {
             setAutomaticRemove(true);

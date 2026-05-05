@@ -18,6 +18,7 @@ import { useIsMobile } from '../../hooks/useIsMobile';
 import { PartyGroupDetail, PartyGroupStatus } from '../../model/PartyGroup';
 import { ProductsRolesMap } from '../../model/ProductRole';
 import { DASHBOARD_GROUPS_ROUTES } from '../../routes';
+import { EVENTS } from '../../utils/constants';
 import { TableChip } from '../../utils/helpers';
 import GroupActions from './components/GroupActions';
 import GroupDetail from './components/GroupDetail';
@@ -41,7 +42,7 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
 
   useEffect(() => {
     if (partyGroup) {
-      trackEvent('OPEN_GROUP_DETAIL', { party_id: party.partyId });
+      trackEvent(EVENTS.OPEN_GROUP_DETAIL, { party_id: party.partyId });
     }
   }, [partyGroup]);
 
@@ -63,8 +64,8 @@ function GroupDetailPage({ partyGroup, party, productsMap, productsRolesMap }: P
     partyGroupState.status === 'ACTIVE'
       ? 'SUSPENDED'
       : partyGroupState.status === 'SUSPENDED'
-        ? 'ACTIVE'
-        : undefined;
+      ? 'ACTIVE'
+      : undefined;
 
   const product = productsMap[partyGroupState.productId];
   const canEdit = !!party.products.find(
