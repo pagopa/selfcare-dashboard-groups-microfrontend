@@ -13,12 +13,12 @@ import { useHistory } from 'react-router-dom';
 import { Party } from '../../model/Party';
 import { Product, ProductsMap } from '../../model/Product';
 import { useAppSelector } from '../../redux/hooks';
+import { EVENTS } from '../../utils/constants';
 import { ENV } from '../../utils/env';
 import { getAppArea } from '../../utils/utils';
 import AddGroupButton from './components/AddGroupButton';
 import GroupsProductSection from './components/GroupsProductSection';
 import NoGroups from './components/NoGroups';
-import { EVENTS } from '../../utils/constants';
 
 interface Props {
   party: Party;
