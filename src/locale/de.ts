@@ -174,6 +174,7 @@ export default {
         descriptionMaxLength: 'Max. 200 Zeichen',
         noProductSelected: 'Kein Produkt gewählt',
         referentsPlaceholder: 'Wähle die Benutzer, die du mit der Gruppe verknüpfen möchtest',
+        excludedUsersHelperText: 'Hier finden Sie nur die Benutzer, die Sie der Gruppe zuordnen können. Die Benutzer einer Aggregatoreinrichtung sind bereits Teil einer dedizierten Gruppe.',
         cancelActionLabel: 'Zurück',
         confirmActionLabel: 'Bestätigen',
       },

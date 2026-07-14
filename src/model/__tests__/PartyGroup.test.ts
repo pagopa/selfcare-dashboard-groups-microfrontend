@@ -42,6 +42,7 @@ test('Test usersGroupResource2PartyGroupDetail', () => {
         email: 'address',
         id: '1',
         isCurrentUser: false,
+        excludeRoleFromUserGroups: undefined,
         name: 'Name',
         product: {
           id: 'productId',

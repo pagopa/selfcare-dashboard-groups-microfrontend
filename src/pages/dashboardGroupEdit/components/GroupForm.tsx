@@ -131,6 +131,7 @@ function GroupForm({
   const [automaticRemove, setAutomaticRemove] = useState(false);
   const [isNameDuplicated, setIsNameDuplicated] = useState(false);
   const [productInPage, setProductInPage] = useState<boolean>();
+  const [hasExcludedUsers, setHasExcludedUsers] = useState(false);
 
   const { hasPermission } = usePermissions();
   const { announce, LiveRegion } = useLiveAnnouncerWithRegion();
@@ -334,6 +335,25 @@ function GroupForm({
   const containsInitialUsers = (productUsers: Array<PartyProductUser>) =>
     initialFormData.members.every((u) => productUsers.find((p) => p.id === u.id));
 
+  const initializeFormMembers = (filteredUsers: Array<PartyProductUser>) => {
+    if (!isEdit && !isClone) {
+      void formik.setFieldValue('members', [], true);
+    } else if (isEdit) {
+      void formik.setFieldValue('members', (initialFormData as PartyGroupOnEdit).members, true);
+    } else if (isClone) {
+      const selectedIds = formik.values.members.reduce((acc, u) => {
+        // eslint-disable-next-line functional/immutable-data
+        acc[u.id] = true;
+        return acc;
+      }, {} as { [userId: string]: boolean });
+      const nextMembers = filteredUsers.filter((u) => selectedIds[u.id]);
+      if (!containsInitialUsers(nextMembers)) {
+        setAutomaticRemove(true);
+      }
+      void formik.setFieldValue('members', nextMembers, true);
+    }
+  };
+
   const fetchProductUsers = (productSelected: Product) => {
     setLoadingFetchUserProduct(true);
     fetchPartyProductUsers(
@@ -345,29 +365,25 @@ function GroupForm({
       []
     )
       .then((productUsersPage) => {
-        // suspended users have to be listed
-        // setProductUsers(productUsersPage.content.filter((user) => user.status === 'ACTIVE')); // the status should be evaluated from user.products[current Product].status
-        const sortedProductUsers = productUsersPage.content
-          ? [...productUsersPage.content].sort((a, b) => a.name.localeCompare(b.name))
-          : [];
+        const contentUsers = productUsersPage.content ? [...productUsersPage.content] : [];
+        const filteredUsers =
+          productSelected.id === 'prod-io'
+            ? contentUsers.filter((u) => !u.excludeRoleFromUserGroups)
+            : contentUsers;
+
+        if (productSelected.id === 'prod-io') {
+          const excludedUsersCount = contentUsers.filter((u) => u.excludeRoleFromUserGroups).length;
+          setHasExcludedUsers(excludedUsersCount > 0);
+        } else {
+          setHasExcludedUsers(false);
+        }
+
+        const sortedProductUsers = [...filteredUsers].sort((a, b) =>
+          a.name.localeCompare(b.name)
+        );
 
         setProductUsers(sortedProductUsers);
-        if (!isEdit && !isClone) {
-          void formik.setFieldValue('members', [], true);
-        } else if (isEdit) {
-          void formik.setFieldValue('members', (initialFormData as PartyGroupOnEdit).members, true);
-        } else if (isClone) {
-          const selectedIds = formik.values.members.reduce((acc, u) => {
-            // eslint-disable-next-line functional/immutable-data
-            acc[u.id] = true;
-            return acc;
-          }, {} as { [userId: string]: boolean });
-          const nextMembers = productUsersPage.content.filter((u) => selectedIds[u.id]);
-          if (!containsInitialUsers(nextMembers)) {
-            setAutomaticRemove(true);
-          }
-          void formik.setFieldValue('members', nextMembers, true);
-        }
+        initializeFormMembers(filteredUsers);
       })
       .catch((reason) =>
         addError({
@@ -663,6 +679,11 @@ function GroupForm({
               />
             ))}
           </Grid>
+          {hasExcludedUsers && (
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+              {t('dashboardGroupEdit.groupForm.formLabels.excludedUsersHelperText')}
+            </Typography>
+          )}
         </Grid>
 
         {/* Actions */}

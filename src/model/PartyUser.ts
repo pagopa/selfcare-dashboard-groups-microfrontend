@@ -13,6 +13,7 @@ export type BasePartyUser = {
   userRole: UserRole;
   status: UserStatus;
   isCurrentUser: boolean;
+  excludeRoleFromUserGroups?: boolean;
 };
 
 export type PartyProductUser = BasePartyUser & {
@@ -59,6 +60,7 @@ export const productUserResource2PartyProductUser = (
   product: productInfoResource2PartyUserProduct(product, resource?.product),
   status: resource.status as UserStatus,
   isCurrentUser: currentUser.uid === resource.id,
+  excludeRoleFromUserGroups: (resource as any).excludeRoleFromUserGroups,
 });
 
 export const productInfoResource2PartyUserProduct = (

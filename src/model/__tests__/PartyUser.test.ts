@@ -52,6 +52,7 @@ test('Test productUserResource2PartyUser', () => {
       ],
     },
     isCurrentUser: false,
+    excludeRoleFromUserGroups: undefined,
   });
 
   productUserResource.id = mockedUser.uid;

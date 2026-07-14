@@ -175,6 +175,7 @@ export default {
         descriptionMaxLength: '200 caractères maximu.',
         noProductSelected: 'Aucun produit sélectionné',
         referentsPlaceholder: 'Sélectionnez les utilisateurs que vous souhaitez associer au groupe',
+        excludedUsersHelperText: 'Vous ne trouverez ici que les utilisateurs que vous pouvez associer au groupe. Les utilisateurs d\'une entité agrégatrice font déjà partie d\'un groupe dédié.',
         cancelActionLabel: 'Retour',
         confirmActionLabel: 'Confirmer',
       },
