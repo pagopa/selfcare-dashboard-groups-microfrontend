@@ -22,6 +22,7 @@ test('Test productUserResource2PartyUser', () => {
           role: 'productRole',
           selcRole: SelcRoleEnum.ADMIN,
           status: 'ACTIVE',
+          excludeRoleFromUserGroups: true,
         },
       ],
     },
@@ -39,6 +40,7 @@ test('Test productUserResource2PartyUser', () => {
     status: 'PENDING',
     userRole: 'LIMITED',
     email: 'address',
+    excludeRoleFromUserGroups: undefined,
     product: {
       id: 'productId',
       title: 'productTitle',
@@ -48,11 +50,11 @@ test('Test productUserResource2PartyUser', () => {
           role: 'productRole',
           selcRole: 'ADMIN',
           status: 'ACTIVE',
+          excludeRoleFromUserGroups: true,
         },
       ],
     },
     isCurrentUser: false,
-    excludeRoleFromUserGroups: undefined,
   });
 
   productUserResource.id = mockedUser.uid;

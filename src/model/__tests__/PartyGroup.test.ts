@@ -52,6 +52,7 @@ test('Test usersGroupResource2PartyGroupDetail', () => {
               role: 'ADMIN',
               selcRole: 'ADMIN',
               status: 'ACTIVE',
+              excludeRoleFromUserGroups: undefined,
             },
           ],
           title: 'App IO',

@@ -45,6 +45,7 @@ export type PartyUserProductRole = {
   role: string;
   selcRole: UserRole;
   status: UserStatus;
+  excludeRoleFromUserGroups?: boolean;
 };
 
 export const productUserResource2PartyProductUser = (
