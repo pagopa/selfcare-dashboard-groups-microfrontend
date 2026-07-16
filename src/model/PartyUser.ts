@@ -74,5 +74,6 @@ export const productInfoResource2PartyUserProduct = (
     role: r.role,
     selcRole: r.selcRole as UserRole,
     status: r.status as UserStatus,
+    excludeRoleFromUserGroups: r.excludeRoleFromUserGroups,
   })) as Array<PartyUserProductRole>,
 });
