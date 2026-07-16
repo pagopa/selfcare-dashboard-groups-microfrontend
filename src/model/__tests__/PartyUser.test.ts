@@ -40,7 +40,7 @@ test('Test productUserResource2PartyUser', () => {
     status: 'PENDING',
     userRole: 'LIMITED',
     email: 'address',
-    excludeRoleFromUserGroups: undefined,
+    excludeRoleFromUserGroups: true,
     product: {
       id: 'productId',
       title: 'productTitle',

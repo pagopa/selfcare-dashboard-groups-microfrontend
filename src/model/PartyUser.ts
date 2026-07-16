@@ -52,17 +52,21 @@ export const productUserResource2PartyProductUser = (
   resource: ProductUserResource,
   product: Product,
   currentUser: User
-): PartyProductUser => ({
-  id: resource.id ?? '',
-  name: resource.name ?? '',
-  surname: resource.surname ?? '',
-  email: resource?.email as EmailString,
-  userRole: resource.role as UserRole,
-  product: productInfoResource2PartyUserProduct(product, resource?.product),
-  status: resource.status as UserStatus,
-  isCurrentUser: currentUser.uid === resource.id,
-  excludeRoleFromUserGroups: (resource as any).excludeRoleFromUserGroups,
-});
+): PartyProductUser => {
+  const partyProduct = productInfoResource2PartyUserProduct(product, resource?.product);
+  
+  return {
+    id: resource.id ?? '',
+    name: resource.name ?? '',
+    surname: resource.surname ?? '',
+    email: resource?.email as EmailString,
+    userRole: resource.role as UserRole,
+    product: partyProduct,
+    status: resource.status as UserStatus,
+    isCurrentUser: currentUser.uid === resource.id,
+    excludeRoleFromUserGroups: partyProduct.roles?.some((r) => r.excludeRoleFromUserGroups) ?? false,
+  };
+};
 
 export const productInfoResource2PartyUserProduct = (
   product: Product,
