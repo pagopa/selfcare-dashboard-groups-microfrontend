@@ -78,6 +78,7 @@ export const mockedProductUserResource: Array<ProductUserResource> = [
           role: 'incaricato-ente-creditore',
           selcRole: SelcRoleEnum.ADMIN,
           status: 'ACTIVE',
+          excludeRoleFromUserGroups: true,
         },
       ],
     },
