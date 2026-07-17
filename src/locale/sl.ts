@@ -172,6 +172,7 @@ export default {
         descriptionMaxLength: 'Največ 200 znakov',
         noProductSelected: 'Izbran ni noben produkt',
         referentsPlaceholder: 'Izberite uporabnike, ki jih želite povezati s skupino',
+        excludedUsersHelperText: 'Tukaj boste našli le uporabnike, ki jih lahko povežete s skupino. Uporabniki agregatorskega subjekta so že del namenske skupine.',
         cancelActionLabel: 'Nazaj',
         confirmActionLabel: 'Potrdi',
       },

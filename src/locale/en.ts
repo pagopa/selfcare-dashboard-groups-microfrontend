@@ -172,6 +172,7 @@ export default {
         descriptionMaxLength: 'Max 200 characters',
         noProductSelected: 'No product selected',
         referentsPlaceholder: 'Select the users you want to associate with the group',
+        excludedUsersHelperText: 'Here you will find only the users you can associate with the group. The users of an aggregator entity are already part of a dedicated group.',
         cancelActionLabel: 'Go back',
         confirmActionLabel: 'Confirm',
       },

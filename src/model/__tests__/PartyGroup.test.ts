@@ -42,6 +42,7 @@ test('Test usersGroupResource2PartyGroupDetail', () => {
         email: 'address',
         id: '1',
         isCurrentUser: false,
+        excludeRoleFromUserGroups: false,
         name: 'Name',
         product: {
           id: 'productId',
@@ -51,6 +52,7 @@ test('Test usersGroupResource2PartyGroupDetail', () => {
               role: 'ADMIN',
               selcRole: 'ADMIN',
               status: 'ACTIVE',
+              excludeRoleFromUserGroups: undefined,
             },
           ],
           title: 'App IO',
