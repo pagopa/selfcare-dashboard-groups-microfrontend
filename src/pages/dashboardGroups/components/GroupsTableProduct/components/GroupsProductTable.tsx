@@ -1,6 +1,6 @@
 import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material';
 import { Box, Button, Grid, styled, Typography } from '@mui/material';
-import { DataGrid, GridColDef, GridRow, GridSortDirection, GridSortModel } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRow, GridSortDirection, GridSortModel, itIT } from '@mui/x-data-grid';
 import { theme } from '@pagopa/mui-italia';
 import { CustomPagination } from '@pagopa/selfcare-common-frontend/lib';
 import { Page } from '@pagopa/selfcare-common-frontend/lib/model/Page';
@@ -51,6 +51,13 @@ const CustomDataGrid = styled(DataGrid)({
       display: 'flex !important',
       alignItems: 'center',
     },
+  },
+  '.MuiDataGrid-iconButtonContainer': {
+    visibility: 'visible',
+    width: 'auto',
+  },
+  '.MuiDataGrid-sortIcon': {
+    opacity: 'inherit !important',
   },
   '.MuiDataGrid-columnSeparator': { display: 'none' },
   '.MuiDataGrid-cell ': { padding: '0px', borderBottom: 'none' },
@@ -140,10 +147,12 @@ export default function GroupsProductTable({
           getRowId={(r) => r.id}
           columns={isMobile ? [] : columns}
           rowHeight={groups.length === 0 && loading ? 0 : rowHeight}
-          headerHeight={headerHeight}
+          columnHeaderHeight={headerHeight}
+          localeText={itIT.components.MuiDataGrid.defaultProps.localeText}
           hideFooterSelectedRowCount={true}
-          components={{
-            Row: (props) => {
+          experimentalFeatures={{ ariaV7: true }}
+          slots={{
+            row: (props) => {
               const group = props.row;
               const groupSuspended = group.status === 'SUSPENDED';
               if (isMobile) {
@@ -247,7 +256,7 @@ export default function GroupsProductTable({
               }
               return <GridRow {...props} />;
             },
-            Footer:
+            footer:
               loading || incrementalLoad
                 ? () =>
                     loading ? (
@@ -258,7 +267,7 @@ export default function GroupsProductTable({
                       <></>
                     )
                 : undefined,
-            Pagination: incrementalLoad
+            pagination: incrementalLoad
               ? undefined
               : () => (
                   <CustomPagination
@@ -267,10 +276,10 @@ export default function GroupsProductTable({
                     onPageRequest={(nextPage) => fetchPage(nextPage.page, nextPage.size)}
                   />
                 ),
-            NoRowsOverlay: () => <></>,
-            NoResultsOverlay: () => <></>,
-            ColumnSortedAscendingIcon: () => <ArrowDropDown sx={{ color: '#5C6F82' }} />,
-            ColumnSortedDescendingIcon: () => <ArrowDropUp sx={{ color: '#5C6F82' }} />,
+            noRowsOverlay: () => <></>,
+            noResultsOverlay: () => <></>,
+            columnSortedAscendingIcon: () => <ArrowDropDown sx={{ color: '#5C6F82' }} />,
+            columnSortedDescendingIcon: () => <ArrowDropUp sx={{ color: '#5C6F82' }} />,
           }}
           paginationMode="server"
           filterMode="server"

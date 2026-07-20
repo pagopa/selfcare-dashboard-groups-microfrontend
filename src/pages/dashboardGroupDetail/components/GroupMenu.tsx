@@ -243,7 +243,6 @@ export default function GroupMenu({
         <Grid item xs={1} display="flex" justifyContent="flex-start">
           <Tooltip
             data-testid="ActionsOnTheUser"
-            aria-label={t('groupActions.actionOnUser')}
             title={t('groupActions.actionOnUser')}
             placement="top"
             arrow={true}
@@ -252,6 +251,8 @@ export default function GroupMenu({
               disableRipple
               onClick={handleClick}
               disabled={isSuspended}
+              tabIndex={0}
+              aria-label={t('groupActions.actionOnUser')}
               sx={{ backgroundColor: 'transparent' }}
             >
               <MoreVertIcon
