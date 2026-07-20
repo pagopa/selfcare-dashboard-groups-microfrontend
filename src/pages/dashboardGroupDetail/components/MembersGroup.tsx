@@ -1,5 +1,5 @@
 import { Box, Button, Grid, Link, Paper, Tooltip, Typography } from '@mui/material';
-import { DataGrid, GridRenderCellParams, GridRow } from '@mui/x-data-grid';
+import { DataGrid, GridRenderCellParams, GridRow, itIT } from '@mui/x-data-grid';
 import { theme } from '@pagopa/mui-italia';
 import { usePermissions } from '@pagopa/selfcare-common-frontend/lib';
 import {
@@ -260,11 +260,20 @@ export default function MembersGroup({
   return members.length !== 0 ? (
     <DataGrid
       rowHeight={rowHeight}
-      headerHeight={headerHeight}
-      disableSelectionOnClick
+      columnHeaderHeight={headerHeight}
+      disableRowSelectionOnClick
+      experimentalFeatures={{ ariaV7: true }}
+      localeText={itIT.components.MuiDataGrid.defaultProps.localeText}
       disableColumnMenu
       sx={{
         border: 'none',
+        '& .MuiDataGrid-iconButtonContainer': {
+          visibility: 'visible',
+          width: 'auto',
+        },
+        '& .MuiDataGrid-sortIcon': {
+          opacity: 'inherit !important',
+        },
         '& .MuiDataGrid-columnSeparator': {
           display: 'none',
         },
@@ -281,11 +290,7 @@ export default function MembersGroup({
         '& .MuiDataGrid-row:first-child:last-child': {
           borderRadius: '4px',
         },
-        '& .MuiDataGrid-columnHeader:focus-within': {
-          outline: 'none',
-        },
-        '& .MuiDataGrid-cell:focus': { outline: 'none !important' },
-        '& .MuiDataGrid-cell:focus-within': { outline: 'none !important' },
+      
         '.MuiDataGrid-virtualScroller': {
           backgroundColor: '#F2F2F2',
           scrollbarWidth: 'none',
@@ -298,10 +303,8 @@ export default function MembersGroup({
       columns={isMobile ? [] : columns}
       autoHeight
       hideFooter={true}
-      showCellRightBorder={false}
-      showColumnRightBorder={false}
-      components={{
-        Row: (props) => {
+      slots={{
+        row: (props) => {
           const user = props.row;
           const userProduct = user.product;
           const userSuspended =
