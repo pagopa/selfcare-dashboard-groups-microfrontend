@@ -8,7 +8,7 @@ export async function loginWithOI(
   password: string,
   institution: string
 ) {
-  console.log(`Logging in with username: ${username}`);
+  console.log(`Logging in... `);
   const acceptAllButton = page.getByRole('button', { name: 'Accetta tutti' });
 
   await page.goto('https://dev.selfcare.pagopa.it/auth/login');
@@ -30,7 +30,7 @@ export async function loginWithOI(
   // Click submit button "Accedi"
   const submitLoginButton = page.getByRole('button', { name: 'Accedi' });
   const oldSpidConfirmButton = page.getByRole('button', { name: 'Entra con SPID' });
-  
+
   if (await submitLoginButton.isVisible().catch(() => false)) {
     await submitLoginButton.click();
   } else {
