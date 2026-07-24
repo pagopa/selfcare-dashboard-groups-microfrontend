@@ -4,108 +4,135 @@
     "elements": [
       {
         "description": "",
-        "id": "manage-user-groups-as-an-administrator;as-an-admin-i-can-edit-a-user-group",
+        "id": "i-can-add-and-remove-a-group-member;add-new-member-to-group",
         "keyword": "Scenario",
-        "line": 46,
-        "name": "As an admin i can edit a user group",
+        "line": 4,
+        "name": "Add new member to group",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 653517200
+              "duration": 293333249
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 4,
-            "name": "I am logged in with username \"p.rossi\" and password \"test\"",
-            "match": {
-              "location": "tests\\step-definitions\\common-steps.ts:16"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 20779493699
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
             "line": 5,
-            "name": "I navigate to \"https://dev.selfcare.pagopa.it/dashboard\"",
+            "name": "I am logged in as \"admin\" for institution \"Agenzia delle Dogane e dei Monopoli\"",
             "match": {
-              "location": "tests\\step-definitions\\common-steps.ts:9"
+              "location": "tests/step-definitions/common-steps.ts:51"
             },
             "result": {
-              "status": "passed",
-              "duration": 1387420799
+              "status": "failed",
+              "duration": 40005306041,
+              "error_message": "Error: function timed out, ensure the promise resolves within 40000 milliseconds\n    at Timeout.<anonymous> (/Users/oraldoci/Desktop/selfcare-frontend/selfcare-dashboard-groups-microfrontend/e2e/node_modules/@cucumber/cucumber/src/time.ts:52:14)\n    at listOnTimeout (node:internal/timers:605:17)\n    at processTimers (node:internal/timers:541:7)"
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
             "line": 6,
-            "name": "I click on \"Agenzia delle Dogane e dei Monopoli\"",
+            "name": "I click on the text \"manage users cucumber\"",
             "match": {
-              "location": "tests\\step-definitions\\common-steps.ts:38"
+              "location": "tests/step-definitions/common-steps.ts:122"
             },
             "result": {
-              "status": "passed",
-              "duration": 1115642800
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
             "arguments": [],
-            "keyword": "And ",
+            "keyword": "Then ",
             "line": 7,
-            "name": "I click on \"Accedi\"",
+            "name": "I should see \"Aggiungi utente\"",
             "match": {
-              "location": "tests\\step-definitions\\common-steps.ts:38"
+              "location": "tests/step-definitions/common-steps.ts:153"
             },
             "result": {
-              "status": "passed",
-              "duration": 1115097600
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
             "line": 8,
-            "name": "I click on \"Gruppi\"",
+            "name": "I click on the button \"Aggiungi utente\"",
             "match": {
-              "location": "tests\\step-definitions\\common-steps.ts:38"
+              "location": "tests/step-definitions/common-steps.ts:95"
             },
             "result": {
-              "status": "passed",
-              "duration": 1257685200
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
             "arguments": [],
-            "keyword": "When ",
-            "line": 47,
-            "name": "I modify the group description with \"prima modifica\"",
+            "keyword": "And ",
+            "line": 9,
+            "name": "I check the checkbox for user \"Mario Bianchi 1@1.com\"",
             "match": {
-              "location": "tests\\step-definitions\\group-form.ts:22"
+              "location": "tests/step-definitions/common-steps.ts:162"
             },
             "result": {
-              "status": "passed",
-              "duration": 10251084699
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "I click outside the dropdown to close it",
+            "match": {
+              "location": "tests/step-definitions/common-steps.ts:175"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 48,
-            "name": "I should see \"Gruppo modificato correttamente\"",
+            "line": 11,
+            "name": "I should see \"Conferma\"",
             "match": {
-              "location": "tests\\step-definitions\\common-steps.ts:58"
+              "location": "tests/step-definitions/common-steps.ts:153"
             },
             "result": {
-              "status": "passed",
-              "duration": 27857100
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "I click on the button \"Conferma\"",
+            "match": {
+              "location": "tests/step-definitions/common-steps.ts:95"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "I should see \"Gruppo modificato correttamente\"",
+            "match": {
+              "location": "tests/step-definitions/common-steps.ts:153"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -113,24 +140,24 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 439852000
+              "duration": 25634417
             }
           }
         ],
         "tags": [
           {
-            "name": "@edit-group",
-            "line": 45
+            "name": "@add-group-member",
+            "line": 3
           }
         ],
         "type": "scenario"
       }
     ],
-    "id": "manage-user-groups-as-an-administrator",
+    "id": "i-can-add-and-remove-a-group-member",
     "line": 1,
     "keyword": "Feature",
-    "name": "Manage user groups as an administrator",
+    "name": "I can add and remove a group member",
     "tags": [],
-    "uri": "tests\\features\\manage-groups.feature"
+    "uri": "tests/features/add-and-remove-member.feature"
   }
 ]

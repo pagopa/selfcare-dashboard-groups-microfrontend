@@ -2,7 +2,7 @@ Feature: Suspend and enable a group member
 
   @suspend-member
   Scenario: As an admin i can suspend a group members
-    Given I am logged in with username "p.rossi", password "test" and institution "Agenzia delle Dogane e dei Monopoli"
+    Given I am logged in as "admin" for institution "Agenzia delle Dogane e dei Monopoli"
     When I click on the row "manage users cucumber"
     And I click on the text "Cesidia Mancini"
     Then I should see "Sospendi"
@@ -13,7 +13,7 @@ Feature: Suspend and enable a group member
 
   @enable-member
   Scenario: As an admin i can enable the role of a suspended user
-    Given I am logged in with username "p.rossi", password "test" and institution "Agenzia delle Dogane e dei Monopoli"
+    Given I am logged in as "admin" for institution "Agenzia delle Dogane e dei Monopoli"
     When I click on the row "manage users cucumber"
     And I click on the text "Cesidia Mancini"
     Then I should see "Sospeso"

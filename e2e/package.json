@@ -4,13 +4,15 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "cucumber": "cucumber-js --config config/cucumber.js"
+    "cucumber": "cucumber-js --config config/cucumber.js",
+    "cucumber:open": "HEADLESS=false cucumber-js --config config/cucumber.js"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^11.2.0",
     "@cucumber/pretty-formatter": "^1.0.1",
     "@playwright/test": "^1.51.1",
     "@types/node": "^22.14.1",
+    "dotenv": "^17.4.2",
     "ts-node": "^10.9.2"
   }
 }

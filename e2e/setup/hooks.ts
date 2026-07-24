@@ -28,8 +28,8 @@ export const state: {
 };
 
 const options = {
-  headless: true,
-  slowMo: 2000,
+  headless: process.env.HEADLESS !== 'false',
+  slowMo: 1000,
   args: ['--disable-dev-shm-usage', '--start-maximized'],
   channel: 'chrome',
 };
