@@ -2,7 +2,7 @@ Feature: I can add and remove a group member
 
   @duplicate-group
   Scenario: Dupplicate a group
-    Given I am logged in with username "p.rossi", password "test" and institution "Agenzia delle Dogane e dei Monopoli"
+    Given I am logged in as "admin" for institution "Agenzia delle Dogane e dei Monopoli"
     Then I should see "duplicate test cucumber"
     When I click on the row "duplicate test cucumber"
     Then I should see "Duplica"
@@ -14,7 +14,7 @@ Feature: I can add and remove a group member
 
   @delete-group-duplicated
   Scenario: As an admin i can delete a group
-    Given I am logged in with username "p.rossi", password "test" and institution "Agenzia delle Dogane e dei Monopoli"
+    Given I am logged in as "admin" for institution "Agenzia delle Dogane e dei Monopoli"
     When I click on the row "Copia di duplicate test cucumber"
     Then I should see "Elimina"
     When I click on the button "Elimina"
