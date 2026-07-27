@@ -10,7 +10,7 @@
     "@mui/material": "^5.14.1",
     "@mui/system": "^5.14.1",
     "@mui/utils": "^7.3.9",
-    "@mui/x-data-grid": "^6.20.4",
+    "@mui/x-data-grid": "^8.29.2",
     "@mui/x-data-grid-generator": "^6.20.4",
     "@pagopa/mui-italia": "^2.4.1",
     "@pagopa/selfcare-common-frontend": "^1.34.108",
