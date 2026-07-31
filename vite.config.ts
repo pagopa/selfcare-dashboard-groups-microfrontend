@@ -35,6 +35,7 @@ export default defineConfig(({ mode, command }) => {
       svgr(),
       federation({
         name: 'selfcareGroups',
+        dts: false,
         filename: 'remoteEntry.js',
         exposes: {
           './RoutingGroups': './src/remotes/RoutingGroups',
@@ -103,10 +104,6 @@ export default defineConfig(({ mode, command }) => {
           'react-i18next': {
             singleton: true,
             requiredVersion: dependencies['react-i18next'],
-          },
-          'core-js': {
-            singleton: true,
-            requiredVersion: dependencies['core-js'],
           },
           'mixpanel-browser': {
             singleton: true,
