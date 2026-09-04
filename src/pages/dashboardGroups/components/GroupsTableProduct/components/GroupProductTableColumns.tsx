@@ -90,6 +90,9 @@ export function buildColumnDefs(
           <IconButton
             onClick={onRowClick ? () => onRowClick(p.row) : undefined}
             sx={{ backgroundColor: 'transparent' }}
+            aria-label={t('dashboardGroup.groupProductTableColumns.detailButtonAriaLabel', {
+              groupName: (p.row as PartyGroup).name,
+            })}
           >
             <ArrowForwardIosIcon sx={{ fontSize: 'small' }} />
           </IconButton>
