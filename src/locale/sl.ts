@@ -241,6 +241,7 @@ export default {
     },
     groupProductTableColumns: {
       duplicateActionLink: 'Podvoji',
+      detailButtonAriaLabel: 'Pojdi na podrobnosti skupine {{groupName}}',
       headerFields: {
         name: 'Ime',
         description: 'Opis',

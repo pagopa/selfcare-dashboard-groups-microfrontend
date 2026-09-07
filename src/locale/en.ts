@@ -241,6 +241,7 @@ export default {
     },
     groupProductTableColumns: {
       duplicateActionLink: 'Copy',
+      detailButtonAriaLabel: 'Go to detail of group {{groupName}}',
       headerFields: {
         name: 'Name',
         description: 'Description',
