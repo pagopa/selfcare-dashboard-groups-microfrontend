@@ -657,6 +657,7 @@ function GroupForm({
                   fontWeight: 'fontWeightMedium',
                   marginTop: 2.2,
                   marginRight: 1.6,
+                  borderColor: 'rgba(0, 0, 0, 0.6)',
                 }}
                 color="default"
                 size="medium"
