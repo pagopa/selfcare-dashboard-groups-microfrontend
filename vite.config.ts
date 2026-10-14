@@ -124,7 +124,7 @@ export default defineConfig(({ mode, command }) => {
     },
     build: {
       target: 'esnext',
-      minify: false,
+      minify: true,
       sourcemap: true,
       assetsDir: '',
     },
