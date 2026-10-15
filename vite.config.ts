@@ -77,10 +77,6 @@ export default defineConfig(({ mode, command }) => {
             singleton: true,
             requiredVersion: dependencies['@emotion/styled'],
           },
-          '@mui/icons-material': {
-            singleton: true,
-            requiredVersion: dependencies['@mui/icons-material'],
-          },
           '@mui/material': {
             singleton: true,
             requiredVersion: dependencies['@mui/material'],
@@ -128,7 +124,7 @@ export default defineConfig(({ mode, command }) => {
     },
     build: {
       target: 'esnext',
-      minify: false,
+      minify: true,
       sourcemap: true,
       assetsDir: '',
     },
